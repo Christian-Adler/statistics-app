@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statistics/screens/chart_screen.dart';
+import 'package:statistics/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const ChartScreen(),
       routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
         ChartScreen.routeName: (context) => const ChartScreen(),
       },
     );
