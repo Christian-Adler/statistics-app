@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/globals.dart';
+import '../providers/auth.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -35,7 +37,13 @@ class AppDrawer extends StatelessWidget {
           ),
           context,
           automaticallyImplyLeading: false,
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.exit_to_app))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Provider.of<Auth>(context, listen: false).logOut();
+                },
+                icon: const Icon(Icons.exit_to_app))
+          ],
         ),
         Expanded(
           child: SingleChildScrollView(
@@ -47,7 +55,7 @@ class AppDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pop(); // close drawer
                   Navigator.of(context).pushReplacementNamed('/'); // goto home (after Logout is home LoginScreen)
-                  // TODO Auth logout
+                  Provider.of<Auth>(context, listen: false).logOut();
                 },
               ),
               Padding(
