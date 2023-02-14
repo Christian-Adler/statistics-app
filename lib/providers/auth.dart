@@ -23,6 +23,19 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> tryAutoLogin() async {
+    await Future.delayed(Duration.zero);
+    return false;
+    // final prefs = await SharedPreferences.getInstance();
+    // if (!prefs.containsKey('userData')) return false;
+    // final extractedUserData = jsonDecode(prefs.getString('userData')!) as Map<String, dynamic>;
+
+    // _token = extractedUserData['token'];
+    // _userId = extractedUserData['userId'];
+    // notifyListeners(); // Darf nur bei true kommen! Sonst landet man immer im SplashScreen
+    // return true;
+  }
+
   Future<void> logOut() async {
     _serverURL = null;
     _pw = null;
