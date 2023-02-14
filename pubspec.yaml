@@ -39,7 +39,8 @@ dependencies:
   provider: ^6.0.5
   intl: ^0.18.0
   http: ^0.13.5
-  shared_preferences: ^2.0.17
+  # minSdk 18! https://stackoverflow.com/questions/52060516/flutter-how-to-change-android-minsdkversion-in-flutter-project
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:

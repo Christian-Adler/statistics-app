@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statistics/models/device_storage.dart';
 
 class Auth with ChangeNotifier {
   String? _serverURL;
@@ -24,6 +25,11 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
+    var data = await DeviceStorage.readAll();
+    print(data);
+
+    // await DeviceStorage.write('test', 'TestValue');
+
     await Future.delayed(Duration.zero);
     return false;
     // final prefs = await SharedPreferences.getInstance();
