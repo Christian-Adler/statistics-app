@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:statistics/screens/chart_screen.dart';
+import 'package:statistics/screens/settings_screen.dart';
 
 import '../models/globals.dart';
-import '../providers/auth.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -40,7 +40,7 @@ class AppDrawer extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Provider.of<Auth>(context, listen: false).logOut();
+                  Globals.logout(context);
                 },
                 icon: const Icon(Icons.exit_to_app))
           ],
@@ -48,18 +48,25 @@ class AppDrawer extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: Column(children: [
-              const Divider(),
               ListTile(
-                title: const Text('Logout'),
-                leading: const Icon(Icons.exit_to_app),
+                title: const Text('Charts'),
+                leading: const Icon(Icons.multiline_chart),
                 onTap: () {
-                  Navigator.of(context).pop(); // close drawer
-                  Navigator.of(context).pushReplacementNamed('/'); // goto home (after Logout is home LoginScreen)
-                  Provider.of<Auth>(context, listen: false).logOut();
+                  Navigator.of(context).pushReplacementNamed(ChartScreen.routeName);
+                },
+              ),
+              const Divider(
+                height: 1,
+              ),
+              ListTile(
+                title: const Text('Settings'),
+                leading: const Icon(Icons.settings),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
                 },
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Container(
                   height: 1,
                   decoration: const BoxDecoration(
@@ -68,6 +75,13 @@ class AppDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              ListTile(
+                title: const Text('Logout'),
+                leading: const Icon(Icons.exit_to_app),
+                onTap: () {
+                  Globals.logout(context);
+                },
               ),
             ]),
           ),

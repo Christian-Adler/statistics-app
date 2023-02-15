@@ -32,10 +32,6 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    var data = await DeviceStorage.readAll();
-    print(data);
-    // await DeviceStorage.write('test', 'TestValue');
-
     final authDataStr = await DeviceStorage.read(DeviceStorageKeys.keyAuthData);
 
     if (authDataStr == null) return false;
