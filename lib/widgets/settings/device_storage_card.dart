@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statistics/models/device_storage.dart';
+import 'package:statistics/widgets/settings/settings_card.dart';
 
 import '../../models/globals.dart';
 
@@ -8,22 +9,13 @@ class DeviceStorageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Device Storage',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const _ShowDeviceStorage(),
-            const Divider(height: 10),
-            const _ClearDeviceStorage(),
-          ],
-        ),
-      ),
+    return const SettingsCard(
+      title: 'Device Storage',
+      children: [
+        _ShowDeviceStorage(),
+        Divider(height: 10),
+        _ClearDeviceStorage(),
+      ],
     );
   }
 }
