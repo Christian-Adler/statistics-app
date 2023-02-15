@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:statistics/widgets/app_drawer.dart';
 
+import '../widgets/expandable/expandable_fab.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class ChartScreen extends StatelessWidget {
@@ -70,12 +71,20 @@ class ChartScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('Pressed');
-        },
-        tooltip: 'Neuer Eintrag',
-        child: const Icon(Icons.add),
+      floatingActionButton: ExpandableFab(
+        distance: 100.0,
+        maxAngle: 70,
+        startAngle: 10,
+        children: [
+          ActionButton(
+            onPressed: () {},
+            icon: const Icon(Icons.solar_power),
+          ),
+          ActionButton(
+            onPressed: () {},
+            icon: const Icon(Icons.power_input),
+          ),
+        ],
       ),
     );
   }
