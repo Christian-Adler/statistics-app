@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/providers/auth.dart';
-import 'package:statistics/screens/chart_screen.dart';
+import 'package:statistics/screens/power_chart_screen.dart';
 import 'package:statistics/screens/settings_screen.dart';
+import 'package:statistics/screens/solar_power_chart_screen.dart';
 import 'package:statistics/screens/splash_screen.dart';
 
 import 'screens/auth_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           home: auth.isAuth
-              ? const ChartScreen()
+              ? const PowerChartScreen()
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
                 ),
           routes: {
             SplashScreen.routeName: (context) => const SplashScreen(),
-            ChartScreen.routeName: (context) => const ChartScreen(),
+            PowerChartScreen.routeName: (context) => const PowerChartScreen(),
+            SolarPowerChartScreen.routeName: (context) => const SolarPowerChartScreen(),
             SettingsScreen.routeName: (context) => const SettingsScreen(),
           },
         ),

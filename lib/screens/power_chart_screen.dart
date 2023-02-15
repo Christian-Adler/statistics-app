@@ -2,19 +2,19 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:statistics/widgets/app_drawer.dart';
 
-import '../widgets/expandable/expandable_fab.dart';
+import '../widgets/power/power_floating_button.dart';
 import '../widgets/statistics_app_bar.dart';
 
-class ChartScreen extends StatelessWidget {
-  static const String routeName = '/chart_screen';
+class PowerChartScreen extends StatelessWidget {
+  static const String routeName = '/power_chart_screen';
 
-  const ChartScreen({Key? key}) : super(key: key);
+  const PowerChartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Charts'),
+        const Text('Strom'),
         context,
         actions: [
           IconButton(
@@ -71,21 +71,7 @@ class ChartScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: ExpandableFab(
-        distance: 100.0,
-        maxAngle: 70,
-        startAngle: 10,
-        children: [
-          ActionButton(
-            onPressed: () {},
-            icon: const Icon(Icons.solar_power),
-          ),
-          ActionButton(
-            onPressed: () {},
-            icon: const Icon(Icons.power_input),
-          ),
-        ],
-      ),
+      floatingActionButton: const PowerFloatingButton(),
     );
   }
 }

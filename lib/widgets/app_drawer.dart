@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/screens/chart_screen.dart';
 import 'package:statistics/screens/settings_screen.dart';
+import 'package:statistics/screens/solar_power_chart_screen.dart';
 
 import '../models/globals.dart';
+import '../screens/power_chart_screen.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -49,15 +50,23 @@ class AppDrawer extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(children: [
               ListTile(
-                title: const Text('Charts'),
-                leading: const Icon(Icons.multiline_chart),
+                title: const Text('Strom'),
+                leading: const Icon(Icons.power_input_outlined),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(ChartScreen.routeName);
+                  Navigator.of(context).pushReplacementNamed(PowerChartScreen.routeName);
                 },
               ),
               const Divider(
                 height: 1,
               ),
+              ListTile(
+                title: const Text('Solar Strom'),
+                leading: const Icon(Icons.solar_power_outlined),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed(SolarPowerChartScreen.routeName);
+                },
+              ),
+              _GradientDivider(),
               ListTile(
                 title: const Text('Settings'),
                 leading: const Icon(Icons.settings),
@@ -65,17 +74,7 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: Container(
-                  height: 1,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.purple, Colors.yellow],
-                    ),
-                  ),
-                ),
-              ),
+              _GradientDivider(),
               ListTile(
                 title: const Text('Logout'),
                 leading: const Icon(Icons.exit_to_app),
@@ -87,6 +86,25 @@ class AppDrawer extends StatelessWidget {
           ),
         ),
       ]),
+    );
+  }
+}
+
+class _GradientDivider extends StatelessWidget {
+  const _GradientDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0),
+      child: Container(
+        height: 1,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.purple, Colors.yellow],
+          ),
+        ),
+      ),
     );
   }
 }
