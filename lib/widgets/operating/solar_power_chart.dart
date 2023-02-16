@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/providers/operating.dart';
 
+import '../../models/globals.dart';
+
 class SolarPowerChart extends StatelessWidget {
   const SolarPowerChart({Key? key}) : super(key: key);
 
@@ -20,7 +22,10 @@ class SolarPowerChart extends StatelessWidget {
     });
 
     return Column(children: [
-      ...powerData.solarPowerItems.map((powerChartItem) => Text(powerChartItem.value.toString())).toList(),
+      ...powerData.solarPowerItems
+          .map((powerChartItem) =>
+              Text(powerChartItem.value.toString() + ' ' + Globals.getMonthShort(powerChartItem.month)))
+          .toList(),
       Container(
         width: double.infinity,
         height: 200,
