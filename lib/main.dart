@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/auth.dart';
-import 'package:statistics/screens/power_chart_screen.dart';
-import 'package:statistics/screens/settings_screen.dart';
-import 'package:statistics/screens/solar_power_chart_screen.dart';
-import 'package:statistics/screens/splash_screen.dart';
 
+import 'providers/auth.dart';
+import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
+import 'screens/operating/insert_solar_power_value_screen.dart';
+import 'screens/operating/operating_chart_screen.dart';
+import 'screens/operating/solar_power_chart_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting('de_DE', null).then((_) {
+    Intl.defaultLocale = 'de_DE';
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +29,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Auth(),
-        )
+        ),
+        ChangeNotifierProxyProvider<Auth, Operating>(
+          create: (ctx) => Operating(null, []),
+          update: (ctx, auth, previous) => Operating(auth, previous == null ? [] : previous.solarPowerItems),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -38,7 +49,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           home: auth.isAuth
-              ? const PowerChartScreen()
+              ? const OperatingChartScreen()
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
@@ -47,8 +58,11 @@ class MyApp extends StatelessWidget {
                 ),
           routes: {
             SplashScreen.routeName: (context) => const SplashScreen(),
-            PowerChartScreen.routeName: (context) => const PowerChartScreen(),
+            //
+            OperatingChartScreen.routeName: (context) => const OperatingChartScreen(),
             SolarPowerChartScreen.routeName: (context) => const SolarPowerChartScreen(),
+            InsertSolarPowerValueScreen.routeName: (context) => const InsertSolarPowerValueScreen(),
+            //
             SettingsScreen.routeName: (context) => const SettingsScreen(),
           },
         ),

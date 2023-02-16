@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/screens/settings_screen.dart';
-import 'package:statistics/screens/solar_power_chart_screen.dart';
 
 import '../models/globals.dart';
-import '../screens/power_chart_screen.dart';
+import '../screens/operating/operating_chart_screen.dart';
+import '../screens/operating/solar_power_chart_screen.dart';
+import '../screens/settings_screen.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -50,10 +50,10 @@ class AppDrawer extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(children: [
               ListTile(
-                title: const Text('Strom'),
+                title: const Text('Betriebskosten'),
                 leading: const Icon(Icons.power_input_outlined),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(PowerChartScreen.routeName);
+                  Navigator.of(context).pushReplacementNamed(OperatingChartScreen.routeName);
                 },
               ),
               const Divider(
@@ -66,7 +66,7 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pushReplacementNamed(SolarPowerChartScreen.routeName);
                 },
               ),
-              _GradientDivider(),
+              const _GradientDivider(),
               ListTile(
                 title: const Text('Settings'),
                 leading: const Icon(Icons.settings),
@@ -74,7 +74,7 @@ class AppDrawer extends StatelessWidget {
                   Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
                 },
               ),
-              _GradientDivider(),
+              const _GradientDivider(),
               ListTile(
                 title: const Text('Logout'),
                 leading: const Icon(Icons.exit_to_app),

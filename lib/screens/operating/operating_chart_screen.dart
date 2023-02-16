@@ -1,20 +1,20 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:statistics/widgets/app_drawer.dart';
 
-import '../widgets/power/power_floating_button.dart';
-import '../widgets/statistics_app_bar.dart';
+import '../../widgets/app_drawer.dart';
+import '../../widgets/operating/operating_floating_button.dart';
+import '../../widgets/statistics_app_bar.dart';
 
-class PowerChartScreen extends StatelessWidget {
-  static const String routeName = '/power_chart_screen';
+class OperatingChartScreen extends StatelessWidget {
+  static const String routeName = '/operating_chart_screen';
 
-  const PowerChartScreen({Key? key}) : super(key: key);
+  const OperatingChartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Strom'),
+        const Text('Betriebskosten'),
         context,
         actions: [
           IconButton(
@@ -23,10 +23,6 @@ class PowerChartScreen extends StatelessWidget {
           )
         ],
       ),
-      // appBar: AppBar(),
-
-      // appBar: GradientAppBar(title: Text('abc'), gradientColors: [Colors.black12, Colors.red]),
-
       drawer: const AppDrawer(),
       body: AspectRatio(
         aspectRatio: 1.5,
@@ -71,7 +67,7 @@ class PowerChartScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: const PowerFloatingButton(),
+      floatingActionButton: const OperatingFloatingButton(),
     );
   }
 }
