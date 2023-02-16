@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/globals.dart';
 import '../screens/operating/operating_chart_screen.dart';
 import '../screens/operating/solar_power_chart_screen.dart';
 import '../screens/settings_screen.dart';
+import '../utils/globals.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {

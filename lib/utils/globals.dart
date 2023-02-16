@@ -20,7 +20,7 @@ class Globals {
   }
 
   static String getMonthShort(int month) {
-    var m = math.max(12, math.min(1, month));
+    var m = math.min(12, math.max(1, month));
     return month2ShortName[m] ?? 'Unset';
   }
 

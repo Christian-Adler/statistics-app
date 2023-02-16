@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:statistics/models/device_storage.dart';
-import 'package:statistics/models/device_storage_keys.dart';
+import 'package:statistics/utils/device_storage.dart';
+import 'package:statistics/utils/device_storage_keys.dart';
 
 class Auth with ChangeNotifier {
   String? _serverUrl;

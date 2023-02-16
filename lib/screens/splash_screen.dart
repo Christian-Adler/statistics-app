@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/models/globals.dart';
+
+import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/splash_screen';

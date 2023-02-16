@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/dialogs.dart';
-import 'package:statistics/providers/operating.dart';
-import 'package:statistics/widgets/statistics_app_bar.dart';
+
+import '../../providers/operating.dart';
+import '../../utils/dialogs.dart';
+import '../../widgets/statistics_app_bar.dart';
 
 class InsertSolarPowerValueScreen extends StatefulWidget {
   static const String routeName = '/insert_solar_power_value';
@@ -42,7 +43,6 @@ class _InsertSolarPowerValueScreenState extends State<InsertSolarPowerValueScree
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
     final insertDate = DateFormat('MMMM yyyy').format(DateTime.now());
 
     return Scaffold(

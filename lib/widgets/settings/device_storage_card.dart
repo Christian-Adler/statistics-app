@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/models/device_storage.dart';
-import 'package:statistics/widgets/settings/settings_card.dart';
 
-import '../../models/globals.dart';
+import '../../utils/device_storage.dart';
+import '../../utils/globals.dart';
+import 'settings_card.dart';
 
 class DeviceStorageCard extends StatelessWidget {
   const DeviceStorageCard({Key? key}) : super(key: key);
