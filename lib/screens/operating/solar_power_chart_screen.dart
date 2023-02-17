@@ -30,6 +30,9 @@ class SolarPowerChartScreen extends StatelessWidget {
         child: Column(
           children: const [
             SolarPowerChart(),
+            SizedBox(
+              height: 20,
+            ),
             SolarPowerTable(),
           ],
         ),

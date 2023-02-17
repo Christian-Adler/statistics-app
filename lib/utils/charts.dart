@@ -166,7 +166,7 @@ class Charts {
     return const Shadow(color: Colors.black26, offset: Offset(5, 5));
   }
 
-  static LinearGradient? _createTopToBottomGradient(List<Color>? gradientColors) {
+  static LinearGradient? createTopToBottomGradient(List<Color>? gradientColors) {
     if (gradientColors == null) return null;
     return LinearGradient(
       colors: gradientColors,
@@ -186,10 +186,10 @@ class Charts {
       // spots: [ FlSpot(1, 0.5), FlSpot(2, 0.7), ],
       spots: spots,
       dotData: Charts._createDotData(),
-      gradient: Charts._createTopToBottomGradient(gradientColors),
+      gradient: Charts.createTopToBottomGradient(gradientColors),
       belowBarData: BarAreaData(
         show: fillColors != null,
-        gradient: _createTopToBottomGradient(fillColors),
+        gradient: createTopToBottomGradient(fillColors),
       ),
       barWidth: 4,
       isCurved: true,

@@ -4,8 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/chart/legend_item.dart';
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
+import 'simple_legend.dart';
 
 class SolarPowerChart extends StatelessWidget {
   const SolarPowerChart({Key? key}) : super(key: key);
@@ -45,6 +47,10 @@ class SolarPowerChart extends StatelessWidget {
             Charts.createLineChartBarData(spots, gradientColors),
           ]),
           orientation),
+      SimpleLegend(items: [
+        LegendItem('Erzeugt', gradientColors),
+        LegendItem('Eingespeist', gradientColors2),
+      ]),
     ]);
   }
 }
