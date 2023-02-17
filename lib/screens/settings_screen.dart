@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/widgets/app_drawer.dart';
-import 'package:statistics/widgets/settings/device_storage_card.dart';
-import 'package:statistics/widgets/statistics_app_bar.dart';
+
+import '../widgets/app_drawer.dart';
+import '../widgets/settings/animation_test_card.dart';
+import '../widgets/settings/device_storage_card.dart';
+import '../widgets/statistics_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const routeName = '/settings_screen';
@@ -21,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             DeviceStorageCard(),
+            AnimationTestCard(),
           ],
         ),
       ),
