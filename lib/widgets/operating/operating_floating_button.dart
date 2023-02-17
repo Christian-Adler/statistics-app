@@ -13,21 +13,15 @@ class OperatingFloatingButton extends StatelessWidget {
       distance: 100.0,
       maxAngle: 70,
       startAngle: 10,
-      children: [
-        ActionButton(
-          onPressed: () {
-            var navigator = Navigator.of(context);
-            if (SolarPowerChartScreen.routeName != ModalRoute.of(context)?.settings.name) {
-              navigator.pushReplacementNamed(SolarPowerChartScreen.routeName);
-            }
-            navigator.pushNamed(InsertSolarPowerValueScreen.routeName);
-          },
-          icon: const Icon(Icons.solar_power_outlined),
-        ),
-        ActionButton(
-          onPressed: () {},
-          icon: const Icon(Icons.power_input_outlined),
-        ),
+      actions: [
+        ActionButtonData(Icons.solar_power_outlined, () {
+          var navigator = Navigator.of(context);
+          if (SolarPowerChartScreen.routeName != ModalRoute.of(context)?.settings.name) {
+            navigator.pushReplacementNamed(SolarPowerChartScreen.routeName);
+          }
+          navigator.pushNamed(InsertSolarPowerValueScreen.routeName);
+        }),
+        ActionButtonData(Icons.power_outlined, () => null, autoClose: false),
       ],
     );
   }

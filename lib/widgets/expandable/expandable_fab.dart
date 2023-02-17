@@ -8,7 +8,7 @@ class ExpandableFab extends StatefulWidget {
     super.key,
     this.initialOpen,
     required this.distance,
-    required this.children,
+    required this.actions,
     this.iconData = Icons.add,
     this.maxAngle = 90,
     this.startAngle = 0,
@@ -18,8 +18,8 @@ class ExpandableFab extends StatefulWidget {
   final double distance;
   final double maxAngle;
   final double startAngle;
-  final List<Widget> children;
   final IconData iconData;
+  final List<ActionButtonData> actions;
 
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
@@ -60,6 +60,13 @@ class _ExpandableFabState extends State<ExpandableFab> with SingleTickerProvider
       } else {
         _controller.reverse();
       }
+    });
+  }
+
+  void _close() {
+    setState(() {
+      _open = false;
+      _controller.reverse();
     });
   }
 
@@ -107,15 +114,22 @@ class _ExpandableFabState extends State<ExpandableFab> with SingleTickerProvider
     double startAngle,
   ) {
     final children = <Widget>[];
-    final count = widget.children.length;
+    final count = widget.actions.length;
     final step = math.min(90.0, maxAngle) / (count - 1);
     for (var i = 0, angleInDegrees = math.max(0.0, startAngle); i < count; i++, angleInDegrees += step) {
+      var action = widget.actions[i];
       children.add(
         _ExpandingActionButton(
           directionInDegrees: angleInDegrees,
           maxDistance: widget.distance,
           progress: _expandAnimation,
-          child: widget.children[i],
+          child: _ActionButton(
+            onPressed: () {
+              if (action.autoClose) _close();
+              action.onPressed();
+            },
+            icon: Icon(action.iconData),
+          ),
         ),
       );
     }
@@ -189,9 +203,8 @@ class _ExpandingActionButton extends StatelessWidget {
 }
 
 @immutable
-class ActionButton extends StatelessWidget {
-  const ActionButton({
-    super.key,
+class _ActionButton extends StatelessWidget {
+  const _ActionButton({
     this.onPressed,
     required this.icon,
   });
@@ -214,4 +227,12 @@ class ActionButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class ActionButtonData {
+  final IconData iconData;
+  final Function() onPressed;
+  final bool autoClose;
+
+  ActionButtonData(this.iconData, this.onPressed, {this.autoClose = true});
 }
