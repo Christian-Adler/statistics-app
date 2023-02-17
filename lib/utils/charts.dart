@@ -17,6 +17,17 @@ class Charts {
           color: Colors.black26,
           width: 2,
         ),
+        getTooltipItems: (touchedSpots) {
+          // alles wie default, nur y-Wert gerundet auf 2 Stellen
+          return touchedSpots.map((touchedSpot) {
+            final textStyle = TextStyle(
+              color: touchedSpot.bar.gradient?.colors.first ?? touchedSpot.bar.color ?? Colors.blueGrey,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            );
+            return LineTooltipItem(touchedSpot.y.toStringAsFixed(2), textStyle);
+          }).toList();
+        },
       ),
       getTouchedSpotIndicator: Charts._createTouchedSpotIndicators,
     );
@@ -27,16 +38,16 @@ class Charts {
     for (var _ in spotIndexes) {
       result.add(TouchedSpotIndicatorData(
         FlLine(
-          color: Colors.red,
+          color: Colors.grey,
           strokeWidth: 2,
         ),
         FlDotData(
           getDotPainter: (spot, percent, barData, index) {
             return FlDotCirclePainter(
               radius: 4,
-              color: Colors.transparent,
+              color: Colors.white70,
               strokeWidth: 2,
-              strokeColor: Colors.red,
+              strokeColor: Colors.grey,
             );
           },
         ),
@@ -81,7 +92,7 @@ class Charts {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 10,
+      space: 2,
       child: child,
       // child: Text(meta.formattedValue, style: style),
     );
@@ -108,7 +119,7 @@ class Charts {
         sideTitles: SideTitles(
           showTitles: true,
           getTitlesWidget: (value, meta) => _createTitlesBottomMonthly(value, meta),
-          reservedSize: 50,
+          reservedSize: 36,
           interval: 1,
         ),
         drawBehindEverything: true,
@@ -155,7 +166,8 @@ class Charts {
     return const Shadow(color: Colors.black26, offset: Offset(5, 5));
   }
 
-  static LinearGradient _createTopToBottomGradient(List<Color> gradientColors) {
+  static LinearGradient? _createTopToBottomGradient(List<Color>? gradientColors) {
+    if (gradientColors == null) return null;
     return LinearGradient(
       colors: gradientColors,
       stops: const [0.0, 1.0],
@@ -164,26 +176,26 @@ class Charts {
     );
   }
 
-  static LineChartBarData createLineChartBarData(List<FlSpot>? spots, List<Color> gradientColors) {
+  static LineChartBarData createLineChartBarData(
+    List<FlSpot>? spots,
+    List<Color> gradientColors, {
+    shadow = true,
+    List<Color>? fillColors,
+  }) {
     return LineChartBarData(
       // spots: [ FlSpot(1, 0.5), FlSpot(2, 0.7), ],
       spots: spots,
       dotData: Charts._createDotData(),
       gradient: Charts._createTopToBottomGradient(gradientColors),
-      // belowBarData: BarAreaData(
-      //   show: true,
-      //   gradient: LinearGradient(
-      //     colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-      //     stops: const [0.0, 1.0],
-      //     begin: Alignment.topCenter,
-      //     end: Alignment.bottomCenter,
-      //   ),
-      // ),
+      belowBarData: BarAreaData(
+        show: fillColors != null,
+        gradient: _createTopToBottomGradient(fillColors),
+      ),
       barWidth: 4,
       isCurved: true,
       preventCurveOverShooting: true,
       // curveSmoothness: 0.5,
-      shadow: Charts._createLineShadow(),
+      shadow: shadow ? Charts._createLineShadow() : null,
       isStrokeCapRound: true,
     );
   }
