@@ -20,6 +20,13 @@ class Auth with ChangeNotifier {
     return _serverUrl ?? 'invalid';
   }
 
+  String get serverUrlWithoutProtocol {
+    if (_serverUrl != null) {
+      return _serverUrl!.replaceFirst(RegExp(r'(\w+)://'), '');
+    }
+    return 'invalid';
+  }
+
   Future<void> logIn(String serverUrl, String pw) async {
     // TODO try server connect
     _serverUrl = serverUrl;

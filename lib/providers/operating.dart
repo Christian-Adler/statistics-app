@@ -1,67 +1,83 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'dart:io';
 
-import '../models/chart/year_month_chart_item.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:statistics/models/chart/solar_power_chart_item.dart';
+import 'package:statistics/utils/http_utils.dart';
+
 import 'auth.dart';
 
 class Operating with ChangeNotifier {
   final Auth? auth;
-  final List<YearMonthChartItem> _solarPowerItems;
+  final List<SolarPowerChartItem> _solarPowerItems;
 
-  Operating(this.auth, this._solarPowerItems) {
-    if (_solarPowerItems.isEmpty) {
-      _solarPowerItems.addAll([
-        YearMonthChartItem(2022, 7, 11),
-        YearMonthChartItem(2022, 8, 3),
-        YearMonthChartItem(2022, 9, 6),
-        YearMonthChartItem(2022, 10, 12),
-        YearMonthChartItem(2022, 11, 6),
-        YearMonthChartItem(2022, 12, 6),
-        YearMonthChartItem(2023, 1, 5)
-      ]);
-      // TODO dummy daten wieder entfernen
+  Operating(this.auth, this._solarPowerItems);
+
+  Future<void> fetchData() async {
+    if (auth == null) return;
+
+    var authority = auth!.serverUrlWithoutProtocol;
+    var unencodedPath = '/call/onstatistic.php';
+    if (!authority.endsWith('de')) {
+      unencodedPath = '/eagle$unencodedPath';
     }
+
+    final uri = Uri.http(authority, unencodedPath);
+    final request = http.MultipartRequest('POST', uri);
+    final data = {
+      'inputPassword': auth!.pw,
+      'dataInputType': 'haus_solar',
+    };
+    HttpUtils.jsonToFormData(request, data);
+
+    final response = await request.send();
+    if (response.statusCode != 200) {
+      throw HttpException('${response.statusCode}:${response.reasonPhrase} : Failed to load data!', uri: uri);
+    }
+    final responseBytes = await response.stream.toBytes();
+    final responseString = String.fromCharCodes(responseBytes);
+    final decoded = jsonDecode(responseString);
+    if (decoded == null) return;
+
+    final json = decoded as Map<String, dynamic>;
+    if (!json.containsKey('returnCode')) {
+      throw const FormatException('Invalid json: no returnCode');
+    }
+    final returnCode = json['returnCode'] as int;
+    if (returnCode != 1) {
+      throw Exception(json['error']);
+    }
+
+    final result = json['result'] as Map<String, dynamic>;
+    final dataList = result['data'] as List<dynamic>;
+// "data":[{"xValue":24191,"jahr":2015,"monat":11,"strom":329,"strom_einspeisung":0,"strom_solar":0}
+    _solarPowerItems.clear();
+    for (var item in dataList) {
+      final map = item as Map<String, dynamic>;
+
+      _solarPowerItems.add(SolarPowerChartItem(
+          (map['jahr'] as int),
+          (map['monat'] as int),
+          (map['strom_solar'] as int).toDouble(),
+          (map['strom'] as int).toDouble(),
+          (map['strom_einspeisung'] as int).toDouble()));
+    }
+
+    // print(responseString);
+    notifyListeners();
   }
 
-  List<YearMonthChartItem> get solarPowerItems {
+  List<SolarPowerChartItem> get solarPowerItems {
     return [..._solarPowerItems];
   }
 
   Future<void> addSolarPowerEntry(double value) async {
     final now = DateTime.now();
-    final powerChartItem = YearMonthChartItem(now.year, now.month, value);
-    _solarPowerItems.add(powerChartItem);
-    notifyListeners();
+
+    // TODO speichern
+    // final powerChartItem = YearMonthChartItem(now.year, now.month, value);
+    // _solarPowerItems.add(powerChartItem);
+    // notifyListeners();
   }
-
-  ChartMetaData get solarPowerChartMetaData {
-    if (_solarPowerItems.isEmpty) return ChartMetaData(0, 0, 1, 1);
-
-    double yMin = double.maxFinite;
-    double yMax = (double.maxFinite - 1) * -1;
-    double xMin = double.maxFinite;
-    double xMax = (double.maxFinite - 1) * -1;
-
-    for (var item in _solarPowerItems) {
-      var xVal = item.xValue;
-      var yVal = item.value;
-      if (xVal < xMin) xMin = xVal.toDouble();
-      if (xVal > xMax) xMax = xVal.toDouble();
-      if (yVal < yMin) yMin = yVal;
-      if (yVal > yMax) yMax = yVal;
-    }
-
-    var xPadding = (xMax - xMin) / 20;
-    var yPadding = (yMax - yMin) / 10;
-
-    return ChartMetaData(xMin - xPadding, xMax + xPadding, yMin - yPadding, yMax + yPadding);
-  }
-}
-
-class ChartMetaData {
-  final double xMin;
-  final double xMax;
-  final double yMin;
-  final double yMax;
-
-  ChartMetaData(this.xMin, this.xMax, this.yMin, this.yMax);
 }

@@ -17,7 +17,7 @@ class SolarPowerTable extends StatelessWidget {
         const Text('Werte-Tabelle'),
         ...powerData.solarPowerItems
             .map((powerChartItem) => Text(
-                '${Globals.getMonthShort(powerChartItem.month)} ${powerChartItem.year} : ${powerChartItem.value.toDouble()}'))
+                '${powerChartItem.month} : ${Globals.getMonthShort(powerChartItem.month)} ${powerChartItem.year} : ${powerChartItem.value.toDouble()}'))
             .toList(),
       ],
     );

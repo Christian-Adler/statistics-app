@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../providers/operating.dart';
+import '../models/chart/chart_meta_data.dart';
 import 'globals.dart';
 
 class Charts {
@@ -76,7 +76,6 @@ class Charts {
     }
 
     var month = (value.toInt() % 12);
-    if (month == 0) month = 12;
 
     Widget child;
     if (month == 1) {
@@ -106,9 +105,9 @@ class Charts {
         // ),
         sideTitles: SideTitles(
           showTitles: true,
-          interval: 2,
+          // interval: 2, // dynamisch
           getTitlesWidget: (value, meta) => _createTitlesLeft(value, meta),
-          reservedSize: 30,
+          reservedSize: 40,
         ),
         drawBehindEverything: true,
       ),
@@ -170,7 +169,7 @@ class Charts {
     if (gradientColors == null) return null;
     return LinearGradient(
       colors: gradientColors,
-      stops: const [0.0, 1.0],
+      // stops:  [0.0, 1.0], // ohne angabe dyn. verteilt
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );
