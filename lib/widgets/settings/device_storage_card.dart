@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/device_storage.dart';
 import '../../utils/globals.dart';
+import '../../utils/tables.dart';
 import 'settings_card.dart';
 
 class DeviceStorageCard extends StatelessWidget {
@@ -56,13 +57,15 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
               final storageData = deviceStorageSnapshot.data;
               if (storageData == null) return const Text('No device storage data set.');
 
-              List<TableRow> rows = [_tableHeadline('Key', 'Value')];
+              List<TableRow> rows = [
+                Tables.tableHeadline('Key', ['Value'])
+              ];
 
               final keys = storageData.keys.toList();
               keys.sort();
               for (var key in keys) {
                 final value = storageData[key];
-                rows.add(_tableRow(key, value ?? '-'));
+                rows.add(Tables.tableRow(key, [value ?? '-']));
               }
 
               return Table(
@@ -81,42 +84,6 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
           ),
       ],
     );
-  }
-
-  TableRow _tableHeadline(String key, String value) {
-    return TableRow(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-        child: Text(
-          key,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-        child: Text(
-          value,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      )
-    ]);
-  }
-
-  TableRow _tableRow(String key, String value) {
-    return TableRow(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-        child: Text(key),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-        child: Text(value),
-      )
-    ]);
   }
 }
 
