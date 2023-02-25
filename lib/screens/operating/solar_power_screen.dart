@@ -47,8 +47,11 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
         ],
       ),
       drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: SolarPower(_showYearly),
+      body: RefreshIndicator(
+        onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
+        child: SingleChildScrollView(
+          child: SolarPower(_showYearly),
+        ),
       ),
       floatingActionButton: const OperatingFloatingButton(),
     );
@@ -71,7 +74,7 @@ class _SolarPowerState extends State<SolarPower> {
   late Future _solarDataFuture;
 
   Future _obtainSolarDataFuture() {
-    return Provider.of<Operating>(context, listen: false).fetchData();
+    return Provider.of<Operating>(context, listen: false).fetchDataIfNotYetLoaded();
   }
 
   @override
