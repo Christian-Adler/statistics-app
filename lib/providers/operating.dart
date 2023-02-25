@@ -3,16 +3,17 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:statistics/models/chart/solar_power_chart_item.dart';
-import 'package:statistics/utils/http_utils.dart';
 
+import '../models/chart/operating_chart_item.dart';
+import '../utils/http_utils.dart';
 import 'auth.dart';
 
 class Operating with ChangeNotifier {
   final Auth? auth;
-  final List<SolarPowerChartItem> _solarPowerItems;
+  final List<OperatingChartItem> _operatingItems;
+  final List<OperatingChartItem> _operatingItemsYearly;
 
-  Operating(this.auth, this._solarPowerItems);
+  Operating(this.auth, this._operatingItems, this._operatingItemsYearly);
 
   Future<void> fetchData() async {
     await sendAndFetchData_(null);
@@ -33,7 +34,7 @@ class Operating with ChangeNotifier {
     final request = http.MultipartRequest('POST', uri);
     final data = {
       'inputPassword': auth!.pw,
-      'dataInputType': 'haus_solar',
+      'dataInputType': 'haus_nebenkosten',
     };
     if (params != null) {
       data.addAll(params);
@@ -61,23 +62,86 @@ class Operating with ChangeNotifier {
 
     final result = json['result'] as Map<String, dynamic>;
     final dataList = result['data'] as List<dynamic>;
-    _solarPowerItems.clear();
+    _operatingItems.clear();
+    _operatingItemsYearly.clear();
+
+    int actYear = -1;
+    double sumWater = 0;
+    double sumGeneratedPower = 0;
+    double sumFeedPower = 0;
+    double sumConsumedPower = 0;
+    double sumHeating = 0;
+
     for (var item in dataList) {
       final map = item as Map<String, dynamic>;
 
-      _solarPowerItems.add(SolarPowerChartItem(
-          (map['jahr'] as int),
-          (map['monat'] as int),
-          (map['strom_solar'] as int).toDouble(),
-          (map['strom'] as int).toDouble(),
-          (map['strom_einspeisung'] as int).toDouble()));
+      final year = (map['jahr'] as int);
+      var month = (map['monat'] as int);
+      var generatedPower = (map['strom_solar'] as int).toDouble();
+      var consumedPower = (map['strom'] as int).toDouble();
+      var feedPower = (map['strom_einspeisung'] as int).toDouble();
+      var water = (map['wasser'] as int).toDouble();
+      var heating = (map['heizung'] as int).toDouble();
+
+      _operatingItems.add(OperatingChartItem(
+        year,
+        month,
+        generatedPower,
+        consumedPower,
+        feedPower,
+        water,
+        heating,
+      ));
+
+      if (year != actYear) {
+        if (actYear > -1 && actYear != 2015) {
+          // 2015 war ja nur das Ende - macht das Chart unuebersichtlich
+          _operatingItemsYearly.add(OperatingChartItem(
+            actYear,
+            0,
+            sumGeneratedPower,
+            sumConsumedPower,
+            sumFeedPower,
+            sumWater,
+            sumHeating,
+          ));
+        }
+        actYear = year;
+        sumWater = 0;
+        sumGeneratedPower = 0;
+        sumFeedPower = 0;
+        sumConsumedPower = 0;
+        sumHeating = 0;
+      }
+
+      sumWater += water;
+      sumGeneratedPower += generatedPower;
+      sumFeedPower += feedPower;
+      sumConsumedPower += consumedPower;
+      sumHeating += heating;
+    }
+
+    if (actYear > -1) {
+      _operatingItemsYearly.add(OperatingChartItem(
+        actYear,
+        0,
+        sumGeneratedPower,
+        sumConsumedPower,
+        sumFeedPower,
+        sumWater,
+        sumHeating,
+      ));
     }
 
     // print(responseString);
   }
 
-  List<SolarPowerChartItem> get solarPowerItems {
-    return [..._solarPowerItems];
+  List<OperatingChartItem> get operatingItems {
+    return [..._operatingItems];
+  }
+
+  List<OperatingChartItem> get operatingItemsYearly {
+    return [..._operatingItemsYearly];
   }
 
   Future<void> addSolarPowerEntry(double value) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/operating/insert_solar_power_value_screen.dart';
-import '../../screens/operating/solar_power_chart_screen.dart';
+import '../../screens/operating/solar_power_add_value_screen.dart';
+import '../../screens/operating/solar_power_screen.dart';
 import '../expandable/expandable_fab.dart';
 
 class OperatingFloatingButton extends StatelessWidget {
@@ -16,10 +16,10 @@ class OperatingFloatingButton extends StatelessWidget {
       actions: [
         ActionButtonData(Icons.solar_power_outlined, () {
           var navigator = Navigator.of(context);
-          if (SolarPowerChartScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(SolarPowerChartScreen.routeName);
+          if (SolarPowerScreen.routeName != ModalRoute.of(context)?.settings.name) {
+            navigator.pushReplacementNamed(SolarPowerScreen.routeName);
           }
-          navigator.pushNamed(InsertSolarPowerValueScreen.routeName);
+          navigator.pushNamed(SolarPowerAddValueScreen.routeName);
         }),
         ActionButtonData(Icons.power_outlined, () => null, autoClose: false),
       ],

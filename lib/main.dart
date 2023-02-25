@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
-import 'screens/operating/insert_solar_power_value_screen.dart';
 import 'screens/operating/operating_chart_screen.dart';
-import 'screens/operating/solar_power_chart_screen.dart';
+import 'screens/operating/solar_power_add_value_screen.dart';
+import 'screens/operating/solar_power_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
 
@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
           create: (context) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Operating>(
-          create: (ctx) => Operating(null, []),
-          update: (ctx, auth, previous) => Operating(auth, previous == null ? [] : previous.solarPowerItems),
+          create: (ctx) => Operating(null, [], []),
+          update: (ctx, auth, previous) => Operating(auth, previous == null ? [] : previous.operatingItems,
+              previous == null ? [] : previous.operatingItemsYearly),
         ),
       ],
       child: Consumer<Auth>(
@@ -61,8 +62,8 @@ class MyApp extends StatelessWidget {
             SplashScreen.routeName: (context) => const SplashScreen(),
             //
             OperatingChartScreen.routeName: (context) => const OperatingChartScreen(),
-            SolarPowerChartScreen.routeName: (context) => const SolarPowerChartScreen(),
-            InsertSolarPowerValueScreen.routeName: (context) => const InsertSolarPowerValueScreen(),
+            SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
+            SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
             //
             SettingsScreen.routeName: (context) => const SettingsScreen(),
           },

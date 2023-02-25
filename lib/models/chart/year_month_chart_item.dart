@@ -7,8 +7,12 @@ class YearMonthChartItem extends AbstractChartItem {
 
   YearMonthChartItem(this.year, this.month, super.value);
 
-  double get xValue {
+  double get xValueMonthly {
     return (year * 12 + month).toDouble();
+  }
+
+  double get xValueYearly {
+    return (year).toDouble();
   }
 
   String get xLabel {

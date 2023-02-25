@@ -9,7 +9,9 @@ import '../../utils/charts.dart';
 import 'simple_legend.dart';
 
 class SolarPowerChart extends StatelessWidget {
-  const SolarPowerChart({Key? key}) : super(key: key);
+  final bool showYearly;
+
+  const SolarPowerChart(this.showYearly, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,13 @@ class SolarPowerChart extends StatelessWidget {
 
     final powerData = Provider.of<Operating>(context);
 
-    var solarPowerItems = powerData.solarPowerItems;
+    var solarPowerItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
     int showLastXItems = 12;
     if (solarPowerItems.length > showLastXItems) {
       solarPowerItems = solarPowerItems.sublist(solarPowerItems.length - showLastXItems);
     }
     final chartMeta = ChartMetaData();
+    chartMeta.yearly = showYearly;
 
     final List<FlSpot> spotsGeneratedPower = [];
     final List<FlSpot> spotsConsumedPower = [];
@@ -31,11 +34,12 @@ class SolarPowerChart extends StatelessWidget {
     final List<FlSpot> spotsSumUsedPower = [];
     for (var item in solarPowerItems) {
       var sumUsedPower = item.consumedPower + item.generatedPower - item.feedPower;
-      chartMeta.putAll(item.xValue, [sumUsedPower, item.feedPower]);
-      spotsGeneratedPower.add(FlSpot(item.xValue, item.generatedPower));
-      spotsConsumedPower.add(FlSpot(item.xValue, item.consumedPower));
-      spotsFeedPower.add(FlSpot(item.xValue, item.feedPower));
-      spotsSumUsedPower.add(FlSpot(item.xValue, sumUsedPower));
+      var xVal = showYearly ? item.xValueYearly : item.xValueMonthly;
+      chartMeta.putAll(xVal, [sumUsedPower, item.feedPower]);
+      spotsGeneratedPower.add(FlSpot(xVal, item.generatedPower));
+      spotsConsumedPower.add(FlSpot(xVal, item.consumedPower));
+      spotsFeedPower.add(FlSpot(xVal, item.feedPower));
+      spotsSumUsedPower.add(FlSpot(xVal, sumUsedPower));
     }
 
     chartMeta.calcPadding();
@@ -46,14 +50,8 @@ class SolarPowerChart extends StatelessWidget {
     final gradientColorsSumUsedPower = [Colors.redAccent, Colors.orangeAccent];
 
     return Column(children: [
-      Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-        ),
-        child: Text('kWh / Monat', style: themeData.textTheme.titleLarge),
-      ),
       Charts.createChartContainer(
-          Charts.createLineChartMonthlyData(chartMeta, fractionDigits: 0, [
+          Charts.createLineChartData(chartMeta, fractionDigits: 0, [
             Charts.createLineChartBarData(
               spotsSumUsedPower,
               gradientColorsSumUsedPower,

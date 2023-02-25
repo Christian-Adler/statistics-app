@@ -74,23 +74,31 @@ class Charts {
     );
   }
 
-  static Widget _createTitlesBottomMonthly(double value, TitleMeta meta) {
+  static Widget _createTitlesBottom(
+    double value,
+    TitleMeta meta,
+    ChartMetaData chartMeta,
+  ) {
     if (value % 1 != 0) {
       return Container();
     }
 
-    var month = (value.toInt() % 12);
-
     Widget child;
-    if (month == 1) {
-      child = Column(
-        children: [
-          Text(Globals.getMonthShort(month)),
-          Text(((value - month) ~/ 12).toString()),
-        ],
-      );
+    if (chartMeta.yearly) {
+      child = Text(value.toInt().toString());
     } else {
-      child = Text(Globals.getMonthShort(month));
+      var month = (value.toInt() % 12);
+      if (month == 1) {
+        var year = ((value - month) ~/ 12);
+        child = Column(
+          children: [
+            Text(Globals.getMonthShort(month)),
+            Text(year.toString()),
+          ],
+        );
+      } else {
+        child = Text(Globals.getMonthShort(month));
+      }
     }
 
     return SideTitleWidget(
@@ -101,7 +109,7 @@ class Charts {
     );
   }
 
-  static FlTitlesData _createTitlesDataMonthly() {
+  static FlTitlesData _createTitlesData(ChartMetaData chartMeta) {
     return FlTitlesData(
       leftTitles: AxisTitles(
         // axisNameWidget: const Text(
@@ -121,9 +129,9 @@ class Charts {
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (value, meta) => _createTitlesBottomMonthly(value, meta),
+          getTitlesWidget: (value, meta) => _createTitlesBottom(value, meta, chartMeta),
           reservedSize: 36,
-          interval: 1,
+          // interval: 1,
         ),
         drawBehindEverything: true,
       ),
@@ -206,7 +214,7 @@ class Charts {
     );
   }
 
-  static LineChart createLineChartMonthlyData(
+  static LineChart createLineChartData(
     ChartMetaData chartMeta,
     List<LineChartBarData>? lineBarsData, {
     int fractionDigits = 2,
@@ -222,7 +230,7 @@ class Charts {
         gridData: Charts._createGridData(),
         borderData: Charts._createBorderData(),
         lineBarsData: lineBarsData,
-        titlesData: Charts._createTitlesDataMonthly(),
+        titlesData: Charts._createTitlesData(chartMeta),
       ),
     );
   }

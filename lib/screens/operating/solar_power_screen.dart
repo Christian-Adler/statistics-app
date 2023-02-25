@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/operating.dart';
 
+import '../../providers/operating.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/operating/operating_floating_button.dart';
 import '../../widgets/operating/solar_power_chart.dart';
 import '../../widgets/operating/solar_power_table.dart';
 import '../../widgets/statistics_app_bar.dart';
-import 'insert_solar_power_value_screen.dart';
+import 'solar_power_add_value_screen.dart';
 
-class SolarPowerChartScreen extends StatelessWidget {
+class SolarPowerScreen extends StatefulWidget {
   static const String routeName = '/solar_power_chart_screen';
 
-  const SolarPowerChartScreen({Key? key}) : super(key: key);
+  const SolarPowerScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SolarPowerScreen> createState() => _SolarPowerScreenState();
+}
+
+class _SolarPowerScreenState extends State<SolarPowerScreen> {
+  bool _showYearly = false;
+
+  void _toggleYearly() {
+    setState(() {
+      _showYearly = !_showYearly;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +35,20 @@ class SolarPowerChartScreen extends StatelessWidget {
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(InsertSolarPowerValueScreen.routeName),
+            onPressed: () => _toggleYearly(),
+            tooltip: 'Zeige ${_showYearly ? 'Monatsansicht' : 'Jahresansicht'}',
+            icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
+          ),
+          IconButton(
+            onPressed: () => Navigator.of(context).pushNamed(SolarPowerAddValueScreen.routeName),
+            tooltip: 'Solar Eintrag erstellen...',
             icon: const Icon(Icons.add),
-          )
+          ),
         ],
       ),
       drawer: const AppDrawer(),
-      body: const SingleChildScrollView(
-        child: SolarPower(),
+      body: SingleChildScrollView(
+        child: SolarPower(_showYearly),
       ),
       floatingActionButton: const OperatingFloatingButton(),
     );
@@ -37,7 +56,10 @@ class SolarPowerChartScreen extends StatelessWidget {
 }
 
 class SolarPower extends StatefulWidget {
-  const SolarPower({
+  final showYearly;
+
+  const SolarPower(
+    this.showYearly, {
     super.key,
   });
 
@@ -67,21 +89,34 @@ class _SolarPowerState extends State<SolarPower> {
       builder: (ctx, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Padding(
+              padding: EdgeInsets.all(30.0),
+              child: CircularProgressIndicator(),
+            ),
           );
         } else if (dataSnapshot.hasError) {
           // .. do error handling
           return Center(
-            child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+            ),
           );
         } else {
           return Column(
-            children: const [
-              SolarPowerChart(),
-              SizedBox(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}',
+                    style: Theme.of(context).textTheme.titleLarge),
+              ),
+              SolarPowerChart(widget.showYearly),
+              const SizedBox(
                 height: 20,
               ),
-              SolarPowerTable(),
+              SolarPowerTable(widget.showYearly),
             ],
           );
         }

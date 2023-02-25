@@ -6,7 +6,9 @@ import '../../utils/globals.dart';
 import '../../utils/tables.dart';
 
 class SolarPowerTable extends StatelessWidget {
-  const SolarPowerTable({Key? key}) : super(key: key);
+  final bool showYearly;
+
+  const SolarPowerTable(this.showYearly, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,13 @@ class SolarPowerTable extends StatelessWidget {
         Tables.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht', 'Gesamt'])
       ];
 
-      rows.addAll(powerData.solarPowerItems.reversed
+      final operatingItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
+
+      rows.addAll(operatingItems.reversed
           .map((powerChartItem) => Tables.tableRow(
-                '${Globals.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',
+                showYearly
+                    ? powerChartItem.year.toString()
+                    : '${Globals.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',
                 [
                   powerChartItem.generatedPower,
                   powerChartItem.feedPower,

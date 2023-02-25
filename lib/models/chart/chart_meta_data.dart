@@ -7,6 +7,9 @@ class ChartMetaData {
   double _xPadding = 0;
   double _yPadding = 0;
 
+  /// Jahres-Werte?
+  bool yearly = false;
+
   void put(num xVal, num yVal) {
     putAll(xVal, [yVal]);
   }
