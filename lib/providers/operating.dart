@@ -16,8 +16,10 @@ class Operating with ChangeNotifier {
   Operating(this.auth, this._operatingItems, this._operatingItemsYearly);
 
   Future<void> fetchDataIfNotYetLoaded() async {
-    if (_operatingItems.isEmpty) await sendAndFetchData_(null);
-    notifyListeners();
+    if (_operatingItems.isEmpty) {
+      await sendAndFetchData_(null);
+      notifyListeners();
+    }
   }
 
   Future<void> fetchData() async {

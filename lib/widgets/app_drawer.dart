@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/operating/operating_chart_screen.dart';
+import '../screens/operating/operating_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../screens/settings_screen.dart';
 import '../utils/globals.dart';
@@ -53,7 +53,7 @@ class AppDrawer extends StatelessWidget {
                 title: const Text('Betriebskosten'),
                 leading: const Icon(Icons.power_input_outlined),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(OperatingChartScreen.routeName);
+                  Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
                 },
               ),
               const Divider(

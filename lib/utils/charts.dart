@@ -88,7 +88,7 @@ class Charts {
       child = Text(value.toInt().toString());
     } else {
       var month = (value.toInt() % 12);
-      if (month == 1) {
+      if (chartMeta.showYearOnJan && month == 1) {
         var year = ((value - month) ~/ 12);
         child = Column(
           children: [
@@ -130,7 +130,9 @@ class Charts {
         sideTitles: SideTitles(
           showTitles: true,
           getTitlesWidget: (value, meta) => _createTitlesBottom(value, meta, chartMeta),
-          reservedSize: 36,
+          reservedSize:
+              // Monatsanzeige und Jahreszahl? Dann mehr Platz
+              !chartMeta.yearly && chartMeta.showYearOnJan ? 36 : 20,
           // interval: 1,
         ),
         drawBehindEverything: true,
@@ -155,8 +157,9 @@ class Charts {
 
   static FlGridData _createGridData() {
     return FlGridData(
-      show: true,
-      drawVerticalLine: false,
+      show: false,
+      drawVerticalLine: true,
+      drawHorizontalLine: true,
     );
   }
 
@@ -190,7 +193,7 @@ class Charts {
   static LineChartBarData createLineChartBarData(
     List<FlSpot>? spots,
     List<Color> gradientColors, {
-    shadow = true,
+    shadow = false,
     double? barWidth = 4,
     List<Color>? fillColors,
     List<int>? dashArray,

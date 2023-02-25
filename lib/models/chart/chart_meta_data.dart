@@ -9,6 +9,7 @@ class ChartMetaData {
 
   /// Jahres-Werte?
   bool yearly = false;
+  bool showYearOnJan = true;
 
   void put(num xVal, num yVal) {
     putAll(xVal, [yVal]);

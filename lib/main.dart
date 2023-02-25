@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import 'providers/auth.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
-import 'screens/operating/operating_chart_screen.dart';
+import 'screens/operating/operating_screen.dart';
 import 'screens/operating/solar_power_add_value_screen.dart';
 import 'screens/operating/solar_power_screen.dart';
 import 'screens/settings_screen.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
           ),
           home: auth.isAuth
-              ? const OperatingChartScreen()
+              ? const OperatingScreen()
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
           routes: {
             SplashScreen.routeName: (context) => const SplashScreen(),
             //
-            OperatingChartScreen.routeName: (context) => const OperatingChartScreen(),
+            OperatingScreen.routeName: (context) => const OperatingScreen(),
+            OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),
             SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
             SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
             //

@@ -6,16 +6,16 @@ import '../../providers/operating.dart';
 import '../../utils/dialogs.dart';
 import '../../widgets/statistics_app_bar.dart';
 
-class SolarPowerAddValueScreen extends StatefulWidget {
-  static const String routeName = '/solar_power_add_value';
+class OperatingAddValueScreen extends StatefulWidget {
+  static const String routeName = '/operating_add_value';
 
-  const SolarPowerAddValueScreen({Key? key}) : super(key: key);
+  const OperatingAddValueScreen({Key? key}) : super(key: key);
 
   @override
-  State<SolarPowerAddValueScreen> createState() => _SolarPowerAddValueScreenState();
+  State<OperatingAddValueScreen> createState() => _OperatingAddValueScreenState();
 }
 
-class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
+class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
   final _form = GlobalKey<FormState>();
   var _isLoading = false;
   var _value = 0.0;

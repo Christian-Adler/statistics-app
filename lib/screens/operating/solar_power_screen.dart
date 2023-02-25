@@ -10,7 +10,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
-  static const String routeName = '/solar_power_chart_screen';
+  static const String routeName = '/solar_power_screen';
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 
@@ -49,26 +49,23 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
       drawer: const AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
-        child: SolarPower(_showYearly),
+        child: _SolarPower(_showYearly),
       ),
       floatingActionButton: const OperatingFloatingButton(),
     );
   }
 }
 
-class SolarPower extends StatefulWidget {
+class _SolarPower extends StatefulWidget {
   final bool showYearly;
 
-  const SolarPower(
-    this.showYearly, {
-    super.key,
-  });
+  const _SolarPower(this.showYearly);
 
   @override
-  State<SolarPower> createState() => _SolarPowerState();
+  State<_SolarPower> createState() => _SolarPowerState();
 }
 
-class _SolarPowerState extends State<SolarPower> {
+class _SolarPowerState extends State<_SolarPower> {
   late Future _solarDataFuture;
 
   Future _obtainSolarDataFuture() {
