@@ -49,12 +49,7 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
       drawer: const AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: SolarPower(_showYearly),
-          ),
-        ),
+        child: SolarPower(_showYearly),
       ),
       floatingActionButton: const OperatingFloatingButton(),
     );
@@ -103,18 +98,29 @@ class _SolarPowerState extends State<SolarPower> {
         } else if (dataSnapshot.hasError) {
           // .. do error handling
           return Center(
-            child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+            ),
           );
         } else {
-          return Column(
-            children: [
-              Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
-              SolarPowerChart(widget.showYearly),
-              const SizedBox(
-                height: 20,
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SolarPowerChart(widget.showYearly),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SolarPowerTable(widget.showYearly),
+                ],
               ),
-              SolarPowerTable(widget.showYearly),
-            ],
+            ),
           );
         }
       },
