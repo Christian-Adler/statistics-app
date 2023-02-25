@@ -35,22 +35,19 @@ class SolarPowerTable extends StatelessWidget {
               ))
           .toList());
 
-      return Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Table(
-          // https://api.flutter.dev/flutter/widgets/Table-class.html
-          columnWidths: const <int, TableColumnWidth>{
-            0: FixedColumnWidth(60), // IntrinsicColumnWidth(),
-            1: FlexColumnWidth(),
-            2: FlexColumnWidth(),
-            3: FlexColumnWidth(),
-            4: FlexColumnWidth(),
-          },
-          border: TableBorder.symmetric(
-            inside: const BorderSide(width: 1, color: Colors.black12),
-          ),
-          children: rows,
+      return Table(
+        // https://api.flutter.dev/flutter/widgets/Table-class.html
+        columnWidths: const <int, TableColumnWidth>{
+          0: FixedColumnWidth(60), // IntrinsicColumnWidth(),
+          1: FlexColumnWidth(),
+          2: FlexColumnWidth(),
+          3: FlexColumnWidth(),
+          4: FlexColumnWidth(),
+        },
+        border: TableBorder.symmetric(
+          inside: const BorderSide(width: 1, color: Colors.black12),
         ),
+        children: rows,
       );
     }
 

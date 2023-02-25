@@ -85,6 +85,9 @@ class SolarPowerChart extends StatelessWidget {
             ),
           ]),
           orientation),
+      const SizedBox(
+        height: 10,
+      ),
       LayoutBuilder(
         builder: (ctx, constraints) {
           if (constraints.maxWidth > 450) {

@@ -240,7 +240,7 @@ class Charts {
       width: double.infinity,
       child: AspectRatio(
         aspectRatio: orientation == Orientation.portrait ? 3 / 2 : 3 / 1,
-        child: Padding(padding: const EdgeInsets.all(10), child: chart),
+        child: chart,
       ),
     );
   }

@@ -50,7 +50,10 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
       body: RefreshIndicator(
         onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
         child: SingleChildScrollView(
-          child: SolarPower(_showYearly),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SolarPower(_showYearly),
+          ),
         ),
       ),
       floatingActionButton: const OperatingFloatingButton(),
@@ -59,7 +62,7 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
 }
 
 class SolarPower extends StatefulWidget {
-  final showYearly;
+  final bool showYearly;
 
   const SolarPower(
     this.showYearly, {
@@ -100,21 +103,12 @@ class _SolarPowerState extends State<SolarPower> {
         } else if (dataSnapshot.hasError) {
           // .. do error handling
           return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
-            ),
+            child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
           );
         } else {
           return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                ),
-                child: Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                    style: Theme.of(context).textTheme.titleLarge),
-              ),
+              Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
               SolarPowerChart(widget.showYearly),
               const SizedBox(
                 height: 20,
