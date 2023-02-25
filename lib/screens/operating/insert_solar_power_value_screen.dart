@@ -20,6 +20,10 @@ class _InsertSolarPowerValueScreenState extends State<InsertSolarPowerValueScree
   var _isLoading = false;
   var _value = 0.0;
 
+  void _showSuccessMessage() {
+    Dialogs.showSnackBar('gespeichert...', context);
+  }
+
   Future<void> _saveForm() async {
     if (!_form.currentState!.validate()) return;
     _form.currentState!.save();
@@ -31,8 +35,9 @@ class _InsertSolarPowerValueScreenState extends State<InsertSolarPowerValueScree
     var power = Provider.of<Operating>(context, listen: false);
     try {
       await power.addSolarPowerEntry(_value);
+      _showSuccessMessage();
     } catch (err) {
-      await Dialogs.simpleOkDialog(context, err.toString(), 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }
 
     setState(() {
@@ -70,7 +75,7 @@ class _InsertSolarPowerValueScreenState extends State<InsertSolarPowerValueScree
                         autofocus: true,
                         decoration: const InputDecoration(labelText: 'Erzeugte Solar Energie (kWh)'),
                         textInputAction: TextInputAction.done,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
                         validator: (value) {
                           if (value == null || value.isEmpty) return 'Please enter a kWh value';
                           var val = double.tryParse(value);

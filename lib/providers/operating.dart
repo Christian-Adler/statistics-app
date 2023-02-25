@@ -15,11 +15,17 @@ class Operating with ChangeNotifier {
   Operating(this.auth, this._solarPowerItems);
 
   Future<void> fetchData() async {
+    await sendAndFetchData_(null);
+    notifyListeners();
+  }
+
+  Future<void> sendAndFetchData_(Map<String, String>? params) async {
     if (auth == null) return;
 
     var authority = auth!.serverUrlWithoutProtocol;
     var unencodedPath = '/call/onstatistic.php';
     if (!authority.endsWith('de')) {
+      // lokaler test
       unencodedPath = '/eagle$unencodedPath';
     }
 
@@ -29,11 +35,15 @@ class Operating with ChangeNotifier {
       'inputPassword': auth!.pw,
       'dataInputType': 'haus_solar',
     };
+    if (params != null) {
+      data.addAll(params);
+    }
+
     HttpUtils.jsonToFormData(request, data);
 
     final response = await request.send();
     if (response.statusCode != 200) {
-      throw HttpException('${response.statusCode}:${response.reasonPhrase} : Failed to load data!', uri: uri);
+      throw HttpException('${response.reasonPhrase} (${response.statusCode})', uri: uri);
     }
     final responseBytes = await response.stream.toBytes();
     final responseString = String.fromCharCodes(responseBytes);
@@ -51,7 +61,6 @@ class Operating with ChangeNotifier {
 
     final result = json['result'] as Map<String, dynamic>;
     final dataList = result['data'] as List<dynamic>;
-// "data":[{"xValue":24191,"jahr":2015,"monat":11,"strom":329,"strom_einspeisung":0,"strom_solar":0}
     _solarPowerItems.clear();
     for (var item in dataList) {
       final map = item as Map<String, dynamic>;
@@ -65,7 +74,6 @@ class Operating with ChangeNotifier {
     }
 
     // print(responseString);
-    notifyListeners();
   }
 
   List<SolarPowerChartItem> get solarPowerItems {
@@ -74,10 +82,12 @@ class Operating with ChangeNotifier {
 
   Future<void> addSolarPowerEntry(double value) async {
     final now = DateTime.now();
-
-    // TODO speichern
-    // final powerChartItem = YearMonthChartItem(now.year, now.month, value);
-    // _solarPowerItems.add(powerChartItem);
-    // notifyListeners();
+    Map<String, String> params = {
+      'inputHausJahr': now.year.toString(),
+      'inputHausMonat': now.month.toString(),
+      'inputStromSolar': value.toInt().toString(),
+    };
+    await sendAndFetchData_(params);
+    notifyListeners();
   }
 }
