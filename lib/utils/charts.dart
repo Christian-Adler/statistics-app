@@ -5,7 +5,9 @@ import '../models/chart/chart_meta_data.dart';
 import 'globals.dart';
 
 class Charts {
-  static LineTouchData _createLineTouchData() {
+  static LineTouchData _createLineTouchData({
+    int fractionDigits = 2,
+  }) {
     return LineTouchData(
       enabled: true,
       handleBuiltInTouches: true,
@@ -24,8 +26,10 @@ class Charts {
               color: touchedSpot.bar.gradient?.colors.first ?? touchedSpot.bar.color ?? Colors.blueGrey,
               fontWeight: FontWeight.bold,
               fontSize: 14,
+              // backgroundColor: Colors.grey,
+              shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
             );
-            return LineTooltipItem(touchedSpot.y.toStringAsFixed(2), textStyle);
+            return LineTooltipItem(touchedSpot.y.toStringAsFixed(fractionDigits), textStyle);
           }).toList();
         },
       ),
@@ -179,18 +183,21 @@ class Charts {
     List<FlSpot>? spots,
     List<Color> gradientColors, {
     shadow = true,
+    double? barWidth = 4,
     List<Color>? fillColors,
+    List<int>? dashArray,
   }) {
     return LineChartBarData(
       // spots: [ FlSpot(1, 0.5), FlSpot(2, 0.7), ],
       spots: spots,
       dotData: Charts._createDotData(),
+      dashArray: dashArray,
       gradient: Charts.createTopToBottomGradient(gradientColors),
       belowBarData: BarAreaData(
         show: fillColors != null,
         gradient: createTopToBottomGradient(fillColors),
       ),
-      barWidth: 4,
+      barWidth: barWidth,
       isCurved: true,
       preventCurveOverShooting: true,
       // curveSmoothness: 0.5,
@@ -199,14 +206,18 @@ class Charts {
     );
   }
 
-  static LineChart createLineChartMonthlyData(ChartMetaData chartMeta, List<LineChartBarData>? lineBarsData) {
+  static LineChart createLineChartMonthlyData(
+    ChartMetaData chartMeta,
+    List<LineChartBarData>? lineBarsData, {
+    int fractionDigits = 2,
+  }) {
     return LineChart(
       LineChartData(
         minY: chartMeta.yMin,
         maxY: chartMeta.yMax,
         minX: chartMeta.xMin,
         maxX: chartMeta.xMax,
-        lineTouchData: Charts._createLineTouchData(),
+        lineTouchData: Charts._createLineTouchData(fractionDigits: fractionDigits),
         clipData: FlClipData.all(),
         gridData: Charts._createGridData(),
         borderData: Charts._createBorderData(),

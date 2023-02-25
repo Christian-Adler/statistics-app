@@ -15,7 +15,6 @@ class SolarPowerChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
     var themeData = Theme.of(context);
-    final colorScheme = themeData.colorScheme;
 
     final powerData = Provider.of<Operating>(context);
 
@@ -29,18 +28,22 @@ class SolarPowerChart extends StatelessWidget {
     final List<FlSpot> spotsGeneratedPower = [];
     final List<FlSpot> spotsConsumedPower = [];
     final List<FlSpot> spotsFeedPower = [];
+    final List<FlSpot> spotsSumUsedPower = [];
     for (var item in solarPowerItems) {
-      chartMeta.putAll(item.xValue, [item.generatedPower, item.consumedPower, item.feedPower]);
+      var sumUsedPower = item.consumedPower + item.generatedPower - item.feedPower;
+      chartMeta.putAll(item.xValue, [sumUsedPower, item.feedPower]);
       spotsGeneratedPower.add(FlSpot(item.xValue, item.generatedPower));
       spotsConsumedPower.add(FlSpot(item.xValue, item.consumedPower));
       spotsFeedPower.add(FlSpot(item.xValue, item.feedPower));
+      spotsSumUsedPower.add(FlSpot(item.xValue, sumUsedPower));
     }
 
     chartMeta.calcPadding();
 
     final gradientColorsGeneratedPower = [themeData.colorScheme.primary, themeData.colorScheme.secondary];
     final gradientColorsConsumedPower = [Colors.redAccent, Colors.orangeAccent];
-    final gradientColorsFeedPower = [Colors.cyanAccent, Colors.cyanAccent.withOpacity(0.1)];
+    final gradientColorsFeedPower = [Colors.yellow, Colors.orangeAccent.withOpacity(0.1)];
+    final gradientColorsSumUsedPower = [Colors.redAccent, Colors.orangeAccent];
 
     return Column(children: [
       Padding(
@@ -50,7 +53,14 @@ class SolarPowerChart extends StatelessWidget {
         child: Text('kWh / Monat', style: themeData.textTheme.titleLarge),
       ),
       Charts.createChartContainer(
-          Charts.createLineChartMonthlyData(chartMeta, [
+          Charts.createLineChartMonthlyData(chartMeta, fractionDigits: 0, [
+            Charts.createLineChartBarData(
+              spotsSumUsedPower,
+              gradientColorsSumUsedPower,
+              shadow: false,
+              dashArray: [2, 4],
+              barWidth: 2,
+            ),
             Charts.createLineChartBarData(
               spotsConsumedPower, gradientColorsConsumedPower,
               shadow: false,
@@ -65,17 +75,48 @@ class SolarPowerChart extends StatelessWidget {
             Charts.createLineChartBarData(spotsGeneratedPower, gradientColorsGeneratedPower,
                 shadow: false,
                 fillColors: [
-                  themeData.colorScheme.primary.withOpacity(0.5),
-                  themeData.colorScheme.secondary.withOpacity(0)
+                  themeData.colorScheme.primary.withOpacity(0.9),
+                  themeData.colorScheme.secondary.withOpacity(0.4)
                 ]),
-            Charts.createLineChartBarData(spotsFeedPower, gradientColorsFeedPower, shadow: false),
+            Charts.createLineChartBarData(
+              spotsFeedPower,
+              gradientColorsFeedPower,
+              shadow: false,
+              dashArray: [2, 4],
+              barWidth: 2,
+            ),
           ]),
           orientation),
-      SimpleLegend(items: [
-        LegendItem('Erzeugt', gradientColorsGeneratedPower),
-        LegendItem('Eingespeist', gradientColorsFeedPower),
-        LegendItem('Verbraucht', gradientColorsConsumedPower),
-      ]),
+      LayoutBuilder(
+        builder: (ctx, constraints) {
+          if (constraints.maxWidth > 450) {
+            return SimpleLegend(items: [
+              LegendItem('Erzeugt', gradientColorsGeneratedPower),
+              LegendItem('Eingespeist', gradientColorsFeedPower),
+              LegendItem('Verbraucht', gradientColorsConsumedPower),
+              LegendItem(
+                  'Gesamt', [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+            ]);
+          } else {
+            return Column(
+              children: [
+                SimpleLegend(items: [
+                  LegendItem('Erzeugt', gradientColorsGeneratedPower),
+                  LegendItem('Eingespeist', gradientColorsFeedPower),
+                ]),
+                const SizedBox(
+                  height: 5,
+                ),
+                SimpleLegend(items: [
+                  LegendItem('Verbraucht', gradientColorsConsumedPower),
+                  LegendItem(
+                      'Gesamt', [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+                ]),
+              ],
+            );
+          }
+        },
+      ),
     ]);
   }
 }
