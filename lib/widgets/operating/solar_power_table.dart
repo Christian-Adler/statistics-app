@@ -14,13 +14,18 @@ class SolarPowerTable extends StatelessWidget {
 
     Widget buildValueTable() {
       List<TableRow> rows = [
-        Tables.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht'])
+        Tables.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht', 'Gesamt'])
       ];
 
       rows.addAll(powerData.solarPowerItems.reversed
           .map((powerChartItem) => Tables.tableRow(
-                '${Globals.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? '   (${powerChartItem.year})' : ''}    ',
-                [powerChartItem.generatedPower, powerChartItem.feedPower, powerChartItem.consumedPower],
+                '${Globals.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',
+                [
+                  powerChartItem.generatedPower,
+                  powerChartItem.feedPower,
+                  powerChartItem.consumedPower,
+                  powerChartItem.totalUsedPower
+                ],
               ))
           .toList());
 
@@ -29,10 +34,11 @@ class SolarPowerTable extends StatelessWidget {
         child: Table(
           // https://api.flutter.dev/flutter/widgets/Table-class.html
           columnWidths: const <int, TableColumnWidth>{
-            0: FixedColumnWidth(100), // IntrinsicColumnWidth(),
+            0: FixedColumnWidth(60), // IntrinsicColumnWidth(),
             1: FlexColumnWidth(),
             2: FlexColumnWidth(),
             3: FlexColumnWidth(),
+            4: FlexColumnWidth(),
           },
           border: TableBorder.symmetric(
             inside: const BorderSide(width: 1, color: Colors.black12),

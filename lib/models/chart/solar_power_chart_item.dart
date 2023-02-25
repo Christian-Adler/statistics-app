@@ -4,6 +4,7 @@ class SolarPowerChartItem extends YearMonthChartItem {
   final double generatedPower;
   final double consumedPower;
   final double feedPower;
+  final double totalUsedPower;
 
   SolarPowerChartItem(
     int year,
@@ -11,5 +12,6 @@ class SolarPowerChartItem extends YearMonthChartItem {
     this.generatedPower,
     this.consumedPower,
     this.feedPower,
-  ) : super(year, month, generatedPower);
+  )   : totalUsedPower = consumedPower + generatedPower - feedPower,
+        super(year, month, generatedPower);
 }
