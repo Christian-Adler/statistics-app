@@ -9,7 +9,7 @@ import '../../widgets/operating/operating_floating_button.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class OperatingScreen extends StatefulWidget {
-  static const String routeName = '/operating_screen';
+  static const String routeName = '/operating';
 
   const OperatingScreen({Key? key}) : super(key: key);
 

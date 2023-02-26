@@ -10,7 +10,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
-  static const String routeName = '/solar_power_screen';
+  static const String routeName = '/solar_power';
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 
