@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:statistics/utils/device_storage.dart';
-import 'package:statistics/utils/device_storage_keys.dart';
+
+import '../utils/device_storage.dart';
+import '../utils/device_storage_keys.dart';
+import '../utils/http_utils.dart';
 
 class Auth with ChangeNotifier {
   String? _serverUrl;
@@ -28,14 +30,35 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> logIn(String serverUrl, String pw) async {
-    // TODO try server connect
     _serverUrl = serverUrl;
     _pw = pw;
-    notifyListeners();
 
-    final authData = {'serverUrl': _serverUrl, 'pw': _pw};
-    final authDataStr = jsonEncode(authData);
-    await DeviceStorage.write(DeviceStorageKeys.keyAuthData, authDataStr);
+    if (_serverUrl == null || _pw == null) throw Exception('Illegal arguments (null) for login!');
+
+    try {
+      await HttpUtils.sendRequest('connection_check', null, this);
+      final authData = {'serverUrl': _serverUrl, 'pw': _pw};
+      final authDataStr = jsonEncode(authData);
+      await DeviceStorage.write(DeviceStorageKeys.keyAuthData, authDataStr);
+
+      List<String> servers = [];
+      var strServers = await DeviceStorage.read(DeviceStorageKeys.keyServers);
+      if (strServers != null) {
+        servers.addAll((jsonDecode(strServers) as List<dynamic>).map((e) => e.toString()));
+      }
+      if (!servers.contains(_serverUrl)) {
+        servers.add(_serverUrl!);
+        await DeviceStorage.write(DeviceStorageKeys.keyServers, jsonEncode(servers));
+      }
+
+      notifyListeners();
+    } catch (e) {
+      _serverUrl = null;
+      _pw = null;
+      await DeviceStorage.delete(DeviceStorageKeys.keyAuthData);
+      notifyListeners();
+      rethrow;
+    }
   }
 
   Future<bool> tryAutoLogin() async {
