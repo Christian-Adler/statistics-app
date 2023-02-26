@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import '../../providers/operating.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
 import '../../widgets/operating/operating_floating_button.dart';
 import '../../widgets/statistics_app_bar.dart';
-import 'solar_power_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
   static const String routeName = '/operating_screen';
@@ -39,7 +39,7 @@ class _OperatingScreenState extends State<OperatingScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(SolarPowerAddValueScreen.routeName),
+            onPressed: () => Navigator.of(context).pushNamed(OperatingAddValueScreen.routeName),
             tooltip: 'Betriebskosten Eintrag erstellen...',
             icon: const Icon(Icons.add),
           ),
@@ -106,10 +106,7 @@ class _OperatingState extends State<_Operating> {
               child: Column(
                 children: [
                   Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
+                      style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
                     height: 20,
                   ),
@@ -120,7 +117,6 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
                   ),
-
                   const SizedBox(
                     height: 30,
                   ),
@@ -131,7 +127,6 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
                   ),
-
                   const SizedBox(
                     height: 30,
                   ),
@@ -171,9 +166,8 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) =>
-                    operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                        operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
                   ),
-
                 ],
               ),
             ),

@@ -18,7 +18,11 @@ class OperatingAddValueScreen extends StatefulWidget {
 class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
   final _form = GlobalKey<FormState>();
   var _isLoading = false;
-  var _value = 0.0;
+  double _water = 0.0;
+  double _consumedPower = 0.0;
+  double _feedPower = 0.0;
+  double _heatingHT = 0.0;
+  double _heatingNT = 0.0;
 
   void _showSuccessMessage() {
     Dialogs.showSnackBar('gespeichert...', context);
@@ -34,7 +38,7 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
 
     var power = Provider.of<Operating>(context, listen: false);
     try {
-      await power.addSolarPowerEntry(_value);
+      await power.addOperatingEntry(_water, _consumedPower, _feedPower, _heatingHT, _heatingNT);
       _showSuccessMessage();
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
@@ -73,16 +77,65 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
                       ),
                       TextFormField(
                         autofocus: true,
-                        decoration: const InputDecoration(labelText: 'Erzeugte Solar Energie (kWh)'),
-                        textInputAction: TextInputAction.done,
+                        decoration: const InputDecoration(labelText: 'Wasser (m³ = alle großen Zahlen)'),
+                        textInputAction: TextInputAction.next,
                         keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter a kWh value';
+                          if (value == null || value.isEmpty) return 'Please enter a value';
                           var val = double.tryParse(value);
                           if (val == null || val <= 0) return 'Please provide a valid number > 0';
                           return null;
                         },
-                        onSaved: (value) => _value = double.parse(value!),
+                        onSaved: (value) => _water = double.parse(value!),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Strom (kWh)'),
+                        textInputAction: TextInputAction.next,
+                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) return 'Please enter a value';
+                          var val = double.tryParse(value);
+                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
+                          return null;
+                        },
+                        onSaved: (value) => _consumedPower = double.parse(value!),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Strom Eingespeist (kWh)'),
+                        textInputAction: TextInputAction.next,
+                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) return 'Please enter a value';
+                          var val = double.tryParse(value);
+                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
+                          return null;
+                        },
+                        onSaved: (value) => _feedPower = double.parse(value!),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Strom Wärmepumpe HT (kWh)'),
+                        textInputAction: TextInputAction.next,
+                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) return 'Please enter a value';
+                          var val = double.tryParse(value);
+                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
+                          return null;
+                        },
+                        onSaved: (value) => _heatingHT = double.parse(value!),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Strom Wärmepumpe NT (kWh)'),
+                        textInputAction: TextInputAction.send,
+                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) return 'Please enter a value';
+                          var val = double.tryParse(value);
+                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
+                          return null;
+                        },
+                        onSaved: (value) => _heatingNT = double.parse(value!),
+                        onEditingComplete: () => _saveForm(),
                       ),
                     ],
                   ),

@@ -161,4 +161,20 @@ class Operating with ChangeNotifier {
     await sendAndFetchData_(params);
     notifyListeners();
   }
+
+  Future<void> addOperatingEntry(
+      double water, double consumedPower, double feedPower, double heatingHT, double heatingNT) async {
+    final now = DateTime.now();
+    Map<String, String> params = {
+      'inputHausJahr': now.year.toString(),
+      'inputHausMonat': now.month.toString(),
+      'inputWasser': water.toInt().toString(),
+      'inputStrom': consumedPower.toInt().toString(),
+      'inputStromEinspeisung': feedPower.toInt().toString(),
+      'inputStromWP_HT': heatingHT.toInt().toString(),
+      'inputStromWP_NT': heatingNT.toInt().toString(),
+    };
+    await sendAndFetchData_(params);
+    notifyListeners();
+  }
 }
