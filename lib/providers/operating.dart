@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 import '../models/chart/operating_chart_item.dart';
 import '../utils/http_utils.dart';
@@ -30,45 +26,7 @@ class Operating with ChangeNotifier {
   Future<void> sendAndFetchData_(Map<String, String>? params) async {
     if (auth == null) return;
 
-    var authority = auth!.serverUrlWithoutProtocol;
-    var unencodedPath = '/call/onstatistic.php';
-    if (!authority.endsWith('de')) {
-      // lokaler test
-      unencodedPath = '/eagle$unencodedPath';
-    }
-    // print('fetch $unencodedPath');
-
-    final uri = Uri.http(authority, unencodedPath);
-    final request = http.MultipartRequest('POST', uri);
-    final data = {
-      'inputPassword': auth!.pw,
-      'dataInputType': 'haus_nebenkosten',
-    };
-    if (params != null) {
-      data.addAll(params);
-    }
-
-    HttpUtils.jsonToFormData(request, data);
-
-    final response = await request.send();
-    if (response.statusCode != 200) {
-      throw HttpException('${response.reasonPhrase} (${response.statusCode})', uri: uri);
-    }
-    final responseBytes = await response.stream.toBytes();
-    final responseString = String.fromCharCodes(responseBytes);
-    final decoded = jsonDecode(responseString);
-    if (decoded == null) return;
-
-    final json = decoded as Map<String, dynamic>;
-    if (!json.containsKey('returnCode')) {
-      throw const FormatException('Invalid json: no returnCode');
-    }
-    final returnCode = json['returnCode'] as int;
-    if (returnCode != 1) {
-      throw Exception(json['error']);
-    }
-
-    final result = json['result'] as Map<String, dynamic>;
+    final result = await HttpUtils.sendRequest('haus_nebenkosten', params, auth!);
     final dataList = result['data'] as List<dynamic>;
     _operatingItems.clear();
     _operatingItemsYearly.clear();
@@ -163,8 +121,8 @@ class Operating with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addOperatingEntry(
-      double water, double consumedPower, double feedPower, double heatingHT, double heatingNT) async {
+  Future<void> addOperatingEntry(double water, double consumedPower, double feedPower, double heatingHT,
+      double heatingNT) async {
     final now = DateTime.now();
     Map<String, String> params = {
       'inputHausJahr': now.year.toString(),
