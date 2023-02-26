@@ -145,7 +145,7 @@ class _AuthCardState extends State<_AuthCard> {
       //   }
       //   _showErrorDialog(errorMessage);
     } catch (err) {
-      var errorMessage = 'Could not authenticate you. Please try again later.';
+      var errorMessage = 'Could not authenticate you. Please try again later. $err';
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -187,6 +187,7 @@ class _AuthCardState extends State<_AuthCard> {
                     prefixIcon: Icon(Icons.http),
                   ),
                   keyboardType: TextInputType.url,
+                  textInputAction: TextInputAction.next,
                   // initialValue: 'https://',
                   validator: (value) {
                     if (value == null || value.isEmpty || !value.startsWith('http') || value.length < 10) {
@@ -224,6 +225,7 @@ class _AuthCardState extends State<_AuthCard> {
                   ),
                   focusNode: passwordFieldFocusNode,
                   keyboardType: TextInputType.visiblePassword,
+                  textInputAction: TextInputAction.send,
                   obscureText: _isObscured,
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length < 5) {
@@ -235,6 +237,7 @@ class _AuthCardState extends State<_AuthCard> {
                     if (value == null) return;
                     _authData['password'] = value;
                   },
+                  onEditingComplete: () => _submit(),
                 ),
               ),
             ),
