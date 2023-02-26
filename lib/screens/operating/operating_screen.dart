@@ -120,35 +120,6 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  OperatingChart(
-                    title: 'Strom (kWh)',
-                    baseColor: const Color.fromRGBO(255, 255, 0, 1),
-                    maxHue: -50,
-                    showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.consumedPower,
-                  ), const SizedBox(
-                    height: 30,
-                  ),
-                  OperatingChart(
-                    title: 'Strom Erzeugt (kWh)',
-                    baseColor: const Color.fromRGBO(85, 0, 255, 1.0),
-                    maxHue: -50,
-                    showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.generatedPower,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  OperatingChart(
-                    title: 'Strom Eingespeist (kWh)',
-                    baseColor: const Color.fromRGBO(0, 234, 255, 1.0),
-                    maxHue: -50,
-                    showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.feedPower,
-                  ),
 
                   const SizedBox(
                     height: 30,
@@ -160,6 +131,49 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
                   ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  OperatingChart(
+                    title: 'Strom (kWh)',
+                    baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
+                    maxHue: -50,
+                    showYearly: widget.showYearly,
+                    getOperatingValue: (operatingItem) => operatingItem.consumedPower,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  OperatingChart(
+                    title: 'Strom Erzeugt (kWh)',
+                    baseColor: const Color.fromRGBO(117, 49, 255, 1.0),
+                    maxHue: -50,
+                    showYearly: widget.showYearly,
+                    getOperatingValue: (operatingItem) => operatingItem.generatedPower,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  OperatingChart(
+                    title: 'Strom Eingespeist (kWh)',
+                    baseColor: const Color.fromRGBO(224, 152, 0, 1.0),
+                    maxHue: -50,
+                    showYearly: widget.showYearly,
+                    getOperatingValue: (operatingItem) => operatingItem.feedPower,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  OperatingChart(
+                    title: 'Strom Verbrauch gesamt (kWh)',
+                    baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
+                    maxHue: -50,
+                    showYearly: widget.showYearly,
+                    getOperatingValue: (operatingItem) =>
+                    operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                  ),
+
                 ],
               ),
             ),

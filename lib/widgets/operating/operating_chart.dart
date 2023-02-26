@@ -40,6 +40,7 @@ class OperatingChart extends StatelessWidget {
     final chartMeta = ChartMetaData();
     chartMeta.yearly = showYearly;
     chartMeta.showYearOnJan = false;
+    chartMeta.showDots = showYearly;
 
     final gradientColors = [baseColor, baseColor];
 
@@ -81,6 +82,7 @@ class OperatingChart extends StatelessWidget {
           barWidth: 2,
           item.gradient,
           fillColors: [item.gradient.first.withOpacity(0.8), item.gradient.first.withOpacity(0)],
+          chartMetaData: chartMeta,
         ));
       }
     }

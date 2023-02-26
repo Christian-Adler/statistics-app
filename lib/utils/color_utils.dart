@@ -20,8 +20,9 @@ class ColorUtils {
         c.blue + ((255 - c.blue) * p).round());
   }
 
+  /// - add [[0, 360]]
   static Color hue(Color c, [double add = 10]) {
     var hsl = HSLColor.fromColor(c);
-    return hsl.withHue(hsl.hue + add).toColor();
+    return hsl.withHue((hsl.hue + add) % 360).toColor();
   }
 }

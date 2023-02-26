@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:statistics/utils/color_utils.dart';
 
 import '../models/chart/chart_meta_data.dart';
 import 'globals.dart';
@@ -163,16 +164,18 @@ class Charts {
     );
   }
 
-  static FlDotData _createDotData() {
+  static FlDotData _createDotData(ChartMetaData? chartMetaData) {
     return FlDotData(
-      show: false,
-      // getDotPainter: (p0, p1, p2, p3) {
-      //   return FlDotCirclePainter(
-      //     color: Colors.red,
-      //     radius: 4,
-      //     strokeWidth: 0,
-      //   );
-      // },
+      show: chartMetaData?.showDots ?? false,
+      getDotPainter: (spot, xPercentage, lineChartBardata, index) {
+        var color = lineChartBardata.gradient?.colors.first ?? lineChartBardata.color ?? Colors.blueGrey;
+        return FlDotCirclePainter(
+          color: color,
+          radius: 3,
+          strokeWidth: 1,
+          strokeColor: ColorUtils.hue(color, 30), // Colors.white,
+        );
+      },
     );
   }
 
@@ -197,11 +200,12 @@ class Charts {
     double? barWidth = 4,
     List<Color>? fillColors,
     List<int>? dashArray,
+    ChartMetaData? chartMetaData,
   }) {
     return LineChartBarData(
       // spots: [ FlSpot(1, 0.5), FlSpot(2, 0.7), ],
       spots: spots,
-      dotData: Charts._createDotData(),
+      dotData: Charts._createDotData(chartMetaData),
       dashArray: dashArray,
       gradient: Charts.createTopToBottomGradient(gradientColors),
       belowBarData: BarAreaData(

@@ -11,6 +11,8 @@ class ChartMetaData {
   bool yearly = false;
   bool showYearOnJan = true;
 
+  bool showDots = false;
+
   void put(num xVal, num yVal) {
     putAll(xVal, [yVal]);
   }
