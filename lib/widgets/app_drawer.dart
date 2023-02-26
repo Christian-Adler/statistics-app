@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../screens/operating/operating_screen.dart';
-import '../screens/operating/overview_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
+import '../screens/overview_screen.dart';
 import '../screens/settings_screen.dart';
 import '../utils/globals.dart';
 import 'statistics_app_bar.dart';

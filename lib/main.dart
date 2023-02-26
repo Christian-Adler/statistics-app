@@ -8,9 +8,9 @@ import 'providers/auth.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/operating/operating_screen.dart';
-import 'screens/operating/overview_screen.dart';
 import 'screens/operating/solar_power_add_value_screen.dart';
 import 'screens/operating/solar_power_screen.dart';
+import 'screens/overview_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
 
