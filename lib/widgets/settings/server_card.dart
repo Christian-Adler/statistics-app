@@ -48,7 +48,7 @@ class _ServerCardState extends State<ServerCard> {
           AnimatedCrossFade(
             duration: const Duration(milliseconds: 300),
             crossFadeState: _expanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            firstChild: _ChangeServer(),
+            firstChild: _ChangeServer(expanded: _expanded),
             secondChild: Container(
               height: 0,
             ),
@@ -58,6 +58,10 @@ class _ServerCardState extends State<ServerCard> {
 }
 
 class _ChangeServer extends StatefulWidget {
+  final bool expanded;
+
+  const _ChangeServer({required this.expanded});
+
   @override
   State<_ChangeServer> createState() => _ChangeServerState();
 }
@@ -117,6 +121,23 @@ class _ChangeServerState extends State<_ChangeServer> {
     }
   }
 
+  void _removeServer(String server) async {
+    try {
+      List<String> servers = [];
+      var strServers = await DeviceStorage.read(DeviceStorageKeys.keyServers);
+      if (strServers != null) {
+        servers.addAll((jsonDecode(strServers) as List<dynamic>).map((e) => e.toString()));
+      }
+      if (servers.remove(server)) {
+        await DeviceStorage.write(DeviceStorageKeys.keyServers, jsonEncode(servers));
+        _showSnackBar('Server entfernt...');
+      }
+      setState(() {});
+    } catch (err) {
+      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -125,20 +146,35 @@ class _ChangeServerState extends State<_ChangeServer> {
         const Divider(height: 10),
         FutureBuilder(
           builder: (context, serversSnapshot) {
-            if (serversSnapshot.connectionState == ConnectionState.waiting) return const LinearProgressIndicator();
+            if (serversSnapshot.connectionState == ConnectionState.waiting) return Container();
             final storageData = serversSnapshot.data;
             if (storageData == null) return const Text('No servers stored.');
-            final servers = jsonDecode(storageData) as List<dynamic>;
+            final servers = [...(jsonDecode(storageData) as List<dynamic>).map((a) => a.toString())];
             return Column(
               children: [
-                ...servers.map((serverAddress) => OutlinedButton.icon(
-                    onPressed: () => _changeServer(serverAddress),
-                    icon: const Icon(Icons.arrow_circle_right_outlined),
-                    label: Text(serverAddress)))
+                ...servers.map((serverAddress) {
+                  var disabled = (Provider.of<Auth>(context, listen: false).serverUrl == serverAddress);
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(serverAddress.startsWith('https') ? Icons.https_outlined : Icons.http),
+                    ),
+                    trailing: IconButton(
+                      onPressed: disabled ? null : () => _removeServer(serverAddress),
+                      icon: Icon(
+                        Icons.remove_circle_outline,
+                        color: disabled ? Theme.of(context).disabledColor : Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    title: OutlinedButton(
+                      onPressed: () => _changeServer(serverAddress),
+                      child: Text(serverAddress),
+                    ),
+                  );
+                })
               ],
             );
           },
-          future: DeviceStorage.read(DeviceStorageKeys.keyServers),
+          future: !widget.expanded ? Future.value('[]') : DeviceStorage.read(DeviceStorageKeys.keyServers),
         ),
         Form(
           key: _form,
