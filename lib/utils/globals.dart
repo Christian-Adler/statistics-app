@@ -33,7 +33,11 @@ class Globals {
 
   /// Go to Homescreen and logout
   static Future<void> logout(BuildContext context) async {
-    Navigator.of(context).pushReplacementNamed('/'); // Back to HomeScreen
+    goToHome(context); // Back to HomeScreen
     await Provider.of<Auth>(context, listen: false).logOut();
+  }
+
+  static void goToHome(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 }

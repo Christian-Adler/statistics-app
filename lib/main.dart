@@ -8,6 +8,7 @@ import 'providers/auth.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/operating/operating_screen.dart';
+import 'screens/operating/overview_screen.dart';
 import 'screens/operating/solar_power_add_value_screen.dart';
 import 'screens/operating/solar_power_screen.dart';
 import 'screens/settings_screen.dart';
@@ -33,8 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Operating>(
           create: (ctx) => Operating(null, [], []),
-          update: (ctx, auth, previous) => Operating(auth, previous == null ? [] : previous.operatingItems,
-              previous == null ? [] : previous.operatingItemsYearly),
+          update: (ctx, auth, previous) =>
+              Operating(auth, [], []), // Wenn auth sich aendert, dann Operating zurueck setzen
+          // Operating(auth, previous == null ? [] : previous.operatingItems,
+          // previous == null ? [] : previous.operatingItemsYearly),
         ),
       ],
       child: Consumer<Auth>(
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
           ),
           home: auth.isAuth
-              ? const OperatingScreen()
+              ? const OverviewScreen()
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
@@ -61,6 +64,8 @@ class MyApp extends StatelessWidget {
                 ),
           routes: {
             SplashScreen.routeName: (context) => const SplashScreen(),
+            //
+            OverviewScreen.routeName: (context) => const OverviewScreen(),
             //
             OperatingScreen.routeName: (context) => const OperatingScreen(),
             OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),

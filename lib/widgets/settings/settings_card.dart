@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 class SettingsCard extends StatelessWidget {
-  final String title;
+  final dynamic title;
   final List<Widget> children;
 
   const SettingsCard({Key? key, required this.title, required this.children}) : super(key: key);
+
+  Widget _buildTitle(BuildContext context) {
+    if (title is Widget) return title as Widget;
+    var titleText = 'Titel';
+    if (title is String) titleText = title as String;
+    return Text(titleText, style: Theme.of(context).textTheme.titleLarge);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +22,7 @@ class SettingsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            _buildTitle(context),
             ...children,
           ],
         ),

@@ -36,6 +36,7 @@ class Operating with ChangeNotifier {
       // lokaler test
       unencodedPath = '/eagle$unencodedPath';
     }
+    // print('fetch $unencodedPath');
 
     final uri = Uri.http(authority, unencodedPath);
     final request = http.MultipartRequest('POST', uri);

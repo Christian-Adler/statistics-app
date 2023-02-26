@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/operating/operating_screen.dart';
+import '../screens/operating/overview_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../screens/settings_screen.dart';
 import '../utils/globals.dart';
@@ -49,6 +50,16 @@ class AppDrawer extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: Column(children: [
+              ListTile(
+                title: const Text('Overview'),
+                leading: const Icon(Icons.home_outlined),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
+                },
+              ),
+              const Divider(
+                height: 1,
+              ),
               ListTile(
                 title: const Text('Betriebskosten'),
                 leading: const Icon(Icons.power_input_outlined),
