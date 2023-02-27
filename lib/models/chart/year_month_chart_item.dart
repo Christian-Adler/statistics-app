@@ -1,4 +1,4 @@
-import '../../utils/globals.dart';
+import '../../utils/date_utils.dart';
 import 'abstract_chart_item.dart';
 
 class YearMonthChartItem extends AbstractChartItem {
@@ -16,7 +16,7 @@ class YearMonthChartItem extends AbstractChartItem {
   }
 
   String get xLabel {
-    var label = Globals.getMonthShort(month);
+    var label = DateUtil.getMonthShort(month);
     if (month == 1) {
       label += '\n$year';
     }

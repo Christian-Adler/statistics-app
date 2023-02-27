@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/utils/date_utils.dart';
 
 import '../../providers/operating.dart';
 import '../../utils/dialogs.dart';
@@ -52,7 +53,7 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final insertDate = DateFormat('MMMM yyyy').format(DateTime.now());
+    final insertDate = DateFormat('MMMM yyyy').format(DateUtil.getInsertDate());
 
     return Scaffold(
       appBar: StatisticsAppBar(

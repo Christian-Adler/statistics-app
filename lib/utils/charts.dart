@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:statistics/utils/color_utils.dart';
+import 'package:statistics/utils/date_utils.dart';
 
 import '../models/chart/chart_meta_data.dart';
-import 'globals.dart';
 
 class Charts {
   static LineTouchData _createLineTouchData({
@@ -93,12 +93,12 @@ class Charts {
         var year = ((value - month) ~/ 12);
         child = Column(
           children: [
-            Text(Globals.getMonthShort(month)),
+            Text(DateUtil.getMonthShort(month)),
             Text(year.toString()),
           ],
         );
       } else {
-        child = Text(Globals.getMonthShort(month));
+        child = Text(DateUtil.getMonthShort(month));
       }
     }
 

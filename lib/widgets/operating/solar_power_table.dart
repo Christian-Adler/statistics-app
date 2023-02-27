@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/providers/operating.dart';
 
-import '../../utils/globals.dart';
+import '../../utils/date_utils.dart';
 import '../../utils/tables.dart';
 
 class SolarPowerTable extends StatelessWidget {
@@ -25,7 +25,7 @@ class SolarPowerTable extends StatelessWidget {
           .map((powerChartItem) => Tables.tableRow(
                 showYearly
                     ? powerChartItem.year.toString()
-                    : '${Globals.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',
+                    : '${DateUtil.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',
                 [
                   powerChartItem.generatedPower,
                   powerChartItem.feedPower,

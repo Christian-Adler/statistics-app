@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:statistics/utils/date_utils.dart';
 
 import '../models/chart/operating_chart_item.dart';
 import '../utils/http_utils.dart';
@@ -111,22 +112,22 @@ class Operating with ChangeNotifier {
   }
 
   Future<void> addSolarPowerEntry(double value) async {
-    final now = DateTime.now();
+    final insertDate = DateUtil.getInsertDate();
     Map<String, String> params = {
-      'inputHausJahr': now.year.toString(),
-      'inputHausMonat': now.month.toString(),
+      'inputHausJahr': insertDate.year.toString(),
+      'inputHausMonat': insertDate.month.toString(),
       'inputStromSolar': value.toInt().toString(),
     };
     await sendAndFetchData_(params);
     notifyListeners();
   }
 
-  Future<void> addOperatingEntry(double water, double consumedPower, double feedPower, double heatingHT,
-      double heatingNT) async {
-    final now = DateTime.now();
+  Future<void> addOperatingEntry(
+      double water, double consumedPower, double feedPower, double heatingHT, double heatingNT) async {
+    final insertDate = DateUtil.getInsertDate();
     Map<String, String> params = {
-      'inputHausJahr': now.year.toString(),
-      'inputHausMonat': now.month.toString(),
+      'inputHausJahr': insertDate.year.toString(),
+      'inputHausMonat': insertDate.month.toString(),
       'inputWasser': water.toInt().toString(),
       'inputStrom': consumedPower.toInt().toString(),
       'inputStromEinspeisung': feedPower.toInt().toString(),
