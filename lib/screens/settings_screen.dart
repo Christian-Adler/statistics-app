@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/app_drawer.dart';
-import '../widgets/settings/animation_test_card.dart';
 import '../widgets/settings/device_storage_card.dart';
 import '../widgets/settings/server_card.dart';
 import '../widgets/statistics_app_bar.dart';
@@ -25,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
           children: const [
             ServerCard(),
             DeviceStorageCard(),
-            AnimationTestCard(),
+            // AnimationTestCard(),
           ],
         ),
       ),
