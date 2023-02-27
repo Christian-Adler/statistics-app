@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/widgets/animation/fade_in.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';
@@ -32,20 +33,7 @@ class OverviewScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                CircleAvatar(
-                  backgroundColor: Colors.black12,
-                  radius: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(
-                        Globals.assetImgLogo,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                const _Logo(),
                 const SizedBox(height: 20),
                 const Divider(
                   height: 1,
@@ -60,6 +48,30 @@ class OverviewScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: const OperatingFloatingButton(),
+    );
+  }
+}
+
+class _Logo extends StatelessWidget {
+  const _Logo();
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeIn(
+      child: CircleAvatar(
+        backgroundColor: Colors.black12,
+        radius: 50,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.asset(
+              Globals.assetImgLogo,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
