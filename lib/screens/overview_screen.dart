@@ -90,7 +90,6 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
     ];
   }
 
-  //   final isLandscape =
   @override
   Widget build(BuildContext context) {
     final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
