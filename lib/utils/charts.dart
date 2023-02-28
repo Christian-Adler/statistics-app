@@ -11,6 +11,7 @@ class Charts {
   }) {
     return LineTouchData(
       enabled: true,
+      touchSpotThreshold: 30,
       handleBuiltInTouches: true,
       touchTooltipData: LineTouchTooltipData(
         fitInsideHorizontally: true,
