@@ -30,6 +30,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> logIn(String serverUrl, String pw) async {
+    final String? tmpServerUrl = _serverUrl;
+    final String? tmpPw = _pw;
     _serverUrl = serverUrl;
     _pw = pw;
 
@@ -53,9 +55,9 @@ class Auth with ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      _serverUrl = null;
-      _pw = null;
-      await DeviceStorage.delete(DeviceStorageKeys.keyAuthData);
+      // reset
+      _serverUrl = tmpServerUrl;
+      _pw = tmpPw;
       notifyListeners();
       rethrow;
     }

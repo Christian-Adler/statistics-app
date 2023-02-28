@@ -78,7 +78,7 @@ class _ChangeServerState extends State<_ChangeServer> {
     Globals.goToHome(context);
   }
 
-  void _changeServer(String server) async {
+  Future<void> _changeServer(String server) async {
     // print('change to server $server');
     final auth = Provider.of<Auth>(context, listen: false);
     final authDataStr = await DeviceStorage.read(DeviceStorageKeys.keyAuthData);
@@ -104,18 +104,7 @@ class _ChangeServerState extends State<_ChangeServer> {
     _form.currentState!.save();
 
     try {
-      List<String> servers = [];
-      var strServers = await DeviceStorage.read(DeviceStorageKeys.keyServers);
-      if (strServers != null) {
-        servers.addAll((jsonDecode(strServers) as List<dynamic>).map((e) => e.toString()));
-      }
-      if (!servers.contains(_server)) {
-        servers.add(_server);
-        await DeviceStorage.write(DeviceStorageKeys.keyServers, jsonEncode(servers));
-        _showSnackBar('Neuer Server gespeichert');
-      }
-
-      _changeServer(_server);
+      await _changeServer(_server);
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }
