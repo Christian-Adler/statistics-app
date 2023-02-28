@@ -5,6 +5,7 @@ import '../providers/auth.dart';
 
 class Globals {
   static const assetImgLogo = 'assets/images/eagle_logo.jpg';
+  static const assetImgBackground = 'assets/images/bar_chart.png';
 
   /// Dismiss | hide | remove OnScreenKeyboard
   static void dismissKeyboard(BuildContext context) {

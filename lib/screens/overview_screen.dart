@@ -28,22 +28,40 @@ class OverviewScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Stack(
               children: [
-                const SizedBox(height: 20),
-                const _Logo(),
-                const SizedBox(height: 20),
-                const Divider(
-                  height: 1,
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Globals.assetImgBackground,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 20),
-                _NavigationButtons(),
-                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+                      const _Logo(),
+                      const SizedBox(height: 20),
+                      const Divider(
+                        height: 1,
+                      ),
+                      const SizedBox(height: 20),
+                      _NavigationButtons(),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ],
             ),
-          )),
+          ),
           const _Footer(),
         ],
       ),
@@ -125,8 +143,8 @@ class _LargeNavigationButton extends StatelessWidget {
     return OutlinedButton.icon(
       style: const ButtonStyle(
         minimumSize: MaterialStatePropertyAll(Size(200, 100)),
-        elevation: MaterialStatePropertyAll(5),
-        backgroundColor: MaterialStatePropertyAll(Colors.white),
+        // elevation: MaterialStatePropertyAll(5),
+        backgroundColor: MaterialStatePropertyAll(Colors.white70),
       ),
       onPressed: () => Navigator.of(context).pushReplacementNamed(routeName),
       icon: Icon(

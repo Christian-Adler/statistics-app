@@ -48,52 +48,72 @@ class AppDrawer extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(children: [
-              ListTile(
-                title: const Text('Overview'),
-                leading: const Icon(Icons.home_outlined),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
-                },
+          child: Stack(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 100,
+                      child: Image.asset(
+                        Globals.assetImgBackground,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const Divider(
-                height: 1,
+              SingleChildScrollView(
+                child: Column(children: [
+                  ListTile(
+                    title: const Text('Overview'),
+                    leading: const Icon(Icons.home_outlined),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
+                    },
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  ListTile(
+                    title: const Text('Betriebskosten'),
+                    leading: const Icon(Icons.power_input_outlined),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
+                    },
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  ListTile(
+                    title: const Text('Solar Strom'),
+                    leading: const Icon(Icons.solar_power_outlined),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
+                    },
+                  ),
+                  const _GradientDivider(),
+                  ListTile(
+                    title: const Text('Settings'),
+                    leading: const Icon(Icons.settings),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
+                    },
+                  ),
+                  const _GradientDivider(),
+                  ListTile(
+                    title: const Text('Logout'),
+                    leading: const Icon(Icons.exit_to_app),
+                    onTap: () {
+                      Globals.logout(context);
+                    },
+                  ),
+                ]),
               ),
-              ListTile(
-                title: const Text('Betriebskosten'),
-                leading: const Icon(Icons.power_input_outlined),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
-                },
-              ),
-              const Divider(
-                height: 1,
-              ),
-              ListTile(
-                title: const Text('Solar Strom'),
-                leading: const Icon(Icons.solar_power_outlined),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
-                },
-              ),
-              const _GradientDivider(),
-              ListTile(
-                title: const Text('Settings'),
-                leading: const Icon(Icons.settings),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
-                },
-              ),
-              const _GradientDivider(),
-              ListTile(
-                title: const Text('Logout'),
-                leading: const Icon(Icons.exit_to_app),
-                onTap: () {
-                  Globals.logout(context);
-                },
-              ),
-            ]),
+            ],
           ),
         ),
       ]),
