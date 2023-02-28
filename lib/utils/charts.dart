@@ -8,6 +8,7 @@ import '../models/chart/chart_meta_data.dart';
 class Charts {
   static LineTouchData _createLineTouchData({
     int fractionDigits = 2,
+    List<TextSpan> Function(double)? provideTooltipExt,
   }) {
     return LineTouchData(
       enabled: true,
@@ -28,10 +29,10 @@ class Charts {
               color: touchedSpot.bar.gradient?.colors.first ?? touchedSpot.bar.color ?? Colors.blueGrey,
               fontWeight: FontWeight.bold,
               fontSize: 14,
-              // backgroundColor: Colors.grey,
               shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
             );
-            return LineTooltipItem(touchedSpot.y.toStringAsFixed(fractionDigits), textStyle);
+            return LineTooltipItem(touchedSpot.y.toStringAsFixed(fractionDigits), textStyle,
+                children: provideTooltipExt?.call(touchedSpot.y));
           }).toList();
         },
       ),
@@ -226,6 +227,7 @@ class Charts {
     ChartMetaData chartMeta,
     List<LineChartBarData>? lineBarsData, {
     int fractionDigits = 2,
+    List<TextSpan> Function(double)? provideTooltipExt,
   }) {
     return LineChart(
       LineChartData(
@@ -233,7 +235,8 @@ class Charts {
         maxY: chartMeta.yMax,
         minX: chartMeta.xMin,
         maxX: chartMeta.xMax,
-        lineTouchData: Charts._createLineTouchData(fractionDigits: fractionDigits),
+        lineTouchData:
+            Charts._createLineTouchData(fractionDigits: fractionDigits, provideTooltipExt: provideTooltipExt),
         clipData: FlClipData.all(),
         gridData: Charts._createGridData(),
         borderData: Charts._createBorderData(),

@@ -10,6 +10,13 @@ class Operating with ChangeNotifier {
   final List<OperatingChartItem> _operatingItems;
   final List<OperatingChartItem> _operatingItemsYearly;
 
+  static double chargePerMonthWater = 1;
+  static double chargePerValueWater = 1;
+  static double chargePerMonthConsumedPower = 1;
+  static double chargePerValueConsumedPower = 1;
+  static double chargePerMonthHeating = 1;
+  static double chargePerValueHeating = 1;
+
   Operating(this.auth, this._operatingItems, this._operatingItemsYearly);
 
   Future<void> fetchDataIfNotYetLoaded() async {
@@ -28,6 +35,16 @@ class Operating with ChangeNotifier {
     if (auth == null) return;
 
     final result = await HttpUtils.sendRequest('haus_nebenkosten', params, auth!);
+
+    // Monatswerte
+    var charges = result['charge'] as Map<String, dynamic>;
+    chargePerMonthWater = (charges['water_charge_per_month'] as num).toDouble();
+    chargePerValueWater = (charges['water_charge_per_qm'] as num).toDouble();
+    chargePerMonthConsumedPower = (charges['electricity_charge_per_month'] as num).toDouble();
+    chargePerValueConsumedPower = (charges['electricity_charge_per_kwh'] as num).toDouble();
+    chargePerMonthHeating = (charges['heating_charge_per_month'] as num).toDouble();
+    chargePerValueHeating = (charges['heating_charge_per_kwh'] as num).toDouble();
+
     final dataList = result['data'] as List<dynamic>;
     _operatingItems.clear();
     _operatingItemsYearly.clear();

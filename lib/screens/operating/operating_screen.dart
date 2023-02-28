@@ -81,6 +81,15 @@ class _OperatingState extends State<_Operating> {
 
   @override
   Widget build(BuildContext context) {
+    const tooltipExtStyle = TextStyle(color: Colors.black, shadows: [], fontSize: 10, fontWeight: FontWeight.normal);
+
+    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value) {
+      return TextSpan(
+          text:
+              '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
+          style: tooltipExtStyle);
+    }
+
     return FutureBuilder(
       future: _operatingDataFuture,
       builder: (ctx, dataSnapshot) {
@@ -116,6 +125,10 @@ class _OperatingState extends State<_Operating> {
                     maxHue: 70,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
+                    provideTooltipExt: widget.showYearly
+                        ? (yValue) =>
+                            [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
+                        : null,
                   ),
                   const SizedBox(
                     height: 30,
@@ -126,6 +139,10 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
+                    provideTooltipExt: widget.showYearly
+                        ? (yValue) =>
+                            [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
+                        : null,
                   ),
                   const SizedBox(
                     height: 30,
@@ -136,6 +153,12 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.consumedPower,
+                    provideTooltipExt: widget.showYearly
+                        ? (yValue) => [
+                              buildTooltipExt(
+                                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
+                            ]
+                        : null,
                   ),
                   const SizedBox(
                     height: 30,

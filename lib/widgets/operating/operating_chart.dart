@@ -16,6 +16,7 @@ class OperatingChart extends StatelessWidget {
   final double maxHue;
 
   final double Function(OperatingChartItem) getOperatingValue;
+  final List<TextSpan> Function(double)? provideTooltipExt;
 
   const OperatingChart(
       {Key? key,
@@ -23,7 +24,8 @@ class OperatingChart extends StatelessWidget {
       required this.title,
       required this.baseColor,
       required this.maxHue,
-      required this.showYearly})
+      required this.showYearly,
+      this.provideTooltipExt})
       : super(key: key);
 
   @override
@@ -98,7 +100,9 @@ class OperatingChart extends StatelessWidget {
           textAlign: TextAlign.left,
         ),
       ),
-      Charts.createChartContainer(Charts.createLineChartData(chartMeta, fractionDigits: 0, lineBarsData), orientation),
+      Charts.createChartContainer(
+          Charts.createLineChartData(chartMeta, fractionDigits: 0, lineBarsData, provideTooltipExt: provideTooltipExt),
+          orientation),
     ]);
   }
 }
