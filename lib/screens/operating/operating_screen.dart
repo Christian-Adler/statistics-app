@@ -84,10 +84,7 @@ class _OperatingState extends State<_Operating> {
     const tooltipExtStyle = TextStyle(color: Colors.black, shadows: [], fontSize: 10, fontWeight: FontWeight.normal);
 
     TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value) {
-      return TextSpan(
-          text:
-              '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
-          style: tooltipExtStyle);
+      return TextSpan(text: '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€', style: tooltipExtStyle);
     }
 
     return FutureBuilder(
@@ -114,8 +111,7 @@ class _OperatingState extends State<_Operating> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
                     height: 20,
                   ),
@@ -125,28 +121,20 @@ class _OperatingState extends State<_Operating> {
                     maxHue: 70,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue) =>
-                            [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
-                        : null,
+                    provideTooltipExt:
+                        widget.showYearly ? (yValue) => [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)] : null,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const _ChartDivider(),
                   OperatingChart(
                     title: 'Heizung (kWh)',
                     baseColor: const Color.fromRGBO(255, 0, 255, 1),
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue) =>
-                            [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
-                        : null,
+                    provideTooltipExt:
+                        widget.showYearly ? (yValue) => [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)] : null,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const _ChartDivider(),
                   OperatingChart(
                     title: 'Strom (kWh)',
                     baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
@@ -154,42 +142,43 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.consumedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) => [
-                              buildTooltipExt(
-                                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
-                            ]
+                        ? (yValue) => [buildTooltipExt(Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)]
                         : null,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const _ChartDivider(),
                   OperatingChart(
                     title: 'Strom Erzeugt (kWh)',
                     baseColor: const Color.fromRGBO(117, 49, 255, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.generatedPower,
+                    provideTooltipExt: widget.showYearly ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)] : null,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const _ChartDivider(),
                   OperatingChart(
                     title: 'Strom Eingespeist (kWh)',
                     baseColor: const Color.fromRGBO(224, 152, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.feedPower,
+                    provideTooltipExt: widget.showYearly ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)] : null,
                   ),
-                  const SizedBox(
-                    height: 30,
+                  const _ChartDivider(),
+                  OperatingChart(
+                    title: 'Strom Erzeugt Eigenverbrauch (kWh)',
+                    baseColor: const Color.fromRGBO(194, 224, 0, 1.0),
+                    maxHue: -50,
+                    showYearly: widget.showYearly,
+                    getOperatingValue: (operatingItem) => operatingItem.generatedPower - operatingItem.feedPower,
+                    provideTooltipExt: widget.showYearly ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)] : null,
                   ),
+                  const _ChartDivider(),
                   OperatingChart(
                     title: 'Strom Verbrauch gesamt (kWh)',
                     baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) =>
-                        operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                    getOperatingValue: (operatingItem) => operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
                   ),
                 ],
               ),
@@ -197,6 +186,17 @@ class _OperatingState extends State<_Operating> {
           );
         }
       },
+    );
+  }
+}
+
+class _ChartDivider extends StatelessWidget {
+  const _ChartDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 30,
     );
   }
 }
