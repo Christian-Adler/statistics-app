@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/table_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/providers/operating.dart';
 
 import '../../utils/date_utils.dart';
-import '../../utils/tables.dart';
 
 class SolarPowerTable extends StatelessWidget {
   final bool showYearly;
@@ -16,13 +16,13 @@ class SolarPowerTable extends StatelessWidget {
 
     Widget buildValueTable() {
       List<TableRow> rows = [
-        Tables.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht', 'Gesamt'])
+        TableUtils.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht', 'Gesamt'])
       ];
 
       final operatingItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
 
       rows.addAll(operatingItems.reversed
-          .map((powerChartItem) => Tables.tableRow(
+          .map((powerChartItem) => TableUtils.tableRow(
                 showYearly
                     ? powerChartItem.year.toString()
                     : '${DateUtil.getMonthShort(powerChartItem.month)}${powerChartItem.month == 1 ? ' (${powerChartItem.year})' : ''}    ',

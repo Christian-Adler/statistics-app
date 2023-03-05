@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/device_storage.dart';
 
-import '../utils/device_storage.dart';
 import '../utils/device_storage_keys.dart';
 import '../utils/http_utils.dart';
 

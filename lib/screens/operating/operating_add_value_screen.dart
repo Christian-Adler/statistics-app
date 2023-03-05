@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/utils/date_utils.dart';
 
 import '../../providers/operating.dart';
-import '../../utils/dialogs.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class OperatingAddValueScreen extends StatefulWidget {

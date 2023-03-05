@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/animation/fade_in.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/widgets/animation/fade_in.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';

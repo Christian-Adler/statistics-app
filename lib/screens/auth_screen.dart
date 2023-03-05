@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
@@ -136,7 +137,7 @@ class _AuthCardState extends State<_AuthCard> {
       _isLoading = true;
     });
     try {
-      Globals.dismissKeyboard(context);
+      Dialogs.dismissKeyboard(context);
       await Provider.of<Auth>(context, listen: false).logIn(_authData['server']!, _authData['password']!);
       // } on HttpException catch (err) {
       //   var errorMessage = 'Authentication failed!';

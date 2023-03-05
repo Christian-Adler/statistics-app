@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/chart/operating_chart_item.dart';
-import 'package:statistics/utils/color_utils.dart';
 
 import '../../models/chart/chart_meta_data.dart';
 import '../../providers/operating.dart';

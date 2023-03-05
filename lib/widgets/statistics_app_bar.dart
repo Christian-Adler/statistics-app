@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'ext/gradient_app_bar.dart';
+import 'package:flutter_commons/widgets/ext/gradient_app_bar.dart';
 
 class StatisticsAppBar extends GradientAppBar {
   StatisticsAppBar(

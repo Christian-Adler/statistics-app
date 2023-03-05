@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/device_storage.dart';
+import 'package:flutter_commons/utils/table_utils.dart';
 
-import '../../utils/device_storage.dart';
 import '../../utils/globals.dart';
-import '../../utils/tables.dart';
 import 'settings_card.dart';
 
 class DeviceStorageCard extends StatelessWidget {
@@ -58,14 +58,14 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
               if (storageData == null) return const Text('No device storage data set.');
 
               List<TableRow> rows = [
-                Tables.tableHeadline('Key', ['Value'])
+                TableUtils.tableHeadline('Key', ['Value'])
               ];
 
               final keys = storageData.keys.toList();
               keys.sort();
               for (var key in keys) {
                 final value = storageData[key];
-                rows.add(Tables.tableRow(key, [value ?? '-']));
+                rows.add(TableUtils.tableRow(key, [value ?? '-']));
               }
 
               return Table(

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/device_storage.dart';
+import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth.dart';
-import '../../utils/device_storage.dart';
 import '../../utils/device_storage_keys.dart';
-import '../../utils/dialogs.dart';
 import '../../utils/globals.dart';
 import 'settings_card.dart';
 
