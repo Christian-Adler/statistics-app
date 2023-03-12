@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.statistics">
+          package="de.exploratia.statistics">
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
-            android:label="statistics"
+            android:label="Statistics"
             android:name="${applicationName}"
             android:allowBackup="false"
             android:fullBackupContent="false"

@@ -19,36 +19,47 @@ class SplashScreen extends StatelessWidget {
             stops: const [0, 1],
           ),
         ),
-        child: Center(
-          child: SizedBox(
-            height: 150,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 40,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(35),
-                        child: Image.asset(
-                          Globals.assetImgLogo,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+        // child: const CenteredLogo(), // sehr kurz sichtbar - daher nur auf dem SplashScreen
+      ),
+    );
+  }
+}
+
+class CenteredLogo extends StatelessWidget {
+  const CenteredLogo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: 150,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 40,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(35),
+                    child: Image.asset(
+                      Globals.assetImgLogo,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Text(
-                  'Loading...',
-                  style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold),
-                ),
-                const CircularProgressIndicator(color: Colors.white),
-              ],
+              ),
             ),
-          ),
+            Text(
+              'Loading...',
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold),
+            ),
+            const CircularProgressIndicator(color: Colors.white),
+          ],
         ),
       ),
     );
