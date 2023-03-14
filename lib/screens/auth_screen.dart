@@ -71,22 +71,33 @@ class _LoginTitle extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        SizedBox(
-          width: 40,
-          height: 40,
-          child: Image.asset(
-            Globals.assetImgBackground,
-            fit: BoxFit.cover,
-          ),
-        ),
-        const SizedBox(width: 10),
-        Text(
-          'Statistics',
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              letterSpacing: 3),
+        Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            Image.asset(
+              height: 80,
+              width: 80,
+              Globals.assetImgBackground,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              width: 160,
+              height: 30,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.purple.withOpacity(0.0), Colors.purple.withOpacity(0.5)],
+                ),
+              ),
+            ),
+            Text(
+              'Statistics',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  letterSpacing: 3),
+            ),
+          ],
         ),
       ],
     );
