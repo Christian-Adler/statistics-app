@@ -71,6 +71,15 @@ class _LoginTitle extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
+        SizedBox(
+          width: 40,
+          height: 40,
+          child: Image.asset(
+            Globals.assetImgBackground,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(width: 10),
         Text(
           'Statistics',
           style: TextStyle(

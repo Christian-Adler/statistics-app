@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Statistics',
           theme: ThemeData(
             primaryColor: Colors.purple,
