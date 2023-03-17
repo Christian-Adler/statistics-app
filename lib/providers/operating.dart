@@ -6,7 +6,7 @@ import '../utils/http_utils.dart';
 import 'auth.dart';
 
 class Operating with ChangeNotifier {
-  final Auth? auth;
+  final Auth? _auth;
   final List<OperatingChartItem> _operatingItems;
   final List<OperatingChartItem> _operatingItemsYearly;
 
@@ -17,7 +17,7 @@ class Operating with ChangeNotifier {
   static double chargePerMonthHeating = 1;
   static double chargePerValueHeating = 1;
 
-  Operating(this.auth, this._operatingItems, this._operatingItemsYearly);
+  Operating(this._auth, this._operatingItems, this._operatingItemsYearly);
 
   Future<void> fetchDataIfNotYetLoaded() async {
     if (_operatingItems.isEmpty) {
@@ -32,9 +32,9 @@ class Operating with ChangeNotifier {
   }
 
   Future<void> sendAndFetchData_(Map<String, String>? params) async {
-    if (auth == null) return;
+    if (_auth == null) return;
 
-    final result = await HttpUtils.sendRequest('haus_nebenkosten', params, auth!);
+    final result = await HttpUtils.sendRequest('haus_nebenkosten', params, _auth!);
 
     // Monatswerte
     var charges = result['charge'] as Map<String, dynamic>;

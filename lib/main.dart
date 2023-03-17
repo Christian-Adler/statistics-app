@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/providers/car.dart';
+import 'package:statistics/screens/car/car_add_value_screen.dart';
+import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import 'providers/auth.dart';
@@ -34,10 +37,14 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Operating>(
           create: (ctx) => Operating(null, [], []),
-          update: (ctx, auth, previous) =>
-              Operating(auth, [], []), // Wenn auth sich aendert, dann Operating zurueck setzen
+          update: (ctx, auth, previous) => Operating(auth, [], []),
+          // Wenn auth sich aendert, dann Operating zurueck setzen
           // Operating(auth, previous == null ? [] : previous.operatingItems,
           // previous == null ? [] : previous.operatingItemsYearly),
+        ),
+        ChangeNotifierProxyProvider<Auth, Car>(
+          create: (ctx) => Car(null, []),
+          update: (ctx, auth, previous) => Car(auth, []),
         ),
       ],
       child: Consumer<Auth>(
@@ -72,6 +79,9 @@ class MyApp extends StatelessWidget {
             OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),
             SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
             SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
+            //
+            CarScreen.routeName: (context) => const CarScreen(),
+            CarAddValueScreen.routeName: (context) => const CarAddValueScreen(),
             //
             SettingsScreen.routeName: (context) => const SettingsScreen(),
           },

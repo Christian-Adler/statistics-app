@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/operating/operating_add_value_screen.dart';
-import '../../screens/operating/operating_screen.dart';
-import '../../screens/operating/solar_power_add_value_screen.dart';
-import '../../screens/operating/solar_power_screen.dart';
-import '../expandable/expandable_fab.dart';
+import '../screens/car/car_add_value_screen.dart';
+import '../screens/car/car_screen.dart';
+import '../screens/operating/operating_add_value_screen.dart';
+import '../screens/operating/operating_screen.dart';
+import '../screens/operating/solar_power_add_value_screen.dart';
+import '../screens/operating/solar_power_screen.dart';
+import 'expandable/expandable_fab.dart';
 
-class OperatingFloatingButton extends StatelessWidget {
-  const OperatingFloatingButton({Key? key}) : super(key: key);
+class AddValueFloatingButton extends StatelessWidget {
+  const AddValueFloatingButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,13 @@ class OperatingFloatingButton extends StatelessWidget {
             navigator.pushReplacementNamed(OperatingScreen.routeName);
           }
           navigator.pushNamed(OperatingAddValueScreen.routeName);
-        }, autoClose: false),
+        }),
+        ActionButtonData(Icons.directions_car_outlined, () {
+          if (CarScreen.routeName != ModalRoute.of(context)?.settings.name) {
+            navigator.pushReplacementNamed(CarScreen.routeName);
+          }
+          navigator.pushNamed(CarAddValueScreen.routeName);
+        }),
       ],
     );
   }

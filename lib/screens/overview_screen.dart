@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/animation/fade_in.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/screens/car/car_screen.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';
+import '../widgets/add_value_floating_button.dart';
 import '../widgets/app_drawer.dart';
-import '../widgets/operating/operating_floating_button.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'operating/operating_screen.dart';
 import 'operating/solar_power_screen.dart';
@@ -65,7 +66,7 @@ class OverviewScreen extends StatelessWidget {
           const _Footer(),
         ],
       ),
-      floatingActionButton: const OperatingFloatingButton(),
+      floatingActionButton: const AddValueFloatingButton(),
     );
   }
 }
@@ -105,6 +106,8 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
       const _LargeNavigationButton(OperatingScreen.routeName, 'Nebenkosten', Icons.power_input_outlined),
       const SizedBox(height: 20, width: 20),
       const _LargeNavigationButton(SolarPowerScreen.routeName, 'Solar Strom', Icons.solar_power_outlined),
+      const SizedBox(height: 20, width: 20),
+      const _LargeNavigationButton(CarScreen.routeName, 'Tanken', Icons.directions_car_outlined),
     ];
   }
 

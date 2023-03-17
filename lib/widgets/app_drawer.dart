@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/car/car_screen.dart';
 import '../screens/operating/operating_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../screens/overview_screen.dart';
@@ -93,6 +94,16 @@ class AppDrawer extends StatelessWidget {
                     leading: const Icon(Icons.solar_power_outlined),
                     onTap: () {
                       Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
+                    },
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  ListTile(
+                    title: const Text('Tanken'),
+                    leading: const Icon(Icons.directions_car_outlined),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
                     },
                   ),
                   const _GradientDivider(),
