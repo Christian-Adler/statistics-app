@@ -80,6 +80,9 @@ class _CarState extends State<_Car> {
           );
         } else {
           return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: const [
+            SizedBox(height: 5),
+            _CarRefuelTableHead(),
+            _TableHeadSeparator(),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
@@ -93,13 +96,90 @@ class _CarState extends State<_Car> {
   }
 }
 
+class _CarRefuelTableHead extends StatelessWidget {
+  const _CarRefuelTableHead();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        _TableHeadline('Datum', 75, textAlign: TextAlign.start),
+        _TableHeadline('km', 50),
+        _TableHeadline('l', 25),
+        _TableHeadline('€/l', 40),
+        _TableHeadline('€', 50),
+        _TableHeadline('l/100km', 70, textAlign: TextAlign.end),
+      ],
+    );
+  }
+}
+
+class _TableHeadline extends StatelessWidget {
+  final double width;
+  final String title;
+  final TextAlign textAlign;
+
+  const _TableHeadline(
+    this.title,
+    this.width, {
+    this.textAlign = TextAlign.center,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      child: Text(title, textAlign: textAlign, style: Theme.of(context).textTheme.titleSmall),
+    );
+  }
+}
+
+class _TableHeadSeparator extends StatelessWidget {
+  const _TableHeadSeparator();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 5,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 4),
+            height: 1,
+            width: 310, //240+70
+            color: Colors.grey.shade400,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _CarRefuelTable extends StatelessWidget {
   const _CarRefuelTable();
 
   @override
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context, index) => SizedBox(
+        height: 1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 1,
+              width: 240,
+              color: Colors.grey.shade200,
+            ),
+            Container(
+              width: 70,
+            ),
+          ],
+        ),
+      ),
       itemBuilder: (ctx, index) => _CarRefuelTableItem(
           carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
       itemCount: carRefuelItems.length,
@@ -128,50 +208,69 @@ class _CarRefuelTableItem extends StatelessWidget {
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: 75,
-          color: Colors.redAccent,
           child: Text(_carRefuelItem.date),
         ),
-        Container(
+        SizedBox(
           width: 50,
-          color: Colors.orange,
           child: Text(
             _carRefuelItem.km.toString(),
             textAlign: TextAlign.end,
           ),
         ),
-        Container(
+        SizedBox(
           width: 25,
-          color: Colors.blueAccent,
           child: Text(
             _carRefuelItem.liter.toString(),
             textAlign: TextAlign.end,
           ),
         ),
-        Container(
+        SizedBox(
           width: 40,
-          color: Colors.deepPurple,
           child: Text(
-            (_carRefuelItem.centPerliter / 100).toString(),
+            (_carRefuelItem.centPerliter / 100).toStringAsFixed(2),
             textAlign: TextAlign.end,
           ),
         ),
-        Container(
+        SizedBox(
           width: 50,
-          color: Colors.cyanAccent,
           child: Text(
             priceInEuro,
             textAlign: TextAlign.end,
           ),
         ),
-        Container(
-          width: 50,
-          color: colorLiterPer100km,
-          child: Text(
-            litersPer100km,
-            textAlign: TextAlign.end,
+        SizedBox(
+          width: 70,
+          height: 30,
+          // color: colorLiterPer100km,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              if (_prevCarRefuelItem != null)
+                Positioned(
+                  top: 19,
+                  height: 22,
+                  width: 5,
+                  right: 0,
+                  child: Container(
+                    color: colorLiterPer100km,
+                  ),
+                ),
+              if (_prevCarRefuelItem != null)
+                Positioned(
+                  top: 21,
+                  height: 15,
+                  width: 50,
+                  right: 15,
+                  child: Text(
+                    litersPer100km,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+            ],
           ),
         ),
       ],

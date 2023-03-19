@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
             ),
             textTheme: Theme.of(context).textTheme.copyWith(
                   titleLarge: TextStyle(color: Colors.purple.shade900),
+                  titleSmall: TextStyle(color: Colors.purple.shade900),
                 ),
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
           ),
