@@ -55,7 +55,10 @@ class OverviewScreen extends StatelessWidget {
                         height: 1,
                       ),
                       const SizedBox(height: 20),
-                      _NavigationButtons(),
+                      FadeIn(
+                        durationMS: 1000,
+                        child: _NavigationButtons(),
+                      ),
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -77,6 +80,7 @@ class _Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeIn(
+      durationMS: 1500,
       child: CircleAvatar(
         backgroundColor: Colors.black12,
         radius: 50,
