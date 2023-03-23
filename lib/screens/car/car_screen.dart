@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:provider/provider.dart';
@@ -203,7 +205,7 @@ class _CarRefuelTableItem extends StatelessWidget {
       // Annahme: immer voll getankt. Daher haben wir seit dem letzten Tanken genau die Tankmenge verbraucht.
       final lPer100km = (_carRefuelItem.liter / kmDistance * 100);
       litersPer100km = lPer100km < 4 ? '---' : lPer100km.toStringAsFixed(2);
-      final hue = (lPer100km - 6) * 30;
+      final double hue = min(90, max(-90, (lPer100km - 6) * 30));
       colorLiterPer100km = ColorUtils.hue(colorLiterPer100km, -hue);
     }
 

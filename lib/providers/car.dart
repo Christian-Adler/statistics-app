@@ -61,13 +61,13 @@ class Car with ChangeNotifier {
     return res;
   }
 
-  Future<void> addCarRefuelEntry(double liter, int centPerLiter, int km) async {
+  Future<void> addCarRefuelEntry(double liter, double centPerLiter, double km) async {
     final insertDate = DateTime.now();
     Map<String, String> params = {
       'inputAutoDate': '${insertDate.year}-${_num2Two(insertDate.month)}-${_num2Two(insertDate.day)}',
-      'inputLiter': liter.toString(),
-      'inputCent': centPerLiter.toString(),
-      'inputKm': km.toString(),
+      'inputLiter': liter.toInt().toString(),
+      'inputCent': centPerLiter.toInt().toString(),
+      'inputKm': km.toInt().toString(),
     };
     await sendAndFetchData_(params);
     notifyListeners();
