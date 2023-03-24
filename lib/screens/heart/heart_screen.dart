@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/heart/blood_pressure_item.dart';
 
@@ -161,22 +162,33 @@ class _BloodPressureTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
-    return ListView.separated(
-      separatorBuilder: (context, index) => SizedBox(
-        height: 1,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 1,
-              width: 320,
-              color: Colors.grey.shade200,
-            ),
-          ],
+    return AnimationLimiter(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(
+          height: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1,
+                width: 320,
+                color: Colors.grey.shade200,
+              ),
+            ],
+          ),
         ),
+        itemBuilder: (ctx, index) => AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(
+              child: _BloodPressureTableItem(bloodPressureItems[index]),
+            ),
+          ),
+        ),
+        itemCount: bloodPressureItems.length,
       ),
-      itemBuilder: (ctx, index) => _BloodPressureTableItem(bloodPressureItems[index]),
-      itemCount: bloodPressureItems.length,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../screens/car/car_screen.dart';
 import '../screens/heart/heart_screen.dart';
@@ -69,71 +70,85 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               SingleChildScrollView(
-                child: Column(children: [
-                  ListTile(
-                    title: const Text('Overview'),
-                    leading: const Icon(Icons.home_outlined),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
-                    },
+                child: AnimationLimiter(
+                  child: Column(
+                    children: AnimationConfiguration.toStaggeredList(
+                      // delay: const Duration(milliseconds: 10),
+                      duration: const Duration(milliseconds: 175),
+                      childAnimationBuilder: (widget) => SlideAnimation(
+                        verticalOffset: 50,
+                        child: FadeInAnimation(
+                          child: widget,
+                        ),
+                      ),
+                      children: [
+                        ListTile(
+                          title: const Text('Overview'),
+                          leading: const Icon(Icons.home_outlined),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
+                          },
+                        ),
+                        const Divider(
+                          height: 1,
+                        ),
+                        ListTile(
+                          title: const Text('Betriebskosten'),
+                          leading: const Icon(Icons.power_input_outlined),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
+                          },
+                        ),
+                        const Divider(
+                          height: 1,
+                        ),
+                        ListTile(
+                          title: const Text('Solar Strom'),
+                          leading: const Icon(Icons.solar_power_outlined),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
+                          },
+                        ),
+                        const Divider(
+                          height: 1,
+                        ),
+                        ListTile(
+                          title: const Text('Tanken'),
+                          leading: const Icon(Icons.directions_car_outlined),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
+                          },
+                        ),
+                        const Divider(
+                          height: 1,
+                        ),
+                        ListTile(
+                          title: const Text('Blutdruck'),
+                          leading: const Icon(Icons.monitor_heart_outlined),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(HeartScreen.routeName);
+                          },
+                        ),
+                        const _GradientDivider(),
+                        ListTile(
+                          title: const Text('Settings'),
+                          leading: const Icon(Icons.settings),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
+                          },
+                        ),
+                        const _GradientDivider(),
+                        ListTile(
+                          title: const Text('Logout'),
+                          leading: const Icon(Icons.exit_to_app),
+                          onTap: () {
+                            Globals.logout(context);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  const Divider(
-                    height: 1,
-                  ),
-                  ListTile(
-                    title: const Text('Betriebskosten'),
-                    leading: const Icon(Icons.power_input_outlined),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
-                    },
-                  ),
-                  const Divider(
-                    height: 1,
-                  ),
-                  ListTile(
-                    title: const Text('Solar Strom'),
-                    leading: const Icon(Icons.solar_power_outlined),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
-                    },
-                  ),
-                  const Divider(
-                    height: 1,
-                  ),
-                  ListTile(
-                    title: const Text('Tanken'),
-                    leading: const Icon(Icons.directions_car_outlined),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
-                    },
-                  ),
-                  const Divider(
-                    height: 1,
-                  ),
-                  ListTile(
-                    title: const Text('Blutdruck'),
-                    leading: const Icon(Icons.monitor_heart_outlined),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(HeartScreen.routeName);
-                    },
-                  ),
-                  const _GradientDivider(),
-                  ListTile(
-                    title: const Text('Settings'),
-                    leading: const Icon(Icons.settings),
-                    onTap: () {
-                      Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
-                    },
-                  ),
-                  const _GradientDivider(),
-                  ListTile(
-                    title: const Text('Logout'),
-                    leading: const Icon(Icons.exit_to_app),
-                    onTap: () {
-                      Globals.logout(context);
-                    },
-                  ),
-                ]),
+                ),
               ),
             ],
           ),

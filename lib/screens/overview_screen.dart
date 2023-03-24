@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/animation/fade_in.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/heart/heart_screen.dart';
@@ -56,10 +57,7 @@ class OverviewScreen extends StatelessWidget {
                         height: 1,
                       ),
                       const SizedBox(height: 20),
-                      FadeIn(
-                        durationMS: 1000,
-                        child: _NavigationButtons(),
-                      ),
+                      _NavigationButtons(),
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -122,15 +120,30 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
   Widget build(BuildContext context) {
     final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
+    var staggeredList = AnimationConfiguration.toStaggeredList(
+      duration: const Duration(milliseconds: 375),
+      delay: const Duration(milliseconds: 100),
+      childAnimationBuilder: (widget) => SlideAnimation(
+        horizontalOffset: isLandscape ? 250 : 0,
+        verticalOffset: isLandscape ? 0 : 50,
+        child: FadeInAnimation(
+          child: widget,
+        ),
+      ),
+      children: [..._buildNavigationButtons()],
+    );
+
     if (!isLandscape) {
-      return Column(
-        children: [..._buildNavigationButtons()],
+      return AnimationLimiter(
+        child: Column(
+          children: staggeredList,
+        ),
       );
     } else {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: [..._buildNavigationButtons()],
+          children: staggeredList,
         ),
       );
     }
