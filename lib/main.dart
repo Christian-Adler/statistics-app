@@ -8,8 +8,11 @@ import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import 'providers/auth.dart';
+import 'providers/heart.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
+import 'screens/heart/heart_add_value_screen.dart';
+import 'screens/heart/heart_screen.dart';
 import 'screens/operating/operating_screen.dart';
 import 'screens/operating/solar_power_add_value_screen.dart';
 import 'screens/operating/solar_power_screen.dart';
@@ -45,48 +48,59 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Car>(
           create: (ctx) => Car(null, []),
           update: (ctx, auth, previous) => Car(auth, []),
+        ), ChangeNotifierProxyProvider<Auth, Heart>(
+          create: (ctx) => Heart(null, []),
+          update: (ctx, auth, previous) => Heart(auth, []),
         ),
       ],
       child: Consumer<Auth>(
-        builder: (ctx, auth, _) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Statistics',
-          theme: ThemeData(
-            primaryColor: Colors.purple,
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
-              secondary: Colors.amber,
-              //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
-            ),
-            textTheme: Theme.of(context).textTheme.copyWith(
+        builder: (ctx, auth, _) =>
+            MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Statistics',
+              theme: ThemeData(
+                primaryColor: Colors.purple,
+                colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+                  secondary: Colors.amber,
+                  //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
+                ),
+                textTheme: Theme
+                    .of(context)
+                    .textTheme
+                    .copyWith(
                   titleLarge: TextStyle(color: Colors.purple.shade900),
                   titleSmall: TextStyle(color: Colors.purple.shade900),
                 ),
-            scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-          ),
-          home: auth.isAuth
-              ? const OverviewScreen()
-              : FutureBuilder(
-                  builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
-                      ? const SplashScreen()
-                      : const AuthScreen(),
-                  future: auth.tryAutoLogin(),
-                ),
-          routes: {
-            SplashScreen.routeName: (context) => const SplashScreen(),
-            //
-            OverviewScreen.routeName: (context) => const OverviewScreen(),
-            //
-            OperatingScreen.routeName: (context) => const OperatingScreen(),
-            OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),
-            SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
-            SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
-            //
-            CarScreen.routeName: (context) => const CarScreen(),
-            CarAddValueScreen.routeName: (context) => const CarAddValueScreen(),
-            //
-            SettingsScreen.routeName: (context) => const SettingsScreen(),
-          },
-        ),
+                scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
+              ),
+              home: auth.isAuth
+                  ? const OverviewScreen()
+                  : FutureBuilder(
+                builder: (ctx, authResultSnapshot) =>
+                authResultSnapshot.connectionState == ConnectionState.waiting
+                    ? const SplashScreen()
+                    : const AuthScreen(),
+                future: auth.tryAutoLogin(),
+              ),
+              routes: {
+                SplashScreen.routeName: (context) => const SplashScreen(),
+                //
+                OverviewScreen.routeName: (context) => const OverviewScreen(),
+                //
+                OperatingScreen.routeName: (context) => const OperatingScreen(),
+                OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),
+                SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
+                SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
+                //
+                CarScreen.routeName: (context) => const CarScreen(),
+                CarAddValueScreen.routeName: (context) => const CarAddValueScreen(),
+                //
+                HeartScreen.routeName: (context) => const HeartScreen(),
+                HeartAddValueScreen.routeName: (context) => const HeartAddValueScreen(),
+                //
+                SettingsScreen.routeName: (context) => const SettingsScreen(),
+              },
+            ),
       ),
     );
   }

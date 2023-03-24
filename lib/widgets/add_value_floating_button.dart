@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../screens/car/car_add_value_screen.dart';
 import '../screens/car/car_screen.dart';
+import '../screens/heart/heart_add_value_screen.dart';
+import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_add_value_screen.dart';
 import '../screens/operating/operating_screen.dart';
 import '../screens/operating/solar_power_add_value_screen.dart';
@@ -16,8 +18,8 @@ class AddValueFloatingButton extends StatelessWidget {
     var navigator = Navigator.of(context);
     return ExpandableFab(
       distance: 100.0,
-      maxAngle: 70,
-      startAngle: 10,
+      maxAngle: 110,
+      startAngle: -10,
       actions: [
         ActionButtonData(Icons.solar_power_outlined, () {
           if (SolarPowerScreen.routeName != ModalRoute.of(context)?.settings.name) {
@@ -36,6 +38,12 @@ class AddValueFloatingButton extends StatelessWidget {
             navigator.pushReplacementNamed(CarScreen.routeName);
           }
           navigator.pushNamed(CarAddValueScreen.routeName);
+        }),
+        ActionButtonData(Icons.monitor_heart_outlined, () {
+          if (HeartScreen.routeName != ModalRoute.of(context)?.settings.name) {
+            navigator.pushReplacementNamed(HeartScreen.routeName);
+          }
+          navigator.pushNamed(HeartAddValueScreen.routeName);
         }),
       ],
     );

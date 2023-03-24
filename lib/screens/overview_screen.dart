@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/animation/fade_in.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/screens/car/car_screen.dart';
+import 'package:statistics/screens/heart/heart_screen.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';
@@ -112,6 +113,8 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
       const _LargeNavigationButton(SolarPowerScreen.routeName, 'Solar Strom', Icons.solar_power_outlined),
       const SizedBox(height: 20, width: 20),
       const _LargeNavigationButton(CarScreen.routeName, 'Tanken', Icons.directions_car_outlined),
+      const SizedBox(height: 20, width: 20),
+      const _LargeNavigationButton(HeartScreen.routeName, 'Blutdruck', Icons.monitor_heart_outlined),
     ];
   }
 

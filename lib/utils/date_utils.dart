@@ -25,4 +25,13 @@ class DateUtil {
     final thisOrLastMonth = now.day > 15 ? now : DateTime(now.year, now.month, -1);
     return thisOrLastMonth;
   }
+
+  /// Prefix num with 0 if < 10
+  static String num2Two(int num) {
+    String res = num.toString();
+    if (res.length < 2) {
+      res = '0$res';
+    }
+    return res;
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/car/car_screen.dart';
+import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../screens/overview_screen.dart';
@@ -104,6 +105,16 @@ class AppDrawer extends StatelessWidget {
                     leading: const Icon(Icons.directions_car_outlined),
                     onTap: () {
                       Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
+                    },
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  ListTile(
+                    title: const Text('Blutdruck'),
+                    leading: const Icon(Icons.monitor_heart_outlined),
+                    onTap: () {
+                      Navigator.of(context).pushReplacementNamed(HeartScreen.routeName);
                     },
                   ),
                   const _GradientDivider(),

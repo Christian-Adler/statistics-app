@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:statistics/models/car/car_refuel_item.dart';
+import 'package:statistics/utils/date_utils.dart';
 
 import '../utils/http_utils.dart';
 import 'auth.dart';
@@ -53,18 +54,10 @@ class Car with ChangeNotifier {
     return [..._carRefuelItems];
   }
 
-  String _num2Two(int num) {
-    String res = num.toString();
-    if (res.length < 2) {
-      res = '0$res';
-    }
-    return res;
-  }
-
   Future<void> addCarRefuelEntry(double liter, double centPerLiter, double km) async {
     final insertDate = DateTime.now();
     Map<String, String> params = {
-      'inputAutoDate': '${insertDate.year}-${_num2Two(insertDate.month)}-${_num2Two(insertDate.day)}',
+      'inputAutoDate': '${insertDate.year}-${DateUtil.num2Two(insertDate.month)}-${DateUtil.num2Two(insertDate.day)}',
       'inputLiter': liter.toInt().toString(),
       'inputCent': centPerLiter.toInt().toString(),
       'inputKm': km.toInt().toString(),

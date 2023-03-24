@@ -3,24 +3,23 @@ import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/car.dart';
+import '../../providers/heart.dart';
 import '../../widgets/statistics_app_bar.dart';
 
-class CarAddValueScreen extends StatefulWidget {
-  static const String routeName = '/car_add_value';
+class HeartAddValueScreen extends StatefulWidget {
+  static const String routeName = '/heart_add_value';
 
-  const CarAddValueScreen({Key? key}) : super(key: key);
+  const HeartAddValueScreen({Key? key}) : super(key: key);
 
   @override
-  State<CarAddValueScreen> createState() => _CarAddValueScreenState();
+  State<HeartAddValueScreen> createState() => _HeartAddValueScreenState();
 }
 
-class _CarAddValueScreenState extends State<CarAddValueScreen> {
+class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
   final _form = GlobalKey<FormState>();
   var _isLoading = false;
-  double _liter = 0.0;
-  double _centPerLiter = 0.0;
-  double _km = 0.0;
+  int _high = 0;
+  int _low = 0;
 
   void _showSuccessMessage() {
     Dialogs.showSnackBar('gespeichert...', context);
@@ -34,9 +33,9 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
       _isLoading = true;
     });
 
-    var power = Provider.of<Car>(context, listen: false);
+    var power = Provider.of<Heart>(context, listen: false);
     try {
-      await power.addCarRefuelEntry(_liter, _centPerLiter, _km);
+      await power.addBloodPressureEntry(_high, _low);
       _showSuccessMessage();
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
@@ -50,11 +49,11 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final insertDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
+    final insertDate = DateFormat('dd MMMM yyyy - HH:mm:ss').format(DateTime.now());
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Tanken eintragen'),
+        const Text('Blutdruck eintragen'),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),
@@ -75,40 +74,28 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
                       ),
                       TextFormField(
                         autofocus: true,
-                        decoration: const InputDecoration(labelText: 'Liter (gerundet)'),
+                        decoration: const InputDecoration(labelText: 'systolisch (oberer)'),
                         textInputAction: TextInputAction.next,
                         keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
                         validator: (value) {
                           if (value == null || value.isEmpty) return 'Please enter a value';
-                          var val = double.tryParse(value);
+                          var val = int.tryParse(value);
                           if (val == null || val <= 0) return 'Please provide a valid number > 0';
                           return null;
                         },
-                        onSaved: (value) => _liter = double.parse(value!),
+                        onSaved: (value) => _high = int.parse(value!),
                       ),
                       TextFormField(
-                        decoration: const InputDecoration(labelText: 'ct/l (1,199€ = 120ct/l)'),
-                        textInputAction: TextInputAction.next,
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter a value';
-                          var val = double.tryParse(value);
-                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
-                          return null;
-                        },
-                        onSaved: (value) => _centPerLiter = double.parse(value!),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'km-Stand'),
+                        decoration: const InputDecoration(labelText: 'diastolisch (unterer)'),
                         textInputAction: TextInputAction.done,
                         keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
                         validator: (value) {
                           if (value == null || value.isEmpty) return 'Please enter a value';
-                          var val = double.tryParse(value);
+                          var val = int.tryParse(value);
                           if (val == null || val <= 0) return 'Please provide a valid number > 0';
                           return null;
                         },
-                        onSaved: (value) => _km = double.parse(value!),
+                        onSaved: (value) => _low = int.parse(value!),
                       ),
                     ],
                   ),
