@@ -113,7 +113,6 @@ class _BloodPressureTableHead extends StatelessWidget {
   }
 }
 
-// TODO in TableUtils auslagern
 class _TableHeadline extends StatelessWidget {
   final double width;
   final String title;
