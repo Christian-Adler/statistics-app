@@ -1,5 +1,9 @@
 # statistics-app
 
+### Create Launcher Icons
+
+- run `flutter pub run flutter_launcher_icons`
+
 ### Build apk
 
 - Increase version in pubspec.yaml
