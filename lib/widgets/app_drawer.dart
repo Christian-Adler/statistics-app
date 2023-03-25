@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:statistics/widgets/app_bar_logo.dart';
 
 import '../screens/car/car_screen.dart';
 import '../screens/heart/heart_screen.dart';
@@ -19,25 +20,10 @@ class AppDrawer extends StatelessWidget {
       child: Column(children: [
         StatisticsAppBar(
           Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.black26,
-                radius: 30,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      Globals.assetImgLogo,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text('Statistics'),
+            children: const [
+              AppBarLogo(),
+              SizedBox(width: 10),
+              Text('Statistics'),
             ],
           ),
           context,
