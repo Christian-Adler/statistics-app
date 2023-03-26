@@ -3,7 +3,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/heart/heart_screen.dart';
-import 'package:statistics/utils/style_utils.dart';
 import 'package:statistics/widgets/app_bar_logo.dart';
 
 import '../providers/auth.dart';
@@ -16,6 +15,8 @@ import 'operating/solar_power_screen.dart';
 
 class OverviewScreen extends StatelessWidget {
   static const String routeName = '/overview';
+  static const String title = 'Übersicht';
+  static const IconData iconData = Icons.home_outlined;
 
   const OverviewScreen({Key? key}) : super(key: key);
 
@@ -26,7 +27,7 @@ class OverviewScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
-            Text('Statistics'),
+            Text(OverviewScreen.title),
             AppBarLogo(),
           ],
         ),
@@ -54,89 +55,7 @@ class OverviewScreen extends StatelessWidget {
                   ),
                 ),
                 SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _RoundedBtn(
-                            title: 'Nebenk.',
-                            iconData: Icons.power_input_outlined,
-                            edgeColors: const LinearGradient(
-                                colors: [Color.fromRGBO(4, 159, 231, 1), Color.fromRGBO(0, 112, 183, 1)],
-                                begin: AlignmentDirectional.topStart,
-                                end: AlignmentDirectional.bottomEnd),
-                            borderRadius: StyleUtils.buildBorderRadius(70, 20, 20, 70),
-                            onTab: () {
-                              Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                            width: 20,
-                          ),
-                          _RoundedBtn(
-                            title: 'Solar',
-                            iconData: Icons.solar_power_outlined,
-                            edgeColors: const LinearGradient(
-                                colors: [Color.fromRGBO(4, 159, 75, 1), Color.fromRGBO(195, 225, 36, 1)],
-                                begin: AlignmentDirectional.bottomStart,
-                                end: AlignmentDirectional.topEnd),
-                            borderRadius: StyleUtils.buildBorderRadius(20, 70, 70, 20),
-                            onTab: () {
-                              Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                        width: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _RoundedBtn(
-                            title: 'Tanken',
-                            iconData: Icons.directions_car_outlined,
-                            edgeColors: const LinearGradient(
-                                colors: [Color.fromRGBO(255, 207, 33, 1), Color.fromRGBO(250, 67, 60, 1)],
-                                begin: AlignmentDirectional.bottomStart,
-                                end: AlignmentDirectional.topEnd),
-                            borderRadius: StyleUtils.buildBorderRadius(20, 70, 70, 20),
-                            onTab: () {
-                              Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                            width: 20,
-                          ),
-                          _RoundedBtn(
-                            title: 'Blutdruck',
-                            iconData: Icons.monitor_heart_outlined,
-                            edgeColors: const LinearGradient(
-                                colors: [Color.fromRGBO(181, 35, 150, 1), Color.fromRGBO(239, 88, 121, 1)],
-                                begin: AlignmentDirectional.topStart,
-                                end: AlignmentDirectional.bottomEnd),
-                            borderRadius: StyleUtils.buildBorderRadius(70, 20, 20, 70),
-                            onTab: () {
-                              Navigator.of(context).pushReplacementNamed(HeartScreen.routeName);
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      const Divider(
-                        height: 1,
-                      ),
-                      const SizedBox(height: 20),
-                      _NavigationButtons(),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                  child: Center(child: _NavigationButtons()),
                 ),
               ],
             ),
@@ -149,79 +68,6 @@ class OverviewScreen extends StatelessWidget {
   }
 }
 
-class _RoundedBtn extends StatelessWidget {
-  final String title;
-  final IconData iconData;
-  final Gradient edgeColors;
-  final BorderRadius borderRadius;
-  final VoidCallback onTab;
-
-  const _RoundedBtn({
-    required this.edgeColors,
-    required this.borderRadius,
-    required this.onTab,
-    required this.title,
-    required this.iconData,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 120,
-      child: Stack(
-        children: [
-          Positioned(
-            right: 5,
-            top: 5,
-            width: 110,
-            height: 110,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: edgeColors,
-                borderRadius: const BorderRadius.all(Radius.circular(40)),
-                // border: Border.all(width: 1, color: Colors.grey.shade300),
-                boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 5)],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            width: 120,
-            height: 120,
-            child: Material(
-              borderRadius: borderRadius,
-              elevation: 4,
-              color: Colors.white,
-              child: InkWell(
-                splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                highlightColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                borderRadius: borderRadius,
-                onTap: onTab,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      iconData,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 60,
-                      shadows: const [Shadow(color: Colors.black26, blurRadius: 10)],
-                    ),
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _NavigationButtons extends StatefulWidget {
   @override
   State<_NavigationButtons> createState() => _NavigationButtonsState();
@@ -230,13 +76,35 @@ class _NavigationButtons extends StatefulWidget {
 class _NavigationButtonsState extends State<_NavigationButtons> {
   List<Widget> _buildNavigationButtons() {
     return [
-      const _LargeNavigationButton(OperatingScreen.routeName, 'Nebenkosten', Icons.power_input_outlined),
-      const SizedBox(height: 20, width: 20),
-      const _LargeNavigationButton(SolarPowerScreen.routeName, 'Solar Strom', Icons.solar_power_outlined),
-      const SizedBox(height: 20, width: 20),
-      const _LargeNavigationButton(CarScreen.routeName, 'Tanken', Icons.directions_car_outlined),
-      const SizedBox(height: 20, width: 20),
-      const _LargeNavigationButton(HeartScreen.routeName, 'Blutdruck', Icons.monitor_heart_outlined),
+      const SizedBox(height: 30, width: 20),
+      const _RoundedBtn(
+        title: OperatingScreen.title,
+        iconData: OperatingScreen.iconData,
+        routeName: OperatingScreen.routeName,
+        edgeColors: [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
+      ),
+      const SizedBox(height: 30, width: 20),
+      const _RoundedBtn(
+        title: SolarPowerScreen.title,
+        iconData: SolarPowerScreen.iconData,
+        routeName: SolarPowerScreen.routeName,
+        edgeColors: [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
+      ),
+      const SizedBox(height: 30, width: 20),
+      const _RoundedBtn(
+        title: CarScreen.title,
+        iconData: CarScreen.iconData,
+        routeName: CarScreen.routeName,
+        edgeColors: [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
+      ),
+      const SizedBox(height: 30, width: 20),
+      const _RoundedBtn(
+        title: HeartScreen.title,
+        iconData: HeartScreen.iconData,
+        routeName: HeartScreen.routeName,
+        edgeColors: [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
+      ),
+      const SizedBox(height: 30, width: 20),
     ];
   }
 
@@ -264,13 +132,72 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
         ),
       );
     } else {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: staggeredList,
-        ),
+      return Column(
+        children: [
+          const SizedBox(height: 30, width: 20),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: AnimationLimiter(
+              child: Row(
+                children: staggeredList,
+              ),
+            ),
+          ),
+        ],
       );
     }
+  }
+}
+
+class _RoundedBtn extends StatelessWidget {
+  final String title;
+  final IconData iconData;
+  final List<Color> edgeColors;
+  final String routeName;
+
+  const _RoundedBtn({
+    required this.edgeColors,
+    required this.routeName,
+    required this.title,
+    required this.iconData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 220,
+      height: 100,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            right: 0,
+            width: 200,
+            height: 15,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: edgeColors, begin: AlignmentDirectional.topStart, end: AlignmentDirectional.bottomEnd),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    topRight: Radius.circular(5),
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(2)),
+                // border: Border.all(width: 1, color: Colors.grey.shade300),
+                // boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 5)],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 2,
+            right: 2,
+            width: 218,
+            height: 98,
+            child: _LargeNavigationButton(routeName, title, iconData),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -289,7 +216,7 @@ class _LargeNavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       style: const ButtonStyle(
-        minimumSize: MaterialStatePropertyAll(Size(200, 100)),
+        // minimumSize: MaterialStatePropertyAll(Size(200, 100)),
         // elevation: MaterialStatePropertyAll(5),
         backgroundColor: MaterialStatePropertyAll(Colors.white70),
       ),

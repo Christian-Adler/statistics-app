@@ -14,6 +14,8 @@ import 'car_add_value_screen.dart';
 
 class CarScreen extends StatelessWidget {
   static const String routeName = '/car';
+  static const String title = 'Tanken';
+  static const IconData iconData = Icons.directions_car_outlined;
 
   const CarScreen({Key? key}) : super(key: key);
 
@@ -21,7 +23,7 @@ class CarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Tanken'),
+        const Text(CarScreen.title),
         context,
         actions: [
           IconButton(

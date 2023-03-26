@@ -11,6 +11,8 @@ import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
   static const String routeName = '/solar_power';
+  static const String title = 'Solar-Strom';
+  static const IconData iconData = Icons.solar_power_outlined;
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 
@@ -31,7 +33,7 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Solar Strom'),
+        const Text(SolarPowerScreen.title),
         context,
         actions: [
           IconButton(

@@ -69,8 +69,8 @@ class AppDrawer extends StatelessWidget {
                       ),
                       children: [
                         ListTile(
-                          title: const Text('Overview'),
-                          leading: const Icon(Icons.home_outlined),
+                          title: const Text(OverviewScreen.title),
+                          leading: const Icon(OverviewScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
                           },
@@ -79,8 +79,8 @@ class AppDrawer extends StatelessWidget {
                           height: 1,
                         ),
                         ListTile(
-                          title: const Text('Betriebskosten'),
-                          leading: const Icon(Icons.power_input_outlined),
+                          title: const Text(OperatingScreen.title),
+                          leading: const Icon(OperatingScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
                           },
@@ -89,8 +89,8 @@ class AppDrawer extends StatelessWidget {
                           height: 1,
                         ),
                         ListTile(
-                          title: const Text('Solar Strom'),
-                          leading: const Icon(Icons.solar_power_outlined),
+                          title: const Text(SolarPowerScreen.title),
+                          leading: const Icon(SolarPowerScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
                           },
@@ -99,8 +99,8 @@ class AppDrawer extends StatelessWidget {
                           height: 1,
                         ),
                         ListTile(
-                          title: const Text('Tanken'),
-                          leading: const Icon(Icons.directions_car_outlined),
+                          title: const Text(CarScreen.title),
+                          leading: const Icon(CarScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
                           },
@@ -109,16 +109,16 @@ class AppDrawer extends StatelessWidget {
                           height: 1,
                         ),
                         ListTile(
-                          title: const Text('Blutdruck'),
-                          leading: const Icon(Icons.monitor_heart_outlined),
+                          title: const Text(HeartScreen.title),
+                          leading: const Icon(HeartScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(HeartScreen.routeName);
                           },
                         ),
                         const _GradientDivider(),
                         ListTile(
-                          title: const Text('Settings'),
-                          leading: const Icon(Icons.settings),
+                          title: const Text(SettingsScreen.title),
+                          leading: const Icon(SettingsScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
                           },

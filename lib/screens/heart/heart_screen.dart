@@ -12,6 +12,8 @@ import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatelessWidget {
   static const String routeName = '/heart';
+  static const String title = 'Blutdruck';
+  static const IconData iconData = Icons.monitor_heart_outlined;
 
   const HeartScreen({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class HeartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Blutdruck'),
+        const Text(HeartScreen.title),
         context,
         actions: [
           IconButton(

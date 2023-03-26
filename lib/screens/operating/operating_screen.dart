@@ -10,6 +10,8 @@ import '../../widgets/statistics_app_bar.dart';
 
 class OperatingScreen extends StatefulWidget {
   static const String routeName = '/operating';
+  static const String title = 'Nebenkosten';
+  static const IconData iconData = Icons.power_input_outlined;
 
   const OperatingScreen({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _OperatingScreenState extends State<OperatingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Betriebskosten'),
+        const Text(OperatingScreen.title),
         context,
         actions: [
           IconButton(

@@ -21,25 +21,25 @@ class AddValueFloatingButton extends StatelessWidget {
       maxAngle: 110,
       startAngle: -10,
       actions: [
-        ActionButtonData(Icons.solar_power_outlined, () {
-          if (SolarPowerScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(SolarPowerScreen.routeName);
-          }
-          navigator.pushNamed(SolarPowerAddValueScreen.routeName);
-        }),
-        ActionButtonData(Icons.power_input_outlined, () {
+        ActionButtonData(OperatingScreen.iconData, () {
           if (OperatingScreen.routeName != ModalRoute.of(context)?.settings.name) {
             navigator.pushReplacementNamed(OperatingScreen.routeName);
           }
           navigator.pushNamed(OperatingAddValueScreen.routeName);
         }),
-        ActionButtonData(Icons.directions_car_outlined, () {
+        ActionButtonData(SolarPowerScreen.iconData, () {
+          if (SolarPowerScreen.routeName != ModalRoute.of(context)?.settings.name) {
+            navigator.pushReplacementNamed(SolarPowerScreen.routeName);
+          }
+          navigator.pushNamed(SolarPowerAddValueScreen.routeName);
+        }),
+        ActionButtonData(CarScreen.iconData, () {
           if (CarScreen.routeName != ModalRoute.of(context)?.settings.name) {
             navigator.pushReplacementNamed(CarScreen.routeName);
           }
           navigator.pushNamed(CarAddValueScreen.routeName);
         }),
-        ActionButtonData(Icons.monitor_heart_outlined, () {
+        ActionButtonData(HeartScreen.iconData, () {
           if (HeartScreen.routeName != ModalRoute.of(context)?.settings.name) {
             navigator.pushReplacementNamed(HeartScreen.routeName);
           }
