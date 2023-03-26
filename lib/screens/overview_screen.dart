@@ -193,7 +193,7 @@ class _RoundedBtn extends StatelessWidget {
             right: 2,
             width: 218,
             height: 98,
-            child: _LargeNavigationButton(routeName, title, iconData),
+            child: _LargeNavigationButton(routeName, title, iconData, edgeColors[0], edgeColors[1]),
           ),
         ],
       ),
@@ -205,11 +205,15 @@ class _LargeNavigationButton extends StatelessWidget {
   final String text;
   final String routeName;
   final IconData iconData;
+  final Color color;
+  final Color color2;
 
   const _LargeNavigationButton(
     this.routeName,
     this.text,
     this.iconData,
+    this.color,
+    this.color2,
   );
 
   @override
@@ -224,8 +228,9 @@ class _LargeNavigationButton extends StatelessWidget {
       icon: Icon(
         iconData,
         size: 44,
+        color: color2,
       ),
-      label: Text(text),
+      label: Text(text, style: TextStyle(color: color)),
     );
   }
 }
