@@ -37,7 +37,8 @@ class Heart with ChangeNotifier {
     for (var item in dataList) {
       final map = item as Map<String, dynamic>;
 
-      final timestamp = (map['timestamp'] as int);
+      final ts = map['timestamp'];
+      final timestamp = ts is int ? ts : (ts as double).toInt(); // echter Server liefert double!?
       final date = DateTime.fromMillisecondsSinceEpoch(timestamp, isUtc: false);
       final key = DateFormat('E, dd.MM.yyyy').format(date);
       if (!date2Item.containsKey(key)) keys.add(key);
