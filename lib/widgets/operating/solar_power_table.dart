@@ -13,10 +13,17 @@ class SolarPowerTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final powerData = Provider.of<Operating>(context);
+    final deviceSize = MediaQuery.of(context).size;
+
+    print(deviceSize.width);
 
     Widget buildValueTable() {
       List<TableRow> rows = [
-        TableUtils.tableHeadline('Datum', ['Erzeugt', 'Eingespeist', 'Verbraucht', 'Gesamt'])
+        TableUtils.tableHeadline(
+            'Datum',
+            deviceSize.width < 400
+                ? ['Erzeugt', 'Eingesp.', 'Verbr.', 'Gesamt']
+                : ['Erzeugt', 'Eingespeist', 'Verbrauch', 'Gesamt'])
       ];
 
       final operatingItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
