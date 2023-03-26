@@ -1,8 +1,8 @@
 class BloodPressureItem {
   final String date;
-  BloodPressureValue? morning;
-  BloodPressureValue? midday;
-  BloodPressureValue? evening;
+  List<BloodPressureValue> morning = [];
+  List<BloodPressureValue> midday = [];
+  List<BloodPressureValue> evening = [];
 
   BloodPressureItem(this.date);
 }

@@ -237,33 +237,39 @@ class _BloodPressureTableItem extends StatelessWidget {
 }
 
 class _BloodPressureValueRenderer extends StatelessWidget {
-  final BloodPressureValue? _bloodPressureValue;
+  final List<BloodPressureValue>? _bloodPressureValues;
+  final bestPossibleValueColor = const Color.fromRGBO(0, 255, 0, 0.6);
 
-  const _BloodPressureValueRenderer(this._bloodPressureValue);
+  const _BloodPressureValueRenderer(this._bloodPressureValues);
+
+  Color colorHigh(bloodPressureValue) {
+    return ColorUtils.hue(bestPossibleValueColor, (120.0 - bloodPressureValue.high) * 4);
+  }
+
+  Color colorLow(bloodPressureValue) {
+    return ColorUtils.hue(bestPossibleValueColor, (80.0 - bloodPressureValue.low) * 4.5);
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (_bloodPressureValue == null) return Container();
-
-    var bestPossibleValueColor = const Color.fromRGBO(0, 255, 0, 0.6);
-    final colorHigh = ColorUtils.hue(bestPossibleValueColor, (120.0 - _bloodPressureValue!.high) * 4);
-    final colorLow = ColorUtils.hue(bestPossibleValueColor, (80.0 - _bloodPressureValue!.low) * 4.5);
+    if (_bloodPressureValues == null || _bloodPressureValues!.isEmpty) return Container();
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Theme.of(context).scaffoldBackgroundColor),
-            gradient: LinearGradient(colors: [colorHigh, colorLow]),
-            // borderRadius: const BorderRadius.all(Radius.circular(5)),
-          ),
-          child: Text(
-            '${_bloodPressureValue!.high} | ${_bloodPressureValue!.low}',
-            textAlign: TextAlign.center,
-          ),
-        ),
+        ..._bloodPressureValues!.map((bpv) => Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Theme.of(context).scaffoldBackgroundColor),
+                gradient: LinearGradient(colors: [colorHigh(bpv), colorLow(bpv)]),
+                // borderRadius: const BorderRadius.all(Radius.circular(5)),
+              ),
+              child: Text(
+                '${bpv.high} | ${bpv.low}',
+                textAlign: TextAlign.center,
+              ),
+            )),
       ],
     );
   }

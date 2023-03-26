@@ -48,11 +48,11 @@ class Heart with ChangeNotifier {
       var low = (map['low'] as int);
       var bloodPressureValue = BloodPressureValue(high, low);
       if (date.hour < 10) {
-        bloodPressureItem.morning = bloodPressureValue;
+        bloodPressureItem.morning.add(bloodPressureValue);
       } else if (date.hour > 15) {
-        bloodPressureItem.evening = bloodPressureValue;
+        bloodPressureItem.evening.add(bloodPressureValue);
       } else {
-        bloodPressureItem.midday = bloodPressureValue;
+        bloodPressureItem.midday.add(bloodPressureValue);
       }
     }
 
