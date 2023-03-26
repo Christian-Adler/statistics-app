@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/heart/heart_screen.dart';
-import 'package:statistics/widgets/app_bar_logo.dart';
+import 'package:statistics/widgets/logo/eagle_logo.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';
@@ -28,7 +28,7 @@ class OverviewScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
             Text(OverviewScreen.title),
-            AppBarLogo(),
+            EagleLogo(),
           ],
         ),
         context,

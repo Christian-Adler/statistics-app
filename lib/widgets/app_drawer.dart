@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:statistics/widgets/app_bar_logo.dart';
+import 'package:statistics/screens/info_screen.dart';
+import 'package:statistics/widgets/logo/eagle_logo.dart';
 
 import '../screens/car/car_screen.dart';
 import '../screens/heart/heart_screen.dart';
@@ -21,7 +22,7 @@ class AppDrawer extends StatelessWidget {
         StatisticsAppBar(
           Row(
             children: const [
-              AppBarLogo(),
+              EagleLogo(),
               SizedBox(width: 10),
               Text('Statistics'),
             ],
@@ -75,9 +76,7 @@ class AppDrawer extends StatelessWidget {
                             Navigator.of(context).pushReplacementNamed(OverviewScreen.routeName);
                           },
                         ),
-                        const Divider(
-                          height: 1,
-                        ),
+                        const Divider(height: 1),
                         ListTile(
                           title: const Text(OperatingScreen.title),
                           leading: const Icon(OperatingScreen.iconData),
@@ -85,9 +84,7 @@ class AppDrawer extends StatelessWidget {
                             Navigator.of(context).pushReplacementNamed(OperatingScreen.routeName);
                           },
                         ),
-                        const Divider(
-                          height: 1,
-                        ),
+                        const Divider(height: 1),
                         ListTile(
                           title: const Text(SolarPowerScreen.title),
                           leading: const Icon(SolarPowerScreen.iconData),
@@ -95,9 +92,7 @@ class AppDrawer extends StatelessWidget {
                             Navigator.of(context).pushReplacementNamed(SolarPowerScreen.routeName);
                           },
                         ),
-                        const Divider(
-                          height: 1,
-                        ),
+                        const Divider(height: 1),
                         ListTile(
                           title: const Text(CarScreen.title),
                           leading: const Icon(CarScreen.iconData),
@@ -105,9 +100,7 @@ class AppDrawer extends StatelessWidget {
                             Navigator.of(context).pushReplacementNamed(CarScreen.routeName);
                           },
                         ),
-                        const Divider(
-                          height: 1,
-                        ),
+                        const Divider(height: 1),
                         ListTile(
                           title: const Text(HeartScreen.title),
                           leading: const Icon(HeartScreen.iconData),
@@ -121,6 +114,14 @@ class AppDrawer extends StatelessWidget {
                           leading: const Icon(SettingsScreen.iconData),
                           onTap: () {
                             Navigator.of(context).pushReplacementNamed(SettingsScreen.routeName);
+                          },
+                        ),
+                        const Divider(height: 1),
+                        ListTile(
+                          title: const Text(InfoScreen.title),
+                          leading: const Icon(InfoScreen.iconData),
+                          onTap: () {
+                            Navigator.of(context).pushReplacementNamed(InfoScreen.routeName);
                           },
                         ),
                         const _GradientDivider(),

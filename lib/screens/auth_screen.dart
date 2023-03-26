@@ -64,7 +64,7 @@ class _LoginTitle extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(35),
               child: Image.asset(
-                Globals.assetImgLogo,
+                Globals.assetImgEagleLogo,
                 fit: BoxFit.cover,
               ),
             ),
