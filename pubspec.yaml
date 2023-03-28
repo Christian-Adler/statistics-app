@@ -44,6 +44,7 @@ dependencies:
   flutter_commons:
     git: https://github.com/Christian-Adler/flutter_commons.git
   flutter_staggered_animations: ^1.1.1
+  package_info_plus: ^3.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:statistics/models/app_info.dart';
 import 'package:statistics/widgets/logo/eagle_logo.dart';
 import 'package:statistics/widgets/logo/exploratia_logo.dart';
 import 'package:statistics/widgets/settings/settings_card.dart';
@@ -51,7 +52,7 @@ class InfoScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            SettingsCard(title: 'Info : Statistics', children: [
+            SettingsCard(title: AppInfo.appName, children: [
               const Divider(height: 10),
               Row(
                 children: [
@@ -92,7 +93,26 @@ class InfoScreen extends StatelessWidget {
                 ],
               ),
             ]),
-            // AnimationTestCard(),
+            Center(
+              child: OutlinedButton.icon(
+                  onPressed: () {
+                    showAboutDialog(
+                        context: context,
+                        applicationVersion: AppInfo.version,
+                        applicationIcon: SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset(
+                            Globals.assetImgBackground,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        applicationName: AppInfo.appName,
+                        applicationLegalese: '${DateFormat('yyyy').format(DateTime.now())} \u00a9 Christian Adler ');
+                  },
+                  icon: const Icon(Icons.info_outline),
+                  label: const Text('App info')),
+            )
           ],
         ),
       ),

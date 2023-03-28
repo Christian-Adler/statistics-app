@@ -62,12 +62,13 @@ class AppDrawer extends StatelessWidget {
                     children: AnimationConfiguration.toStaggeredList(
                       // delay: const Duration(milliseconds: 10),
                       duration: const Duration(milliseconds: 175),
-                      childAnimationBuilder: (widget) => SlideAnimation(
-                        verticalOffset: 50,
-                        child: FadeInAnimation(
-                          child: widget,
-                        ),
-                      ),
+                      childAnimationBuilder: (widget) =>
+                          SlideAnimation(
+                            verticalOffset: 50,
+                            child: FadeInAnimation(
+                              child: widget,
+                            ),
+                          ),
                       children: [
                         ListTile(
                           title: const Text(OverviewScreen.title),
