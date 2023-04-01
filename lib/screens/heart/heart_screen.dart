@@ -189,6 +189,7 @@ class _BloodPressureTable extends StatelessWidget {
               child: index == bloodPressureItems.length
                   ? const ScrollFooter(
                       marginTop: 20,
+                      marginBottom: 10,
                       key: ValueKey('scroll-footer'),
                     )
                   : _BloodPressureTableItem(bloodPressureItems[index]),

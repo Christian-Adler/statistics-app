@@ -195,7 +195,8 @@ class _CarRefuelTable extends StatelessWidget {
             child: FadeInAnimation(
               child: index == carRefuelItems.length
                   ? const ScrollFooter(
-                      marginTop: 20,
+                      marginTop: 10,
+                      marginBottom: 10,
                       key: ValueKey('scroll-footer'),
                     )
                   : _CarRefuelTableItem(

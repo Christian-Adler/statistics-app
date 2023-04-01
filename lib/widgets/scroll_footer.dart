@@ -4,8 +4,13 @@ import '../utils/globals.dart';
 
 class ScrollFooter extends StatelessWidget {
   final double marginTop;
+  final double marginBottom;
 
-  const ScrollFooter({Key? key, this.marginTop = 0}) : super(key: key);
+  const ScrollFooter({
+    Key? key,
+    this.marginTop = 0,
+    this.marginBottom = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,9 @@ class ScrollFooter extends StatelessWidget {
             Globals.assetImgBackground,
             fit: BoxFit.cover,
           ),
+        ),
+        SizedBox(
+          height: marginBottom,
         ),
       ],
     );
