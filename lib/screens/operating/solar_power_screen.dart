@@ -6,6 +6,7 @@ import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/operating/solar_power_chart.dart';
 import '../../widgets/operating/solar_power_table.dart';
+import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
@@ -117,6 +118,9 @@ class _SolarPowerState extends State<_SolarPower> {
                     height: 20,
                   ),
                   SolarPowerTable(widget.showYearly),
+                  const ScrollFooter(
+                    marginTop: 20,
+                  ),
                 ],
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:statistics/models/heart/blood_pressure_item.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
@@ -185,11 +186,16 @@ class _BloodPressureTable extends StatelessWidget {
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
-              child: _BloodPressureTableItem(bloodPressureItems[index]),
+              child: index == bloodPressureItems.length
+                  ? const ScrollFooter(
+                      marginTop: 20,
+                      key: ValueKey('scroll-footer'),
+                    )
+                  : _BloodPressureTableItem(bloodPressureItems[index]),
             ),
           ),
         ),
-        itemCount: bloodPressureItems.length,
+        itemCount: bloodPressureItems.length + 1 /* +1 ScrollFooter */,
       ),
     );
   }

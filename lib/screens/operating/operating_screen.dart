@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
-import '../../utils/globals.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
+import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
+import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
   static const String routeName = '/operating';
@@ -202,14 +202,7 @@ class _OperatingState extends State<_Operating> {
                         operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
                   ),
                   const _ChartDivider(),
-                  SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: Image.asset(
-                      Globals.assetImgBackground,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  const ScrollFooter(),
                 ],
               ),
             ),

@@ -9,6 +9,7 @@ import 'package:statistics/models/car/car_refuel_item.dart';
 import '../../providers/car.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
 
@@ -192,12 +193,17 @@ class _CarRefuelTable extends StatelessWidget {
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
-              child: _CarRefuelTableItem(
-                  carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
+              child: index == carRefuelItems.length
+                  ? const ScrollFooter(
+                      marginTop: 20,
+                      key: ValueKey('scroll-footer'),
+                    )
+                  : _CarRefuelTableItem(
+                      carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
             ),
           ),
         ),
-        itemCount: carRefuelItems.length,
+        itemCount: carRefuelItems.length + 1 /* +1 ScrollFooter */,
       ),
     );
   }
