@@ -16,7 +16,7 @@ class OperatingChart extends StatelessWidget {
   final double maxHue;
 
   final double Function(OperatingChartItem) getOperatingValue;
-  final List<TextSpan> Function(double)? provideTooltipExt;
+  final List<TextSpan> Function(double, int)? provideTooltipExt;
 
   const OperatingChart(
       {Key? key,

@@ -20,6 +20,24 @@ class SolarPowerChart extends StatelessWidget {
 
     final powerData = Provider.of<Operating>(context);
 
+    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value, int seriesIdx) {
+      // Gesamt
+      if (seriesIdx == 0) return const TextSpan();
+      // Verbrauch
+      if (seriesIdx == 1) {
+        return TextSpan(
+            text: '\n${(chargePerMonth * (showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
+            style: Charts.tooltipExtStyle);
+      }
+      // Eingespeist
+      if (seriesIdx == 3) {
+        return TextSpan(
+            text: '\n(- ${(value * chargePerValue).ceil().toStringAsFixed(0)}€)', style: Charts.tooltipExtStyle);
+      }
+      // Erzeugt
+      return TextSpan(text: '\n+${(value * chargePerValue).ceil().toStringAsFixed(0)}€', style: Charts.tooltipExtStyle);
+    }
+
     var solarPowerItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
     int showLastXItems = 12;
     if (solarPowerItems.length > showLastXItems) {
@@ -51,39 +69,50 @@ class SolarPowerChart extends StatelessWidget {
 
     return Column(children: [
       Charts.createChartContainer(
-          Charts.createLineChartData(chartMeta, fractionDigits: 0, [
-            Charts.createLineChartBarData(
-              spotsSumUsedPower,
-              gradientColorsSumUsedPower,
-              shadow: false,
-              dashArray: [2, 4],
-              barWidth: 2,
-            ),
-            Charts.createLineChartBarData(
-              spotsConsumedPower, gradientColorsConsumedPower,
-              shadow: false,
-              fillColors: [
-                Colors.redAccent.withOpacity(0.5),
-                Colors.orangeAccent.withOpacity(0.2),
-                Colors.orangeAccent.withOpacity(0.0),
-                Colors.orangeAccent.withOpacity(0)
-              ],
-              //fillColors: gradientColorsConsumedPower.map((color) => color.withOpacity(0.5)).toList(),
-            ),
-            Charts.createLineChartBarData(spotsGeneratedPower, gradientColorsGeneratedPower,
+          Charts.createLineChartData(
+            chartMeta,
+            fractionDigits: 0,
+            [
+              Charts.createLineChartBarData(
+                spotsSumUsedPower,
+                gradientColorsSumUsedPower,
+                shadow: false,
+                dashArray: [2, 4],
+                barWidth: 2,
+              ),
+              Charts.createLineChartBarData(
+                spotsConsumedPower, gradientColorsConsumedPower,
+                shadow: false,
+                fillColors: [
+                  Colors.redAccent.withOpacity(0.5),
+                  Colors.orangeAccent.withOpacity(0.2),
+                  Colors.orangeAccent.withOpacity(0.0),
+                  Colors.orangeAccent.withOpacity(0)
+                ],
+                //fillColors: gradientColorsConsumedPower.map((color) => color.withOpacity(0.5)).toList(),
+              ),
+              Charts.createLineChartBarData(
+                spotsGeneratedPower,
+                gradientColorsGeneratedPower,
                 shadow: false,
                 fillColors: [
                   themeData.colorScheme.primary.withOpacity(0.9),
                   themeData.colorScheme.secondary.withOpacity(0.4)
-                ]),
-            Charts.createLineChartBarData(
-              spotsFeedPower,
-              gradientColorsFeedPower,
-              shadow: false,
-              dashArray: [2, 4],
-              barWidth: 2,
-            ),
-          ]),
+                ],
+              ),
+              Charts.createLineChartBarData(
+                spotsFeedPower,
+                gradientColorsFeedPower,
+                shadow: false,
+                dashArray: [2, 4],
+                barWidth: 2,
+              ),
+            ],
+            provideTooltipExt: (yValue, seriesIdx) => [
+              buildTooltipExt(
+                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue, seriesIdx)
+            ],
+          ),
           orientation),
       const SizedBox(
         height: 10,
@@ -118,6 +147,9 @@ class SolarPowerChart extends StatelessWidget {
           }
         },
       ),
+      const SizedBox(height: 10),
+      Text(
+          'Preis : ${Operating.chargePerValueConsumedPower.toStringAsFixed(2)} €/kWh, Grundgebühr : ${Operating.chargePerMonthConsumedPower.toStringAsFixed(2)} €/Monat'),
     ]);
   }
 }

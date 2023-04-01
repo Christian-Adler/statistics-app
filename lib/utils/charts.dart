@@ -6,9 +6,12 @@ import 'package:statistics/utils/date_utils.dart';
 import '../models/chart/chart_meta_data.dart';
 
 class Charts {
+  static const tooltipExtStyle =
+      TextStyle(color: Colors.black, shadows: [], fontSize: 10, fontWeight: FontWeight.normal);
+
   static LineTouchData _createLineTouchData({
     int fractionDigits = 2,
-    List<TextSpan> Function(double)? provideTooltipExt,
+    List<TextSpan> Function(double, int)? provideTooltipExt,
   }) {
     return LineTouchData(
       enabled: true,
@@ -32,7 +35,7 @@ class Charts {
               shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
             );
             return LineTooltipItem(touchedSpot.y.toStringAsFixed(fractionDigits), textStyle,
-                children: provideTooltipExt?.call(touchedSpot.y));
+                children: provideTooltipExt?.call(touchedSpot.y, touchedSpot.barIndex));
           }).toList();
         },
       ),
@@ -227,7 +230,7 @@ class Charts {
     ChartMetaData chartMeta,
     List<LineChartBarData>? lineBarsData, {
     int fractionDigits = 2,
-    List<TextSpan> Function(double)? provideTooltipExt,
+    List<TextSpan> Function(double, int)? provideTooltipExt,
   }) {
     return LineChart(
       LineChartData(

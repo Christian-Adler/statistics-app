@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
 import '../../providers/operating.dart';
+import '../../utils/charts.dart';
+import '../../utils/globals.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
@@ -83,13 +85,11 @@ class _OperatingState extends State<_Operating> {
 
   @override
   Widget build(BuildContext context) {
-    const tooltipExtStyle = TextStyle(color: Colors.black, shadows: [], fontSize: 10, fontWeight: FontWeight.normal);
-
     TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value) {
       return TextSpan(
           text:
               '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
-          style: tooltipExtStyle);
+          style: Charts.tooltipExtStyle);
     }
 
     return FutureBuilder(
@@ -115,6 +115,7 @@ class _OperatingState extends State<_Operating> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -128,7 +129,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) =>
+                        ? (yValue, seriesIdx) =>
                             [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
                         : null,
                   ),
@@ -140,7 +141,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) =>
+                        ? (yValue, seriesIdx) =>
                             [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
                         : null,
                   ),
@@ -152,7 +153,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.consumedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) => [
+                        ? (yValue, seriesIdx) => [
                               buildTooltipExt(
                                   Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
                             ]
@@ -166,7 +167,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.generatedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
+                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -177,7 +178,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.feedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
+                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -188,7 +189,7 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.generatedPower - operatingItem.feedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
+                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -199,6 +200,15 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) =>
                         operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                  ),
+                  const _ChartDivider(),
+                  SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: Image.asset(
+                      Globals.assetImgBackground,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ],
               ),
