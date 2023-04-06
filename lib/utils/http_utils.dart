@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../models/exception/api_exception.dart';
 import '../providers/auth.dart';
 
 class HttpUtils {
@@ -40,7 +41,7 @@ class HttpUtils {
     final responseBytes = await response.stream.toBytes();
     final responseString = String.fromCharCodes(responseBytes);
     final decoded = jsonDecode(responseString);
-    if (decoded == null) throw Exception('No response json data!');
+    if (decoded == null) throw ApiException('No response json data!');
 
     final json = decoded as Map<String, dynamic>;
     if (!json.containsKey('returnCode')) {
@@ -48,7 +49,7 @@ class HttpUtils {
     }
     final returnCode = json['returnCode'] as int;
     if (returnCode != 1) {
-      throw Exception(json['error']);
+      throw ApiException(json['error']);
     }
 
     final result = json['result'] as Map<String, dynamic>;

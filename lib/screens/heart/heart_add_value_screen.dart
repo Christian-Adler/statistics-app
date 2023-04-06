@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/models/exception/api_exception.dart';
 
 import '../../providers/heart.dart';
 import '../../widgets/statistics_app_bar.dart';
@@ -37,6 +38,8 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
     try {
       await power.addBloodPressureEntry(_high, _low);
       _showSuccessMessage();
+    } on ApiException catch (err) {
+      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }

@@ -3,6 +3,7 @@ import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/exception/api_exception.dart';
 import '../../providers/car.dart';
 import '../../widgets/statistics_app_bar.dart';
 
@@ -38,6 +39,8 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
     try {
       await power.addCarRefuelEntry(_liter, _centPerLiter, _km);
       _showSuccessMessage();
+    } on ApiException catch (err) {
+      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }

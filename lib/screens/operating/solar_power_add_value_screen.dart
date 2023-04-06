@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/utils/date_utils.dart';
 
+import '../../models/exception/api_exception.dart';
 import '../../providers/operating.dart';
+import '../../utils/date_utils.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class SolarPowerAddValueScreen extends StatefulWidget {
@@ -37,6 +38,8 @@ class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
     try {
       await power.addSolarPowerEntry(_value);
       _showSuccessMessage();
+    } on ApiException catch (err) {
+      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }

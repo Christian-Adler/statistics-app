@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/utils/date_utils.dart';
 
+import '../../models/exception/api_exception.dart';
 import '../../providers/operating.dart';
 import '../../widgets/statistics_app_bar.dart';
 
@@ -41,6 +42,8 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
     try {
       await power.addOperatingEntry(_water, _consumedPower, _feedPower, _heatingHT, _heatingNT);
       _showSuccessMessage();
+    } on ApiException catch (err) {
+      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
     } catch (err) {
       await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
     }
