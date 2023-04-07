@@ -170,41 +170,43 @@ class _CarRefuelTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
     return AnimationLimiter(
-      child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
-          height: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 1,
-                width: 240,
-                color: Colors.grey.shade200,
-              ),
-              Container(
-                width: 70,
-              ),
-            ],
-          ),
-        ),
-        itemBuilder: (ctx, index) => AnimationConfiguration.staggeredList(
-          position: index,
-          duration: const Duration(milliseconds: 250),
-          child: SlideAnimation(
-            verticalOffset: 50.0,
-            child: FadeInAnimation(
-              child: index == carRefuelItems.length
-                  ? const ScrollFooter(
-                      marginTop: 10,
-                      marginBottom: 10,
-                      key: ValueKey('scroll-footer'),
-                    )
-                  : _CarRefuelTableItem(
-                      carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
+      child: Scrollbar(
+        child: ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(
+            height: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 1,
+                  width: 240,
+                  color: Colors.grey.shade200,
+                ),
+                Container(
+                  width: 70,
+                ),
+              ],
             ),
           ),
+          itemBuilder: (ctx, index) => AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 250),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: index == carRefuelItems.length
+                    ? const ScrollFooter(
+                        marginTop: 10,
+                        marginBottom: 10,
+                        key: ValueKey('scroll-footer'),
+                      )
+                    : _CarRefuelTableItem(
+                        carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
+              ),
+            ),
+          ),
+          itemCount: carRefuelItems.length + 1 /* +1 ScrollFooter */,
         ),
-        itemCount: carRefuelItems.length + 1 /* +1 ScrollFooter */,
       ),
     );
   }

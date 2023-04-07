@@ -104,24 +104,27 @@ class _SolarPowerState extends State<_SolarPower> {
             ),
           );
         } else {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SolarPowerChart(widget.showYearly),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SolarPowerTable(widget.showYearly),
-                  const ScrollFooter(
-                    marginTop: 20,
-                  ),
-                ],
+          return Scrollbar(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}',
+                        style: Theme.of(context).textTheme.titleLarge),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SolarPowerChart(widget.showYearly),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SolarPowerTable(widget.showYearly),
+                    const ScrollFooter(
+                      marginTop: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -73,6 +73,16 @@ class MyApp extends StatelessWidget {
                   titleSmall: TextStyle(color: Colors.purple.shade900),
                 ),
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
+            scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
+                  thumbColor: const MaterialStatePropertyAll(Colors.purple),
+                  radius: const Radius.circular(5),
+                  interactive: true,
+                  // thickness: const MaterialStatePropertyAll(10),
+                  // thumbVisibility: const MaterialStatePropertyAll(true),
+                  // trackVisibility: const MaterialStatePropertyAll(true),
+                  // trackColor: const MaterialStatePropertyAll(Colors.blueAccent),
+                  // trackBorderColor: const MaterialStatePropertyAll(Colors.purpleAccent),
+                ),
           ),
           home: auth.isAuth
               ? const OverviewScreen()

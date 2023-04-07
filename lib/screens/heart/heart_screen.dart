@@ -166,37 +166,39 @@ class _BloodPressureTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
     return AnimationLimiter(
-      child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
-          height: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 1,
-                width: 320,
-                color: Colors.grey.shade200,
-              ),
-            ],
-          ),
-        ),
-        itemBuilder: (ctx, index) => AnimationConfiguration.staggeredList(
-          position: index,
-          duration: const Duration(milliseconds: 250),
-          child: SlideAnimation(
-            verticalOffset: 50.0,
-            child: FadeInAnimation(
-              child: index == bloodPressureItems.length
-                  ? const ScrollFooter(
-                      marginTop: 20,
-                      marginBottom: 10,
-                      key: ValueKey('scroll-footer'),
-                    )
-                  : _BloodPressureTableItem(bloodPressureItems[index]),
+      child: Scrollbar(
+        child: ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(
+            height: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 1,
+                  width: 320,
+                  color: Colors.grey.shade200,
+                ),
+              ],
             ),
           ),
+          itemBuilder: (ctx, index) => AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 250),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: index == bloodPressureItems.length
+                    ? const ScrollFooter(
+                        marginTop: 20,
+                        marginBottom: 10,
+                        key: ValueKey('scroll-footer'),
+                      )
+                    : _BloodPressureTableItem(bloodPressureItems[index]),
+              ),
+            ),
+          ),
+          itemCount: bloodPressureItems.length + 1 /* +1 ScrollFooter */,
         ),
-        itemCount: bloodPressureItems.length + 1 /* +1 ScrollFooter */,
       ),
     );
   }
