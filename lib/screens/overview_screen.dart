@@ -7,6 +7,7 @@ import 'package:statistics/widgets/logo/eagle_logo.dart';
 
 import '../providers/auth.dart';
 import '../utils/globals.dart';
+import '../utils/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/statistics_app_bar.dart';
@@ -224,7 +225,10 @@ class _LargeNavigationButton extends StatelessWidget {
         // elevation: MaterialStatePropertyAll(5),
         backgroundColor: MaterialStatePropertyAll(Colors.white70),
       ),
-      onPressed: () => Navigator.of(context).pushReplacementNamed(routeName),
+      // onPressed: () => Navigator.of(context).pushNamed(routeName),
+      onPressed: () {
+        NavigationUtils.navigateToRoute(context, Navigator.of(context), [routeName]);
+      },
       icon: Icon(
         iconData,
         size: 44,

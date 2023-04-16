@@ -6,8 +6,8 @@ import '../screens/heart/heart_add_value_screen.dart';
 import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_add_value_screen.dart';
 import '../screens/operating/operating_screen.dart';
-import '../screens/operating/solar_power_add_value_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
+import '../utils/navigation_utils.dart';
 import 'expandable/expandable_fab.dart';
 
 class AddValueFloatingButton extends StatelessWidget {
@@ -16,34 +16,24 @@ class AddValueFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var navigator = Navigator.of(context);
+
     return ExpandableFab(
       distance: 100.0,
       maxAngle: 110,
       startAngle: -10,
       actions: [
         ActionButtonData(OperatingScreen.iconData, () {
-          if (OperatingScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(OperatingScreen.routeName);
-          }
-          navigator.pushNamed(OperatingAddValueScreen.routeName);
+          NavigationUtils.navigateToRoute(
+              context, navigator, [OperatingScreen.routeName, OperatingAddValueScreen.routeName]);
         }),
         ActionButtonData(SolarPowerScreen.iconData, () {
-          if (SolarPowerScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(SolarPowerScreen.routeName);
-          }
-          navigator.pushNamed(SolarPowerAddValueScreen.routeName);
+          NavigationUtils.navigateToRoute(context, navigator, [SolarPowerScreen.routeName, SolarPowerScreen.routeName]);
         }),
         ActionButtonData(CarScreen.iconData, () {
-          if (CarScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(CarScreen.routeName);
-          }
-          navigator.pushNamed(CarAddValueScreen.routeName);
+          NavigationUtils.navigateToRoute(context, navigator, [CarScreen.routeName, CarAddValueScreen.routeName]);
         }),
         ActionButtonData(HeartScreen.iconData, () {
-          if (HeartScreen.routeName != ModalRoute.of(context)?.settings.name) {
-            navigator.pushReplacementNamed(HeartScreen.routeName);
-          }
-          navigator.pushNamed(HeartAddValueScreen.routeName);
+          NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.routeName, HeartAddValueScreen.routeName]);
         }),
       ],
     );
