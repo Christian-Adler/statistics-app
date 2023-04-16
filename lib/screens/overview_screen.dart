@@ -10,6 +10,7 @@ import '../utils/globals.dart';
 import '../utils/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/app_drawer.dart';
+import '../widgets/doulbe_back_to_close.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'operating/operating_screen.dart';
 import 'operating/solar_power_screen.dart';
@@ -35,34 +36,36 @@ class OverviewScreen extends StatelessWidget {
         context,
       ),
       drawer: const AppDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        Globals.assetImgBackground,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
+      body: DoubleBackToClose(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          Globals.assetImgBackground,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SingleChildScrollView(
-                  child: Center(child: _NavigationButtons()),
-                ),
-              ],
+                  SingleChildScrollView(
+                    child: Center(child: _NavigationButtons()),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const _Footer(),
-        ],
+            const _Footer(),
+          ],
+        ),
       ),
       floatingActionButton: const AddValueFloatingButton(),
     );
