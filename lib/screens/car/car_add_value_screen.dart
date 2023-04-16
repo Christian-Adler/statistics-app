@@ -8,7 +8,7 @@ import '../../providers/car.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class CarAddValueScreen extends StatefulWidget {
-  static const String routeName = '/car_add_value';
+  static const String routeName = '/car/add';
 
   const CarAddValueScreen({Key? key}) : super(key: key);
 

@@ -9,7 +9,7 @@ import '../../providers/operating.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class OperatingAddValueScreen extends StatefulWidget {
-  static const String routeName = '/operating_add_value';
+  static const String routeName = '/operating/add';
 
   const OperatingAddValueScreen({Key? key}) : super(key: key);
 

@@ -8,7 +8,7 @@ import '../../providers/heart.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class HeartAddValueScreen extends StatefulWidget {
-  static const String routeName = '/heart_add_value';
+  static const String routeName = '/heart/add';
 
   const HeartAddValueScreen({Key? key}) : super(key: key);
 
