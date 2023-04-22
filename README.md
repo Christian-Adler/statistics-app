@@ -1,21 +1,20 @@
 # statistics-app
 
-### Create Launcher Icons
+
+## Create Launcher Icons
 
 - run `flutter pub run flutter_launcher_icons`
 
-### Build apk
+## Build apk (Android)
 
 - Increase version in pubspec.yaml
 - run `flutter build apk --split-per-abi`
 - use `build\app\outputs\flutter-apk\app-arm64-v8a-release.apk`
 
-##### Edit readme.md
 
-https://stackedit.io/app#
+## IOS
 
-
-## How to fix Using `ARCHS` setting to build architectures of target `Pods-Runner`
+### How to fix Using `ARCHS` setting to build architectures of target `Pods-Runner`
 
 Pod-File ändern:
 
@@ -34,3 +33,7 @@ Installation des pod-files (M1/M2-Chip) - Did you try:
 - arch -x86_64 pod repo update
 - arch -x86_64 pod install (im ios Verzeichnis auf Console ausführen!)
 
+
+## Edit readme.md
+
+https://stackedit.io/app#
