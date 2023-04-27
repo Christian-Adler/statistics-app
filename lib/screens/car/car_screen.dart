@@ -6,6 +6,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/car/car_refuel_item.dart';
 
+import '../../models/screen_nav_info.dart';
 import '../../providers/car.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
@@ -14,9 +15,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
 
 class CarScreen extends StatelessWidget {
-  static const String routeName = '/car';
-  static const String title = 'Tanken';
-  static const IconData iconData = Icons.directions_car_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken', Icons.directions_car_outlined, '/car');
 
   const CarScreen({Key? key}) : super(key: key);
 
@@ -24,13 +23,13 @@ class CarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text(CarScreen.title),
+        Text(CarScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(CarAddValueScreen.routeName),
-            tooltip: 'Tanken Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(CarAddValueScreen.screenNavInfo.routeName),
+            tooltip: CarAddValueScreen.screenNavInfo.title,
+            icon: Icon(CarAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),

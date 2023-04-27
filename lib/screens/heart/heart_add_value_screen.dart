@@ -4,11 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/exception/api_exception.dart';
 
+import '../../models/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class HeartAddValueScreen extends StatefulWidget {
-  static const String routeName = '/heart/add';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck eintragen', Icons.add, '/heart/add');
 
   const HeartAddValueScreen({Key? key}) : super(key: key);
 
@@ -56,7 +57,7 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Blutdruck eintragen'),
+        Text(HeartAddValueScreen.screenNavInfo.title),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),

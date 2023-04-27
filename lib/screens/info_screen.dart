@@ -5,15 +5,14 @@ import 'package:statistics/widgets/logo/eagle_logo.dart';
 import 'package:statistics/widgets/logo/exploratia_logo.dart';
 import 'package:statistics/widgets/settings/settings_card.dart';
 
+import '../models/screen_nav_info.dart';
 import '../utils/globals.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {
-  static const routeName = '/info_screen';
-  static const title = 'Info';
-  static const iconData = Icons.info_outline;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Info', Icons.info_outline, '/info_screen');
 
   const InfoScreen({Key? key}) : super(key: key);
 
@@ -21,7 +20,7 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text(InfoScreen.title),
+        Text(InfoScreen.screenNavInfo.title),
         context,
       ),
       drawer: const AppDrawer(),

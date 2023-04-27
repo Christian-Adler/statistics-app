@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:statistics/utils/date_utils.dart';
 
 import '../../models/exception/api_exception.dart';
+import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class OperatingAddValueScreen extends StatefulWidget {
-  static const String routeName = '/operating/add';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Betriebskosten eintragen', Icons.add, '/operating/add');
 
   const OperatingAddValueScreen({Key? key}) : super(key: key);
 
@@ -60,7 +61,7 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Solar Strom eintragen'),
+        Text(OperatingAddValueScreen.screenNavInfo.title),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),

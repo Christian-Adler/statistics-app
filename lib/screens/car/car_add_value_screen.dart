@@ -4,11 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/exception/api_exception.dart';
+import '../../models/screen_nav_info.dart';
 import '../../providers/car.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class CarAddValueScreen extends StatefulWidget {
-  static const String routeName = '/car/add';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken eintragen', Icons.add, '/car/add');
 
   const CarAddValueScreen({Key? key}) : super(key: key);
 
@@ -57,7 +58,7 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Tanken eintragen'),
+        Text(CarAddValueScreen.screenNavInfo.title),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),

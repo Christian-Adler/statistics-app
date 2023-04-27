@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
 import '../../widgets/add_value_floating_button.dart';
@@ -11,9 +12,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
-  static const String routeName = '/operating';
-  static const String title = 'Nebenkosten';
-  static const IconData iconData = Icons.power_input_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Nebenkosten', Icons.power_input_outlined, '/operating');
 
   const OperatingScreen({Key? key}) : super(key: key);
 
@@ -34,7 +33,7 @@ class _OperatingScreenState extends State<OperatingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text(OperatingScreen.title),
+        Text(OperatingScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
@@ -43,9 +42,9 @@ class _OperatingScreenState extends State<OperatingScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(OperatingAddValueScreen.routeName),
-            tooltip: 'Betriebskosten Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(OperatingAddValueScreen.screenNavInfo.routeName),
+            tooltip: OperatingAddValueScreen.screenNavInfo.title,
+            icon: Icon(OperatingAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
@@ -11,9 +12,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
-  static const String routeName = '/solar_power';
-  static const String title = 'Solar-Strom';
-  static const IconData iconData = Icons.solar_power_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Solar-Strom', Icons.solar_power_outlined, '/solar_power');
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 
@@ -34,7 +33,7 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text(SolarPowerScreen.title),
+        Text(SolarPowerScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
@@ -43,9 +42,9 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(SolarPowerAddValueScreen.routeName),
-            tooltip: 'Solar Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(SolarPowerAddValueScreen.screenNavInfo.routeName),
+            tooltip: SolarPowerAddValueScreen.screenNavInfo.title,
+            icon: Icon(SolarPowerAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),

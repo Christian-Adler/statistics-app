@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../models/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
 
 class AuthScreen extends StatelessWidget {
-  static const routeName = '/auth';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Auth', Icons.login, '/auth');
 
   const AuthScreen({Key? key}) : super(key: key);
 

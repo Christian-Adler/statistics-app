@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/heart/blood_pressure_item.dart';
 
+import '../../models/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/app_drawer.dart';
@@ -12,9 +13,7 @@ import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatelessWidget {
-  static const String routeName = '/heart';
-  static const String title = 'Blutdruck';
-  static const IconData iconData = Icons.monitor_heart_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck', Icons.monitor_heart_outlined, '/heart');
 
   const HeartScreen({Key? key}) : super(key: key);
 
@@ -22,13 +21,13 @@ class HeartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text(HeartScreen.title),
+        Text(HeartScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(HeartAddValueScreen.routeName),
-            tooltip: 'Blutdruck Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName),
+            tooltip: HeartAddValueScreen.screenNavInfo.title,
+            icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),

@@ -93,23 +93,23 @@ class MyApp extends StatelessWidget {
                   future: auth.tryAutoLogin(),
                 ),
           routes: {
-            SplashScreen.routeName: (context) => const SplashScreen(),
+            SplashScreen.screenNavInfo.routeName: (context) => const SplashScreen(),
             //
-            OverviewScreen.routeName: (context) => const OverviewScreen(),
+            OverviewScreen.screenNavInfo.routeName: (context) => const OverviewScreen(),
             //
-            OperatingScreen.routeName: (context) => const OperatingScreen(),
-            OperatingAddValueScreen.routeName: (context) => const OperatingAddValueScreen(),
-            SolarPowerScreen.routeName: (context) => const SolarPowerScreen(),
-            SolarPowerAddValueScreen.routeName: (context) => const SolarPowerAddValueScreen(),
+            OperatingScreen.screenNavInfo.routeName: (context) => const OperatingScreen(),
+            OperatingAddValueScreen.screenNavInfo.routeName: (context) => const OperatingAddValueScreen(),
+            SolarPowerScreen.screenNavInfo.routeName: (context) => const SolarPowerScreen(),
+            SolarPowerAddValueScreen.screenNavInfo.routeName: (context) => const SolarPowerAddValueScreen(),
             //
-            CarScreen.routeName: (context) => const CarScreen(),
-            CarAddValueScreen.routeName: (context) => const CarAddValueScreen(),
+            CarScreen.screenNavInfo.routeName: (context) => const CarScreen(),
+            CarAddValueScreen.screenNavInfo.routeName: (context) => const CarAddValueScreen(),
             //
-            HeartScreen.routeName: (context) => const HeartScreen(),
-            HeartAddValueScreen.routeName: (context) => const HeartAddValueScreen(),
+            HeartScreen.screenNavInfo.routeName: (context) => const HeartScreen(),
+            HeartAddValueScreen.screenNavInfo.routeName: (context) => const HeartAddValueScreen(),
             //
-            SettingsScreen.routeName: (context) => const SettingsScreen(),
-            InfoScreen.routeName: (context) => const InfoScreen(),
+            SettingsScreen.screenNavInfo.routeName: (context) => const SettingsScreen(),
+            InfoScreen.screenNavInfo.routeName: (context) => const InfoScreen(),
           },
         ),
       ),

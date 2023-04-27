@@ -4,12 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/exception/api_exception.dart';
+import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/date_utils.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class SolarPowerAddValueScreen extends StatefulWidget {
-  static const String routeName = '/solar_power/add';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Solar Strom eintragen', Icons.add, '/solar_power/add');
 
   const SolarPowerAddValueScreen({Key? key}) : super(key: key);
 
@@ -56,7 +57,7 @@ class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Solar Strom eintragen'),
+        Text(SolarPowerAddValueScreen.screenNavInfo.title),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),

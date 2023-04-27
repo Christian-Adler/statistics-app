@@ -10,7 +10,7 @@ import '../screens/operating/solar_power_screen.dart';
 import '../screens/overview_screen.dart';
 import '../screens/settings_screen.dart';
 import '../utils/globals.dart';
-import '../utils/navigation_utils.dart';
+import '../utils/nav/navigation_utils.dart';
 import 'statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -86,58 +86,58 @@ class _MenuItemsScrollView extends StatelessWidget {
             ),
             children: [
               ListTile(
-                title: const Text(OverviewScreen.title),
-                leading: const Icon(OverviewScreen.iconData),
+                title: Text(OverviewScreen.screenNavInfo.title),
+                leading: Icon(OverviewScreen.screenNavInfo.iconData),
                 onTap: () {
                   NavigationUtils.navigateToRoute(context, navigator, []);
                 },
               ),
               const Divider(height: 1),
               ListTile(
-                title: const Text(OperatingScreen.title),
-                leading: const Icon(OperatingScreen.iconData),
+                title: Text(OperatingScreen.screenNavInfo.title),
+                leading: Icon(OperatingScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [OperatingScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [OperatingScreen.screenNavInfo.routeName]);
                 },
               ),
               const Divider(height: 1),
               ListTile(
-                title: const Text(SolarPowerScreen.title),
-                leading: const Icon(SolarPowerScreen.iconData),
+                title: Text(SolarPowerScreen.screenNavInfo.title),
+                leading: Icon(SolarPowerScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [SolarPowerScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [SolarPowerScreen.screenNavInfo.routeName]);
                 },
               ),
               const Divider(height: 1),
               ListTile(
-                title: const Text(CarScreen.title),
-                leading: const Icon(CarScreen.iconData),
+                title: Text(CarScreen.screenNavInfo.title),
+                leading: Icon(CarScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [CarScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [CarScreen.screenNavInfo.routeName]);
                 },
               ),
               const Divider(height: 1),
               ListTile(
-                title: const Text(HeartScreen.title),
-                leading: const Icon(HeartScreen.iconData),
+                title: Text(HeartScreen.screenNavInfo.title),
+                leading: Icon(HeartScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.screenNavInfo.routeName]);
                 },
               ),
               const _GradientDivider(),
               ListTile(
-                title: const Text(SettingsScreen.title),
-                leading: const Icon(SettingsScreen.iconData),
+                title: Text(SettingsScreen.screenNavInfo.title),
+                leading: Icon(SettingsScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [SettingsScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [SettingsScreen.screenNavInfo.routeName]);
                 },
               ),
               const Divider(height: 1),
               ListTile(
-                title: const Text(InfoScreen.title),
-                leading: const Icon(InfoScreen.iconData),
+                title: Text(InfoScreen.screenNavInfo.title),
+                leading: Icon(InfoScreen.screenNavInfo.iconData),
                 onTap: () {
-                  NavigationUtils.navigateToRoute(context, navigator, [InfoScreen.routeName]);
+                  NavigationUtils.navigateToRoute(context, navigator, [InfoScreen.screenNavInfo.routeName]);
                 },
               ),
               const _GradientDivider(),
