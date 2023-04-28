@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../navigation/navigation_menu_vertical.dart';
+
 class ScreenLayoutBuilder extends StatelessWidget {
   final Widget body; // auch als Builder mit parameter der Widgetgroesse + orientatin
   final Widget drawer; // TODO builder weil muss ja nicht immer erzeugt werden - builder der Navigation- Liste liefert?
@@ -21,17 +23,44 @@ class ScreenLayoutBuilder extends StatelessWidget {
     // print(orientation);
     // print(mediaQueryData.size);
     // print(isTablet);
-    bool useDrawer = true;
-    if (isLandscape && isTablet) {
-      useDrawer = false;
+
+    bool showNavigationTitle = false;
+
+    Widget? drawerW;
+    if (!isLandscape || !isTablet) {
+      drawerW = drawer;
     }
+
+    Widget? bodyW;
+    if (isLandscape && isTablet) {
+      bodyW = Row(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(1.0, 0.0), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
+            width: showNavigationTitle ? 300 : 60,
+            child: NavigationMenuVertical(showNavigationTitle: showNavigationTitle),
+          ),
+          Expanded(child: body),
+        ],
+      );
+    }
+    bodyW ??= body;
 
     // TODO ScreenSize
     // TODO SplitView davon abhaenigi
     return Scaffold(
       appBar: appBar,
-      drawer: useDrawer ? drawer : null,
-      body: body,
+      drawer: drawerW,
+      body: bodyW,
       floatingActionButton: floatingActionButton,
     );
   }

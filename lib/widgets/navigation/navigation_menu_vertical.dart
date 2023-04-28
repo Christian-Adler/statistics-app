@@ -4,8 +4,11 @@ import '../../utils/globals.dart';
 import 'navigation_menu_items_vertical.dart';
 
 class NavigationMenuVertical extends StatelessWidget {
+  final bool showNavigationTitle;
+
   const NavigationMenuVertical({
     super.key,
+    this.showNavigationTitle = true,
   });
 
   @override
@@ -19,7 +22,7 @@ class NavigationMenuVertical extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 100,
+                height: showNavigationTitle ? 100 : 50,
                 child: Image.asset(
                   Globals.assetImgBackground,
                   fit: BoxFit.cover,
@@ -28,7 +31,9 @@ class NavigationMenuVertical extends StatelessWidget {
             ],
           ),
         ),
-        const NavigationMenuItemsVertical(),
+        NavigationMenuItemsVertical(
+          showNavigationTitle: showNavigationTitle,
+        ),
       ],
     );
   }

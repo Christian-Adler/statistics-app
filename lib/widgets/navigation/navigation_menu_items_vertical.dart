@@ -5,14 +5,16 @@ import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
-  const NavigationMenuItemsVertical({Key? key}) : super(key: key);
+  final bool showNavigationTitle;
+
+  const NavigationMenuItemsVertical({Key? key, required this.showNavigationTitle}) : super(key: key);
 
   List<Widget> buildNavItems(BuildContext context, NavigatorState navigator) {
     List<Widget> result = [];
     for (var navItem in NavigationItems.navigationItems) {
       if (navItem.isNavigation && navItem is NavigationItem) {
         result.add(ListTile(
-          title: Text(navItem.title),
+          title: showNavigationTitle ? Text(navItem.title) : null,
           leading: Icon(navItem.iconData),
           onTap: () {
             navItem.onNav(context, navigator);
