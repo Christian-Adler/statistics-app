@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:statistics/screens/car/car_screen.dart';
 import 'package:statistics/screens/heart/heart_screen.dart';
 import 'package:statistics/widgets/logo/eagle_logo.dart';
+import 'package:statistics/widgets/responsive/screen_layout_builder.dart';
 
 import '../models/screen_nav_info.dart';
 import '../providers/auth.dart';
@@ -23,7 +24,10 @@ class OverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
+      body: const OverviewBody(),
+      drawer: const AppDrawer(),
+      floatingActionButton: const AddValueFloatingButton(),
       appBar: StatisticsAppBar(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,39 +38,47 @@ class OverviewScreen extends StatelessWidget {
         ),
         context,
       ),
-      drawer: const AppDrawer(),
-      body: DoubleBackToClose(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Globals.assetImgBackground,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
-                    ),
+    );
+  }
+}
+
+class OverviewBody extends StatelessWidget {
+  const OverviewBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DoubleBackToClose(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Globals.assetImgBackground,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
-                  SingleChildScrollView(
-                    child: Center(child: _NavigationButtons()),
-                  ),
-                ],
-              ),
+                ),
+                SingleChildScrollView(
+                  child: Center(child: _NavigationButtons()),
+                ),
+              ],
             ),
-            const _Footer(),
-          ],
-        ),
+          ),
+          const _Footer(),
+        ],
       ),
-      floatingActionButton: const AddValueFloatingButton(),
     );
   }
 }
