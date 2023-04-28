@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:statistics/providers/app_layout.dart';
 
 import '../navigation/navigation_menu_vertical.dart';
 
@@ -24,7 +26,9 @@ class ScreenLayoutBuilder extends StatelessWidget {
     // print(mediaQueryData.size);
     // print(isTablet);
 
-    bool showNavigationTitle = false;
+    final appLayout = Provider.of<AppLayout>(context);
+
+    bool showNavigationTitle = appLayout.isShowNavigationItemTitle;
 
     Widget? drawerW;
     if (!isLandscape || !isTablet) {

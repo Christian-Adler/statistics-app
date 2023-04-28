@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/app_info.dart';
+import 'package:statistics/providers/app_layout.dart';
 import 'package:statistics/providers/car.dart';
 import 'package:statistics/screens/car/car_add_value_screen.dart';
 import 'package:statistics/screens/car/car_screen.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => AppLayout(),
+        ),
         ChangeNotifierProvider(
           create: (context) => Auth(),
         ),

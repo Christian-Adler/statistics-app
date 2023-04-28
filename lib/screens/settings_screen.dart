@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statistics/widgets/settings/app_layout_settings_card.dart';
 
 import '../models/screen_nav_info.dart';
 import '../widgets/navigation/app_drawer.dart';
@@ -23,6 +24,7 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
+            AppLayoutSettingsCard(),
             ServerCard(),
             DeviceStorageCard(),
             // AnimationTestCard(),
