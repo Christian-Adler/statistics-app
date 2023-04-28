@@ -20,15 +20,17 @@ class SettingsScreen extends StatelessWidget {
         context,
       ),
       drawer: const AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            AppLayoutSettingsCard(),
-            ServerCard(),
-            DeviceStorageCard(),
-            // AnimationTestCard(),
-          ],
+      body: Scrollbar(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              AppLayoutSettingsCard(),
+              ServerCard(),
+              DeviceStorageCard(),
+              // AnimationTestCard(),
+            ],
+          ),
         ),
       ),
     );

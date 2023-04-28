@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
             scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
                   thumbColor: const MaterialStatePropertyAll(Colors.purple),
-                  radius: const Radius.circular(5),
+                  radius: Radius.zero,
                   interactive: true,
                   // thickness: const MaterialStatePropertyAll(10),
                   // thumbVisibility: const MaterialStatePropertyAll(true),
