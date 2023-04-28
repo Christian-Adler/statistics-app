@@ -58,8 +58,9 @@ class MyApp extends StatelessWidget {
           update: (ctx, auth, previous) => Heart(auth, []),
         ),
       ],
-      child: Consumer<Auth>(
-        builder: (ctx, auth, _) => MaterialApp(
+      builder: (context, _) {
+        final auth = Provider.of<Auth>(context);
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Statistics',
           theme: ThemeData(
@@ -111,8 +112,8 @@ class MyApp extends StatelessWidget {
             SettingsScreen.screenNavInfo.routeName: (context) => const SettingsScreen(),
             InfoScreen.screenNavInfo.routeName: (context) => const InfoScreen(),
           },
-        ),
-      ),
+        );
+      },
     );
   }
 }
