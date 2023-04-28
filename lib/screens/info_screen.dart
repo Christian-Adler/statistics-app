@@ -7,8 +7,8 @@ import 'package:statistics/widgets/settings/settings_card.dart';
 
 import '../models/screen_nav_info.dart';
 import '../utils/globals.dart';
-import '../widgets/app_drawer.dart';
 import '../widgets/logo/ca_logo.dart';
+import '../widgets/navigation/app_drawer.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {

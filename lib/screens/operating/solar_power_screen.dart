@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/solar_power_chart.dart';
 import '../../widgets/operating/solar_power_table.dart';
 import '../../widgets/scroll_footer.dart';

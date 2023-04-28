@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/screen_nav_info.dart';
-import '../widgets/app_drawer.dart';
+import '../widgets/navigation/app_drawer.dart';
 import '../widgets/settings/device_storage_card.dart';
 import '../widgets/settings/server_card.dart';
 import '../widgets/statistics_app_bar.dart';

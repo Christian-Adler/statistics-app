@@ -4,8 +4,8 @@ import 'package:statistics/models/navigation/navigation_item.dart';
 import 'package:statistics/models/navigation/navigation_items.dart';
 import 'package:statistics/widgets/logo/eagle_logo.dart';
 
-import '../utils/globals.dart';
-import 'statistics_app_bar.dart';
+import '../../utils/globals.dart';
+import '../statistics_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);

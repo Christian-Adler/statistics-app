@@ -5,7 +5,7 @@ import '../../models/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';

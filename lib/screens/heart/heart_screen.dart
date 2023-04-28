@@ -7,7 +7,7 @@ import 'package:statistics/models/heart/blood_pressure_item.dart';
 import '../../models/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
