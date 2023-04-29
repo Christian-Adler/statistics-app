@@ -7,7 +7,9 @@ import 'package:statistics/models/heart/blood_pressure_item.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
@@ -19,7 +21,7 @@ class HeartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(HeartScreen.screenNavInfo.title),
         context,
@@ -31,12 +33,22 @@ class HeartScreen extends StatelessWidget {
           ),
         ],
       ),
+      body: const _HeartBody(),
       drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Heart>(context, listen: false).fetchData(),
-        child: _Heart(),
-      ),
+      bottomNavigationBar: const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _HeartBody extends StatelessWidget {
+  const _HeartBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Heart>(context, listen: false).fetchData(),
+      child: _Heart(),
     );
   }
 }

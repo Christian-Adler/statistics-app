@@ -26,10 +26,6 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      body: const OverviewBody(),
-      drawer: const AppDrawer(),
-      bottomNavigationBar: const AppBottomNavigationBar(),
-      floatingActionButton: const AddValueFloatingButton(),
       appBar: StatisticsAppBar(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,14 +36,16 @@ class OverviewScreen extends StatelessWidget {
         ),
         context,
       ),
+      body: const _OverviewBody(),
+      drawer: const AppDrawer(),
+      bottomNavigationBar: const AppBottomNavigationBar(),
+      floatingActionButton: const AddValueFloatingButton(),
     );
   }
 }
 
-class OverviewBody extends StatelessWidget {
-  const OverviewBody({
-    super.key,
-  });
+class _OverviewBody extends StatelessWidget {
+  const _OverviewBody();
 
   @override
   Widget build(BuildContext context) {
