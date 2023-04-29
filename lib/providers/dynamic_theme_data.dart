@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../animation/no_transition_builder.dart';
+import '../animation/transition/fade_transition_builder.dart';
+import '../animation/transition/no_transition_builder.dart';
 
 class DynamicThemeData with ChangeNotifier {
-  static const PageTransitionsTheme _noTransitions = PageTransitionsTheme(builders: {
+  static const PageTransitionsTheme noTransitions = PageTransitionsTheme(builders: {
     TargetPlatform.android: NoTransitionsBuilder(),
     TargetPlatform.iOS: NoTransitionsBuilder(),
+  });
+
+  // horizontal sliding transitions for routes.
+  static const PageTransitionsTheme hSlideTransitions = PageTransitionsTheme(builders: {
+    TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+  });
+
+  // fade transitions for routes.
+  static const PageTransitionsTheme fadeTransitions = PageTransitionsTheme(builders: {
+    TargetPlatform.android: FadeTransitionsBuilder(),
+    TargetPlatform.iOS: FadeTransitionsBuilder(),
   });
 
   PageTransitionsTheme? pageTransitionsTheme;
@@ -14,7 +26,7 @@ class DynamicThemeData with ChangeNotifier {
     // Da dies ueber MediaQuery waehrend des Build gesetzt wird, darf im Fall einer Aenderung
     // das notifyListeners erst spaeter erfolgen!
     if (!value && pageTransitionsTheme == null) {
-      pageTransitionsTheme = _noTransitions;
+      pageTransitionsTheme = fadeTransitions;
       doNotifyListenersPostFrame();
     } else if (value && pageTransitionsTheme != null) {
       pageTransitionsTheme = null;

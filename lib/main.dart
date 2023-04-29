@@ -95,10 +95,6 @@ class MyApp extends StatelessWidget {
                   // trackColor: const MaterialStatePropertyAll(Colors.blueAccent),
                   // trackBorderColor: const MaterialStatePropertyAll(Colors.purpleAccent),
                 ),
-            // Add the line below to get horizontal sliding transitions for routes.
-            // pageTransitionsTheme: const PageTransitionsTheme(builders: {
-            //   TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            // }),
             pageTransitionsTheme: dynamicThemeData.pageTransitionsTheme,
           ),
           home: auth.isAuth
