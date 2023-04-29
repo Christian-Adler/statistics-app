@@ -9,10 +9,10 @@ class AppLayout with ChangeNotifier {
   bool _showNavigationItemTitle = false;
 
   AppLayout() {
-    init();
+    _init();
   }
 
-  bool get isShowNavigationItemTitle {
+  bool get showNavigationItemTitle {
     return _showNavigationItemTitle;
   }
 
@@ -31,7 +31,7 @@ class AppLayout with ChangeNotifier {
     }
   }
 
-  void init() async {
+  void _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppLayout);
     if (dataStr == null) return;
 

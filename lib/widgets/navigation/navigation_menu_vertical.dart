@@ -6,10 +6,7 @@ import 'navigation_menu_items_vertical.dart';
 class NavigationMenuVertical extends StatelessWidget {
   final bool showNavigationTitle;
 
-  const NavigationMenuVertical({
-    super.key,
-    this.showNavigationTitle = true,
-  });
+  const NavigationMenuVertical(this.showNavigationTitle, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +28,7 @@ class NavigationMenuVertical extends StatelessWidget {
             ],
           ),
         ),
-        NavigationMenuItemsVertical(
-          showNavigationTitle: showNavigationTitle,
-        ),
+        NavigationMenuItemsVertical(showNavigationTitle),
       ],
     );
   }

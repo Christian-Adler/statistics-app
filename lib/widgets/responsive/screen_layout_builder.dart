@@ -26,9 +26,11 @@ class ScreenLayoutBuilder extends StatelessWidget {
     // print(mediaQueryData.size);
     // print(isTablet);
 
+    //TODO bottom tab bar - war mit zu vielen Nav Items? scrollbar...?
+
     final appLayout = Provider.of<AppLayout>(context);
 
-    bool showNavigationTitle = appLayout.isShowNavigationItemTitle;
+    bool showNavigationTitle = appLayout.showNavigationItemTitle;
 
     Widget? drawerW;
     if (!isLandscape || !isTablet) {
@@ -50,8 +52,8 @@ class ScreenLayoutBuilder extends StatelessWidget {
                 ),
               ],
             ),
-            width: showNavigationTitle ? 300 : 60,
-            child: NavigationMenuVertical(showNavigationTitle: showNavigationTitle),
+            width: showNavigationTitle ? 304 : 56,
+            child: NavigationMenuVertical(showNavigationTitle),
           ),
           Expanded(child: body),
         ],
@@ -59,8 +61,6 @@ class ScreenLayoutBuilder extends StatelessWidget {
     }
     bodyW ??= body;
 
-    // TODO ScreenSize
-    // TODO SplitView davon abhaenigi
     return Scaffold(
       appBar: appBar,
       drawer: drawerW,

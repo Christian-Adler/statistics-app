@@ -77,6 +77,7 @@ class MyApp extends StatelessWidget {
                   titleLarge: TextStyle(color: Colors.purple.shade900),
                   titleSmall: TextStyle(color: Colors.purple.shade900),
                 ),
+            drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: Colors.white),
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
             scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
                   thumbColor: const MaterialStatePropertyAll(Colors.purple),

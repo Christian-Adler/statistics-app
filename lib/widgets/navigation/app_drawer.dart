@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/widgets/logo/eagle_logo.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/app_layout.dart';
 import '../../utils/globals.dart';
+import '../logo/eagle_logo.dart';
 import '../statistics_app_bar.dart';
 import 'navigation_menu_vertical.dart';
 
@@ -10,6 +12,28 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLayout = Provider.of<AppLayout>(context);
+    final showNavigationTitle = appLayout.showNavigationItemTitle;
+
+    if (!showNavigationTitle) {
+      return Drawer(
+        width: 56,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .primary,
+        child: SafeArea(
+          child: Container(
+            color: Theme
+                .of(context)
+                .drawerTheme
+                .backgroundColor,
+            child: NavigationMenuVertical(showNavigationTitle),
+          ),
+        ),
+      );
+    }
+
     return Drawer(
       child: Column(
         children: [
@@ -31,8 +55,8 @@ class AppDrawer extends StatelessWidget {
                   icon: const Icon(Icons.exit_to_app))
             ],
           ),
-          const Expanded(
-            child: NavigationMenuVertical(),
+          Expanded(
+            child: NavigationMenuVertical(showNavigationTitle),
           ),
         ],
       ),

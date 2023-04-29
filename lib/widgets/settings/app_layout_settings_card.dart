@@ -61,7 +61,7 @@ class _AppLayoutSettings extends StatelessWidget {
         const Divider(height: 10),
         ListTile(
           leading: Checkbox(
-            value: appLayout.isShowNavigationItemTitle,
+            value: appLayout.showNavigationItemTitle,
             onChanged: (bool? value) {
               appLayout.showNavigationItemTitle = value!;
             },
