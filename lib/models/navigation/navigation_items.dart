@@ -75,4 +75,19 @@ class NavigationItems {
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.screenNavInfo.routeName])),
   ];
+  static final List<NavigationItemBase> navigationBarMenuItems = [
+    NavigationItem(
+        SettingsScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [SettingsScreen.screenNavInfo.routeName])),
+    NavigationItem(
+        InfoScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [InfoScreen.screenNavInfo.routeName])),
+    NavigationDividerSmall(),
+    NavigationItem(
+      const ScreenNavInfo('Logout', Icons.exit_to_app, '/logout'),
+      (context, navigator) => Globals.logout(context),
+    ),
+  ];
 }
