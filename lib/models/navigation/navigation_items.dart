@@ -9,11 +9,11 @@ import '../../screens/overview_screen.dart';
 import '../../screens/settings_screen.dart';
 import '../../utils/globals.dart';
 import '../../utils/nav/navigation_utils.dart';
-import '../screen_nav_info.dart';
 import 'navigation_divider_large.dart';
 import 'navigation_divider_small.dart';
 import 'navigation_item.dart';
 import 'navigation_item_base.dart';
+import 'screen_nav_info.dart';
 
 class NavigationItems {
   static final List<NavigationItemBase> navigationItems = [

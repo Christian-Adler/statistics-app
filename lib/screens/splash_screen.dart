@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/screen_nav_info.dart';
+import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/exception/api_exception.dart';
 
-import '../../models/screen_nav_info.dart';
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/statistics_app_bar.dart';
 

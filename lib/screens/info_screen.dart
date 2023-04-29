@@ -5,7 +5,7 @@ import 'package:statistics/widgets/logo/eagle_logo.dart';
 import 'package:statistics/widgets/logo/exploratia_logo.dart';
 import 'package:statistics/widgets/settings/settings_card.dart';
 
-import '../models/screen_nav_info.dart';
+import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/navigation/app_drawer.dart';

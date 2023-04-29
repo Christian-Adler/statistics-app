@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:statistics/utils/date_utils.dart';
 
 import '../../models/exception/api_exception.dart';
-import '../../models/screen_nav_info.dart';
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/statistics_app_bar.dart';
 

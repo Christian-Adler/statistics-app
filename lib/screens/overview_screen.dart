@@ -6,7 +6,7 @@ import 'package:statistics/screens/heart/heart_screen.dart';
 import 'package:statistics/widgets/logo/eagle_logo.dart';
 import 'package:statistics/widgets/responsive/screen_layout_builder.dart';
 
-import '../models/screen_nav_info.dart';
+import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
 import '../utils/nav/navigation_utils.dart';

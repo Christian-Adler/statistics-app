@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:statistics/models/navigation/navigation_item_base.dart';
 import 'package:statistics/models/navigation/navigation_item_type.dart';
 
-import '../screen_nav_info.dart';
+import 'screen_nav_info.dart';
 
 class NavigationItem extends NavigationItemBase {
   final IconData iconData;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/screen_nav_info.dart';
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/navigation/app_drawer.dart';
