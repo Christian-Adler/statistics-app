@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/app_info.dart';
-import 'package:statistics/providers/app_layout.dart';
-import 'package:statistics/providers/car.dart';
-import 'package:statistics/screens/car/car_add_value_screen.dart';
-import 'package:statistics/screens/car/car_screen.dart';
-import 'package:statistics/screens/info_screen.dart';
-import 'package:statistics/screens/operating/operating_add_value_screen.dart';
 
+import 'models/app_info.dart';
+import 'providers/app_layout.dart';
 import 'providers/auth.dart';
+import 'providers/car.dart';
+import 'providers/dynamic_theme_data.dart';
 import 'providers/heart.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
+import 'screens/car/car_add_value_screen.dart';
+import 'screens/car/car_screen.dart';
 import 'screens/heart/heart_add_value_screen.dart';
 import 'screens/heart/heart_screen.dart';
+import 'screens/info_screen.dart';
+import 'screens/operating/operating_add_value_screen.dart';
 import 'screens/operating/operating_screen.dart';
 import 'screens/operating/solar_power_add_value_screen.dart';
 import 'screens/operating/solar_power_screen.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (context) => DynamicThemeData(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => AppLayout(),
         ),
         ChangeNotifierProvider(
@@ -64,6 +68,8 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, _) {
         final auth = Provider.of<Auth>(context);
+        final dynamicThemeData = Provider.of<DynamicThemeData>(context);
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Statistics',
@@ -89,6 +95,11 @@ class MyApp extends StatelessWidget {
                   // trackColor: const MaterialStatePropertyAll(Colors.blueAccent),
                   // trackBorderColor: const MaterialStatePropertyAll(Colors.purpleAccent),
                 ),
+            // Add the line below to get horizontal sliding transitions for routes.
+            // pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            //   TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            // }),
+            pageTransitionsTheme: dynamicThemeData.pageTransitionsTheme,
           ),
           home: auth.isAuth
               ? const OverviewScreen()

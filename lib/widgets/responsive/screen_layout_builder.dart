@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/app_layout.dart';
+import 'package:statistics/providers/dynamic_theme_data.dart';
 
+import '../../providers/app_layout.dart';
+import '../../utils/media_query_utils.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
 class ScreenLayoutBuilder extends StatelessWidget {
-  final Widget body; // auch als Builder mit parameter der Widgetgroesse + orientatin
+  final Widget body; // TODO auch als Builder mit parameter der Widgetgroesse + orientatin
   final Widget? drawer; // TODO builder weil muss ja nicht immer erzeugt werden - builder der Navigation- Liste liefert?
   // Der koennte Parameter erhlaten : orientation oder type
   final Widget? bottomNavigationBar;
@@ -21,30 +23,25 @@ class ScreenLayoutBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQueryData = MediaQuery.of(context);
-    final orientation = mediaQueryData.orientation;
-    final isLandscape = orientation == Orientation.landscape;
-    final isTablet = mediaQueryData.size.width > 750;
-    // print(orientation);
-    // print(mediaQueryData.size);
-    // print(isTablet);
-
     final appLayout = Provider.of<AppLayout>(context);
-
     bool showNavigationTitle = appLayout.showNavigationItemTitle;
 
+    final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+
     Widget? drawerW;
-    if (!isTablet) {
+    if (!mediaQueryInfo.isTablet) {
       drawerW = drawer;
     }
 
     Widget? bottomNavBarW;
-    if (isTablet && !isLandscape) {
+    if (mediaQueryInfo.isTablet && !mediaQueryInfo.isLandscape) {
       bottomNavBarW = bottomNavigationBar;
     }
+    final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+    dynamicThemeData.usePageTransition = bottomNavBarW == null;
 
     Widget? bodyW;
-    if (isLandscape && isTablet) {
+    if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {
       bodyW = Row(
         children: [
           Container(
