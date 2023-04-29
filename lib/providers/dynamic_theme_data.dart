@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../animation/transition/fade_transition_builder.dart';
-import '../animation/transition/no_transition_builder.dart';
+import 'package:flutter_commons/animation/transition/fade_transition_builder.dart';
+import 'package:flutter_commons/animation/transition/no_transition_builder.dart';
 
 class DynamicThemeData with ChangeNotifier {
   static const PageTransitionsTheme noTransitions = PageTransitionsTheme(builders: {

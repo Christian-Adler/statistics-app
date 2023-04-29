@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/doulbe_back_to_close.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/screens/car/car_screen.dart';
-import 'package:statistics/screens/heart/heart_screen.dart';
-import 'package:statistics/widgets/logo/eagle_logo.dart';
-import 'package:statistics/widgets/responsive/screen_layout_builder.dart';
 
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
 import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
-import '../widgets/doulbe_back_to_close.dart';
+import '../widgets/logo/eagle_logo.dart';
 import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
+import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
+import 'car/car_screen.dart';
+import 'heart/heart_screen.dart';
 import 'operating/operating_screen.dart';
 import 'operating/solar_power_screen.dart';
 
