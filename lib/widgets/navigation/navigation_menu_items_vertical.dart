@@ -9,9 +9,9 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
-  List<Widget> buildNavItems(BuildContext context, NavigatorState navigator) {
+  List<Widget> _buildNavItems(BuildContext context, NavigatorState navigator) {
     List<Widget> result = [];
-    for (var navItem in NavigationItems.navigationItems) {
+    for (var navItem in NavigationItems.navigationMenuItems) {
       if (navItem.isNavigation && navItem is NavigationItem) {
         result.add(ListTile(
           title: showNavigationTitle ? Text(navItem.title) : Icon(navItem.iconData),
@@ -52,7 +52,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
               ),
             ),
             children: [
-              ...buildNavItems(context, navigator),
+              ..._buildNavItems(context, navigator),
             ],
           ),
         ),

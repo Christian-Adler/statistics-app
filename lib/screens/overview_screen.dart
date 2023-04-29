@@ -12,6 +12,7 @@ import '../utils/globals.dart';
 import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/doulbe_back_to_close.dart';
+import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'operating/operating_screen.dart';
@@ -27,6 +28,7 @@ class OverviewScreen extends StatelessWidget {
     return ScreenLayoutBuilder(
       body: const OverviewBody(),
       drawer: const AppDrawer(),
+      bottomNavigationBar: const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
       appBar: StatisticsAppBar(
         Row(

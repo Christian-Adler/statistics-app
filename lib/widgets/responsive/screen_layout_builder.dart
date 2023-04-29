@@ -6,14 +6,17 @@ import '../navigation/navigation_menu_vertical.dart';
 
 class ScreenLayoutBuilder extends StatelessWidget {
   final Widget body; // auch als Builder mit parameter der Widgetgroesse + orientatin
-  final Widget drawer; // TODO builder weil muss ja nicht immer erzeugt werden - builder der Navigation- Liste liefert?
+  final Widget? drawer; // TODO builder weil muss ja nicht immer erzeugt werden - builder der Navigation- Liste liefert?
   // Der koennte Parameter erhlaten : orientation oder type
-  // Small Drawer ? Also nur Icons?
+  final Widget? bottomNavigationBar;
+
+  //TODO bottom tab bar - was mit zu vielen Nav Items? scrollbar... Menü?
+  // TODO builder wie bei drawer
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
 
   const ScreenLayoutBuilder(
-      {Key? key, required this.body, required this.drawer, this.appBar, this.floatingActionButton})
+      {Key? key, required this.body, this.drawer, this.bottomNavigationBar, this.appBar, this.floatingActionButton})
       : super(key: key);
 
   @override
@@ -26,15 +29,18 @@ class ScreenLayoutBuilder extends StatelessWidget {
     // print(mediaQueryData.size);
     // print(isTablet);
 
-    //TODO bottom tab bar - war mit zu vielen Nav Items? scrollbar...?
-
     final appLayout = Provider.of<AppLayout>(context);
 
     bool showNavigationTitle = appLayout.showNavigationItemTitle;
 
     Widget? drawerW;
-    if (!isLandscape || !isTablet) {
+    if (!isTablet) {
       drawerW = drawer;
+    }
+
+    Widget? bottomNavBarW;
+    if (isTablet && !isLandscape) {
+      bottomNavBarW = bottomNavigationBar;
     }
 
     Widget? bodyW;
@@ -64,6 +70,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       drawer: drawerW,
+      bottomNavigationBar: bottomNavBarW,
       body: bodyW,
       floatingActionButton: floatingActionButton,
     );

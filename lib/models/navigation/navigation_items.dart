@@ -16,7 +16,7 @@ import 'navigation_item_base.dart';
 import 'screen_nav_info.dart';
 
 class NavigationItems {
-  static final List<NavigationItemBase> navigationItems = [
+  static final List<NavigationItemBase> navigationMenuItems = [
     NavigationItem(
         OverviewScreen.screenNavInfo, (context, navigator) => NavigationUtils.navigateToRoute(context, navigator, [])),
     NavigationDividerSmall(),
@@ -54,5 +54,25 @@ class NavigationItems {
       const ScreenNavInfo('Logout', Icons.exit_to_app, '/logout'),
       (context, navigator) => Globals.logout(context),
     ),
+  ];
+  static final List<NavigationItem> navigationBarItems = [
+    NavigationItem(
+        OverviewScreen.screenNavInfo, (context, navigator) => NavigationUtils.navigateToRoute(context, navigator, [])),
+    NavigationItem(
+        OperatingScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [OperatingScreen.screenNavInfo.routeName])),
+    NavigationItem(
+        SolarPowerScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [SolarPowerScreen.screenNavInfo.routeName])),
+    NavigationItem(
+        CarScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [CarScreen.screenNavInfo.routeName])),
+    NavigationItem(
+        HeartScreen.screenNavInfo,
+        (context, navigator) =>
+            NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.screenNavInfo.routeName])),
   ];
 }

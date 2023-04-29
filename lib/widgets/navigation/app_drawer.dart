@@ -18,16 +18,10 @@ class AppDrawer extends StatelessWidget {
     if (!showNavigationTitle) {
       return Drawer(
         width: 56,
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         child: SafeArea(
           child: Container(
-            color: Theme
-                .of(context)
-                .drawerTheme
-                .backgroundColor,
+            color: Theme.of(context).drawerTheme.backgroundColor,
             child: NavigationMenuVertical(showNavigationTitle),
           ),
         ),
