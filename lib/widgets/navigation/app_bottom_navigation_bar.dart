@@ -57,9 +57,13 @@ class AppBottomNavigationBar extends StatelessWidget {
       }
     }
 
+    var renderBox = context.findRenderObject() as RenderBox;
+    // final Size size = renderBox.size;
+    final Offset offset = renderBox.localToGlobal(Offset.zero);
+
     var res = await showMenu<int>(
       context: context,
-      position: RelativeRect.fromLTRB(1000.0, 2000.0, 0.0, 0.0),
+      position: RelativeRect.fromLTRB(1, offset.dy, 0, 0),
       items: items,
       elevation: 8.0,
     );
