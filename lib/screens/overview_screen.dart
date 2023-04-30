@@ -36,7 +36,7 @@ class OverviewScreen extends StatelessWidget {
         ),
         context,
       ),
-      body: const _OverviewBody(),
+      body: const _OverviewScreenBody(),
       drawerBuilder: () => const AppDrawer(),
       bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
@@ -44,8 +44,8 @@ class OverviewScreen extends StatelessWidget {
   }
 }
 
-class _OverviewBody extends StatelessWidget {
-  const _OverviewBody();
+class _OverviewScreenBody extends StatelessWidget {
+  const _OverviewScreenBody();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,10 @@ class _OverviewBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Center(child: _NavigationButtons()),
+                Scrollbar(
+                  child: SingleChildScrollView(
+                    child: Center(child: _NavigationButtons()),
+                  ),
                 ),
               ],
             ),

@@ -16,12 +16,13 @@ class ScreenLayoutBuilder extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
 
-  const ScreenLayoutBuilder({Key? key,
-    required this.body,
-    this.drawerBuilder,
-    this.bottomNavigationBarBuilder,
-    this.appBar,
-    this.floatingActionButton})
+  const ScreenLayoutBuilder(
+      {Key? key,
+      required this.body,
+      this.drawerBuilder,
+      this.bottomNavigationBarBuilder,
+      this.appBar,
+      this.floatingActionButton})
       : super(key: key);
 
   @override
@@ -50,6 +51,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
     Widget? bodyW;
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {
       bodyW = Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: const BoxDecoration(

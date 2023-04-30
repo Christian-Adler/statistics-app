@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:statistics/models/app_info.dart';
-import 'package:statistics/widgets/logo/eagle_logo.dart';
-import 'package:statistics/widgets/logo/exploratia_logo.dart';
-import 'package:statistics/widgets/settings/settings_card.dart';
 
+import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
 import '../widgets/logo/ca_logo.dart';
+import '../widgets/logo/eagle_logo.dart';
+import '../widgets/logo/exploratia_logo.dart';
+import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
+import '../widgets/responsive/screen_layout_builder.dart';
+import '../widgets/settings/settings_card.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {
@@ -18,13 +20,25 @@ class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(InfoScreen.screenNavInfo.title),
         context,
       ),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
+      body: const _InfoScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
+    );
+  }
+}
+
+class _InfoScreenBody extends StatelessWidget {
+  const _InfoScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

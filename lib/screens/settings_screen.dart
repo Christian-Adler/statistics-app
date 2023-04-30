@@ -21,20 +21,24 @@ class SettingsScreen extends StatelessWidget {
         Text(SettingsScreen.screenNavInfo.title),
         context,
       ),
-      body: const _SettingsBody(),
+      body: _SettingsScreenBody(),
       drawerBuilder: () => const AppDrawer(),
       bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
     );
   }
 }
 
-class _SettingsBody extends StatelessWidget {
-  const _SettingsBody();
+class _SettingsScreenBody extends StatelessWidget {
+  final ScrollController scrollController = ScrollController();
+
+  _SettingsScreenBody();
 
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
+      controller: scrollController,
       child: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [

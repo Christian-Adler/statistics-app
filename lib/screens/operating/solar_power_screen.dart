@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/add_value_floating_button.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/solar_power_chart.dart';
 import '../../widgets/operating/solar_power_table.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
@@ -31,7 +33,7 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(SolarPowerScreen.screenNavInfo.title),
         context,
@@ -48,12 +50,26 @@ class _SolarPowerScreenState extends State<SolarPowerScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
-        child: _SolarPower(_showYearly),
-      ),
+      body: _SolarScreenBody(showYearly: _showYearly),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _SolarScreenBody extends StatelessWidget {
+  final bool _showYearly;
+
+  const _SolarScreenBody({
+    required bool showYearly,
+  }) : _showYearly = showYearly;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
+      child: _SolarPower(_showYearly),
     );
   }
 }
@@ -68,6 +84,7 @@ class _SolarPower extends StatefulWidget {
 }
 
 class _SolarPowerState extends State<_SolarPower> {
+  final ScrollController scrollController = ScrollController();
   late Future _solarDataFuture;
 
   Future _obtainSolarDataFuture() {
@@ -104,7 +121,9 @@ class _SolarPowerState extends State<_SolarPower> {
           );
         } else {
           return Scrollbar(
+            controller: scrollController,
             child: SingleChildScrollView(
+              controller: scrollController,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(

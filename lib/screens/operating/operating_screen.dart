@@ -5,8 +5,10 @@ import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
 import '../../widgets/add_value_floating_button.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'operating_add_value_screen.dart';
@@ -31,7 +33,7 @@ class _OperatingScreenState extends State<OperatingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(OperatingScreen.screenNavInfo.title),
         context,
@@ -48,12 +50,26 @@ class _OperatingScreenState extends State<OperatingScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
-        child: _Operating(_showYearly),
-      ),
+      body: _OperatingScreenBody(showYearly: _showYearly),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _OperatingScreenBody extends StatelessWidget {
+  const _OperatingScreenBody({
+    required bool showYearly,
+  }) : _showYearly = showYearly;
+
+  final bool _showYearly;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
+      child: _Operating(_showYearly),
     );
   }
 }
@@ -69,6 +85,7 @@ class _Operating extends StatefulWidget {
 
 class _OperatingState extends State<_Operating> {
   late Future _operatingDataFuture;
+  final ScrollController scrollController = ScrollController();
 
   Future _obtainSolarDataFuture() {
     return Provider.of<Operating>(context, listen: false).fetchDataIfNotYetLoaded();
@@ -111,7 +128,9 @@ class _OperatingState extends State<_Operating> {
           );
         } else {
           return Scrollbar(
+            controller: scrollController,
             child: SingleChildScrollView(
+              controller: scrollController,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/car/car_refuel_item.dart';
 
+import '../../models/car/car_refuel_item.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/car.dart';
 import '../../widgets/add_value_floating_button.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
@@ -21,7 +23,7 @@ class CarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(CarScreen.screenNavInfo.title),
         context,
@@ -33,12 +35,22 @@ class CarScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Car>(context, listen: false).fetchData(),
-        child: _Car(),
-      ),
+      body: const _CarScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _CarScreenBody extends StatelessWidget {
+  const _CarScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Car>(context, listen: false).fetchData(),
+      child: _Car(),
     );
   }
 }
@@ -168,9 +180,12 @@ class _CarRefuelTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
+    final ScrollController scrollController = ScrollController();
     return AnimationLimiter(
       child: Scrollbar(
+        controller: scrollController,
         child: ListView.separated(
+          controller: scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
