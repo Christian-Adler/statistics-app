@@ -101,10 +101,7 @@ class _CarState extends State<_Car> {
             _CarRefuelTableHead(),
             _TableHeadSeparator(),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-                child: _CarRefuelTable(),
-              ),
+              child: _CarRefuelTable(),
             )
           ]);
         }

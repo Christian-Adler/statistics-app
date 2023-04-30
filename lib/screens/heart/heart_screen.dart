@@ -99,10 +99,7 @@ class _HeartState extends State<_Heart> {
             _BloodPressureTableHead(),
             _TableHeadSeparator(),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-                child: _BloodPressureTable(),
-              ),
+              child: _BloodPressureTable(),
             )
           ]);
         }
@@ -229,31 +226,33 @@ class _BloodPressureTableItem extends StatelessWidget {
         ? Colors.grey.shade300
         : (_bloodPressureItem.date.startsWith('Sa') ? Colors.grey.shade200 : null);
 
-    return Container(
-      color: bgColor,
-      width: 320,
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 110,
-            child: Text(_bloodPressureItem.date),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
-          ),
-        ],
+    return Center(
+      child: Container(
+        color: bgColor,
+        width: 320,
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 110,
+              child: Text(_bloodPressureItem.date),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
+            ),
+          ],
+        ),
       ),
     );
   }
