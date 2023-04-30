@@ -237,8 +237,9 @@ class _CarRefuelTableItem extends StatelessWidget {
     String priceInEuro = (_carRefuelItem.centPerliter * _carRefuelItem.liter / 100).toStringAsFixed(2);
     String litersPer100km = '';
     Color colorLiterPer100km = const Color.fromRGBO(120, 255, 0, 1);
-    if (_prevCarRefuelItem != null) {
-      final kmDistance = _carRefuelItem.km - _prevCarRefuelItem!.km;
+    var prevCarRefuelItem = _prevCarRefuelItem;
+    if (prevCarRefuelItem != null) {
+      final kmDistance = _carRefuelItem.km - prevCarRefuelItem.km;
       // Annahme: immer voll getankt. Daher haben wir seit dem letzten Tanken genau die Tankmenge verbraucht.
       final lPer100km = (_carRefuelItem.liter / kmDistance * 100);
       litersPer100km = lPer100km < 4 ? '---' : lPer100km.toStringAsFixed(2);
@@ -288,7 +289,7 @@ class _CarRefuelTableItem extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              if (_prevCarRefuelItem != null)
+              if (prevCarRefuelItem != null)
                 Positioned(
                   top: 19,
                   height: 22,
@@ -298,7 +299,7 @@ class _CarRefuelTableItem extends StatelessWidget {
                     color: colorLiterPer100km,
                   ),
                 ),
-              if (_prevCarRefuelItem != null)
+              if (prevCarRefuelItem != null)
                 Positioned(
                   top: 21,
                   height: 15,

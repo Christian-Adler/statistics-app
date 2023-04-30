@@ -275,13 +275,14 @@ class _BloodPressureValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (_bloodPressureValues == null || _bloodPressureValues!.isEmpty) return Container();
+    var bloodPressureValues = _bloodPressureValues;
+    if (bloodPressureValues == null || bloodPressureValues.isEmpty) return Container();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        ..._bloodPressureValues!.map((bpv) => Container(
+        ...bloodPressureValues.map((bpv) => Container(
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Theme.of(context).scaffoldBackgroundColor),

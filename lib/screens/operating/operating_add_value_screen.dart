@@ -32,8 +32,9 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
   }
 
   Future<void> _saveForm() async {
-    if (!_form.currentState!.validate()) return;
-    _form.currentState!.save();
+    var currentState = _form.currentState;
+    if (currentState == null || !currentState.validate()) return;
+    currentState.save();
 
     setState(() {
       _isLoading = true;
