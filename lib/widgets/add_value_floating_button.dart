@@ -6,6 +6,7 @@ import '../screens/heart/heart_add_value_screen.dart';
 import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_add_value_screen.dart';
 import '../screens/operating/operating_screen.dart';
+import '../screens/operating/solar_power_add_value_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../utils/nav/navigation_utils.dart';
 import 'expandable/expandable_fab.dart';
@@ -27,8 +28,8 @@ class AddValueFloatingButton extends StatelessWidget {
               [OperatingScreen.screenNavInfo.routeName, OperatingAddValueScreen.screenNavInfo.routeName]);
         }),
         ActionButtonData(SolarPowerScreen.screenNavInfo.iconData, () {
-          NavigationUtils.navigateToRoute(
-              context, navigator, [SolarPowerScreen.screenNavInfo.routeName, SolarPowerScreen.screenNavInfo.routeName]);
+          NavigationUtils.navigateToRoute(context, navigator,
+              [SolarPowerScreen.screenNavInfo.routeName, SolarPowerAddValueScreen.screenNavInfo.routeName]);
         }),
         ActionButtonData(CarScreen.screenNavInfo.iconData, () {
           NavigationUtils.navigateToRoute(
