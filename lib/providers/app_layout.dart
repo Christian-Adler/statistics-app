@@ -6,7 +6,7 @@ import 'package:flutter_commons/utils/device_storage.dart';
 import '../utils/device_storage_keys.dart';
 
 class AppLayout with ChangeNotifier {
-  bool _showNavigationItemTitle = false;
+  bool _showNavigationItemTitle = true;
 
   AppLayout() {
     _init();
@@ -40,6 +40,6 @@ class AppLayout with ChangeNotifier {
       _showNavigationItemTitle = data['showNavigationItemTitle'] as bool;
     }
 
-    // notifyListeners();
+    notifyListeners();
   }
 }
