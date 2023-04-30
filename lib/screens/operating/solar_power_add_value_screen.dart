@@ -7,6 +7,7 @@ import '../../models/exception/api_exception.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/date_utils.dart';
+import '../../widgets/layout/scrollable_centered_form_wrapper.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class SolarPowerAddValueScreen extends StatefulWidget {
@@ -54,6 +55,17 @@ class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        appBar: StatisticsAppBar(
+          Text(SolarPowerAddValueScreen.screenNavInfo.title),
+          context,
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     final insertDate = DateFormat('MMMM yyyy').format(DateUtil.getInsertDate());
 
     return Scaffold(
@@ -62,39 +74,28 @@ class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _form,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        insertDate,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      TextFormField(
-                        autofocus: true,
-                        decoration: const InputDecoration(labelText: 'Erzeugte Solar Energie (kWh)'),
-                        textInputAction: TextInputAction.done,
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter a kWh value';
-                          var val = double.tryParse(value);
-                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
-                          return null;
-                        },
-                        onSaved: (value) => _value = double.parse(value!),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+      body: ScrollableCenteredFormWrapper(
+        formKey: _form,
+        children: [
+          Text(
+            insertDate,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          TextFormField(
+            autofocus: true,
+            decoration: const InputDecoration(labelText: 'Erzeugte Solar Energie (kWh)'),
+            textInputAction: TextInputAction.done,
+            keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'Please enter a kWh value';
+              var val = double.tryParse(value);
+              if (val == null || val <= 0) return 'Please provide a valid number > 0';
+              return null;
+            },
+            onSaved: (value) => _value = double.parse(value!),
+          ),
+        ],
+      ),
     );
   }
 }
