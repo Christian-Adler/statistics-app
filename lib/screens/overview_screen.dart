@@ -8,6 +8,7 @@ import '../providers/auth.dart';
 import '../utils/globals.dart';
 import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
@@ -70,10 +71,8 @@ class _OverviewScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                Scrollbar(
-                  child: SingleChildScrollView(
-                    child: Center(child: _NavigationButtons()),
-                  ),
+                SingleChildScrollViewWithScrollbar(
+                  child: Center(child: _NavigationButtons()),
                 ),
               ],
             ),
@@ -144,11 +143,16 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
       return Column(
         children: [
           const SizedBox(height: 30, width: 20),
-          SingleChildScrollView(
+          SingleChildScrollViewWithScrollbar(
             scrollDirection: Axis.horizontal,
             child: AnimationLimiter(
-              child: Row(
-                children: staggeredList,
+              child: Column(
+                children: [
+                  Row(
+                    children: staggeredList,
+                  ),
+                  const SizedBox(height: 10, width: 20),
+                ],
               ),
             ),
           ),

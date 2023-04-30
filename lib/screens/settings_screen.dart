@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/navigation/screen_nav_info.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
@@ -21,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
         Text(SettingsScreen.screenNavInfo.title),
         context,
       ),
-      body: _SettingsScreenBody(),
+      body: const _SettingsScreenBody(),
       drawerBuilder: () => const AppDrawer(),
       bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
     );
@@ -29,18 +30,15 @@ class SettingsScreen extends StatelessWidget {
 }
 
 class _SettingsScreenBody extends StatelessWidget {
-  final ScrollController scrollController = ScrollController();
-
-  _SettingsScreenBody();
+  const _SettingsScreenBody();
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: scrollController,
-      child: SingleChildScrollView(
-        controller: scrollController,
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollViewWithScrollbar(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             AppLayoutSettingsCard(),
             ServerCard(),

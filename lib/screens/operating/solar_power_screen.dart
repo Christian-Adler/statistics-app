@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../widgets/add_value_floating_button.dart';
+import '../../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/solar_power_chart.dart';
@@ -84,7 +85,6 @@ class _SolarPower extends StatefulWidget {
 }
 
 class _SolarPowerState extends State<_SolarPower> {
-  final ScrollController scrollController = ScrollController();
   late Future _solarDataFuture;
 
   Future _obtainSolarDataFuture() {
@@ -120,29 +120,24 @@ class _SolarPowerState extends State<_SolarPower> {
             ),
           );
         } else {
-          return Scrollbar(
-            controller: scrollController,
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                        style: Theme.of(context).textTheme.titleLarge),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SolarPowerChart(widget.showYearly),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SolarPowerTable(widget.showYearly),
-                    const ScrollFooter(
-                      marginTop: 20,
-                    ),
-                  ],
-                ),
+          return SingleChildScrollViewWithScrollbar(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SolarPowerChart(widget.showYearly),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SolarPowerTable(widget.showYearly),
+                  const ScrollFooter(
+                    marginTop: 20,
+                  ),
+                ],
               ),
             ),
           );

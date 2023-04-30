@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
+import '../layout/single_child_scroll_view_with_scrollbar.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
   final bool showNavigationTitle;
@@ -26,6 +27,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
         result.add(const _GradientDivider());
       }
     }
+
     // Wenn nur Icons, dann unten nochmal Platz wg. Hintergrundbild
     if (!showNavigationTitle) {
       result.add(const SizedBox(
@@ -39,7 +41,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var navigator = Navigator.of(context);
-    return SingleChildScrollView(
+    return SingleChildScrollViewWithScrollbar(
       child: AnimationLimiter(
         child: Column(
           children: AnimationConfiguration.toStaggeredList(
