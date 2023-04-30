@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/heart/blood_pressure_item.dart';
 
+import '../../models/heart/blood_pressure_item.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
@@ -33,7 +33,7 @@ class HeartScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const _HeartBody(),
+      body: const _HeartScreenBody(),
       drawerBuilder: () => const AppDrawer(),
       bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
@@ -41,8 +41,8 @@ class HeartScreen extends StatelessWidget {
   }
 }
 
-class _HeartBody extends StatelessWidget {
-  const _HeartBody();
+class _HeartScreenBody extends StatelessWidget {
+  const _HeartScreenBody();
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +176,12 @@ class _BloodPressureTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
+    final ScrollController scrollController = ScrollController();
     return AnimationLimiter(
       child: Scrollbar(
+        controller: scrollController,
         child: ListView.separated(
+          controller: scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
