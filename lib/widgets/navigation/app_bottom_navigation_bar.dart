@@ -97,6 +97,15 @@ class AppBottomNavigationBar extends StatelessWidget {
       }
     }
 
+    if (selectedIdx < 0) {
+      // Extra Menu?
+      if (NavigationItems.navigationBarMenuItems.isNotEmpty) {
+        selectedIdx = NavigationItems.navigationBarItems.length;
+      } else {
+        selectedIdx = 0; // Fallback Uebersicht
+      }
+    }
+
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: _buildNavItems(context),
