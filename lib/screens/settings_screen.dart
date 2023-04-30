@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/app_drawer.dart';
+import '../models/navigation/screen_nav_info.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import '../widgets/navigation/app_bottom_navigation_bar.dart';
+import '../widgets/navigation/app_drawer.dart';
+import '../widgets/responsive/screen_layout_builder.dart';
+import '../widgets/settings/app_layout_settings_card.dart';
 import '../widgets/settings/device_storage_card.dart';
 import '../widgets/settings/server_card.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
-  static const routeName = '/settings_screen';
-  static const title = 'Einstellungen';
-  static const iconData = Icons.settings;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Einstellungen', Icons.settings, '/settings_screen');
 
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
-        const Text(SettingsScreen.title),
+        Text(SettingsScreen.screenNavInfo.title),
         context,
       ),
-      drawer: const AppDrawer(),
-      body: SingleChildScrollView(
+      body: const _SettingsScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
+    );
+  }
+}
+
+class _SettingsScreenBody extends StatelessWidget {
+  const _SettingsScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollViewWithScrollbar(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
+            AppLayoutSettingsCard(),
             ServerCard(),
             DeviceStorageCard(),
             // AnimationTestCard(),

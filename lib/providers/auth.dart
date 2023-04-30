@@ -11,7 +11,9 @@ class Auth with ChangeNotifier {
   String? _pw;
 
   bool get isAuth {
-    return _serverUrl != null && _serverUrl!.isNotEmpty && _pw != null && _pw!.isNotEmpty;
+    final serverUrl = _serverUrl;
+    final pw = _pw;
+    return serverUrl != null && serverUrl.isNotEmpty && pw != null && pw.isNotEmpty;
   }
 
   String get pw {
@@ -23,8 +25,9 @@ class Auth with ChangeNotifier {
   }
 
   String get serverUrlWithoutProtocol {
-    if (_serverUrl != null) {
-      return _serverUrl!.replaceFirst(RegExp(r'(\w+)://'), '');
+    final serverUrl = _serverUrl;
+    if (serverUrl != null) {
+      return serverUrl.replaceFirst(RegExp(r'(\w+)://'), '');
     }
     return 'invalid';
   }
@@ -35,11 +38,9 @@ class Auth with ChangeNotifier {
     _serverUrl = serverUrl;
     _pw = pw;
 
-    if (_serverUrl == null || _pw == null) throw Exception('Illegal arguments (null) for login!');
-
     try {
       await HttpUtils.sendRequest('connection_check', null, this);
-      final authData = {'serverUrl': _serverUrl, 'pw': _pw};
+      final authData = {'serverUrl': serverUrl, 'pw': _pw};
       final authDataStr = jsonEncode(authData);
       await DeviceStorage.write(DeviceStorageKeys.keyAuthData, authDataStr);
 
@@ -48,8 +49,8 @@ class Auth with ChangeNotifier {
       if (strServers != null) {
         servers.addAll((jsonDecode(strServers) as List<dynamic>).map((e) => e.toString()));
       }
-      if (!servers.contains(_serverUrl)) {
-        servers.add(_serverUrl!);
+      if (!servers.contains(serverUrl)) {
+        servers.add(serverUrl);
         await DeviceStorage.write(DeviceStorageKeys.keyServers, jsonEncode(servers));
       }
 

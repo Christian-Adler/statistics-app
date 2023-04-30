@@ -1,73 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/screens/car/car_screen.dart';
-import 'package:statistics/screens/heart/heart_screen.dart';
-import 'package:statistics/widgets/logo/eagle_logo.dart';
 
+import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
-import '../utils/navigation_utils.dart';
+import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/doulbe_back_to_close.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import '../widgets/logo/eagle_logo.dart';
+import '../widgets/navigation/app_bottom_navigation_bar.dart';
+import '../widgets/navigation/app_drawer.dart';
+import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
+import 'car/car_screen.dart';
+import 'heart/heart_screen.dart';
 import 'operating/operating_screen.dart';
 import 'operating/solar_power_screen.dart';
 
 class OverviewScreen extends StatelessWidget {
-  static const String routeName = '/overview';
-  static const String title = 'Übersicht';
-  static const IconData iconData = Icons.home_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Übersicht', Icons.home_outlined, '/overview');
 
   const OverviewScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(OverviewScreen.title),
-            EagleLogo(),
+          children: [
+            Text(OverviewScreen.screenNavInfo.title),
+            const EagleLogo(),
           ],
         ),
         context,
       ),
-      drawer: const AppDrawer(),
-      body: DoubleBackToClose(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Globals.assetImgBackground,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    child: Center(child: _NavigationButtons()),
-                  ),
-                ],
-              ),
-            ),
-            const _Footer(),
-          ],
-        ),
-      ),
+      body: const _OverviewScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _OverviewScreenBody extends StatelessWidget {
+  const _OverviewScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return DoubleBackToClose(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Globals.assetImgBackground,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                ),
+                SingleChildScrollViewWithScrollbar(
+                  child: Center(child: _NavigationButtons()),
+                ),
+              ],
+            ),
+          ),
+          const _Footer(),
+        ],
+      ),
     );
   }
 }
@@ -82,30 +94,22 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
     return [
       const SizedBox(height: 30, width: 20),
       const _RoundedBtn(
-        title: OperatingScreen.title,
-        iconData: OperatingScreen.iconData,
-        routeName: OperatingScreen.routeName,
+        screenNavInfo: OperatingScreen.screenNavInfo,
         edgeColors: [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
       ),
       const SizedBox(height: 30, width: 20),
       const _RoundedBtn(
-        title: SolarPowerScreen.title,
-        iconData: SolarPowerScreen.iconData,
-        routeName: SolarPowerScreen.routeName,
+        screenNavInfo: SolarPowerScreen.screenNavInfo,
         edgeColors: [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
       ),
       const SizedBox(height: 30, width: 20),
       const _RoundedBtn(
-        title: CarScreen.title,
-        iconData: CarScreen.iconData,
-        routeName: CarScreen.routeName,
+        screenNavInfo: CarScreen.screenNavInfo,
         edgeColors: [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
       ),
       const SizedBox(height: 30, width: 20),
       const _RoundedBtn(
-        title: HeartScreen.title,
-        iconData: HeartScreen.iconData,
-        routeName: HeartScreen.routeName,
+        screenNavInfo: HeartScreen.screenNavInfo,
         edgeColors: [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
       ),
       const SizedBox(height: 30, width: 20),
@@ -139,11 +143,16 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
       return Column(
         children: [
           const SizedBox(height: 30, width: 20),
-          SingleChildScrollView(
+          SingleChildScrollViewWithScrollbar(
             scrollDirection: Axis.horizontal,
             child: AnimationLimiter(
-              child: Row(
-                children: staggeredList,
+              child: Column(
+                children: [
+                  Row(
+                    children: staggeredList,
+                  ),
+                  const SizedBox(height: 10, width: 20),
+                ],
               ),
             ),
           ),
@@ -154,17 +163,10 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
 }
 
 class _RoundedBtn extends StatelessWidget {
-  final String title;
-  final IconData iconData;
+  final ScreenNavInfo screenNavInfo;
   final List<Color> edgeColors;
-  final String routeName;
 
-  const _RoundedBtn({
-    required this.edgeColors,
-    required this.routeName,
-    required this.title,
-    required this.iconData,
-  });
+  const _RoundedBtn({required this.edgeColors, required this.screenNavInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +199,8 @@ class _RoundedBtn extends StatelessWidget {
             right: 2,
             width: 218,
             height: 98,
-            child: _LargeNavigationButton(routeName, title, iconData, edgeColors[0], edgeColors[1]),
+            child: _LargeNavigationButton(
+                screenNavInfo.routeName, screenNavInfo.title, screenNavInfo.iconData, edgeColors[0], edgeColors[1]),
           ),
         ],
       ),

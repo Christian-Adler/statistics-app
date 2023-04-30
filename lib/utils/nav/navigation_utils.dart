@@ -37,4 +37,8 @@ class NavigationUtils {
       navigator.pushNamed(routeName);
     }
   }
+
+  static RouteSettings? getActRouteSettings(BuildContext ctx) {
+    return ModalRoute.of(ctx)?.settings;
+  }
 }

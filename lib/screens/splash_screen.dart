@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
-  static const String routeName = '/splash_screen';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Splash', Icons.start, '/splash_screen');
 
   const SplashScreen({Key? key}) : super(key: key);
 

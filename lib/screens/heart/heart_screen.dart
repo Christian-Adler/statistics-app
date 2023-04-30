@@ -2,42 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/heart/blood_pressure_item.dart';
 
+import '../../models/heart/blood_pressure_item.dart';
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
+import '../../widgets/navigation/app_drawer.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatelessWidget {
-  static const String routeName = '/heart';
-  static const String title = 'Blutdruck';
-  static const IconData iconData = Icons.monitor_heart_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck', Icons.monitor_heart_outlined, '/heart');
 
   const HeartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
-        const Text(HeartScreen.title),
+        Text(HeartScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(HeartAddValueScreen.routeName),
-            tooltip: 'Blutdruck Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName),
+            tooltip: HeartAddValueScreen.screenNavInfo.title,
+            icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Heart>(context, listen: false).fetchData(),
-        child: _Heart(),
-      ),
+      body: const _HeartScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _HeartScreenBody extends StatelessWidget {
+  const _HeartScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Heart>(context, listen: false).fetchData(),
+      child: _Heart(),
     );
   }
 }
@@ -88,10 +99,7 @@ class _HeartState extends State<_Heart> {
             _BloodPressureTableHead(),
             _TableHeadSeparator(),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-                child: _BloodPressureTable(),
-              ),
+              child: _BloodPressureTable(),
             )
           ]);
         }
@@ -165,9 +173,12 @@ class _BloodPressureTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
+    final ScrollController scrollController = ScrollController();
     return AnimationLimiter(
       child: Scrollbar(
+        controller: scrollController,
         child: ListView.separated(
+          controller: scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
@@ -215,31 +226,33 @@ class _BloodPressureTableItem extends StatelessWidget {
         ? Colors.grey.shade300
         : (_bloodPressureItem.date.startsWith('Sa') ? Colors.grey.shade200 : null);
 
-    return Container(
-      color: bgColor,
-      width: 320,
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 110,
-            child: Text(_bloodPressureItem.date),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
-          ),
-          SizedBox(
-            width: 70,
-            child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
-          ),
-        ],
+    return Center(
+      child: Container(
+        color: bgColor,
+        width: 320,
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 110,
+              child: Text(_bloodPressureItem.date),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
+            ),
+            SizedBox(
+              width: 70,
+              child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -261,13 +274,14 @@ class _BloodPressureValueRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (_bloodPressureValues == null || _bloodPressureValues!.isEmpty) return Container();
+    var bloodPressureValues = _bloodPressureValues;
+    if (bloodPressureValues == null || bloodPressureValues.isEmpty) return Container();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        ..._bloodPressureValues!.map((bpv) => Container(
+        ...bloodPressureValues.map((bpv) => Container(
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Theme.of(context).scaffoldBackgroundColor),

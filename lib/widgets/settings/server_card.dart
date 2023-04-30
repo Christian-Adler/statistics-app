@@ -100,8 +100,9 @@ class _ChangeServerState extends State<_ChangeServer> {
   }
 
   Future<void> _saveForm() async {
-    if (!_form.currentState!.validate()) return;
-    _form.currentState!.save();
+    var currentState = _form.currentState;
+    if (currentState == null || !currentState.validate()) return;
+    currentState.save();
 
     try {
       await _changeServer(_server);

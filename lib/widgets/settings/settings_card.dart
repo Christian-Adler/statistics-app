@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:statistics/widgets/responsive/device_dependent_constrained_box.dart';
 
 class SettingsCard extends StatelessWidget {
   final dynamic title;
   final List<Widget> children;
 
+  /// Damit die Card die Device-Constraints einhalten kann, muss umschliessende Column z.B. center sein.
   const SettingsCard({Key? key, required this.title, required this.children}) : super(key: key);
 
   Widget _buildTitle(BuildContext context) {
@@ -15,16 +17,18 @@ class SettingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10.0),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTitle(context),
-            ...children,
-          ],
+    return DeviceDependentConstrainedBox(
+      child: Card(
+        margin: const EdgeInsets.all(10.0),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildTitle(context),
+              ...children,
+            ],
+          ),
         ),
       ),
     );

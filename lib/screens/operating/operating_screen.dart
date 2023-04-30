@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/operating.dart';
 import '../../utils/charts.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
+import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/operating/operating_chart.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
-  static const String routeName = '/operating';
-  static const String title = 'Nebenkosten';
-  static const IconData iconData = Icons.power_input_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Nebenkosten', Icons.power_input_outlined, '/operating');
 
   const OperatingScreen({Key? key}) : super(key: key);
 
@@ -32,9 +34,9 @@ class _OperatingScreenState extends State<OperatingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
-        const Text(OperatingScreen.title),
+        Text(OperatingScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
@@ -43,18 +45,32 @@ class _OperatingScreenState extends State<OperatingScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(OperatingAddValueScreen.routeName),
-            tooltip: 'Betriebskosten Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(OperatingAddValueScreen.screenNavInfo.routeName),
+            tooltip: OperatingAddValueScreen.screenNavInfo.title,
+            icon: Icon(OperatingAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
-        child: _Operating(_showYearly),
-      ),
+      body: _OperatingScreenBody(showYearly: _showYearly),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _OperatingScreenBody extends StatelessWidget {
+  const _OperatingScreenBody({
+    required bool showYearly,
+  }) : _showYearly = showYearly;
+
+  final bool _showYearly;
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
+      child: _Operating(_showYearly),
     );
   }
 }
@@ -111,7 +127,7 @@ class _OperatingState extends State<_Operating> {
             ),
           );
         } else {
-          return SingleChildScrollView(
+          return SingleChildScrollViewWithScrollbar(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

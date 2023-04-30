@@ -4,11 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/exception/api_exception.dart';
 
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
+import '../../widgets/layout/scrollable_centered_form_wrapper.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class HeartAddValueScreen extends StatefulWidget {
-  static const String routeName = '/heart/add';
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck eintragen', Icons.add, '/heart/add');
 
   const HeartAddValueScreen({Key? key}) : super(key: key);
 
@@ -27,8 +29,9 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
   }
 
   Future<void> _saveForm() async {
-    if (!_form.currentState!.validate()) return;
-    _form.currentState!.save();
+    var currentState = _form.currentState;
+    if (currentState == null || !currentState.validate()) return;
+    currentState.save();
 
     setState(() {
       _isLoading = true;
@@ -52,59 +55,63 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        appBar: StatisticsAppBar(
+          Text(HeartAddValueScreen.screenNavInfo.title),
+          context,
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     final insertDate = DateFormat('dd MMMM yyyy - HH:mm:ss').format(DateTime.now());
 
     return Scaffold(
       appBar: StatisticsAppBar(
-        const Text('Blutdruck eintragen'),
+        Text(HeartAddValueScreen.screenNavInfo.title),
         context,
         actions: [IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))],
       ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _form,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        insertDate,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      TextFormField(
-                        autofocus: true,
-                        decoration: const InputDecoration(labelText: 'systolisch (oberer)'),
-                        textInputAction: TextInputAction.next,
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter a value';
-                          var val = int.tryParse(value);
-                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
-                          return null;
-                        },
-                        onSaved: (value) => _high = int.parse(value!),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'diastolisch (unterer)'),
-                        textInputAction: TextInputAction.done,
-                        keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter a value';
-                          var val = int.tryParse(value);
-                          if (val == null || val <= 0) return 'Please provide a valid number > 0';
-                          return null;
-                        },
-                        onSaved: (value) => _low = int.parse(value!),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+      body: ScrollableCenteredFormWrapper(
+        formKey: _form,
+        children: [
+          Text(
+            insertDate,
+            style: Theme
+                .of(context)
+                .textTheme
+                .titleLarge,
+          ),
+          TextFormField(
+            autofocus: true,
+            decoration: const InputDecoration(labelText: 'systolisch (oberer)'),
+            textInputAction: TextInputAction.next,
+            keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'Please enter a value';
+              var val = int.tryParse(value);
+              if (val == null || val <= 0) return 'Please provide a valid number > 0';
+              return null;
+            },
+            onSaved: (value) => _high = int.parse(value!),
+          ),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'diastolisch (unterer)'),
+            textInputAction: TextInputAction.done,
+            keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'Please enter a value';
+              var val = int.tryParse(value);
+              if (val == null || val <= 0) return 'Please provide a valid number > 0';
+              return null;
+            },
+            onSaved: (value) => _low = int.parse(value!),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -4,42 +4,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/car/car_refuel_item.dart';
 
+import '../../models/car/car_refuel_item.dart';
+import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/car.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/app_drawer.dart';
+import '../../widgets/navigation/app_bottom_navigation_bar.dart';
+import '../../widgets/navigation/app_drawer.dart';
+import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
 
 class CarScreen extends StatelessWidget {
-  static const String routeName = '/car';
-  static const String title = 'Tanken';
-  static const IconData iconData = Icons.directions_car_outlined;
+  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken', Icons.directions_car_outlined, '/car');
 
   const CarScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
-        const Text(CarScreen.title),
+        Text(CarScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(CarAddValueScreen.routeName),
-            tooltip: 'Tanken Eintrag erstellen...',
-            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.of(context).pushNamed(CarAddValueScreen.screenNavInfo.routeName),
+            tooltip: CarAddValueScreen.screenNavInfo.title,
+            icon: Icon(CarAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),
-      drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () => Provider.of<Car>(context, listen: false).fetchData(),
-        child: _Car(),
-      ),
+      body: const _CarScreenBody(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
+    );
+  }
+}
+
+class _CarScreenBody extends StatelessWidget {
+  const _CarScreenBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<Car>(context, listen: false).fetchData(),
+      child: _Car(),
     );
   }
 }
@@ -90,10 +101,7 @@ class _CarState extends State<_Car> {
             _CarRefuelTableHead(),
             _TableHeadSeparator(),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-                child: _CarRefuelTable(),
-              ),
+              child: _CarRefuelTable(),
             )
           ]);
         }
@@ -169,9 +177,12 @@ class _CarRefuelTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
+    final ScrollController scrollController = ScrollController();
     return AnimationLimiter(
       child: Scrollbar(
+        controller: scrollController,
         child: ListView.separated(
+          controller: scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
@@ -223,8 +234,9 @@ class _CarRefuelTableItem extends StatelessWidget {
     String priceInEuro = (_carRefuelItem.centPerliter * _carRefuelItem.liter / 100).toStringAsFixed(2);
     String litersPer100km = '';
     Color colorLiterPer100km = const Color.fromRGBO(120, 255, 0, 1);
-    if (_prevCarRefuelItem != null) {
-      final kmDistance = _carRefuelItem.km - _prevCarRefuelItem!.km;
+    var prevCarRefuelItem = _prevCarRefuelItem;
+    if (prevCarRefuelItem != null) {
+      final kmDistance = _carRefuelItem.km - prevCarRefuelItem.km;
       // Annahme: immer voll getankt. Daher haben wir seit dem letzten Tanken genau die Tankmenge verbraucht.
       final lPer100km = (_carRefuelItem.liter / kmDistance * 100);
       litersPer100km = lPer100km < 4 ? '---' : lPer100km.toStringAsFixed(2);
@@ -274,7 +286,7 @@ class _CarRefuelTableItem extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              if (_prevCarRefuelItem != null)
+              if (prevCarRefuelItem != null)
                 Positioned(
                   top: 19,
                   height: 22,
@@ -284,7 +296,7 @@ class _CarRefuelTableItem extends StatelessWidget {
                     color: colorLiterPer100km,
                   ),
                 ),
-              if (_prevCarRefuelItem != null)
+              if (prevCarRefuelItem != null)
                 Positioned(
                   top: 21,
                   height: 15,
