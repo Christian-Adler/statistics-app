@@ -7,18 +7,21 @@ import '../../providers/app_layout.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
 class ScreenLayoutBuilder extends StatelessWidget {
-  final Widget body; // TODO auch als Builder mit parameter der Widgetgroesse + orientatin
-  final Widget? drawer; // TODO builder weil muss ja nicht immer erzeugt werden - builder der Navigation- Liste liefert?
-  // Der koennte Parameter erhlaten : orientation oder type
-  final Widget? bottomNavigationBar;
+  final Widget body;
 
-  //TODO bottom tab bar - was mit zu vielen Nav Items? scrollbar... Menü?
-  // TODO builder wie bei drawer
+  // Fuer AppDrawer und BottomNavigationBar jeweils Builder-Funktion, damit nur erzeugt wird, falls auch benoetigt.
+  final Widget Function()? drawerBuilder;
+  final Widget Function()? bottomNavigationBarBuilder;
+
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
 
-  const ScreenLayoutBuilder(
-      {Key? key, required this.body, this.drawer, this.bottomNavigationBar, this.appBar, this.floatingActionButton})
+  const ScreenLayoutBuilder({Key? key,
+    required this.body,
+    this.drawerBuilder,
+    this.bottomNavigationBarBuilder,
+    this.appBar,
+    this.floatingActionButton})
       : super(key: key);
 
   @override
@@ -29,13 +32,17 @@ class ScreenLayoutBuilder extends StatelessWidget {
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
 
     Widget? drawerW;
-    if (!mediaQueryInfo.isTablet) {
-      drawerW = drawer;
+    final drawerBuilder = this.drawerBuilder;
+    if (!mediaQueryInfo.isTablet && drawerBuilder != null) {
+      drawerW = drawerBuilder();
     }
 
     Widget? bottomNavBarW;
     if (mediaQueryInfo.isTablet && !mediaQueryInfo.isLandscape) {
-      bottomNavBarW = bottomNavigationBar;
+      final bottomNavigationBarBuilder = this.bottomNavigationBarBuilder;
+      if (bottomNavigationBarBuilder != null) {
+        bottomNavBarW = bottomNavigationBarBuilder();
+      }
     }
     final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
     dynamicThemeData.usePageTransition = bottomNavBarW == null;

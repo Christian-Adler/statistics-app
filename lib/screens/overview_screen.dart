@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/widgets/doulbe_back_to_close.dart';
+import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +9,6 @@ import '../utils/globals.dart';
 import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/logo/eagle_logo.dart';
-import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
@@ -37,8 +36,7 @@ class OverviewScreen extends StatelessWidget {
         context,
       ),
       body: const _OverviewBody(),
-      drawer: const AppDrawer(),
-      bottomNavigationBar: const AppBottomNavigationBar(),
+      drawerBuilder: () => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

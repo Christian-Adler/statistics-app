@@ -34,8 +34,8 @@ class HeartScreen extends StatelessWidget {
         ],
       ),
       body: const _HeartBody(),
-      drawer: const AppDrawer(),
-      bottomNavigationBar: const AppBottomNavigationBar(),
+      drawerBuilder: () => const AppDrawer(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }
