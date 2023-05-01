@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../models/navigation/navigation_item.dart';
@@ -51,6 +52,18 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var navigator = Navigator.of(context);
+
+    // Keine Animation, wenn Drawer die ganze Zeit sichtbar ist.
+    if (MediaQueryUtils.mediaIsTablet(MediaQuery.of(context))) {
+      return SingleChildScrollViewWithScrollbar(
+        child: Column(
+          children: [
+            ..._buildNavItems(context, navigator),
+          ],
+        ),
+      );
+    }
+
     return SingleChildScrollViewWithScrollbar(
       child: AnimationLimiter(
         child: Column(
