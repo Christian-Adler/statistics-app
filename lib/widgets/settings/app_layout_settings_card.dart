@@ -66,7 +66,7 @@ class _AppLayoutSettings extends StatelessWidget {
               appLayout.showNavigationItemTitle = value!;
             },
           ),
-          title: const Text('Text in Navigation anzeigen (Tablet)'),
+          title: const Text('Text in Navigation anzeigen'),
         )
       ],
     );
