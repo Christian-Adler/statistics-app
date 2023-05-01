@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../screens/overview_screen.dart';
+import '../../utils/global_settings.dart';
 import '../../utils/nav/navigation_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
 
@@ -86,6 +87,8 @@ class NavigationMenuItemsVertical extends StatelessWidget {
     // Keine Animation, wenn Drawer die ganze Zeit sichtbar ist.
     if (MediaQueryUtils.mediaIsTablet(MediaQuery.of(context))) {
       return SingleChildScrollViewWithScrollbar(
+        getScrollPos: () => GlobalSettings.menuScrollPos,
+        setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
         child: Column(
           children: [
             ..._buildNavItems(context, navigator),
@@ -95,6 +98,8 @@ class NavigationMenuItemsVertical extends StatelessWidget {
     }
 
     return SingleChildScrollViewWithScrollbar(
+      getScrollPos: () => GlobalSettings.menuScrollPos,
+      setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
       child: AnimationLimiter(
         child: Column(
           children: AnimationConfiguration.toStaggeredList(
