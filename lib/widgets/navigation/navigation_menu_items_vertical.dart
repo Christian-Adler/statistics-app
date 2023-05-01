@@ -3,6 +3,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
+import '../../screens/overview_screen.dart';
+import '../../utils/nav/navigation_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
@@ -11,10 +13,18 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
   List<Widget> _buildNavItems(BuildContext context, NavigatorState navigator) {
+    var actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
     List<Widget> result = [];
     for (var navItem in NavigationItems.navigationMenuItems) {
       if (navItem.isNavigation && navItem is NavigationItem) {
+        bool isActNavItem = false;
+        if (actRouteName == '/') {
+          if (navItem.screenNavInfo.routeName == OverviewScreen.screenNavInfo.routeName) isActNavItem = true;
+        } else if (navItem.screenNavInfo.routeName.contains(actRouteName)) {
+          isActNavItem = true;
+        }
         result.add(ListTile(
+          iconColor: isActNavItem ? Colors.purple : null,
           title: showNavigationTitle ? Text(navItem.title) : Icon(navItem.iconData),
           leading: showNavigationTitle ? Icon(navItem.iconData) : null,
           onTap: () {
