@@ -46,7 +46,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
       }
     }
     final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-    dynamicThemeData.usePageTransition = bottomNavBarW == null;
+    dynamicThemeData.usePageTransition = !mediaQueryInfo.isTablet;
 
     Widget? bodyW;
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {

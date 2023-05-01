@@ -26,6 +26,7 @@ class DynamicThemeData with ChangeNotifier {
     // das notifyListeners erst spaeter erfolgen!
     if (!value && pageTransitionsTheme == null) {
       pageTransitionsTheme = fadeTransitions;
+      // pageTransitionsTheme = noTransitions;
       doNotifyListenersPostFrame();
     } else if (value && pageTransitionsTheme != null) {
       pageTransitionsTheme = null;
