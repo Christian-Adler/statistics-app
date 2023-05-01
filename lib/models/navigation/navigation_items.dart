@@ -24,27 +24,28 @@ class NavigationItems {
         OperatingScreen.screenNavInfo,
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [OperatingScreen.screenNavInfo.routeName])),
-    NavigationDividerSmall(),
+    // NavigationDividerSmall(),
     NavigationItem(
         SolarPowerScreen.screenNavInfo,
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [SolarPowerScreen.screenNavInfo.routeName])),
-    NavigationDividerSmall(),
+    // NavigationDividerSmall(),
     NavigationItem(
         CarScreen.screenNavInfo,
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [CarScreen.screenNavInfo.routeName])),
-    NavigationDividerSmall(),
+    // NavigationDividerSmall(),
     NavigationItem(
         HeartScreen.screenNavInfo,
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.screenNavInfo.routeName])),
-    NavigationDividerLarge(),
+    // NavigationDividerLarge(),
+    NavigationDividerSmall(),
     NavigationItem(
         SettingsScreen.screenNavInfo,
         (context, navigator) =>
             NavigationUtils.navigateToRoute(context, navigator, [SettingsScreen.screenNavInfo.routeName])),
-    NavigationDividerSmall(),
+    // NavigationDividerSmall(),
     NavigationItem(
         InfoScreen.screenNavInfo,
         (context, navigator) =>

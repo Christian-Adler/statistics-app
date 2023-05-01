@@ -14,7 +14,10 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
   List<Widget> _buildNavItems(BuildContext context, NavigatorState navigator) {
-    var actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
+    final colorScheme = Theme.of(context).colorScheme;
+    final onPrimaryColor = colorScheme.onPrimary;
+    final actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
+
     List<Widget> result = [];
     for (var navItem in NavigationItems.navigationMenuItems) {
       if (navItem.isNavigation && navItem is NavigationItem) {
@@ -24,14 +27,41 @@ class NavigationMenuItemsVertical extends StatelessWidget {
         } else if (navItem.screenNavInfo.routeName.contains(actRouteName)) {
           isActNavItem = true;
         }
-        result.add(ListTile(
-          iconColor: isActNavItem ? Colors.purple : null,
-          title: showNavigationTitle ? Text(navItem.title) : Icon(navItem.iconData),
-          leading: showNavigationTitle ? Icon(navItem.iconData) : null,
-          onTap: () {
-            navItem.onNav(context, navigator);
-          },
-        ));
+
+        var navIcon = Icon(navItem.iconData, color: isActNavItem ? onPrimaryColor : null);
+        final widget = Padding(
+          padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: isActNavItem
+                  ? LinearGradient(
+                      colors: [
+                        colorScheme.primary,
+                        colorScheme.secondary,
+                      ],
+                    )
+                  : null,
+              borderRadius: const BorderRadius.only(bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
+            ),
+            child: ListTile(
+              selected: isActNavItem,
+              title: showNavigationTitle
+                  ? Text(
+                      navItem.title,
+                      style: TextStyle(
+                          color: isActNavItem ? onPrimaryColor : null,
+                          fontWeight: isActNavItem ? FontWeight.bold : null),
+                    )
+                  : navIcon,
+              leading: showNavigationTitle ? navIcon : null,
+              onTap: () {
+                navItem.onNav(context, navigator);
+              },
+            ),
+          ),
+        );
+
+        result.add(widget);
       } else if (navItem.isDividerSmall) {
         result.add(const Divider(height: 1));
       } else if (navItem.isDividerLarge) {
@@ -95,9 +125,12 @@ class _GradientDivider extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Container(
         height: 1,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.purple, Colors.yellow],
+            colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.secondary,
+            ],
           ),
         ),
       ),
