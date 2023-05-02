@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/widgets/add_value/heart_add_value.dart';
 
 import '../../models/heart/blood_pressure_item.dart';
 import '../../models/navigation/screen_nav_info.dart';
@@ -14,20 +16,58 @@ import '../../widgets/scroll_footer.dart';
 import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
-class HeartScreen extends StatelessWidget {
+class HeartScreen extends StatefulWidget {
   static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck', Icons.monitor_heart_outlined, '/heart');
 
   const HeartScreen({Key? key}) : super(key: key);
 
   @override
+  State<HeartScreen> createState() => _HeartScreenState();
+}
+
+class _HeartScreenState extends State<HeartScreen> {
+  @override
   Widget build(BuildContext context) {
+    final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+
+    final addValueState = GlobalKey<HeartAddValueState>();
+
+    void saveHandler() {
+      final currentState = addValueState.currentState;
+      currentState?.saveForm();
+    }
+
+    var showAddValueHandler = () => Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName);
+    if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
+      showAddValueHandler = () => showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(HeartAddValueScreen.screenNavInfo.title),
+              content: HeartAddValue(key: addValueState),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Abbrechen')),
+                TextButton(
+                  onPressed: () {
+                    saveHandler(); // SaveHandler macht bei Erfolg selbst pop
+                  },
+                  child: const Text('Speichern'),
+                )
+              ],
+            );
+          });
+    }
     return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(HeartScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName),
+            onPressed: showAddValueHandler,
             tooltip: HeartAddValueScreen.screenNavInfo.title,
             icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),

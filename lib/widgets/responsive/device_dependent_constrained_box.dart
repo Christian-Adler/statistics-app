@@ -13,7 +13,7 @@ class DeviceDependentConstrainedBox extends StatelessWidget {
     if (mediaQueryInfo.isTablet) {
       return ConstrainedBox(
         // return Container(        color: Colors.red,
-        constraints: const BoxConstraints(maxWidth: 700),
+        constraints: const BoxConstraints(maxWidth: 700, minWidth: 500),
         child: child,
       );
     }
