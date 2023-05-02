@@ -3,11 +3,12 @@ import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/widgets/add_value/heart_add_value.dart';
 
 import '../../models/heart/blood_pressure_item.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../providers/heart.dart';
+import '../../utils/global_keys.dart';
+import '../../widgets/add_value/heart_add_value.dart';
 import '../../widgets/add_value_floating_button.dart';
 import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
@@ -22,29 +23,26 @@ class HeartScreen extends StatefulWidget {
   const HeartScreen({Key? key}) : super(key: key);
 
   @override
-  State<HeartScreen> createState() => _HeartScreenState();
+  State<HeartScreen> createState() => HeartScreenState();
 }
 
-class _HeartScreenState extends State<HeartScreen> {
-  @override
-  Widget build(BuildContext context) {
+class HeartScreenState extends State<HeartScreen> {
+  void _saveHandler() {
+    final currentState = GlobalKeys.heartAddValueState.currentState;
+    currentState?.saveForm();
+  }
+
+  /// Ruft je nach Device addValue in neuem Screen auf im Dialog
+  void showAddValue(BuildContext context) {
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
 
-    final addValueState = GlobalKey<HeartAddValueState>();
-
-    void saveHandler() {
-      final currentState = addValueState.currentState;
-      currentState?.saveForm();
-    }
-
-    var showAddValueHandler = () => Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName);
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
-      showAddValueHandler = () => showDialog(
+      showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               title: Text(HeartAddValueScreen.screenNavInfo.title),
-              content: HeartAddValue(key: addValueState),
+              content: HeartAddValue(key: GlobalKeys.heartAddValueState),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
@@ -53,21 +51,27 @@ class _HeartScreenState extends State<HeartScreen> {
                     child: const Text('Abbrechen')),
                 TextButton(
                   onPressed: () {
-                    saveHandler(); // SaveHandler macht bei Erfolg selbst pop
+                    _saveHandler(); // SaveHandler macht bei Erfolg selbst pop
                   },
                   child: const Text('Speichern'),
                 )
               ],
             );
           });
+    } else {
+      Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
       appBar: StatisticsAppBar(
         Text(HeartScreen.screenNavInfo.title),
         context,
         actions: [
           IconButton(
-            onPressed: showAddValueHandler,
+            onPressed: () => showAddValue(context),
             tooltip: HeartAddValueScreen.screenNavInfo.title,
             icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),

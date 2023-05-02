@@ -23,6 +23,7 @@ import 'screens/operating/solar_power_screen.dart';
 import 'screens/overview_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
+import 'utils/global_keys.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -118,7 +119,7 @@ class MyApp extends StatelessWidget {
             CarScreen.screenNavInfo.routeName: (context) => const CarScreen(),
             CarAddValueScreen.screenNavInfo.routeName: (context) => const CarAddValueScreen(),
             //
-            HeartScreen.screenNavInfo.routeName: (context) => const HeartScreen(),
+            HeartScreen.screenNavInfo.routeName: (context) => HeartScreen(key: GlobalKeys.heartScreenState),
             HeartAddValueScreen.screenNavInfo.routeName: (context) => const HeartAddValueScreen(),
             //
             SettingsScreen.screenNavInfo.routeName: (context) => const SettingsScreen(),

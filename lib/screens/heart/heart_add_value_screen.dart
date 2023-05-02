@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statistics/utils/global_keys.dart';
 
 import '../../models/navigation/screen_nav_info.dart';
 import '../../widgets/add_value/heart_add_value.dart';
@@ -14,10 +15,8 @@ class HeartAddValueScreen extends StatefulWidget {
 }
 
 class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
-  final _addValueState = GlobalKey<HeartAddValueState>();
-
   void _saveHandler() {
-    final currentState = _addValueState.currentState;
+    final currentState = GlobalKeys.heartAddValueState.currentState;
     currentState?.saveForm();
   }
 
@@ -30,7 +29,7 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
         actions: [IconButton(onPressed: _saveHandler, icon: const Icon(Icons.save))],
       ),
       body: HeartAddValue(
-        key: _addValueState,
+        key: GlobalKeys.heartAddValueState,
       ),
     );
   }
