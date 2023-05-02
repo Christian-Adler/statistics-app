@@ -2,10 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/chart/chart_meta_data.dart';
-import '../../models/chart/legend_item.dart';
-import '../../providers/operating.dart';
-import '../../utils/charts.dart';
+import '../../../../models/chart/chart_meta_data.dart';
+import '../../../../models/chart/legend_item.dart';
+import '../../../../providers/operating.dart';
+import '../../../../utils/charts.dart';
 import 'simple_legend.dart';
 
 class SolarPowerChart extends StatelessWidget {

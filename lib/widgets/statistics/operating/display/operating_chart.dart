@@ -2,11 +2,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/chart/operating_chart_item.dart';
 
-import '../../models/chart/chart_meta_data.dart';
-import '../../providers/operating.dart';
-import '../../utils/charts.dart';
+import '../../../../models/chart/chart_meta_data.dart';
+import '../../../../models/chart/operating_chart_item.dart';
+import '../../../../providers/operating.dart';
+import '../../../../utils/charts.dart';
 
 class OperatingChart extends StatelessWidget {
   final bool showYearly;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/chart/legend_item.dart';
-import '../../utils/charts.dart';
+import '../../../../models/chart/legend_item.dart';
+import '../../../../utils/charts.dart';
 
 class SimpleLegend extends StatelessWidget {
   final List<LegendItem> items;

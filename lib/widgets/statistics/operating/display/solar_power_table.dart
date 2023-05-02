@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/operating.dart';
 
-import '../../utils/date_utils.dart';
+import '../../../../providers/operating.dart';
+import '../../../../utils/date_utils.dart';
 
 class SolarPowerTable extends StatelessWidget {
   final bool showYearly;

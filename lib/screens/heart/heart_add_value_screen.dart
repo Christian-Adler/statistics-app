@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/utils/global_keys.dart';
 
 import '../../models/navigation/screen_nav_info.dart';
-import '../../widgets/add_value/heart_add_value.dart';
+import '../../utils/global_keys.dart';
+import '../../widgets/statistics/heart/heart_add_value.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class HeartAddValueScreen extends StatefulWidget {
