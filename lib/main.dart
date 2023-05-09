@@ -111,12 +111,13 @@ class MyApp extends StatelessWidget {
             //
             OverviewScreen.screenNavInfo.routeName: (context) => const OverviewScreen(),
             //
-            OperatingScreen.screenNavInfo.routeName: (context) => const OperatingScreen(),
+            OperatingScreen.screenNavInfo.routeName: (context) => OperatingScreen(key: GlobalKeys.operatingScreenState),
             OperatingAddValueScreen.screenNavInfo.routeName: (context) => const OperatingAddValueScreen(),
-            SolarPowerScreen.screenNavInfo.routeName: (context) => const SolarPowerScreen(),
+            SolarPowerScreen.screenNavInfo.routeName: (context) =>
+                SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
             SolarPowerAddValueScreen.screenNavInfo.routeName: (context) => const SolarPowerAddValueScreen(),
             //
-            CarScreen.screenNavInfo.routeName: (context) => const CarScreen(),
+            CarScreen.screenNavInfo.routeName: (context) => CarScreen(key: GlobalKeys.carScreenState),
             CarAddValueScreen.screenNavInfo.routeName: (context) => const CarAddValueScreen(),
             //
             HeartScreen.screenNavInfo.routeName: (context) => HeartScreen(key: GlobalKeys.heartScreenState),
