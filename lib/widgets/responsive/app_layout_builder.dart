@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
+import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/dynamic_theme_data.dart';
 
 import '../../providers/app_layout.dart';
+import '../../providers/dynamic_theme_data.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
 class AppLayoutBuilder extends StatelessWidget {
@@ -69,9 +70,11 @@ class AppLayoutBuilder extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       bottomNavigationBar: bottomNavBarW,
-      body: Container(
-        decoration: BoxDecoration(gradient: LinearGradient(colors: [colorScheme.primary, colorScheme.secondary])),
-        child: SafeArea(child: bodyW),
+      body: DoubleBackToClose(
+        child: Container(
+          decoration: BoxDecoration(gradient: LinearGradient(colors: [colorScheme.primary, colorScheme.secondary])),
+          child: SafeArea(child: bodyW),
+        ),
       ),
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/main_navigation.dart';
 
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
+import '../providers/main_navigation.dart';
 import '../utils/globals.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
@@ -53,36 +52,34 @@ class _OverviewScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DoubleBackToClose(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        Globals.assetImgBackground,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
-                  ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      Globals.assetImgBackground,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
                 ),
-                SingleChildScrollViewWithScrollbar(
-                  child: Center(child: _NavigationButtons()),
-                ),
-              ],
-            ),
+              ),
+              SingleChildScrollViewWithScrollbar(
+                child: Center(child: _NavigationButtons()),
+              ),
+            ],
           ),
-          const _Footer(),
-        ],
-      ),
+        ),
+        const _Footer(),
+      ],
     );
   }
 }
