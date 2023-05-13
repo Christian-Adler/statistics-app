@@ -154,6 +154,7 @@ class _ExpandableFabState extends State<ExpandableFab> with SingleTickerProvider
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             onPressed: _toggle,
+            heroTag: null,
             child: Icon(openFabIconData),
           ),
         ),
