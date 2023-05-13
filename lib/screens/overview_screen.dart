@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/providers/main_navigation.dart';
 
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
-import '../utils/nav/navigation_utils.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/eagle_logo.dart';
-import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
@@ -44,7 +43,6 @@ class OverviewScreen extends StatelessWidget {
       ),
       body: const _OverviewScreenBody(),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }
@@ -236,9 +234,8 @@ class _LargeNavigationButton extends StatelessWidget {
         // elevation: MaterialStatePropertyAll(5),
         backgroundColor: MaterialStatePropertyAll(Colors.white70),
       ),
-      // onPressed: () => Navigator.of(context).pushNamed(routeName),
       onPressed: () {
-        NavigationUtils.navigateToRoute(context, Navigator.of(context), [routeName]);
+        Provider.of<MainNavigation>(context, listen: false).mainPageRoute = routeName;
       },
       icon: Icon(
         iconData,

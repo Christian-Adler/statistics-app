@@ -4,7 +4,6 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/operating/solar_power_add_value.dart';
@@ -92,7 +91,6 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
       ),
       body: SolarPowerView(showYearly: _showYearly),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

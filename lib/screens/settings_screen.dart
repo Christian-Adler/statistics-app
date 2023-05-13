@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/navigation/screen_nav_info.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
-import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/settings/app_layout_settings_card.dart';
@@ -29,7 +28,6 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: const _SettingsScreenBody(),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
     );
   }
 }

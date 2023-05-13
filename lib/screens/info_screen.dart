@@ -9,7 +9,6 @@ import '../utils/globals.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/logo/exploratia_logo.dart';
-import '../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/settings/settings_card.dart';
@@ -34,7 +33,6 @@ class InfoScreen extends StatelessWidget {
       ),
       body: const _InfoScreenBody(),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
     );
   }
 }
