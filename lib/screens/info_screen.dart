@@ -16,7 +16,12 @@ import '../widgets/settings/settings_card.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Info', Icons.info_outline, '/info_screen');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Info',
+    Icons.info_outline,
+    '/info_screen',
+    () => const InfoScreen(),
+  );
 
   const InfoScreen({Key? key}) : super(key: key);
 

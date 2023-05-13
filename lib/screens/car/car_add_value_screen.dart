@@ -6,7 +6,12 @@ import '../../widgets/statistics/car/car_add_value.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class CarAddValueScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken eintragen', Icons.add, '/car/add');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Tanken eintragen',
+    Icons.add,
+    '/car/add',
+    () => const CarAddValueScreen(),
+  );
 
   const CarAddValueScreen({Key? key}) : super(key: key);
 

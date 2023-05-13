@@ -6,7 +6,12 @@ import '../../widgets/statistics/operating/operating_add_value.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class OperatingAddValueScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Betriebskosten eintragen', Icons.add, '/operating/add');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Betriebskosten eintragen',
+    Icons.add,
+    '/operating/add',
+    () => const OperatingAddValueScreen(),
+  );
 
   const OperatingAddValueScreen({Key? key}) : super(key: key);
 

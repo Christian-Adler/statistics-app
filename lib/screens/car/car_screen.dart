@@ -13,7 +13,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
 
 class CarScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken', Icons.directions_car_outlined, '/car');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Tanken',
+    Icons.directions_car_outlined,
+    '/car',
+    () => CarScreen(key: GlobalKeys.carScreenState),
+  );
 
   const CarScreen({Key? key}) : super(key: key);
 
@@ -29,7 +34,6 @@ class CarScreenState extends State<CarScreen> {
 
   /// Ruft je nach Device addValue in neuem Screen auf im Dialog
   void showAddValue(BuildContext context) {
-    print("add value car");
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
 
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {

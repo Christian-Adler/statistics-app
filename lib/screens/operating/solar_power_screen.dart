@@ -13,7 +13,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Solar-Strom', Icons.solar_power_outlined, '/solar_power');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Solar-Strom',
+    Icons.solar_power_outlined,
+    '/solar_power',
+    () => SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
+  );
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 

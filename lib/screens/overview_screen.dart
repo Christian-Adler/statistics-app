@@ -20,7 +20,12 @@ import 'operating/operating_screen.dart';
 import 'operating/solar_power_screen.dart';
 
 class OverviewScreen extends StatelessWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Übersicht', Icons.home_outlined, '/overview');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Übersicht',
+    Icons.home_outlined,
+    '/overview',
+    () => const OverviewScreen(),
+  );
 
   const OverviewScreen({Key? key}) : super(key: key);
 
@@ -93,24 +98,24 @@ class _NavigationButtonsState extends State<_NavigationButtons> {
   List<Widget> _buildNavigationButtons() {
     return [
       const SizedBox(height: 30, width: 20),
-      const _RoundedBtn(
+      _RoundedBtn(
         screenNavInfo: OperatingScreen.screenNavInfo,
-        edgeColors: [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
+        edgeColors: const [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
       ),
       const SizedBox(height: 30, width: 20),
-      const _RoundedBtn(
+      _RoundedBtn(
         screenNavInfo: SolarPowerScreen.screenNavInfo,
-        edgeColors: [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
+        edgeColors: const [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
       ),
       const SizedBox(height: 30, width: 20),
-      const _RoundedBtn(
+      _RoundedBtn(
         screenNavInfo: CarScreen.screenNavInfo,
-        edgeColors: [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
+        edgeColors: const [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
       ),
       const SizedBox(height: 30, width: 20),
-      const _RoundedBtn(
+      _RoundedBtn(
         screenNavInfo: HeartScreen.screenNavInfo,
-        edgeColors: [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
+        edgeColors: const [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
       ),
       const SizedBox(height: 30, width: 20),
     ];

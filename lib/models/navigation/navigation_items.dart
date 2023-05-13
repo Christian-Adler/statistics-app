@@ -16,7 +16,12 @@ import 'screen_nav_info.dart';
 
 class NavigationItems {
   static final NavigationItem _logoutNavigationItem = NavigationItem(
-    const ScreenNavInfo('Logout', Icons.exit_to_app, '/logout'),
+    ScreenNavInfo(
+      'Logout',
+      Icons.exit_to_app,
+      '/logout',
+      () => Container(),
+    ),
     onNavOverride: (context) => Globals.logout(context),
   );
 

@@ -13,7 +13,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck', Icons.monitor_heart_outlined, '/heart');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Blutdruck',
+    Icons.monitor_heart_outlined,
+    '/heart',
+    () => HeartScreen(key: GlobalKeys.heartScreenState),
+  );
 
   const HeartScreen({Key? key}) : super(key: key);
 

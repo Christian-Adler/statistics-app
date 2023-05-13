@@ -6,7 +6,12 @@ import '../../widgets/statistics/operating/solar_power_add_value.dart';
 import '../../widgets/statistics_app_bar.dart';
 
 class SolarPowerAddValueScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Solar Strom eintragen', Icons.add, '/solar_power/add');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Solar Strom eintragen',
+    Icons.add,
+    '/solar_power/add',
+    () => const SolarPowerAddValueScreen(),
+  );
 
   const SolarPowerAddValueScreen({Key? key}) : super(key: key);
 

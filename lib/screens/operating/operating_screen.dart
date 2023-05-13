@@ -13,7 +13,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Nebenkosten', Icons.power_input_outlined, '/operating');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Nebenkosten',
+    Icons.power_input_outlined,
+    '/operating',
+    () => OperatingScreen(key: GlobalKeys.operatingScreenState),
+  );
 
   const OperatingScreen({Key? key}) : super(key: key);
 

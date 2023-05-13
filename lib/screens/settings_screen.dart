@@ -11,7 +11,12 @@ import '../widgets/settings/server_card.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Einstellungen', Icons.settings, '/settings_screen');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Einstellungen',
+    Icons.settings,
+    '/settings_screen',
+    () => const SettingsScreen(),
+  );
 
   const SettingsScreen({Key? key}) : super(key: key);
 
