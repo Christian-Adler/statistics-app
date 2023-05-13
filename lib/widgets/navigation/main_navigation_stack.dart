@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/models/navigation/navigation_items.dart';
+import 'package:statistics/widgets/responsive/app_layout_builder.dart';
 
 import '../../providers/main_navigation.dart';
 import 'app_bottom_navigation_bar.dart';
@@ -29,14 +30,12 @@ class MainNavigationStack extends StatelessWidget {
   Widget build(BuildContext context) {
     int mainPageIndex = Provider.of<MainNavigation>(context).mainPageIndex;
 
-    return Scaffold(
-      body: SafeArea(
-        child: IndexedStack(
-          index: mainPageIndex,
-          children: _buildLazyMainNavigationChildren(context, mainPageIndex),
-        ),
+    return AppLayoutBuilder(
+      body: IndexedStack(
+        index: mainPageIndex,
+        children: _buildLazyMainNavigationChildren(context, mainPageIndex),
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(),
+      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
     );
   }
 }
