@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/models/navigation/navigation_items.dart';
+
+import '../models/navigation/navigation_items.dart';
 
 class MainNavigation with ChangeNotifier {
   int _mainPageIndex = 0;

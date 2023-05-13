@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
-import '../../utils/nav/navigation_utils.dart';
+import '../../providers/main_navigation.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({Key? key}) : super(key: key);
@@ -81,22 +81,9 @@ class AppBottomNavigationBar extends StatelessWidget {
     final appLayout = Provider.of<AppLayout>(context);
     bool showNavigationTitle = Platform.isIOS || appLayout.showNavigationItemTitle;
 
-    var actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
-    // print(actRouteName);
-    int selectedIdx = -1;
-    if (actRouteName == '/') {
-      selectedIdx = 0;
-    } else {
-      for (var i = 0; i < NavigationItems.navigationBarItems.length; ++i) {
-        var navItem = NavigationItems.navigationBarItems[i];
-        if (navItem.screenNavInfo.routeName.contains(actRouteName)) {
-          selectedIdx = i;
-          break;
-        }
-      }
-    }
+    int selectedIdx = Provider.of<MainNavigation>(context).mainPageIndex;
 
-    if (selectedIdx < 0) {
+    if (selectedIdx >= NavigationItems.navigationBarItems.length) {
       // Extra Menu?
       if (NavigationItems.navigationBarMenuItems.isNotEmpty) {
         selectedIdx = NavigationItems.navigationBarItems.length;
