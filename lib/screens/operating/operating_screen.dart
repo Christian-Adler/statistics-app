@@ -66,7 +66,8 @@ class OperatingScreenState extends State<OperatingScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(OperatingAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => OperatingAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 

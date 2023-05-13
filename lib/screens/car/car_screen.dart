@@ -58,7 +58,8 @@ class CarScreenState extends State<CarScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(CarAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CarAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 

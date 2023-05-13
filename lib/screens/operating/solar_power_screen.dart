@@ -66,7 +66,8 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(SolarPowerAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SolarPowerAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 

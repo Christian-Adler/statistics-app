@@ -58,7 +58,8 @@ class HeartScreenState extends State<HeartScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HeartAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 
