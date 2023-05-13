@@ -14,7 +14,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
-  List<Widget> _buildNavItems(BuildContext context, NavigatorState navigator) {
+  List<Widget> _buildNavItems(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final onPrimaryColor = colorScheme.onPrimary;
     final actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
@@ -56,7 +56,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
                   : navIcon,
               leading: showNavigationTitle ? navIcon : null,
               onTap: () {
-                navItem.onNav(context, navigator);
+                navItem.onNav(context);
               },
             ),
           ),
@@ -82,8 +82,6 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var navigator = Navigator.of(context);
-
     // Keine Animation, wenn Drawer die ganze Zeit sichtbar ist.
     if (MediaQueryUtils.mediaIsTablet(MediaQuery.of(context))) {
       return SingleChildScrollViewWithScrollbar(
@@ -91,7 +89,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
         setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
         child: Column(
           children: [
-            ..._buildNavItems(context, navigator),
+            ..._buildNavItems(context),
           ],
         ),
       );
@@ -112,7 +110,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
               ),
             ),
             children: [
-              ..._buildNavItems(context, navigator),
+              ..._buildNavItems(context),
             ],
           ),
         ),

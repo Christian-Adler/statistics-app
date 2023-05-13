@@ -31,10 +31,10 @@ class AppBottomNavigationBar extends StatelessWidget {
     return result;
   }
 
-  void _onItemTapped(int index, BuildContext context, NavigatorState navigator, bool showNavigationTitle) async {
+  void _onItemTapped(int index, BuildContext context, bool showNavigationTitle) async {
     if (index < NavigationItems.navigationBarItems.length) {
       var navigationItem = NavigationItems.navigationBarItems.elementAt(index);
-      navigationItem.onNav(context, navigator);
+      navigationItem.onNav(context);
       return;
     }
 
@@ -71,14 +71,13 @@ class AppBottomNavigationBar extends StatelessWidget {
     if (res != null && context.mounted) {
       var navItem = NavigationItems.navigationBarMenuItems.elementAt(res);
       if (navItem.isNavigation && navItem is NavigationItem) {
-        navItem.onNav(context, navigator);
+        navItem.onNav(context);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
     final appLayout = Provider.of<AppLayout>(context);
     bool showNavigationTitle = Platform.isIOS || appLayout.showNavigationItemTitle;
 
@@ -114,7 +113,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       unselectedItemColor: Colors.black54,
       showSelectedLabels: showNavigationTitle,
       showUnselectedLabels: showNavigationTitle,
-      onTap: (idx) => _onItemTapped(idx, context, navigator, showNavigationTitle),
+      onTap: (idx) => _onItemTapped(idx, context, showNavigationTitle),
     );
   }
 }
