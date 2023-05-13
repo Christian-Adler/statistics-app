@@ -25,6 +25,13 @@ class MainNavigation with ChangeNotifier {
     mainPageIndex = index;
   }
 
+  String get mainPageRoute {
+    return NavigationItems.mainNavigationItems
+        .elementAt(_mainPageIndex)
+        .screenNavInfo
+        .routeName;
+  }
+
   Set<int> get visitedIndexes {
     return _visitedIndexes;
   }
