@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/models/navigation/navigation_items.dart';
-import 'package:statistics/widgets/responsive/app_layout_builder.dart';
 
+import '../../models/navigation/navigation_items.dart';
 import '../../providers/main_navigation.dart';
+import '../responsive/app_layout_builder.dart';
 import 'app_bottom_navigation_bar.dart';
 
 class MainNavigationStack extends StatelessWidget {
