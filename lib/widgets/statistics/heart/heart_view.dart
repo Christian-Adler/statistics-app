@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
@@ -60,12 +61,14 @@ class _HeartState extends State<_Heart> {
             ),
           );
         } else {
-          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: const [
-            SizedBox(height: 5),
-            _BloodPressureTableHead(),
-            _TableHeadSeparator(),
+          final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+          double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;
+          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            const SizedBox(height: 5),
+            _BloodPressureTableHead(widthFactor),
+            _TableHeadSeparator(widthFactor),
             Expanded(
-              child: _BloodPressureTable(),
+              child: _BloodPressureTable(widthFactor),
             )
           ]);
         }
@@ -75,17 +78,19 @@ class _HeartState extends State<_Heart> {
 }
 
 class _BloodPressureTableHead extends StatelessWidget {
-  const _BloodPressureTableHead();
+  final double widthFactor;
+
+  const _BloodPressureTableHead(this.widthFactor);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        _TableHeadline('Datum', 110, textAlign: TextAlign.start),
-        _TableHeadline('Morgen', 70),
-        _TableHeadline('Mittag', 70),
-        _TableHeadline('Abend', 70),
+      children: [
+        _TableHeadline('Datum', 110 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline('Morgen', 70 * widthFactor),
+        _TableHeadline('Mittag', 70 * widthFactor),
+        _TableHeadline('Abend', 70 * widthFactor),
       ],
     );
   }
@@ -112,7 +117,9 @@ class _TableHeadline extends StatelessWidget {
 }
 
 class _TableHeadSeparator extends StatelessWidget {
-  const _TableHeadSeparator();
+  final double widthFactor;
+
+  const _TableHeadSeparator(this.widthFactor);
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +131,7 @@ class _TableHeadSeparator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             height: 1,
-            width: 320,
+            width: 320 * widthFactor,
             color: Colors.grey.shade400,
           ),
         ],
@@ -134,7 +141,9 @@ class _TableHeadSeparator extends StatelessWidget {
 }
 
 class _BloodPressureTable extends StatelessWidget {
-  const _BloodPressureTable();
+  final double widthFactor;
+
+  const _BloodPressureTable(this.widthFactor);
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +161,7 @@ class _BloodPressureTable extends StatelessWidget {
               children: [
                 Container(
                   height: 1,
-                  width: 320,
+                  width: 320 * widthFactor,
                   color: Colors.grey.shade200,
                 ),
               ],
@@ -170,7 +179,7 @@ class _BloodPressureTable extends StatelessWidget {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _BloodPressureTableItem(bloodPressureItems[index]),
+                    : _BloodPressureTableItem(bloodPressureItems[index], widthFactor),
               ),
             ),
           ),
@@ -183,8 +192,9 @@ class _BloodPressureTable extends StatelessWidget {
 
 class _BloodPressureTableItem extends StatelessWidget {
   final BloodPressureItem _bloodPressureItem;
+  final double widthFactor;
 
-  _BloodPressureTableItem(this._bloodPressureItem) : super(key: ValueKey(_bloodPressureItem.date));
+  _BloodPressureTableItem(this._bloodPressureItem, this.widthFactor) : super(key: ValueKey(_bloodPressureItem.date));
 
   @override
   Widget build(BuildContext context) {
@@ -195,26 +205,26 @@ class _BloodPressureTableItem extends StatelessWidget {
     return Center(
       child: Container(
         color: bgColor,
-        width: 320,
+        width: 320 * widthFactor,
         padding: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 110,
+              width: 110 * widthFactor,
               child: Text(_bloodPressureItem.date),
             ),
             SizedBox(
-              width: 70,
+              width: 70 * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
             ),
             SizedBox(
-              width: 70,
+              width: 70 * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
             ),
             SizedBox(
-              width: 70,
+              width: 70 * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
             ),
           ],
