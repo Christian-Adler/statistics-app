@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/dynamic_theme_data.dart';
+import '../../providers/main_navigation.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
 class AppLayoutBuilder extends StatelessWidget {
@@ -19,6 +20,16 @@ class AppLayoutBuilder extends StatelessWidget {
     required this.body,
     this.bottomNavigationBarBuilder,
   }) : super(key: key);
+
+  /// Prueft, ob auf Overview. Wenn nein wird dort hin navigiert und BackToClose abgebrochen
+  bool _checkForOverviewBeforeClose(BuildContext context) {
+    final mainNavigation = Provider.of<MainNavigation>(context, listen: false);
+    if (mainNavigation.mainPageIndex != 0) {
+      mainNavigation.mainPageIndex = 0;
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +85,7 @@ class AppLayoutBuilder extends StatelessWidget {
       backgroundColor: Colors.transparent,
       bottomNavigationBar: bottomNavBarW,
       body: DoubleBackToClose(
-        // TODO Callback fuer Naviagtionsaenderung wenn nicht auf HauptSeite
+        checkCallback: () => _checkForOverviewBeforeClose(context),
         child: Container(
           decoration: BoxDecoration(gradient: LinearGradient(colors: [colorScheme.primary, colorScheme.secondary])),
           child: SafeArea(child: bodyW),
