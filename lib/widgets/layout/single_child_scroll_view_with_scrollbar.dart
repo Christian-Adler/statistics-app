@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class SingleChildScrollViewWithScrollbar extends StatelessWidget {
   final Widget child;
   final Axis scrollDirection;
   final double Function()? getScrollPos;
   final void Function(double value)? setScrollPos;
+  final void Function(ScrollDirection value)? setScrollDirection;
 
   SingleChildScrollViewWithScrollbar(
-      {Key? key, required this.child, this.scrollDirection = Axis.vertical, this.getScrollPos, this.setScrollPos})
+      {Key? key,
+      required this.child,
+      this.scrollDirection = Axis.vertical,
+      this.getScrollPos,
+      this.setScrollPos,
+      this.setScrollDirection})
       : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
@@ -19,6 +26,12 @@ class SingleChildScrollViewWithScrollbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final setScrollD = setScrollDirection;
+    if (setScrollD != null) {
+      _scrollController.addListener(() {
+        setScrollD(_scrollController.position.userScrollDirection);
+      });
+    }
     final setScrollP = setScrollPos;
     if (setScrollP != null) {
       _scrollController.addListener(() {

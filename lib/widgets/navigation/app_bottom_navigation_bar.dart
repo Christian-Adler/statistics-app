@@ -7,6 +7,7 @@ import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/main_navigation.dart';
+import '../../utils/hide_bottom_navigation_bar.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({Key? key}) : super(key: key);
@@ -92,15 +93,27 @@ class AppBottomNavigationBar extends StatelessWidget {
       }
     }
 
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: _buildNavItems(context),
-      currentIndex: selectedIdx,
-      selectedItemColor: Theme.of(context).colorScheme.primary,
-      unselectedItemColor: Colors.black54,
-      showSelectedLabels: showNavigationTitle,
-      showUnselectedLabels: showNavigationTitle,
-      onTap: (idx) => _onItemTapped(idx, context, showNavigationTitle),
+    return ValueListenableBuilder(
+      valueListenable: HideBottomNavigationBar.visible,
+      builder: (context, value, child) => AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: value ? 56 : 0,
+        child: OverflowBox(
+          alignment: AlignmentDirectional.topCenter,
+          maxHeight: 56,
+          minHeight: 0,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: _buildNavItems(context),
+            currentIndex: selectedIdx,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Colors.black54,
+            showSelectedLabels: showNavigationTitle,
+            showUnselectedLabels: showNavigationTitle,
+            onTap: (idx) => _onItemTapped(idx, context, showNavigationTitle),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/operating.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../scroll_footer.dart';
 import 'display/solar_power_chart.dart';
@@ -10,7 +11,8 @@ import 'display/solar_power_table.dart';
 class SolarPowerView extends StatelessWidget {
   final bool _showYearly;
 
-  const SolarPowerView({super.key,
+  const SolarPowerView({
+    super.key,
     required bool showYearly,
   }) : _showYearly = showYearly;
 
@@ -69,14 +71,12 @@ class _SolarPowerState extends State<_SolarPower> {
           );
         } else {
           return SingleChildScrollViewWithScrollbar(
+            setScrollDirection: HideBottomNavigationBar.setScrollDirection,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge),
+                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
                     height: 10,
                   ),
