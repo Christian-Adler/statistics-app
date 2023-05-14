@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/main_navigation.dart';
-import 'package:statistics/widgets/navigation/main_navigation_stack.dart';
 
 import 'models/app_info.dart';
 import 'providers/app_layout.dart';
@@ -11,9 +9,11 @@ import 'providers/auth.dart';
 import 'providers/car.dart';
 import 'providers/dynamic_theme_data.dart';
 import 'providers/heart.dart';
+import 'providers/main_navigation.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/splash_screen.dart';
+import 'widgets/navigation/main_navigation_stack.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Statistics',
+          title: AppInfo.appName,
           theme: ThemeData(
             primaryColor: Colors.purple,
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(

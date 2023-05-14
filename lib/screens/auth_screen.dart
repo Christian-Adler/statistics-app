@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
@@ -96,7 +97,7 @@ class _LoginTitle extends StatelessWidget {
               ),
             ),
             Text(
-              'Statistics',
+              AppInfo.appName,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
