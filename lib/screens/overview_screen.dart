@@ -6,6 +6,7 @@ import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../providers/main_navigation.dart';
 import '../utils/globals.dart';
+import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/eagle_logo.dart';
@@ -73,6 +74,7 @@ class _OverviewScreenBody extends StatelessWidget {
                 ),
               ),
               SingleChildScrollViewWithScrollbar(
+                setScrollDirection: HideBottomNavigationBar.setScrollDirection,
                 child: Center(child: _NavigationButtons()),
               ),
             ],

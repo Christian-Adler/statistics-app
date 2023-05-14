@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/navigation/screen_nav_info.dart';
+import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
@@ -40,6 +41,7 @@ class _SettingsScreenBody extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: SingleChildScrollViewWithScrollbar(
+        setScrollDirection: HideBottomNavigationBar.setScrollDirection,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [

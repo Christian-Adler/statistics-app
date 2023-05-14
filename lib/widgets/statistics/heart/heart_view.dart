@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../../models/heart/blood_pressure_item.dart';
 import '../../../providers/heart.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 
 class HeartView extends StatelessWidget {
@@ -140,20 +141,40 @@ class _TableHeadSeparator extends StatelessWidget {
   }
 }
 
-class _BloodPressureTable extends StatelessWidget {
+class _BloodPressureTable extends StatefulWidget {
   final double widthFactor;
 
   const _BloodPressureTable(this.widthFactor);
 
   @override
+  State<_BloodPressureTable> createState() => _BloodPressureTableState();
+}
+
+class _BloodPressureTableState extends State<_BloodPressureTable> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      HideBottomNavigationBar.setScrollDirection(_scrollController.position.userScrollDirection);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
-    final ScrollController scrollController = ScrollController();
     return AnimationLimiter(
       child: Scrollbar(
-        controller: scrollController,
+        controller: _scrollController,
         child: ListView.separated(
-          controller: scrollController,
+          controller: _scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
@@ -161,7 +182,7 @@ class _BloodPressureTable extends StatelessWidget {
               children: [
                 Container(
                   height: 1,
-                  width: 320 * widthFactor,
+                  width: 320 * widget.widthFactor,
                   color: Colors.grey.shade200,
                 ),
               ],
@@ -179,7 +200,7 @@ class _BloodPressureTable extends StatelessWidget {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _BloodPressureTableItem(bloodPressureItems[index], widthFactor),
+                    : _BloodPressureTableItem(bloodPressureItems[index], widget.widthFactor),
               ),
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/operating.dart';
 import '../../../utils/charts.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../layout/center_horizontal.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../scroll_footer.dart';
@@ -78,6 +79,7 @@ class _OperatingState extends State<_Operating> {
           );
         } else {
           return SingleChildScrollViewWithScrollbar(
+            setScrollDirection: HideBottomNavigationBar.setScrollDirection,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

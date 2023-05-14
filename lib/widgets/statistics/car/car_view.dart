@@ -8,10 +8,11 @@ import 'package:provider/provider.dart';
 
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 
 class CarView extends StatelessWidget {
-  const CarView();
+  const CarView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -144,20 +145,41 @@ class _TableHeadSeparator extends StatelessWidget {
   }
 }
 
-class _CarRefuelTable extends StatelessWidget {
+class _CarRefuelTable extends StatefulWidget {
   final double widthFactor;
 
   const _CarRefuelTable(this.widthFactor);
 
   @override
+  State<_CarRefuelTable> createState() => _CarRefuelTableState();
+}
+
+class _CarRefuelTableState extends State<_CarRefuelTable> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      HideBottomNavigationBar.setScrollDirection(_scrollController.position.userScrollDirection);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
-    final ScrollController scrollController = ScrollController();
+
     return AnimationLimiter(
       child: Scrollbar(
-        controller: scrollController,
+        controller: _scrollController,
         child: ListView.separated(
-          controller: scrollController,
+          controller: _scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
@@ -165,11 +187,11 @@ class _CarRefuelTable extends StatelessWidget {
               children: [
                 Container(
                   height: 1,
-                  width: 240 * widthFactor,
+                  width: 240 * widget.widthFactor,
                   color: Colors.grey.shade200,
                 ),
                 Container(
-                  width: 70 * widthFactor,
+                  width: 70 * widget.widthFactor,
                 ),
               ],
             ),
@@ -186,7 +208,7 @@ class _CarRefuelTable extends StatelessWidget {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _CarRefuelTableItem(carRefuelItems[index], widthFactor,
+                    : _CarRefuelTableItem(carRefuelItems[index], widget.widthFactor,
                         index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
               ),
             ),

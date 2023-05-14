@@ -7,6 +7,7 @@ import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/dynamic_theme_data.dart';
 import '../../providers/main_navigation.dart';
+import '../../utils/hide_bottom_navigation_bar.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
 class AppLayoutBuilder extends StatelessWidget {
@@ -26,6 +27,7 @@ class AppLayoutBuilder extends StatelessWidget {
     final mainNavigation = Provider.of<MainNavigation>(context, listen: false);
     if (mainNavigation.mainPageIndex != 0) {
       mainNavigation.mainPageIndex = 0;
+      HideBottomNavigationBar.setVisible(true);
       return true;
     }
     return false;

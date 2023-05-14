@@ -5,6 +5,7 @@ import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/about_dlg.dart';
 import '../utils/globals.dart';
+import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
@@ -43,6 +44,7 @@ class _InfoScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollViewWithScrollbar(
+      setScrollDirection: HideBottomNavigationBar.setScrollDirection,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
