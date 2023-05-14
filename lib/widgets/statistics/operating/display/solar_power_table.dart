@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../providers/operating.dart';
 import '../../../../utils/date_utils.dart';
+import '../../../responsive/device_dependent_constrained_box.dart';
 
 class SolarPowerTable extends StatelessWidget {
   final bool showYearly;
@@ -14,8 +15,6 @@ class SolarPowerTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final powerData = Provider.of<Operating>(context);
     final deviceSize = MediaQuery.of(context).size;
-
-    print(deviceSize.width);
 
     Widget buildValueTable() {
       List<TableRow> rows = [
@@ -58,11 +57,13 @@ class SolarPowerTable extends StatelessWidget {
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildValueTable(),
-      ],
+    return DeviceDependentConstrainedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildValueTable(),
+        ],
+      ),
     );
   }
 }
