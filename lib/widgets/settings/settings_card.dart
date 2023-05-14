@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/widgets/responsive/device_dependent_constrained_box.dart';
+
+import '../responsive/device_dependent_constrained_box.dart';
 
 class SettingsCard extends StatelessWidget {
   final dynamic title;

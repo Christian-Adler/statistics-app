@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/providers/main_navigation.dart';
 
+import '../providers/main_navigation.dart';
 import '../screens/car/car_screen.dart';
 import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_screen.dart';

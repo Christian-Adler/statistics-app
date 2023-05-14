@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:statistics/utils/date_utils.dart';
 
 import '../models/chart/operating_chart_item.dart';
+import '../utils/date_utils.dart';
 import '../utils/http_utils.dart';
 import 'auth.dart';
 

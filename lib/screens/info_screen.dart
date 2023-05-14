@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:statistics/utils/about_dlg.dart';
-import 'package:statistics/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 
 import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
+import '../utils/about_dlg.dart';
 import '../utils/globals.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/logo/exploratia_logo.dart';
