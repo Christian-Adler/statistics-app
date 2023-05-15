@@ -2,15 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 
 class CarView extends StatelessWidget {
-  const CarView();
+  const CarView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +64,14 @@ class _CarState extends State<_Car> {
             ),
           );
         } else {
-          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: const [
-            SizedBox(height: 5),
-            _CarRefuelTableHead(),
-            _TableHeadSeparator(),
+          final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+          double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;
+          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            const SizedBox(height: 5),
+            _CarRefuelTableHead(widthFactor),
+            _TableHeadSeparator(widthFactor),
             Expanded(
-              child: _CarRefuelTable(),
+              child: _CarRefuelTable(widthFactor),
             )
           ]);
         }
@@ -77,19 +81,21 @@ class _CarState extends State<_Car> {
 }
 
 class _CarRefuelTableHead extends StatelessWidget {
-  const _CarRefuelTableHead();
+  final double widthFactor;
+
+  const _CarRefuelTableHead(this.widthFactor);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        _TableHeadline('Datum', 75, textAlign: TextAlign.start),
-        _TableHeadline('km', 50),
-        _TableHeadline('l', 25),
-        _TableHeadline('€/l', 40),
-        _TableHeadline('€', 50),
-        _TableHeadline('l/100km', 70, textAlign: TextAlign.end),
+      children: [
+        _TableHeadline('Datum', 75 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline('km', 50 * widthFactor),
+        _TableHeadline('l', 25 * widthFactor),
+        _TableHeadline('€/l', 40 * widthFactor),
+        _TableHeadline('€', 50 * widthFactor),
+        _TableHeadline('l/100km', 70 * widthFactor, textAlign: TextAlign.end),
       ],
     );
   }
@@ -116,7 +122,9 @@ class _TableHeadline extends StatelessWidget {
 }
 
 class _TableHeadSeparator extends StatelessWidget {
-  const _TableHeadSeparator();
+  final double widthFactor;
+
+  const _TableHeadSeparator(this.widthFactor);
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +136,7 @@ class _TableHeadSeparator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             height: 1,
-            width: 310, //240+70
+            width: 310 * widthFactor, //240+70
             color: Colors.grey.shade400,
           ),
         ],
@@ -137,18 +145,41 @@ class _TableHeadSeparator extends StatelessWidget {
   }
 }
 
-class _CarRefuelTable extends StatelessWidget {
-  const _CarRefuelTable();
+class _CarRefuelTable extends StatefulWidget {
+  final double widthFactor;
+
+  const _CarRefuelTable(this.widthFactor);
+
+  @override
+  State<_CarRefuelTable> createState() => _CarRefuelTableState();
+}
+
+class _CarRefuelTableState extends State<_CarRefuelTable> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      HideBottomNavigationBar.setScrollDirection(_scrollController.position.userScrollDirection);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
-    final ScrollController scrollController = ScrollController();
+
     return AnimationLimiter(
       child: Scrollbar(
-        controller: scrollController,
+        controller: _scrollController,
         child: ListView.separated(
-          controller: scrollController,
+          controller: _scrollController,
           separatorBuilder: (context, index) => SizedBox(
             height: 1,
             child: Row(
@@ -156,11 +187,11 @@ class _CarRefuelTable extends StatelessWidget {
               children: [
                 Container(
                   height: 1,
-                  width: 240,
+                  width: 240 * widget.widthFactor,
                   color: Colors.grey.shade200,
                 ),
                 Container(
-                  width: 70,
+                  width: 70 * widget.widthFactor,
                 ),
               ],
             ),
@@ -177,8 +208,8 @@ class _CarRefuelTable extends StatelessWidget {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _CarRefuelTableItem(
-                        carRefuelItems[index], index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
+                    : _CarRefuelTableItem(carRefuelItems[index], widget.widthFactor,
+                        index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
               ),
             ),
           ),
@@ -191,9 +222,11 @@ class _CarRefuelTable extends StatelessWidget {
 
 class _CarRefuelTableItem extends StatelessWidget {
   final CarRefuelItem _carRefuelItem;
+  final double widthFactor;
   final CarRefuelItem? _prevCarRefuelItem;
 
-  _CarRefuelTableItem(this._carRefuelItem, this._prevCarRefuelItem) : super(key: ValueKey(_carRefuelItem.km));
+  _CarRefuelTableItem(this._carRefuelItem, this.widthFactor, this._prevCarRefuelItem)
+      : super(key: ValueKey(_carRefuelItem.km));
 
   @override
   Widget build(BuildContext context) {
@@ -214,39 +247,39 @@ class _CarRefuelTableItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: 75,
+          width: 75 * widthFactor,
           child: Text(_carRefuelItem.date),
         ),
         SizedBox(
-          width: 50,
+          width: 50 * widthFactor,
           child: Text(
             _carRefuelItem.km.toString(),
             textAlign: TextAlign.end,
           ),
         ),
         SizedBox(
-          width: 25,
+          width: 25 * widthFactor,
           child: Text(
             _carRefuelItem.liter.toString(),
             textAlign: TextAlign.end,
           ),
         ),
         SizedBox(
-          width: 40,
+          width: 40 * widthFactor,
           child: Text(
             (_carRefuelItem.centPerliter / 100).toStringAsFixed(2),
             textAlign: TextAlign.end,
           ),
         ),
         SizedBox(
-          width: 50,
+          width: 50 * widthFactor,
           child: Text(
             priceInEuro,
             textAlign: TextAlign.end,
           ),
         ),
         SizedBox(
-          width: 70,
+          width: 70 * widthFactor,
           height: 30,
           // color: colorLiterPer100km,
           child: Stack(

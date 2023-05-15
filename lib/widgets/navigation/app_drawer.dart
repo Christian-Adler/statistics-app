@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
 import '../../utils/globals.dart';
 import '../logo/eagle_logo.dart';
@@ -33,10 +34,10 @@ class AppDrawer extends StatelessWidget {
         children: [
           StatisticsAppBar(
             Row(
-              children: const [
-                EagleLogo(),
-                SizedBox(width: 10),
-                Text('Statistics'),
+              children: [
+                const EagleLogo(),
+                const SizedBox(width: 10),
+                Text(AppInfo.appName),
               ],
             ),
             context,

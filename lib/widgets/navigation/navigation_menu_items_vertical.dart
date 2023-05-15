@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
+import '../../providers/main_navigation.dart';
 import '../../screens/overview_screen.dart';
 import '../../utils/global_settings.dart';
-import '../../utils/nav/navigation_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
@@ -14,10 +15,11 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
-  List<Widget> _buildNavItems(BuildContext context, NavigatorState navigator) {
+  List<Widget> _buildNavItems(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final onPrimaryColor = colorScheme.onPrimary;
-    final actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
+
+    final actRouteName = Provider.of<MainNavigation>(context).mainPageRoute;
 
     List<Widget> result = [];
     for (var navItem in NavigationItems.navigationMenuItems) {
@@ -56,7 +58,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
                   : navIcon,
               leading: showNavigationTitle ? navIcon : null,
               onTap: () {
-                navItem.onNav(context, navigator);
+                navItem.onNav(context);
               },
             ),
           ),
@@ -82,8 +84,6 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var navigator = Navigator.of(context);
-
     // Keine Animation, wenn Drawer die ganze Zeit sichtbar ist.
     if (MediaQueryUtils.mediaIsTablet(MediaQuery.of(context))) {
       return SingleChildScrollViewWithScrollbar(
@@ -91,7 +91,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
         setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
         child: Column(
           children: [
-            ..._buildNavItems(context, navigator),
+            ..._buildNavItems(context),
           ],
         ),
       );
@@ -112,7 +112,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
               ),
             ),
             children: [
-              ..._buildNavItems(context, navigator),
+              ..._buildNavItems(context),
             ],
           ),
         ),

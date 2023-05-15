@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/main_navigation.dart';
 import '../screens/car/car_screen.dart';
 import '../screens/heart/heart_screen.dart';
 import '../screens/operating/operating_screen.dart';
 import '../screens/operating/solar_power_screen.dart';
 import '../utils/global_keys.dart';
-import '../utils/nav/navigation_utils.dart';
 import 'expandable/expandable_fab.dart';
 
 class AddValueFloatingButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class AddValueFloatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var navigator = Navigator.of(context);
+    var mainNavigation = Provider.of<MainNavigation>(context, listen: false);
 
     return ExpandableFab(
       distance: 100.0,
@@ -21,7 +22,7 @@ class AddValueFloatingButton extends StatelessWidget {
       startAngle: -10,
       actions: [
         ActionButtonData(OperatingScreen.screenNavInfo.iconData, () async {
-          NavigationUtils.navigateToRoute(context, navigator, [OperatingScreen.screenNavInfo.routeName]);
+          mainNavigation.mainPageRoute = OperatingScreen.screenNavInfo.routeName;
 
           // kurz warten, damit der Screen auch wirklich schon da ist - ansonsten ist der currentState noch null
           await Future.delayed(const Duration(milliseconds: 10), () => true);
@@ -32,9 +33,7 @@ class AddValueFloatingButton extends StatelessWidget {
           }
         }),
         ActionButtonData(SolarPowerScreen.screenNavInfo.iconData, () async {
-          NavigationUtils.navigateToRoute(context, navigator, [
-            SolarPowerScreen.screenNavInfo.routeName,
-          ]);
+          mainNavigation.mainPageRoute = SolarPowerScreen.screenNavInfo.routeName;
 
           // kurz warten, damit der Screen auch wirklich schon da ist - ansonsten ist der currentState noch null
           await Future.delayed(const Duration(milliseconds: 10), () => true);
@@ -45,7 +44,7 @@ class AddValueFloatingButton extends StatelessWidget {
           }
         }),
         ActionButtonData(CarScreen.screenNavInfo.iconData, () async {
-          NavigationUtils.navigateToRoute(context, navigator, [CarScreen.screenNavInfo.routeName]);
+          mainNavigation.mainPageRoute = CarScreen.screenNavInfo.routeName;
 
           // kurz warten, damit der Screen auch wirklich schon da ist - ansonsten ist der currentState noch null
           await Future.delayed(const Duration(milliseconds: 10), () => true);
@@ -56,9 +55,7 @@ class AddValueFloatingButton extends StatelessWidget {
           }
         }),
         ActionButtonData(HeartScreen.screenNavInfo.iconData, () async {
-          // NavigationUtils.navigateToRoute(
-          //     context, navigator, [HeartScreen.screenNavInfo.routeName, HeartAddValueScreen.screenNavInfo.routeName]);
-          NavigationUtils.navigateToRoute(context, navigator, [HeartScreen.screenNavInfo.routeName]);
+          mainNavigation.mainPageRoute = HeartScreen.screenNavInfo.routeName;
 
           // kurz warten, damit der Screen auch wirklich schon da ist - ansonsten ist der currentState noch null
           await Future.delayed(const Duration(milliseconds: 10), () => true);

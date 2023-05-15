@@ -4,7 +4,6 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/operating/operating_add_value.dart';
@@ -13,7 +12,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Nebenkosten', Icons.power_input_outlined, '/operating');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Nebenkosten',
+    Icons.power_input_outlined,
+    '/operating',
+    () => OperatingScreen(key: GlobalKeys.operatingScreenState),
+  );
 
   const OperatingScreen({Key? key}) : super(key: key);
 
@@ -62,7 +66,8 @@ class OperatingScreenState extends State<OperatingScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(OperatingAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => OperatingAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 
@@ -87,7 +92,6 @@ class OperatingScreenState extends State<OperatingScreen> {
       ),
       body: OperatingView(showYearly: _showYearly),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

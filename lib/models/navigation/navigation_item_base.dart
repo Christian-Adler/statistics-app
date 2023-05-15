@@ -1,4 +1,4 @@
-import 'package:statistics/models/navigation/navigation_item_type.dart';
+import 'navigation_item_type.dart';
 
 class NavigationItemBase {
   final NavigationItemType navigationItemType;

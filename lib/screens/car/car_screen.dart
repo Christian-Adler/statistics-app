@@ -4,7 +4,6 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/car/car_add_value.dart';
@@ -13,7 +12,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'car_add_value_screen.dart';
 
 class CarScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Tanken', Icons.directions_car_outlined, '/car');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Tanken',
+    Icons.directions_car_outlined,
+    '/car',
+    () => CarScreen(key: GlobalKeys.carScreenState),
+  );
 
   const CarScreen({Key? key}) : super(key: key);
 
@@ -29,7 +33,6 @@ class CarScreenState extends State<CarScreen> {
 
   /// Ruft je nach Device addValue in neuem Screen auf im Dialog
   void showAddValue(BuildContext context) {
-    print("add value car");
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
 
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
@@ -55,7 +58,8 @@ class CarScreenState extends State<CarScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(CarAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CarAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 
@@ -75,7 +79,6 @@ class CarScreenState extends State<CarScreen> {
       ),
       body: const CarView(),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

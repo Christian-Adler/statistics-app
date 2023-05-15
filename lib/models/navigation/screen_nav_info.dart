@@ -5,5 +5,7 @@ class ScreenNavInfo {
   final IconData iconData;
   final String routeName;
 
-  const ScreenNavInfo(this.title, this.iconData, this.routeName);
+  final Widget Function() createScreen;
+
+  const ScreenNavInfo(this.title, this.iconData, this.routeName, this.createScreen);
 }

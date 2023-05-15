@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
-import '../../utils/nav/navigation_utils.dart';
+import '../../providers/main_navigation.dart';
+import '../../utils/hide_bottom_navigation_bar.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({Key? key}) : super(key: key);
@@ -31,10 +32,10 @@ class AppBottomNavigationBar extends StatelessWidget {
     return result;
   }
 
-  void _onItemTapped(int index, BuildContext context, NavigatorState navigator, bool showNavigationTitle) async {
+  void _onItemTapped(int index, BuildContext context, bool showNavigationTitle) async {
     if (index < NavigationItems.navigationBarItems.length) {
       var navigationItem = NavigationItems.navigationBarItems.elementAt(index);
-      navigationItem.onNav(context, navigator);
+      navigationItem.onNav(context);
       return;
     }
 
@@ -71,33 +72,19 @@ class AppBottomNavigationBar extends StatelessWidget {
     if (res != null && context.mounted) {
       var navItem = NavigationItems.navigationBarMenuItems.elementAt(res);
       if (navItem.isNavigation && navItem is NavigationItem) {
-        navItem.onNav(context, navigator);
+        navItem.onNav(context);
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
     final appLayout = Provider.of<AppLayout>(context);
     bool showNavigationTitle = Platform.isIOS || appLayout.showNavigationItemTitle;
 
-    var actRouteName = NavigationUtils.getActRouteSettings(context)?.name ?? '/';
-    // print(actRouteName);
-    int selectedIdx = -1;
-    if (actRouteName == '/') {
-      selectedIdx = 0;
-    } else {
-      for (var i = 0; i < NavigationItems.navigationBarItems.length; ++i) {
-        var navItem = NavigationItems.navigationBarItems[i];
-        if (navItem.screenNavInfo.routeName.contains(actRouteName)) {
-          selectedIdx = i;
-          break;
-        }
-      }
-    }
+    int selectedIdx = Provider.of<MainNavigation>(context).mainPageIndex;
 
-    if (selectedIdx < 0) {
+    if (selectedIdx >= NavigationItems.navigationBarItems.length) {
       // Extra Menu?
       if (NavigationItems.navigationBarMenuItems.isNotEmpty) {
         selectedIdx = NavigationItems.navigationBarItems.length;
@@ -106,15 +93,27 @@ class AppBottomNavigationBar extends StatelessWidget {
       }
     }
 
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: _buildNavItems(context),
-      currentIndex: selectedIdx,
-      selectedItemColor: Theme.of(context).colorScheme.primary,
-      unselectedItemColor: Colors.black54,
-      showSelectedLabels: showNavigationTitle,
-      showUnselectedLabels: showNavigationTitle,
-      onTap: (idx) => _onItemTapped(idx, context, navigator, showNavigationTitle),
+    return ValueListenableBuilder(
+      valueListenable: HideBottomNavigationBar.visible,
+      builder: (context, value, child) => AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: value ? 56 : 0,
+        child: OverflowBox(
+          alignment: AlignmentDirectional.topCenter,
+          maxHeight: 56,
+          minHeight: 0,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: _buildNavItems(context),
+            currentIndex: selectedIdx,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Colors.black54,
+            showSelectedLabels: showNavigationTitle,
+            showUnselectedLabels: showNavigationTitle,
+            onTap: (idx) => _onItemTapped(idx, context, showNavigationTitle),
+          ),
+        ),
+      ),
     );
   }
 }

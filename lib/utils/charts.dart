@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
-import 'package:statistics/utils/date_utils.dart';
 
 import '../models/chart/chart_meta_data.dart';
+import 'date_utils.dart';
 
 class Charts {
   static const tooltipExtStyle =

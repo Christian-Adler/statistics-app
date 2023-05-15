@@ -4,34 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/globals.dart';
 
 class AuthScreen extends StatelessWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Auth', Icons.login, '/auth');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Auth',
+    Icons.login,
+    '/auth',
+    () => const AuthScreen(),
+  );
 
   const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery
-        .of(context)
-        .size;
+    final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Theme
-                    .of(context)
-                    .colorScheme
-                    .primary, Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary
-                ],
+                colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 stops: const [0, 1],
@@ -40,18 +37,18 @@ class AuthScreen extends StatelessWidget {
           ),
           SingleChildScrollView(
               child: SizedBox(
-                width: deviceSize.width,
-                height: deviceSize.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    _LoginTitle(),
-                    SizedBox(height: 20),
-                    _AuthCard(),
-                  ],
-                ),
-              )),
+            width: deviceSize.width,
+            height: deviceSize.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                _LoginTitle(),
+                SizedBox(height: 20),
+                _AuthCard(),
+              ],
+            ),
+          )),
         ],
       ),
     );
@@ -100,12 +97,9 @@ class _LoginTitle extends StatelessWidget {
               ),
             ),
             Text(
-              'Statistics',
+              AppInfo.appName,
               style: TextStyle(
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .onPrimary,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                   letterSpacing: 3),
@@ -146,18 +140,17 @@ class _AuthCardState extends State<_AuthCard> {
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
-      builder: (ctx) =>
-          AlertDialog(
-            title: const Text('An Error Occurred'),
-            content: Text(message),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text('Okay'))
-            ],
-          ),
+      builder: (ctx) => AlertDialog(
+        title: const Text('An Error Occurred'),
+        content: Text(message),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Okay'))
+        ],
+      ),
     );
   }
 
@@ -198,9 +191,7 @@ class _AuthCardState extends State<_AuthCard> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery
-        .of(context)
-        .size;
+    final deviceSize = MediaQuery.of(context).size;
     return SizedBox(
       width: min(400, deviceSize.width * 0.75),
       child: Form(

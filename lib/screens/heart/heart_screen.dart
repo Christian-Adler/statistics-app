@@ -4,7 +4,6 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/heart/heart_add_value.dart';
@@ -13,7 +12,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Blutdruck', Icons.monitor_heart_outlined, '/heart');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Blutdruck',
+    Icons.monitor_heart_outlined,
+    '/heart',
+    () => HeartScreen(key: GlobalKeys.heartScreenState),
+  );
 
   const HeartScreen({Key? key}) : super(key: key);
 
@@ -54,7 +58,8 @@ class HeartScreenState extends State<HeartScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(HeartAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HeartAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 
@@ -74,7 +79,6 @@ class HeartScreenState extends State<HeartScreen> {
       ),
       body: const HeartView(),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

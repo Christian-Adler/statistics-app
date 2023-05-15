@@ -4,7 +4,12 @@ import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Splash', Icons.start, '/splash_screen');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Splash',
+    Icons.start,
+    '/splash_screen',
+    () => const SplashScreen(),
+  );
 
   const SplashScreen({Key? key}) : super(key: key);
 

@@ -4,7 +4,6 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/add_value_floating_button.dart';
-import '../../widgets/navigation/app_bottom_navigation_bar.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/operating/solar_power_add_value.dart';
@@ -13,7 +12,12 @@ import '../../widgets/statistics_app_bar.dart';
 import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
-  static const ScreenNavInfo screenNavInfo = ScreenNavInfo('Solar-Strom', Icons.solar_power_outlined, '/solar_power');
+  static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
+    'Solar-Strom',
+    Icons.solar_power_outlined,
+    '/solar_power',
+    () => SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
+  );
 
   const SolarPowerScreen({Key? key}) : super(key: key);
 
@@ -62,7 +66,8 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
             );
           });
     } else {
-      Navigator.of(context).pushNamed(SolarPowerAddValueScreen.screenNavInfo.routeName);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SolarPowerAddValueScreen.screenNavInfo.createScreen()));
     }
   }
 
@@ -87,7 +92,6 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
       ),
       body: SolarPowerView(showYearly: _showYearly),
       drawerBuilder: () => const AppDrawer(),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

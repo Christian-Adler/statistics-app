@@ -9,21 +9,11 @@ import 'providers/auth.dart';
 import 'providers/car.dart';
 import 'providers/dynamic_theme_data.dart';
 import 'providers/heart.dart';
+import 'providers/main_navigation.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
-import 'screens/car/car_add_value_screen.dart';
-import 'screens/car/car_screen.dart';
-import 'screens/heart/heart_add_value_screen.dart';
-import 'screens/heart/heart_screen.dart';
-import 'screens/info_screen.dart';
-import 'screens/operating/operating_add_value_screen.dart';
-import 'screens/operating/operating_screen.dart';
-import 'screens/operating/solar_power_add_value_screen.dart';
-import 'screens/operating/solar_power_screen.dart';
-import 'screens/overview_screen.dart';
-import 'screens/settings_screen.dart';
 import 'screens/splash_screen.dart';
-import 'utils/global_keys.dart';
+import 'widgets/navigation/main_navigation_stack.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +34,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => DynamicThemeData(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MainNavigation(),
         ),
         ChangeNotifierProvider(
           create: (context) => AppLayout(),
@@ -73,7 +66,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Statistics',
+          title: AppInfo.appName,
           theme: ThemeData(
             primaryColor: Colors.purple,
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
@@ -99,33 +92,13 @@ class MyApp extends StatelessWidget {
             pageTransitionsTheme: dynamicThemeData.pageTransitionsTheme,
           ),
           home: auth.isAuth
-              ? const OverviewScreen()
+              ? const MainNavigationStack()
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
                       : const AuthScreen(),
                   future: auth.tryAutoLogin(),
                 ),
-          routes: {
-            SplashScreen.screenNavInfo.routeName: (context) => const SplashScreen(),
-            //
-            OverviewScreen.screenNavInfo.routeName: (context) => const OverviewScreen(),
-            //
-            OperatingScreen.screenNavInfo.routeName: (context) => OperatingScreen(key: GlobalKeys.operatingScreenState),
-            OperatingAddValueScreen.screenNavInfo.routeName: (context) => const OperatingAddValueScreen(),
-            SolarPowerScreen.screenNavInfo.routeName: (context) =>
-                SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
-            SolarPowerAddValueScreen.screenNavInfo.routeName: (context) => const SolarPowerAddValueScreen(),
-            //
-            CarScreen.screenNavInfo.routeName: (context) => CarScreen(key: GlobalKeys.carScreenState),
-            CarAddValueScreen.screenNavInfo.routeName: (context) => const CarAddValueScreen(),
-            //
-            HeartScreen.screenNavInfo.routeName: (context) => HeartScreen(key: GlobalKeys.heartScreenState),
-            HeartAddValueScreen.screenNavInfo.routeName: (context) => const HeartAddValueScreen(),
-            //
-            SettingsScreen.screenNavInfo.routeName: (context) => const SettingsScreen(),
-            InfoScreen.screenNavInfo.routeName: (context) => const InfoScreen(),
-          },
         );
       },
     );

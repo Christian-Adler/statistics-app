@@ -3,12 +3,15 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/operating.dart';
 import '../../../utils/charts.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
+import '../../layout/center_horizontal.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../scroll_footer.dart';
 import 'display/operating_chart.dart';
 
 class OperatingView extends StatelessWidget {
-  const OperatingView({super.key,
+  const OperatingView({
+    super.key,
     required bool showYearly,
   }) : _showYearly = showYearly;
 
@@ -52,7 +55,7 @@ class _OperatingState extends State<_Operating> {
     TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value) {
       return TextSpan(
           text:
-          '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
+              '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
           style: Charts.tooltipExtStyle);
     }
 
@@ -76,16 +79,14 @@ class _OperatingState extends State<_Operating> {
           );
         } else {
           return SingleChildScrollViewWithScrollbar(
+            setScrollDirection: HideBottomNavigationBar.setScrollDirection,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
+                      style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
                     height: 20,
                   ),
@@ -97,7 +98,7 @@ class _OperatingState extends State<_Operating> {
                     getOperatingValue: (operatingItem) => operatingItem.water,
                     provideTooltipExt: widget.showYearly
                         ? (yValue, seriesIdx) =>
-                    [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
+                            [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -109,7 +110,7 @@ class _OperatingState extends State<_Operating> {
                     getOperatingValue: (operatingItem) => operatingItem.heating,
                     provideTooltipExt: widget.showYearly
                         ? (yValue, seriesIdx) =>
-                    [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
+                            [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -120,11 +121,10 @@ class _OperatingState extends State<_Operating> {
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.consumedPower,
                     provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) =>
-                    [
-                      buildTooltipExt(
-                          Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
-                    ]
+                        ? (yValue, seriesIdx) => [
+                              buildTooltipExt(
+                                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
+                            ]
                         : null,
                   ),
                   const _ChartDivider(),
@@ -167,10 +167,10 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) =>
-                    operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                        operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
                   ),
                   const _ChartDivider(),
-                  const ScrollFooter(),
+                  const CenterH(child: ScrollFooter()),
                 ],
               ),
             ),
