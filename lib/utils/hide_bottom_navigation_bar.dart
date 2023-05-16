@@ -13,6 +13,8 @@ class HideBottomNavigationBar {
   }
 
   static void setVisible(bool value) {
-    visible.value = value;
+    if (visible.value != value) {
+      visible.value = value;
+    }
   }
 }
