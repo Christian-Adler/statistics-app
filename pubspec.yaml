@@ -35,7 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  fl_chart: ^0.61.0
+  fl_chart: ^0.62.0
   provider: ^6.0.5
   intl: ^0.18.0
   http: ^0.13.5
@@ -44,7 +44,7 @@ dependencies:
   flutter_commons:
     git: https://github.com/Christian-Adler/flutter_commons.git
   flutter_staggered_animations: ^1.1.1
-  package_info_plus: ^3.0.3
+  package_info_plus: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +57,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true
