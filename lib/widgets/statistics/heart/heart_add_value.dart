@@ -52,9 +52,7 @@ class HeartAddValueState extends State<HeartAddValue> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const LinearProgressIndicator();
     }
 
     final insertDate = DateFormat('dd MMMM yyyy - HH:mm:ss').format(DateTime.now());

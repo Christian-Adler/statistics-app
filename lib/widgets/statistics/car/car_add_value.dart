@@ -53,9 +53,7 @@ class CarAddValueState extends State<CarAddValue> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const LinearProgressIndicator();
     }
 
     final insertDate = DateFormat('dd MMMM yyyy').format(DateTime.now());

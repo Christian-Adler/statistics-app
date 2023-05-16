@@ -55,12 +55,7 @@ class _SolarPowerState extends State<_SolarPower> {
       future: _solarDataFuture,
       builder: (ctx, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(30.0),
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return const LinearProgressIndicator();
         } else if (dataSnapshot.hasError) {
           // .. do error handling
           return Center(

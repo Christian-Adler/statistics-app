@@ -56,9 +56,7 @@ class OperatingAddValueState extends State<OperatingAddValue> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const LinearProgressIndicator();
     }
 
     final insertDate = DateFormat('MMMM yyyy').format(DateUtil.getInsertDate());
