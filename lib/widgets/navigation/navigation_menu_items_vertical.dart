@@ -88,7 +88,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
     if (MediaQueryUtils.mediaIsTablet(MediaQuery.of(context))) {
       return SingleChildScrollViewWithScrollbar(
         getScrollPos: () => GlobalSettings.menuScrollPos,
-        setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
+        scrollPosCallback: (value) => GlobalSettings.menuScrollPos = value,
         child: Column(
           children: [
             ..._buildNavItems(context),
@@ -99,7 +99,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
     return SingleChildScrollViewWithScrollbar(
       getScrollPos: () => GlobalSettings.menuScrollPos,
-      setScrollPos: (value) => GlobalSettings.menuScrollPos = value,
+      scrollPosCallback: (value) => GlobalSettings.menuScrollPos = value,
       child: AnimationLimiter(
         child: Column(
           children: AnimationConfiguration.toStaggeredList(

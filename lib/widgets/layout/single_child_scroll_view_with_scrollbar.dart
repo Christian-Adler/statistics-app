@@ -5,16 +5,16 @@ class SingleChildScrollViewWithScrollbar extends StatefulWidget {
   final Widget child;
   final Axis scrollDirection;
   final double Function()? getScrollPos;
-  final void Function(double value)? setScrollPos;
-  final void Function(ScrollDirection value)? setScrollDirection;
+  final void Function(double value)? scrollPosCallback;
+  final void Function(ScrollDirection value)? scrollDirectionCallback;
 
   const SingleChildScrollViewWithScrollbar(
       {Key? key,
       required this.child,
       this.scrollDirection = Axis.vertical,
       this.getScrollPos,
-      this.setScrollPos,
-      this.setScrollDirection})
+      this.scrollPosCallback,
+      this.scrollDirectionCallback})
       : super(key: key);
 
   @override
@@ -37,16 +37,16 @@ class _SingleChildScrollViewWithScrollbarState extends State<SingleChildScrollVi
 
   @override
   Widget build(BuildContext context) {
-    final setScrollD = widget.setScrollDirection;
-    if (setScrollD != null) {
+    final scrollDirectionCb = widget.scrollDirectionCallback;
+    if (scrollDirectionCb != null) {
       _scrollController.addListener(() {
-        setScrollD(_scrollController.position.userScrollDirection);
+        scrollDirectionCb(_scrollController.position.userScrollDirection);
       });
     }
-    final setScrollP = widget.setScrollPos;
-    if (setScrollP != null) {
+    final scrollPosCb = widget.scrollPosCallback;
+    if (scrollPosCb != null) {
       _scrollController.addListener(() {
-        setScrollP(_scrollController.position.pixels);
+        scrollPosCb(_scrollController.position.pixels);
       });
     }
     final getScrollP = widget.getScrollPos;

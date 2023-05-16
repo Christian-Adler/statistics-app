@@ -74,7 +74,7 @@ class _OverviewScreenBody extends StatelessWidget {
                 ),
               ),
               SingleChildScrollViewWithScrollbar(
-                setScrollDirection: HideBottomNavigationBar.setScrollDirection,
+                scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
                 child: Center(child: _NavigationButtons()),
               ),
             ],

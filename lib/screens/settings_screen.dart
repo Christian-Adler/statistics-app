@@ -41,7 +41,7 @@ class _SettingsScreenBody extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: SingleChildScrollViewWithScrollbar(
-        setScrollDirection: HideBottomNavigationBar.setScrollDirection,
+        scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [

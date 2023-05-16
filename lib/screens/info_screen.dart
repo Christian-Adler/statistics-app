@@ -44,7 +44,7 @@ class _InfoScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollViewWithScrollbar(
-      setScrollDirection: HideBottomNavigationBar.setScrollDirection,
+      scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
