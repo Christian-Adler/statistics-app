@@ -8,6 +8,7 @@ import '../../models/navigation/navigation_items.dart';
 import '../../providers/main_navigation.dart';
 import '../../screens/overview_screen.dart';
 import '../../utils/global_settings.dart';
+import '../../utils/nav/navigation_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
@@ -58,6 +59,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
                   : navIcon,
               leading: showNavigationTitle ? navIcon : null,
               onTap: () {
+                NavigationUtils.closeDrawerIfOpen(context);
                 navItem.onNav(context);
               },
             ),

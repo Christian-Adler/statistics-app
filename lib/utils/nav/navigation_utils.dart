@@ -8,12 +8,7 @@ class NavigationUtils {
     // print('act route:');
     // print(ModalRoute.of(ctx)?.settings.name);
 
-    // Drawer offen? Dann zuerst schliessen
-    var scaffoldState = Scaffold.of(ctx);
-    if (scaffoldState.isDrawerOpen) {
-      // print('Close drawer');
-      scaffoldState.closeDrawer();
-    }
+    closeDrawerIfOpen(ctx);
 
     // Go back in navigation until match or root
     navigator.popUntil((route) {
@@ -40,5 +35,14 @@ class NavigationUtils {
 
   static RouteSettings? getActRouteSettings(BuildContext ctx) {
     return ModalRoute.of(ctx)?.settings;
+  }
+
+  static void closeDrawerIfOpen(BuildContext context) {
+    // Drawer offen? Dann zuerst schliessen
+    var scaffoldState = Scaffold.of(context);
+    if (scaffoldState.isDrawerOpen) {
+      // print('Close drawer');
+      scaffoldState.closeDrawer();
+    }
   }
 }
