@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/navigation/navigation_items.dart';
+import '../utils/hide_bottom_navigation_bar.dart';
 
 class MainNavigation with ChangeNotifier {
   int _mainPageIndex = 0;
@@ -17,6 +18,11 @@ class MainNavigation with ChangeNotifier {
     _mainPageIndex = value;
     _visitedIndexes.add(value);
     notifyListeners();
+
+    // OverViewSeite immer BottomBar anzeigen
+    if (_mainPageIndex == 0) {
+      HideBottomNavigationBar.setVisible(true);
+    }
   }
 
   set mainPageRoute(String value) {
@@ -26,10 +32,7 @@ class MainNavigation with ChangeNotifier {
   }
 
   String get mainPageRoute {
-    return NavigationItems.mainNavigationItems
-        .elementAt(_mainPageIndex)
-        .screenNavInfo
-        .routeName;
+    return NavigationItems.mainNavigationItems.elementAt(_mainPageIndex).screenNavInfo.routeName;
   }
 
   Set<int> get visitedIndexes {
