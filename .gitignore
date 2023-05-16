@@ -32,6 +32,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Flutter Windows
+**windows/flutter/generated*
+
 # Symbolication related
 app.*.symbols
 
