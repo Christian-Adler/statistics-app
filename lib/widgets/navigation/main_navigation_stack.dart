@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/main_navigation.dart';
-import '../responsive/app_layout_builder.dart';
-import 'app_bottom_navigation_bar.dart';
 
 class MainNavigationStack extends StatelessWidget {
   const MainNavigationStack({Key? key}) : super(key: key);
@@ -30,12 +28,9 @@ class MainNavigationStack extends StatelessWidget {
   Widget build(BuildContext context) {
     int mainPageIndex = Provider.of<MainNavigation>(context).mainPageIndex;
 
-    return AppLayoutBuilder(
-      body: IndexedStack(
-        index: mainPageIndex,
-        children: _buildLazyMainNavigationChildren(context, mainPageIndex),
-      ),
-      bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
+    return IndexedStack(
+      index: mainPageIndex,
+      children: _buildLazyMainNavigationChildren(context, mainPageIndex),
     );
   }
 }

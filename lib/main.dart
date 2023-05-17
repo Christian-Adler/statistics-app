@@ -13,7 +13,9 @@ import 'providers/main_navigation.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/splash_screen.dart';
+import 'widgets/navigation/app_bottom_navigation_bar.dart';
 import 'widgets/navigation/main_navigation_stack.dart';
+import 'widgets/responsive/app_layout_builder.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -92,7 +94,10 @@ class MyApp extends StatelessWidget {
             pageTransitionsTheme: dynamicThemeData.pageTransitionsTheme,
           ),
           home: auth.isAuth
-              ? const MainNavigationStack()
+              ? AppLayoutBuilder(
+                  body: const MainNavigationStack(),
+                  bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
+                )
               : FutureBuilder(
                   builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
                       ? const SplashScreen()
