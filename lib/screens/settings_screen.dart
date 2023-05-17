@@ -38,13 +38,13 @@ class _SettingsScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       width: double.infinity,
       child: SingleChildScrollViewWithScrollbar(
         scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             AppLayoutSettingsCard(),
             ServerCard(),
             DeviceStorageCard(),

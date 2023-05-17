@@ -39,10 +39,10 @@ class AuthScreen extends StatelessWidget {
               child: SizedBox(
             width: deviceSize.width,
             height: deviceSize.height,
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 _LoginTitle(),
                 SizedBox(height: 20),
                 _AuthCard(),
@@ -98,11 +98,7 @@ class _LoginTitle extends StatelessWidget {
             ),
             Text(
               AppInfo.appName,
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  letterSpacing: 3),
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold, fontSize: 30, letterSpacing: 3),
             ),
           ],
         ),
@@ -246,9 +242,7 @@ class _AuthCardState extends State<_AuthCard> {
                     ),
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    suffixIcon: IconButton(
-                        onPressed: _toggleObscured,
-                        icon: Icon(_isObscured ? Icons.visibility_rounded : Icons.visibility_off_rounded)),
+                    suffixIcon: IconButton(onPressed: _toggleObscured, icon: Icon(_isObscured ? Icons.visibility_rounded : Icons.visibility_off_rounded)),
                     // suffixIcon: Icon(Icons.remove_red_eye),
                   ),
                   focusNode: passwordFieldFocusNode,

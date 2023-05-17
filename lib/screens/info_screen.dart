@@ -49,9 +49,9 @@ class _InfoScreenBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 20),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               EagleLogo(),
               SizedBox(height: 10, width: 10),
               CaLogo(),
@@ -73,10 +73,7 @@ class _InfoScreenBody extends StatelessWidget {
           const SizedBox(height: 10),
           const _AppInfoCard(),
           Center(
-            child: OutlinedButton.icon(
-                onPressed: () => AboutDlg.showAboutDlg(context),
-                icon: const Icon(Icons.info_outline),
-                label: const Text('App info')),
+            child: OutlinedButton.icon(onPressed: () => AboutDlg.showAboutDlg(context), icon: const Icon(Icons.info_outline), label: const Text('App info')),
           )
         ],
       ),
