@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
-import '../../utils/globals.dart';
+import '../../utils/nav/navigation_utils.dart';
 import '../logo/eagle_logo.dart';
 import '../statistics_app_bar.dart';
 import 'navigation_menu_vertical.dart';
@@ -19,12 +19,24 @@ class AppDrawer extends StatelessWidget {
     if (!showNavigationTitle) {
       return Drawer(
         width: 56,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: SafeArea(
-          child: Container(
-            color: Theme.of(context).drawerTheme.backgroundColor,
-            child: NavigationMenuVertical(showNavigationTitle),
-          ),
+        child: Column(
+          children: [
+            StatisticsAppBar(
+              IconButton(
+                icon: const Icon(Icons.close),
+                padding: EdgeInsets.zero,
+                alignment: Alignment.centerLeft,
+                onPressed: () {
+                  NavigationUtils.closeDrawerIfOpen(context);
+                },
+              ),
+              context,
+              automaticallyImplyLeading: false,
+            ),
+            Expanded(
+              child: NavigationMenuVertical(showNavigationTitle),
+            ),
+          ],
         ),
       );
     }
@@ -45,9 +57,11 @@ class AppDrawer extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Globals.logout(context);
+                    // Globals.logout(context);
+                    NavigationUtils.closeDrawerIfOpen(context);
                   },
-                  icon: const Icon(Icons.exit_to_app))
+                  // icon: const Icon(Icons.exit_to_app))
+                  icon: const Icon(Icons.close))
             ],
           ),
           Expanded(
