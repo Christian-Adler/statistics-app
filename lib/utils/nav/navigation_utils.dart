@@ -37,12 +37,18 @@ class NavigationUtils {
     return ModalRoute.of(ctx)?.settings;
   }
 
-  static void closeDrawerIfOpen(BuildContext context) {
+  static bool closeDrawerIfOpen(BuildContext context) {
+    // print('Close drawer if open...');
     // Drawer offen? Dann zuerst schliessen
-    var scaffoldState = Scaffold.of(context);
-    if (scaffoldState.isDrawerOpen) {
+    // var scaffoldState = Scaffold.of(context);
+    var scaffoldState = Scaffold.maybeOf(context);
+    // print('scaffold state ');
+    // print(scaffoldState);
+    if (scaffoldState != null && scaffoldState.isDrawerOpen) {
       // print('Close drawer');
       scaffoldState.closeDrawer();
+      return true;
     }
+    return false;
   }
 }
