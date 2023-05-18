@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/animation/transition/fade_transition_builder.dart';
-import 'package:flutter_commons/animation/transition/no_transition_builder.dart';
 
 class DynamicThemeData with ChangeNotifier {
-  static const PageTransitionsTheme noTransitions = PageTransitionsTheme(builders: {
-    TargetPlatform.android: NoTransitionsBuilder(),
-    TargetPlatform.iOS: NoTransitionsBuilder(),
-  });
+  MaterialColor _primaryColor = Colors.blue; // Colors.purple;
 
-  // horizontal sliding transitions for routes.
-  static const PageTransitionsTheme hSlideTransitions = PageTransitionsTheme(builders: {
-    TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-  });
+//   final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
 
-  // fade transitions for routes.
-  static const PageTransitionsTheme fadeTransitions = PageTransitionsTheme(builders: {
-    TargetPlatform.android: FadeTransitionsBuilder(),
-    TargetPlatform.iOS: FadeTransitionsBuilder(),
-  });
+  set primaryColor(MaterialColor color) {
+    _primaryColor = color;
+    notifyListeners();
+  }
 
-  PageTransitionsTheme? pageTransitionsTheme;
+  MaterialColor get primaryColor {
+    return _primaryColor;
+  }
 
-  set usePageTransition(bool value) {
+  set changeInBuildByMediaQuery(bool value) {
     // Da dies ueber MediaQuery waehrend des Build gesetzt wird, darf im Fall einer Aenderung
     // das notifyListeners erst spaeter erfolgen!
-    if (!value && pageTransitionsTheme == null) {
-      pageTransitionsTheme = fadeTransitions;
-      // pageTransitionsTheme = noTransitions;
+    if (!value /* && pageTransitionsTheme == null */) {
       doNotifyListenersPostFrame();
-    } else if (value && pageTransitionsTheme != null) {
-      pageTransitionsTheme = null;
+    } else if (value /* && pageTransitionsTheme != null */) {
       doNotifyListenersPostFrame();
     }
   }

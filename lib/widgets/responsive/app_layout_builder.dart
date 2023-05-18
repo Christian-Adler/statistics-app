@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../models/app_info.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
-import '../../providers/dynamic_theme_data.dart';
 import '../../providers/main_navigation.dart';
 import '../../utils/hide_bottom_navigation_bar.dart';
 import '../navigation/navigation_menu_vertical.dart';
@@ -61,8 +60,6 @@ class AppLayoutBuilder extends StatelessWidget {
         bottomNavBarW = bottomNavigationBarBuilder();
       }
     }
-    final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-    dynamicThemeData.usePageTransition = !mediaQueryInfo.isTablet;
 
     Widget? bodyW;
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {

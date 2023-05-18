@@ -70,8 +70,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: AppInfo.appName,
           theme: ThemeData(
-            primaryColor: Colors.purple,
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+            primaryColor: dynamicThemeData.primaryColor,
+            // Colors.purple,
+            colorScheme:
+                ColorScheme.fromSwatch(primarySwatch: dynamicThemeData.primaryColor /* Colors.purple */).copyWith(
               secondary: Colors.amber,
               //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
             ),
@@ -82,7 +84,7 @@ class MyApp extends StatelessWidget {
             drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: Colors.white),
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
             scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-                  thumbColor: const MaterialStatePropertyAll(Colors.purple),
+                  thumbColor: MaterialStatePropertyAll(dynamicThemeData.primaryColor /* Colors.purple */),
                   radius: Radius.zero,
                   interactive: true,
                   // thickness: const MaterialStatePropertyAll(10),
@@ -91,7 +93,6 @@ class MyApp extends StatelessWidget {
                   // trackColor: const MaterialStatePropertyAll(Colors.blueAccent),
                   // trackBorderColor: const MaterialStatePropertyAll(Colors.purpleAccent),
                 ),
-            pageTransitionsTheme: dynamicThemeData.pageTransitionsTheme,
           ),
           home: auth.isAuth
               ? AppLayoutBuilder(

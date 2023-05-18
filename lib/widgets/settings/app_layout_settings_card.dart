@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
+import '../../providers/dynamic_theme_data.dart';
 import 'settings_card.dart';
 
 class AppLayoutSettingsCard extends StatefulWidget {
@@ -67,7 +68,32 @@ class _AppLayoutSettings extends StatelessWidget {
             },
           ),
           title: const Text('Text in Navigation anzeigen'),
-        )
+        ),
+        Row(
+          children: [
+            const Text('Primär-Farbe setzen'),
+            IconButton(
+              icon: const Icon(
+                Icons.color_lens_rounded,
+                color: Colors.purple,
+              ),
+              onPressed: () {
+                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+                dynamicThemeData.primaryColor = Colors.purple;
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.color_lens_rounded,
+                color: Colors.blue,
+              ),
+              onPressed: () {
+                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+                dynamicThemeData.primaryColor = Colors.blue;
+              },
+            ),
+          ],
+        ),
       ],
     );
   }
