@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../providers/main_navigation.dart';
+import '../utils/global_keys.dart';
 import '../utils/globals.dart';
 import '../widgets/add_value_floating_button.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
@@ -23,6 +24,7 @@ class OverviewScreen extends StatelessWidget {
     Icons.home_outlined,
     '/overview',
     () => const OverviewScreen(),
+    screensNestedNavigatorKey: GlobalKeys.overviewScreenNavigatorKey,
   );
 
   const OverviewScreen({Key? key}) : super(key: key);
@@ -30,7 +32,8 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: OverviewScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -41,7 +44,7 @@ class OverviewScreen extends StatelessWidget {
         context,
       ),
       body: const _OverviewScreenBody(),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

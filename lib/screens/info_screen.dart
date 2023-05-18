@@ -28,12 +28,13 @@ class InfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: InfoScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(InfoScreen.screenNavInfo.title),
         context,
       ),
       body: const _InfoScreenBody(),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
     );
   }
 }
@@ -73,7 +74,10 @@ class _InfoScreenBody extends StatelessWidget {
           const SizedBox(height: 10),
           const _AppInfoCard(),
           Center(
-            child: OutlinedButton.icon(onPressed: () => AboutDlg.showAboutDlg(context), icon: const Icon(Icons.info_outline), label: const Text('App info')),
+            child: OutlinedButton.icon(
+                onPressed: () => AboutDlg.showAboutDlg(context),
+                icon: const Icon(Icons.info_outline),
+                label: const Text('App info')),
           )
         ],
       ),

@@ -1,37 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
-import 'package:provider/provider.dart';
-
-import '../../providers/dynamic_theme_data.dart';
 
 class ScreenLayoutBuilder extends StatelessWidget {
   final Widget body;
 
-  // Builder-Funktion, damit nur erzeugt wird, falls auch benoetigt.
-  final Widget Function()? drawerBuilder;
+  // Falls NestedNavigator erzeugt werden soll, dann mit GlobalKey, damit im WillPop zugegriffen werden kann
+  final GlobalKey<NavigatorState>? createNestedNavigatorWithKey;
 
-  final PreferredSizeWidget? appBar;
+  // Builder-Funktion, damit nur erzeugt wird, falls auch benoetigt.
+  final Widget Function(BuildContext context)? drawerBuilder;
+
+// Builder-Funktion, damit der context (unterhalb des NestedNavigators) mitgegeben werden kann
+  final PreferredSizeWidget Function(BuildContext context)? appBarBuilder;
   final Widget? floatingActionButton;
 
-  const ScreenLayoutBuilder({Key? key, required this.body, this.drawerBuilder, this.appBar, this.floatingActionButton})
-      : super(key: key);
+  const ScreenLayoutBuilder({
+    Key? key,
+    required this.body,
+    this.drawerBuilder,
+    this.appBarBuilder,
+    this.floatingActionButton,
+    this.createNestedNavigatorWithKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+    var appBarBuilder = this.appBarBuilder;
 
-    Widget? drawerW;
     final drawerBuilder = this.drawerBuilder;
-    if (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null) {
-      drawerW = drawerBuilder();
+
+    final createNestedNavigatorKey = createNestedNavigatorWithKey;
+    if (createNestedNavigatorKey != null) {
+      return Navigator(
+        key: createNestedNavigatorKey,
+        onGenerateRoute: (settings) {
+          // print(settings.name);
+          return MaterialPageRoute(builder: (ctx) {
+            final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+            final buildDrawer = (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null);
+            var appBar = appBarBuilder != null ? appBarBuilder(ctx) : null;
+            return Scaffold(
+              appBar: appBar,
+              drawer: buildDrawer ? drawerBuilder(ctx) : null,
+              body: body,
+              floatingActionButton: floatingActionButton,
+            );
+          });
+        },
+      );
     }
 
-    final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-    dynamicThemeData.usePageTransition = !mediaQueryInfo.isTablet;
-
+    final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+    final buildDrawer = (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null);
+    final appBar = appBarBuilder != null ? appBarBuilder(context) : null;
     return Scaffold(
       appBar: appBar,
-      drawer: drawerW,
+      drawer: buildDrawer ? drawerBuilder(context) : null,
       body: body,
       floatingActionButton: floatingActionButton,
     );

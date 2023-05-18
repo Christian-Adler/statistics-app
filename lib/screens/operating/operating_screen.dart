@@ -17,6 +17,7 @@ class OperatingScreen extends StatefulWidget {
     Icons.power_input_outlined,
     '/operating',
     () => OperatingScreen(key: GlobalKeys.operatingScreenState),
+    screensNestedNavigatorKey: GlobalKeys.operatingScreenNavigatorKey,
   );
 
   const OperatingScreen({Key? key}) : super(key: key);
@@ -74,7 +75,8 @@ class OperatingScreenState extends State<OperatingScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: OperatingScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(OperatingScreen.screenNavInfo.title),
         context,
         actions: [
@@ -91,7 +93,7 @@ class OperatingScreenState extends State<OperatingScreen> {
         ],
       ),
       body: OperatingView(showYearly: _showYearly),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

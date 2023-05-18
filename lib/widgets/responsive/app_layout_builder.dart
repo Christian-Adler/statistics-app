@@ -4,6 +4,7 @@ import 'package:flutter_commons/widgets/double_back_to_close.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/app_info.dart';
+import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/dynamic_theme_data.dart';
 import '../../providers/main_navigation.dart';
@@ -22,9 +23,22 @@ class AppLayoutBuilder extends StatelessWidget {
     this.bottomNavigationBarBuilder,
   }) : super(key: key);
 
-  /// Prueft, ob auf Overview. Wenn nein wird dort hin navigiert und BackToClose abgebrochen
-  bool _checkForOverviewBeforeClose(BuildContext context) {
+  /// Prueft, ob auf Nested-Navigator-Pop und Overview.
+  /// Wenn nein wird dort hin navigiert und BackToClose abgebrochen
+  Future<bool> _checkForNestedNavigatorsAndOverviewBeforeClose(BuildContext context) async {
     final mainNavigation = Provider.of<MainNavigation>(context, listen: false);
+
+    // Hat der aktive Screen einen "nested Navigator" ?
+    // Dann versuchen auf diesem Pop aufrufen. Falls vom Stack gepoppt wurde, dann BackToClose abbrechen
+    final navItem = NavigationItems.mainNavigationItems.elementAt(mainNavigation.mainPageIndex);
+    final nestedNavigator = navItem.screenNavInfo.screensNestedNavigatorKey;
+    if (nestedNavigator != null) {
+      final popped = await nestedNavigator.currentState?.maybePop();
+      if (popped != null && popped == true) {
+        return true;
+      }
+    }
+
     if (mainNavigation.mainPageIndex != 0) {
       mainNavigation.mainPageIndex = 0;
       HideBottomNavigationBar.setVisible(true);
@@ -87,7 +101,7 @@ class AppLayoutBuilder extends StatelessWidget {
       backgroundColor: Colors.transparent,
       bottomNavigationBar: bottomNavBarW,
       body: DoubleBackToClose(
-        checkCallback: () => _checkForOverviewBeforeClose(context),
+        checkCallback: () => _checkForNestedNavigatorsAndOverviewBeforeClose(context),
         child: Container(
           decoration: BoxDecoration(gradient: LinearGradient(colors: [colorScheme.primary, colorScheme.secondary])),
           child: SafeArea(child: bodyW),

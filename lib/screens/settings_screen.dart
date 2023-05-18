@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/navigation/screen_nav_info.dart';
+import '../utils/global_keys.dart';
 import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/navigation/app_drawer.dart';
@@ -16,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
     Icons.settings,
     '/settings_screen',
     () => const SettingsScreen(),
+    screensNestedNavigatorKey: GlobalKeys.settingsScreenNavigatorKey,
   );
 
   const SettingsScreen({Key? key}) : super(key: key);
@@ -23,12 +25,13 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: SettingsScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(SettingsScreen.screenNavInfo.title),
         context,
       ),
       body: const _SettingsScreenBody(),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
     );
   }
 }

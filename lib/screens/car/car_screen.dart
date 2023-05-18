@@ -17,6 +17,7 @@ class CarScreen extends StatefulWidget {
     Icons.directions_car_outlined,
     '/car',
     () => CarScreen(key: GlobalKeys.carScreenState),
+    screensNestedNavigatorKey: GlobalKeys.carScreenNavigatorKey,
   );
 
   const CarScreen({Key? key}) : super(key: key);
@@ -65,20 +66,38 @@ class CarScreenState extends State<CarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+    final isLandscapeTablet = mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet;
+
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: CarScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(CarScreen.screenNavInfo.title),
         context,
         actions: [
+          if (isLandscapeTablet) // als Test zur Veranschaulichung
+            IconButton(
+              onPressed: () => showAddValue(context),
+              // in ScreenLayoutBuilder wird ein neuer Navigator angelegt
+              // Der ctx ist unterhalb des nested navigators und findet daher diesen.
+              // Wuerde man context verwenden, waere man im Context ueberhalb des nested Navigators
+              // - daher wuerde dann der Root-navigator der App gefunden und dessen Stack verwendet.
+              tooltip: CarAddValueScreen.screenNavInfo.title,
+              icon: const Icon(Icons.add_box_outlined),
+            ),
           IconButton(
-            onPressed: () => showAddValue(context),
+            onPressed: () => showAddValue(ctx),
+            // in ScreenLayoutBuilder wird ein neuer Navigator angelegt
+            // Der ctx ist unterhalb des nested navigators und findet daher diesen.
+            // Wuerde man context verwenden, waere man im Context ueberhalb des nested Navigators
+            // - daher wuerde dann der Root-navigator der App gefunden und dessen Stack verwendet.
             tooltip: CarAddValueScreen.screenNavInfo.title,
             icon: Icon(CarAddValueScreen.screenNavInfo.iconData),
           ),
         ],
       ),
       body: const CarView(),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

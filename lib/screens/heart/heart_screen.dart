@@ -17,6 +17,7 @@ class HeartScreen extends StatefulWidget {
     Icons.monitor_heart_outlined,
     '/heart',
     () => HeartScreen(key: GlobalKeys.heartScreenState),
+    screensNestedNavigatorKey: GlobalKeys.heartScreenNavigatorKey,
   );
 
   const HeartScreen({Key? key}) : super(key: key);
@@ -66,7 +67,8 @@ class HeartScreenState extends State<HeartScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: HeartScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(HeartScreen.screenNavInfo.title),
         context,
         actions: [
@@ -78,7 +80,7 @@ class HeartScreenState extends State<HeartScreen> {
         ],
       ),
       body: const HeartView(),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

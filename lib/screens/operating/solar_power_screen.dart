@@ -17,6 +17,7 @@ class SolarPowerScreen extends StatefulWidget {
     Icons.solar_power_outlined,
     '/solar_power',
     () => SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
+    screensNestedNavigatorKey: GlobalKeys.solarPowerScreenNavigatorKey,
   );
 
   const SolarPowerScreen({Key? key}) : super(key: key);
@@ -74,7 +75,8 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayoutBuilder(
-      appBar: StatisticsAppBar(
+      createNestedNavigatorWithKey: SolarPowerScreen.screenNavInfo.screensNestedNavigatorKey,
+      appBarBuilder: (ctx) => StatisticsAppBar(
         Text(SolarPowerScreen.screenNavInfo.title),
         context,
         actions: [
@@ -91,7 +93,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
         ],
       ),
       body: SolarPowerView(showYearly: _showYearly),
-      drawerBuilder: () => const AppDrawer(),
+      drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButton: const AddValueFloatingButton(),
     );
   }

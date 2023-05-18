@@ -7,5 +7,7 @@ class ScreenNavInfo {
 
   final Widget Function() createScreen;
 
-  const ScreenNavInfo(this.title, this.iconData, this.routeName, this.createScreen);
+  final GlobalKey<NavigatorState>? screensNestedNavigatorKey;
+
+  const ScreenNavInfo(this.title, this.iconData, this.routeName, this.createScreen, {this.screensNestedNavigatorKey});
 }
