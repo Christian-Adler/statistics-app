@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'navigator_transition_builder.dart';
+
 class NavigationUtils {
   /// Bis hoch zu root navigieren (falls notwendig)
   /// und dann die (notwendigen) Routen pushen
@@ -50,5 +52,13 @@ class NavigationUtils {
       return true;
     }
     return false;
+  }
+
+  /// get Navigator of context and push screen
+  static void push(BuildContext context, Widget screen) {
+    // Standard Animation
+    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => screen));
+
+    Navigator.of(context).push(NavigatorTransitionBuilder.buildSlideHTransition(screen));
   }
 }
