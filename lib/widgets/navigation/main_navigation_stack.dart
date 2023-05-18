@@ -15,6 +15,8 @@ class MainNavigationStack extends StatelessWidget {
     for (var i = 0; i < NavigationItems.mainNavigationItems.length; ++i) {
       var navigationItem = NavigationItems.mainNavigationItems[i];
       if (visited.contains(i)) {
+        // Hier bleibt der State erhalten. Wenn der State nicht erhalten bleiben soll
+        // (z.B. nested Navigator soll zurueck gesetzt werden usw.) dann nur createScreen, wenn aktiver Tab.
         widgets.add(navigationItem.screenNavInfo.createScreen());
       } else {
         widgets.add(Container());
