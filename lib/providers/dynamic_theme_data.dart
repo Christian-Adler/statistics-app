@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DynamicThemeData with ChangeNotifier {
-  MaterialColor _primaryColor = Colors.blue; // Colors.purple;
-
-//   final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+  MaterialColor _primaryColor = Colors.purple;
 
   set primaryColor(MaterialColor color) {
     _primaryColor = color;
