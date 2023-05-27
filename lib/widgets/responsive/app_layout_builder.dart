@@ -7,6 +7,7 @@ import '../../models/app_info.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/main_navigation.dart';
+import '../../utils/global_settings.dart';
 import '../../utils/hide_bottom_navigation_bar.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
@@ -63,15 +64,16 @@ class AppLayoutBuilder extends StatelessWidget {
 
     Widget? bodyW;
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {
+      var appBar = AppBar(title: Text(AppInfo.appName));
+      GlobalSettings.appBarHeight = appBar.preferredSize.height;
+
       bodyW = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: showNavigationTitle ? 304 : 56,
             child: Scaffold(
-              appBar: AppBar(
-                title: Text(AppInfo.appName),
-              ),
+              appBar: appBar,
               body: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,

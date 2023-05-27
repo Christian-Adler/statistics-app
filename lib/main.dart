@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/safe_area_info.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SafeAreaInfo.determineSafeAreaHeight(context);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
