@@ -41,7 +41,7 @@ class OverviewScreen extends StatelessWidget {
             const EagleLogo(),
           ],
         ),
-        context,
+        ctx,
       ),
       body: const _OverviewScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),

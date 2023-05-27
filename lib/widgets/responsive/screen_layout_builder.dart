@@ -36,7 +36,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
         onGenerateRoute: (settings) {
           // print(settings.name);
           return MaterialPageRoute(builder: (ctx) {
-            final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+            final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(ctx));
             final buildDrawer = (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null);
             var appBar = appBarBuilder != null ? appBarBuilder(ctx) : null;
             return Scaffold(
