@@ -98,7 +98,7 @@ class CarScreenState extends State<CarScreen> {
       ),
       body: const CarView(),
       drawerBuilder: (ctx) => const AppDrawer(),
-      floatingActionButton: const AddValueFloatingButton(),
+      floatingActionButtonBuilder: (ctx) => const AddValueFloatingButton(),
     );
   }
 }

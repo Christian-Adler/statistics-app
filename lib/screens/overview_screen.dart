@@ -7,7 +7,6 @@ import '../providers/auth.dart';
 import '../providers/main_navigation.dart';
 import '../utils/global_keys.dart';
 import '../utils/globals.dart';
-import '../widgets/add_value_floating_button.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/navigation/app_drawer.dart';
@@ -45,7 +44,6 @@ class OverviewScreen extends StatelessWidget {
       ),
       body: const _OverviewScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),
-      floatingActionButton: const AddValueFloatingButton(),
     );
   }
 }

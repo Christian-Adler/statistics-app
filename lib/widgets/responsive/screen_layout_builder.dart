@@ -10,49 +10,46 @@ class ScreenLayoutBuilder extends StatelessWidget {
   // Builder-Funktion, damit nur erzeugt wird, falls auch benoetigt.
   final Widget Function(BuildContext context)? drawerBuilder;
 
-// Builder-Funktion, damit der context (unterhalb des NestedNavigators) mitgegeben werden kann
+  // Builder-Funktion, damit der context (unterhalb des NestedNavigators) mitgegeben werden kann
   final PreferredSizeWidget Function(BuildContext context)? appBarBuilder;
-  final Widget? floatingActionButton;
+  final Widget Function(BuildContext context)? floatingActionButtonBuilder;
 
   const ScreenLayoutBuilder({
     Key? key,
     required this.body,
     this.drawerBuilder,
     this.appBarBuilder,
-    this.floatingActionButton,
+    this.floatingActionButtonBuilder,
     this.createNestedNavigatorWithKey,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var appBarBuilder = this.appBarBuilder;
-
-    final drawerBuilder = this.drawerBuilder;
-
-    final createNestedNavigatorKey = createNestedNavigatorWithKey;
-    if (createNestedNavigatorKey != null) {
+    final createNestedNavigatorWithKey = this.createNestedNavigatorWithKey;
+    if (createNestedNavigatorWithKey != null) {
       return Navigator(
-        key: createNestedNavigatorKey,
+        key: createNestedNavigatorWithKey,
         onGenerateRoute: (settings) {
           // print(settings.name);
           return MaterialPageRoute(builder: (ctx) {
-            final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(ctx));
-            final buildDrawer = (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null);
-            var appBar = appBarBuilder != null ? appBarBuilder(ctx) : null;
-            return Scaffold(
-              appBar: appBar,
-              drawer: buildDrawer ? drawerBuilder(ctx) : null,
-              body: body,
-              floatingActionButton: floatingActionButton,
-            );
+            return _buildScaffold(ctx);
           });
         },
       );
     }
 
+    return _buildScaffold(context);
+  }
+
+  Widget _buildScaffold(BuildContext context) {
+    final appBarBuilder = this.appBarBuilder;
+    final floatingActionButtonBuilder = this.floatingActionButtonBuilder;
+    final drawerBuilder = this.drawerBuilder;
+
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
     final buildDrawer = (!mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape && drawerBuilder != null);
     final appBar = appBarBuilder != null ? appBarBuilder(context) : null;
+    final floatingActionButton = floatingActionButtonBuilder != null ? floatingActionButtonBuilder(context) : null;
     return Scaffold(
       appBar: appBar,
       drawer: buildDrawer ? drawerBuilder(context) : null,
