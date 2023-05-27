@@ -60,13 +60,11 @@ class _AppLayoutSettings extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Divider(height: 10),
-        ListTile(
-          leading: Checkbox(
-            value: appLayout.showNavigationItemTitle,
-            onChanged: (bool? value) {
-              appLayout.showNavigationItemTitle = value!;
-            },
-          ),
+        SwitchListTile(
+          value: appLayout.showNavigationItemTitle,
+          onChanged: (bool value) {
+            appLayout.showNavigationItemTitle = value;
+          },
           title: const Text('Text in Navigation anzeigen'),
         ),
         Row(
