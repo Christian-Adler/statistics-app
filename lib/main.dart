@@ -33,8 +33,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SafeAreaInfo.determineSafeAreaHeight(context);
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -68,6 +66,8 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         final auth = Provider.of<Auth>(context);
         final dynamicThemeData = Provider.of<DynamicThemeData>(context);
+
+        SafeAreaInfo.determineSafeAreaHeight(context);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
