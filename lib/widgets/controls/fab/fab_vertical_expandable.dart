@@ -2,8 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import 'fab_action_button.dart';
 import 'fab_action_button_data.dart';
+import 'utils/fab_action_button.dart';
+import 'utils/tab_to_close_fab.dart';
+import 'utils/tab_to_open_fab.dart';
 
 @immutable
 class FabVerticalExpandable extends StatefulWidget {
@@ -76,34 +78,10 @@ class _FabVerticalExpandableState extends State<FabVerticalExpandable> with Sing
         alignment: Alignment.bottomRight,
         clipBehavior: Clip.none,
         children: [
-          _buildTapToCloseFab(),
+          TabToCloseFab(toggle: _toggle),
           ..._buildExpandingActionButtons(widget.distance),
-          _buildTapToOpenFab(widget.iconData),
+          TabToOpenFab(openFabIconData: widget.iconData, open: _open, toggle: _toggle),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTapToCloseFab() {
-    return SizedBox(
-      width: 56.0,
-      height: 56.0,
-      child: Center(
-        child: Material(
-          shape: const CircleBorder(),
-          clipBehavior: Clip.antiAlias,
-          elevation: 4.0,
-          child: InkWell(
-            onTap: _toggle,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.close,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -131,32 +109,6 @@ class _FabVerticalExpandableState extends State<FabVerticalExpandable> with Sing
       );
     }
     return children;
-  }
-
-  Widget _buildTapToOpenFab(IconData openFabIconData) {
-    return IgnorePointer(
-      ignoring: _open,
-      child: AnimatedContainer(
-        transformAlignment: Alignment.center,
-        transform: Matrix4.diagonal3Values(
-          _open ? 0.7 : 1.0,
-          _open ? 0.7 : 1.0,
-          1.0,
-        ),
-        duration: const Duration(milliseconds: 250),
-        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
-        child: AnimatedOpacity(
-          opacity: _open ? 0.0 : 1.0,
-          curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
-          duration: const Duration(milliseconds: 250),
-          child: FloatingActionButton(
-            onPressed: _toggle,
-            heroTag: null,
-            child: Icon(openFabIconData),
-          ),
-        ),
-      ),
-    );
   }
 }
 
