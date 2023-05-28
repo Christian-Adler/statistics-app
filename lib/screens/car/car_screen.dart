@@ -6,6 +6,7 @@ import '../../utils/global_keys.dart';
 import '../../utils/nav/navigation_utils.dart';
 import '../../widgets/controls/fab/fab_action_button_data.dart';
 import '../../widgets/controls/fab/fab_radial_expandable.dart';
+import '../../widgets/controls/fab/fab_vertical_expandable.dart';
 import '../../widgets/navigation/app_drawer.dart';
 import '../../widgets/responsive/screen_layout_builder.dart';
 import '../../widgets/statistics/car/car_add_value.dart';
@@ -99,12 +100,11 @@ class CarScreenState extends State<CarScreen> {
       ),
       body: const CarView(),
       drawerBuilder: (ctx) => const AppDrawer(),
-      floatingActionButtonBuilder: (ctx) => FabRadialExpandable(
-        // iconData: Icons.more_vert,
-        // distance: 100.0,
-        maxAngle: 70,
-        startAngle: 10,
-        actions: [
+      floatingActionButtonBuilder: (ctx) {
+        final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+        final isLandscapePhone = mediaQueryInfo.isLandscape && !mediaQueryInfo.isTablet;
+
+        var fabActions = [
           FabActionButtonData(
             Icons.add_box,
             () => showAddValue(context),
@@ -113,8 +113,21 @@ class CarScreenState extends State<CarScreen> {
             CarAddValueScreen.screenNavInfo.iconData,
             () => showAddValue(ctx),
           ),
-        ],
-      ),
+        ];
+
+        if (isLandscapePhone) {
+          return FabRadialExpandable(
+            distance: 100.0,
+            maxAngle: 70,
+            startAngle: 10,
+            actions: fabActions,
+          );
+        }
+        return FabVerticalExpandable(
+          distance: 70.0,
+          actions: fabActions,
+        );
+      },
     );
   }
 }

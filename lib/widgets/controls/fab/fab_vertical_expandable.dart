@@ -6,29 +6,25 @@ import 'fab_action_button.dart';
 import 'fab_action_button_data.dart';
 
 @immutable
-class FabRadialExpandable extends StatefulWidget {
-  const FabRadialExpandable({
+class FabVerticalExpandable extends StatefulWidget {
+  const FabVerticalExpandable({
     super.key,
     required this.actions,
-    this.iconData = Icons.circle_outlined,
+    this.iconData = Icons.more_vert,
     this.distance = 100,
-    this.maxAngle = 90,
-    this.startAngle = 0,
     this.initialOpen = false,
   });
 
   final bool initialOpen;
   final double distance;
-  final double maxAngle;
-  final double startAngle;
   final IconData iconData;
   final List<FabActionButtonData> actions;
 
   @override
-  State<FabRadialExpandable> createState() => _FabRadialExpandableState();
+  State<FabVerticalExpandable> createState() => _FabVerticalExpandableState();
 }
 
-class _FabRadialExpandableState extends State<FabRadialExpandable> with SingleTickerProviderStateMixin {
+class _FabVerticalExpandableState extends State<FabVerticalExpandable> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _expandAnimation;
   bool _open = false;
@@ -81,7 +77,7 @@ class _FabRadialExpandableState extends State<FabRadialExpandable> with SingleTi
         clipBehavior: Clip.none,
         children: [
           _buildTapToCloseFab(),
-          ..._buildExpandingActionButtons(widget.maxAngle, widget.startAngle),
+          ..._buildExpandingActionButtons(widget.distance),
           _buildTapToOpenFab(widget.iconData),
         ],
       ),
@@ -113,18 +109,16 @@ class _FabRadialExpandableState extends State<FabRadialExpandable> with SingleTi
   }
 
   List<Widget> _buildExpandingActionButtons(
-    double maxAngle,
-    double startAngle,
+    double distance,
   ) {
     final children = <Widget>[];
     final count = widget.actions.length;
-    final step = math.min(90.0, maxAngle) / (count - 1);
-    for (var i = 0, angleInDegrees = math.max(0.0, startAngle); i < count; i++, angleInDegrees += step) {
+    final step = math.max(56.0, distance);
+    for (var i = 0; i < count; i++) {
       var action = widget.actions[i];
       children.add(
         _ExpandingActionButton(
-          directionInDegrees: angleInDegrees,
-          maxDistance: widget.distance,
+          maxDistance: step * (i + 1),
           progress: _expandAnimation,
           child: FabActionButton(
             onPressed: () {
@@ -169,13 +163,11 @@ class _FabRadialExpandableState extends State<FabRadialExpandable> with SingleTi
 @immutable
 class _ExpandingActionButton extends StatelessWidget {
   const _ExpandingActionButton({
-    required this.directionInDegrees,
     required this.maxDistance,
     required this.progress,
     required this.child,
   });
 
-  final double directionInDegrees;
   final double maxDistance;
   final Animation<double> progress;
   final Widget child;
@@ -186,7 +178,7 @@ class _ExpandingActionButton extends StatelessWidget {
       animation: progress,
       builder: (context, child) {
         final offset = Offset.fromDirection(
-          directionInDegrees * (math.pi / 180.0),
+          90 * (math.pi / 180.0),
           progress.value * maxDistance,
         );
         return Positioned(
