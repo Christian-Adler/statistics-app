@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({
     super.key,
-    this.initialOpen,
-    required this.distance,
     required this.actions,
-    this.iconData = Icons.add,
+    this.iconData = Icons.circle_outlined,
+    this.distance = 100,
     this.maxAngle = 90,
     this.startAngle = 0,
+    this.initialOpen = false,
   });
 
-  final bool? initialOpen;
+  final bool initialOpen;
   final double distance;
   final double maxAngle;
   final double startAngle;
@@ -33,7 +33,7 @@ class _ExpandableFabState extends State<ExpandableFab> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _open = widget.initialOpen ?? false;
+    _open = widget.initialOpen;
     _controller = AnimationController(
       value: _open ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 250),
