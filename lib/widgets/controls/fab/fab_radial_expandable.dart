@@ -2,9 +2,11 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import 'fab_action_button_data.dart';
+
 @immutable
-class ExpandableFab extends StatefulWidget {
-  const ExpandableFab({
+class FabRadialExpandable extends StatefulWidget {
+  const FabRadialExpandable({
     super.key,
     required this.actions,
     this.iconData = Icons.circle_outlined,
@@ -19,13 +21,13 @@ class ExpandableFab extends StatefulWidget {
   final double maxAngle;
   final double startAngle;
   final IconData iconData;
-  final List<ActionButtonData> actions;
+  final List<FabActionButtonData> actions;
 
   @override
-  State<ExpandableFab> createState() => _ExpandableFabState();
+  State<FabRadialExpandable> createState() => _FabRadialExpandableState();
 }
 
-class _ExpandableFabState extends State<ExpandableFab> with SingleTickerProviderStateMixin {
+class _FabRadialExpandableState extends State<FabRadialExpandable> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _expandAnimation;
   bool _open = false;
@@ -228,12 +230,4 @@ class _ActionButton extends StatelessWidget {
       ),
     );
   }
-}
-
-class ActionButtonData {
-  final IconData iconData;
-  final Function() onPressed;
-  final bool autoClose;
-
-  ActionButtonData(this.iconData, this.onPressed, {this.autoClose = true});
 }
