@@ -36,7 +36,7 @@ class OverviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryInfo = MediaQueryUtils.of(context);
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape) {
-      return Parallax();
+      return const Parallax();
     }
 
     return Stack(
@@ -73,11 +73,11 @@ class Parallax extends StatefulWidget {
 }
 
 class _ParallaxState extends State<Parallax> {
-  List<double>? _userAccelerometerValues;
   List<double>? _accelerometerValues;
-  List<double>? _gyroscopeValues;
-  List<double>? _magnetometerValues;
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+
+  int buttonsMotionSensitivity = 4;
+  int bgMotionSensitivity = 2;
 
   @override
   void dispose() {
@@ -90,26 +90,6 @@ class _ParallaxState extends State<Parallax> {
   @override
   void initState() {
     super.initState();
-    _streamSubscriptions.add(
-      userAccelerometerEvents.listen(
-        (UserAccelerometerEvent event) {
-          setState(() {
-            _userAccelerometerValues = <double>[event.x, event.y, event.z];
-          });
-        },
-        onError: (e) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text("It seems that your device doesn't support Accelerometer Sensor"),
-                );
-              });
-        },
-        cancelOnError: true,
-      ),
-    );
     _streamSubscriptions.add(
       accelerometerEvents.listen(
         (AccelerometerEvent event) {
@@ -130,90 +110,55 @@ class _ParallaxState extends State<Parallax> {
         cancelOnError: true,
       ),
     );
-    _streamSubscriptions.add(
-      gyroscopeEvents.listen(
-        (GyroscopeEvent event) {
-          setState(() {
-            _gyroscopeValues = <double>[event.x, event.y, event.z];
-          });
-        },
-        onError: (e) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text("It seems that your device doesn't support User Accelerometer Sensor"),
-                );
-              });
-        },
-        cancelOnError: true,
-      ),
-    );
-    _streamSubscriptions.add(
-      magnetometerEvents.listen(
-        (MagnetometerEvent event) {
-          setState(() {
-            _magnetometerValues = <double>[event.x, event.y, event.z];
-          });
-        },
-        onError: (e) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  title: Text("Sensor Not Found"),
-                  content: Text("It seems that your device doesn't support Magnetometer Sensor"),
-                );
-              });
-        },
-        cancelOnError: true,
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final userAccelerometer = _userAccelerometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
-    final accelerometer = _accelerometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
-    final gyroscope = _gyroscopeValues?.map((double v) => v.toStringAsFixed(1)).toList();
-    final magnetometer = _magnetometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
-    return Column(
+    final accelerometer = _accelerometerValues;
+    double x = 0;
+    double y = 0;
+    // double z = 0;
+    if (accelerometer != null) {
+      x = accelerometer.elementAt(0);
+      y = accelerometer.elementAt(1) - 9.81;
+      // z = accelerometer.elementAt(2);
+    }
+    // print(x);
+    // print(y);
+    // print(z);
+    return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('UserAccelerometer: $userAccelerometer'),
-            ],
+        AnimatedPositioned(
+          duration: const Duration(milliseconds: 250),
+          top: y * bgMotionSensitivity,
+          bottom: y * -bgMotionSensitivity,
+          right: x * -bgMotionSensitivity,
+          left: x * bgMotionSensitivity,
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  Globals.assetImgBackground,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('Accelerometer: $accelerometer'),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('Gyroscope: $gyroscope'),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('Magnetometer: $magnetometer'),
-            ],
+        AnimatedPositioned(
+          duration: const Duration(milliseconds: 250),
+          top: y * buttonsMotionSensitivity,
+          bottom: y * -buttonsMotionSensitivity,
+          right: x * -buttonsMotionSensitivity,
+          left: x * buttonsMotionSensitivity,
+          child: const Center(
+            child: SingleChildScrollViewWithScrollbar(
+              // No BottomNavBar hide on Overview Screen // scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
+              child: Center(child: OverviewNavigationButtons()),
+            ),
           ),
         ),
       ],
