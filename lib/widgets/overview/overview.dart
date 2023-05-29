@@ -37,7 +37,7 @@ class OverviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryInfo = MediaQueryUtils.of(context);
     final appLayout = Provider.of<AppLayout>(context);
-    if (appLayout.enableOverviewParallax && mediaQueryInfo.isTablet && mediaQueryInfo.isLandscape) {
+    if (appLayout.enableOverviewParallax && mediaQueryInfo.isTablet /* && mediaQueryInfo.isLandscape */) {
       return OverviewParallax(
         key: GlobalKeys.overviewParallaxKey,
       );
