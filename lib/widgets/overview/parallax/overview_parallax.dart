@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../utils/global_keys.dart';
@@ -46,9 +47,9 @@ class _OverviewParallaxState extends State<OverviewParallax> {
   final _bar1HighlightColors = [
     Colors.amber.withOpacity(0),
     Colors.amber,
-    Colors.purpleAccent,
     Colors.purple,
-    Colors.purple.withOpacity(0),
+    Colors.deepPurpleAccent,
+    Colors.deepPurpleAccent.withOpacity(0),
   ];
   final _bar2DefaultColors = [
     Colors.transparent,
@@ -192,29 +193,37 @@ class _OverviewParallaxState extends State<OverviewParallax> {
     }
 
     final accelerometer = _accelerometerValues;
-    double x = 0;
-    double y = 0;
+    final isLandscape = MediaQueryUtils.of(context).isLandscape;
+    double xRot = 0;
+    double yRot = 0;
     // double z = 0;
     if (accelerometer != null) {
-      y = accelerometer.elementAt(0);
-      x = accelerometer.elementAt(1); //- 9.81;
-      // z = accelerometer.elementAt(2);
+      if (isLandscape) {
+        // accelerometer achsen vertauschen
+        yRot = accelerometer.elementAt(0);
+        xRot = accelerometer.elementAt(1); //- 9.81;
+        // z = accelerometer.elementAt(2);
+      } else {
+        xRot = accelerometer.elementAt(0);
+        yRot = accelerometer.elementAt(1); //- 9.81;
+        // z = accelerometer.elementAt(2);
+      }
     }
-    // print(x);
-    // print(y);
+    // print(xRot);
+    // print(yRot);
     // print(z);
 
     return Stack(
       children: [
-        ..._buildBars(x, y, _bar1Width, _bar1SeparatorWidth, _motionSensitivityBars1, _bars1, _bar1DefaultColors,
+        ..._buildBars(xRot, yRot, _bar1Width, _bar1SeparatorWidth, _motionSensitivityBars1, _bars1, _bar1DefaultColors,
             [3, 11], _bar1HighlightColors),
-        ..._buildBars(x, y, _bar2Width, _bar2SeparatorWidth, _motionSensitivityBars2, _bars2, _bar2DefaultColors,
+        ..._buildBars(xRot, yRot, _bar2Width, _bar2SeparatorWidth, _motionSensitivityBars2, _bars2, _bar2DefaultColors,
             [3, 4, 8, 11, 12], _bar2HighlightColors),
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
           height: 2,
-          bottom: y * -_motionSensitivityLogo + _widgetSize.height / 2,
-          left: x * _motionSensitivityLogo + _widgetSize.width * 0.05,
+          bottom: yRot * -_motionSensitivityLogo + _widgetSize.height / 2,
+          left: xRot * _motionSensitivityLogo + _widgetSize.width * 0.05,
           width: _widgetSize.width * 0.9,
           child: Container(
             width: double.infinity,
@@ -234,10 +243,10 @@ class _OverviewParallaxState extends State<OverviewParallax> {
         ),
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
-          top: y * _motionSensitivityLogo,
-          bottom: y * -_motionSensitivityLogo,
-          right: x * -_motionSensitivityLogo,
-          left: x * _motionSensitivityLogo,
+          top: yRot * _motionSensitivityLogo,
+          bottom: yRot * -_motionSensitivityLogo,
+          right: xRot * -_motionSensitivityLogo,
+          left: xRot * _motionSensitivityLogo,
           child: SizedBox(
             width: double.infinity,
             child: Column(
@@ -254,10 +263,10 @@ class _OverviewParallaxState extends State<OverviewParallax> {
         ),
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
-          top: y * 2 * _motionSensitivityButtons,
-          bottom: y * 2 * -_motionSensitivityButtons,
-          right: x * -_motionSensitivityButtons,
-          left: x * _motionSensitivityButtons,
+          top: yRot * 2 * _motionSensitivityButtons,
+          bottom: yRot * 2 * -_motionSensitivityButtons,
+          right: xRot * -_motionSensitivityButtons,
+          left: xRot * _motionSensitivityButtons,
           child: const Center(
             child: SingleChildScrollViewWithScrollbar(
               // No BottomNavBar hide on Overview Screen // scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
