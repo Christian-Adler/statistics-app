@@ -13,6 +13,7 @@ import '../widgets/statistics/operating/solar_power_add_value.dart';
 /// Fuer Zugriff von Aussen auf State um z.B. Aktion aufzurufen
 class GlobalKeys {
   static final overviewScreenNavigatorKey = GlobalKey<NavigatorState>();
+  static final overviewParallaxKey = GlobalKey();
 
   static final heartScreenState = GlobalKey<HeartScreenState>();
   static final heartScreenNavigatorKey = GlobalKey<NavigatorState>();
