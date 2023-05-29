@@ -31,7 +31,7 @@ class InfoScreen extends StatelessWidget {
       createNestedNavigatorWithKey: InfoScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(InfoScreen.screenNavInfo.title),
-        context,
+        ctx,
       ),
       body: const _InfoScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),

@@ -69,10 +69,10 @@ class HeartScreenState extends State<HeartScreen> {
       createNestedNavigatorWithKey: HeartScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(HeartScreen.screenNavInfo.title),
-        context,
+        ctx,
         actions: [
           IconButton(
-            onPressed: () => showAddValue(context),
+            onPressed: () => showAddValue(ctx),
             tooltip: HeartAddValueScreen.screenNavInfo.title,
             icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),

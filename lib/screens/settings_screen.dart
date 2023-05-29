@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
       createNestedNavigatorWithKey: SettingsScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(SettingsScreen.screenNavInfo.title),
-        context,
+        ctx,
       ),
       body: const _SettingsScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),

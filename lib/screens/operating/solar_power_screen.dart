@@ -77,7 +77,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
       createNestedNavigatorWithKey: SolarPowerScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(SolarPowerScreen.screenNavInfo.title),
-        context,
+        ctx,
         actions: [
           IconButton(
             onPressed: () => _toggleYearly(),
@@ -85,7 +85,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => showAddValue(context),
+            onPressed: () => showAddValue(ctx),
             tooltip: SolarPowerAddValueScreen.screenNavInfo.title,
             icon: Icon(SolarPowerAddValueScreen.screenNavInfo.iconData),
           ),

@@ -77,7 +77,7 @@ class OperatingScreenState extends State<OperatingScreen> {
       createNestedNavigatorWithKey: OperatingScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(OperatingScreen.screenNavInfo.title),
-        context,
+        ctx,
         actions: [
           IconButton(
             onPressed: () => _toggleYearly(),
@@ -85,7 +85,7 @@ class OperatingScreenState extends State<OperatingScreen> {
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(
-            onPressed: () => showAddValue(context),
+            onPressed: () => showAddValue(ctx),
             tooltip: OperatingAddValueScreen.screenNavInfo.title,
             icon: Icon(OperatingAddValueScreen.screenNavInfo.iconData),
           ),

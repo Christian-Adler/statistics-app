@@ -75,7 +75,7 @@ class CarScreenState extends State<CarScreen> {
       createNestedNavigatorWithKey: CarScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(CarScreen.screenNavInfo.title),
-        context,
+        ctx,
         actions: [
           if (isLandscapeTablet) // als Test zur Veranschaulichung
             IconButton(
