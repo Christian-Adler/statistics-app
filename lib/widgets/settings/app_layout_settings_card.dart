@@ -67,6 +67,13 @@ class _AppLayoutSettings extends StatelessWidget {
           },
           title: const Text('Text in Navigation anzeigen'),
         ),
+        SwitchListTile(
+          value: appLayout.enableOverviewParallax,
+          onChanged: (bool value) {
+            appLayout.enableOverviewParallax = value;
+          },
+          title: const Text('Overview Parallax-Effekt anzeigen'),
+        ),
         Row(
           children: [
             const Text('Primär-Farbe setzen'),

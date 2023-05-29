@@ -7,6 +7,7 @@ import '../utils/device_storage_keys.dart';
 
 class AppLayout with ChangeNotifier {
   bool _showNavigationItemTitle = true;
+  bool _enableOverviewParallax = true;
 
   AppLayout() {
     _init();
@@ -22,9 +23,22 @@ class AppLayout with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get enableOverviewParallax {
+    return _enableOverviewParallax;
+  }
+
+  set enableOverviewParallax(bool value) {
+    _enableOverviewParallax = value;
+    _store();
+    notifyListeners();
+  }
+
   void _store() async {
     try {
-      final appLayoutData = {'showNavigationItemTitle': _showNavigationItemTitle};
+      final appLayoutData = {
+        'showNavigationItemTitle': _showNavigationItemTitle,
+        'enableOverviewParallax': _enableOverviewParallax,
+      };
       await DeviceStorage.write(DeviceStorageKeys.keyAppLayout, jsonEncode(appLayoutData));
     } catch (err) {
       // await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
@@ -38,6 +52,9 @@ class AppLayout with ChangeNotifier {
     final data = jsonDecode(dataStr) as Map<String, dynamic>;
     if (data.containsKey('showNavigationItemTitle')) {
       _showNavigationItemTitle = data['showNavigationItemTitle'] as bool;
+    }
+    if (data.containsKey('enableOverviewParallax')) {
+      _enableOverviewParallax = data['enableOverviewParallax'] as bool;
     }
 
     notifyListeners();
