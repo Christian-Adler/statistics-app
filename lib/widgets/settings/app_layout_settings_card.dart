@@ -72,7 +72,7 @@ class _AppLayoutSettings extends StatelessWidget {
           onChanged: (bool value) {
             appLayout.enableOverviewParallax = value;
           },
-          title: const Text('Overview Parallax-Effekt anzeigen'),
+          title: const Text('Übersicht Parallax-Effekt anzeigen'),
         ),
         Row(
           children: [
