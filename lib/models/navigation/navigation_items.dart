@@ -56,6 +56,10 @@ class NavigationItems {
     _infoNavigationItem,
   ];
 
+  static int mainNavigationItemsIndexOf(ScreenNavInfo screenNavInfo) {
+    return mainNavigationItems.indexWhere((element) => element.screenNavInfo == screenNavInfo);
+  }
+
   static final List<NavigationItemBase> navigationMenuItems = [
     _overviewNavigationItem,
     NavigationDividerSmall(),
