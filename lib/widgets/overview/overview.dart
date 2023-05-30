@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
@@ -35,9 +34,8 @@ class OverviewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQueryInfo = MediaQueryUtils.of(context);
     final appLayout = Provider.of<AppLayout>(context);
-    if (appLayout.enableOverviewParallax && mediaQueryInfo.isTablet /* && mediaQueryInfo.isLandscape */) {
+    if (appLayout.enableOverviewParallax) {
       return OverviewParallax(
         key: GlobalKeys.overviewParallaxKey,
       );
