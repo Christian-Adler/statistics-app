@@ -71,44 +71,51 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
               ),
           ],
         ),
-        if (_showDeviceStorage)
-          FutureBuilder(
-            builder: (context, deviceStorageSnapshot) {
-              if (deviceStorageSnapshot.connectionState == ConnectionState.waiting) {
-                return const LinearProgressIndicator();
-              }
+        AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+          child: Container(
+            child: _showDeviceStorage
+                ? FutureBuilder(
+                    builder: (context, deviceStorageSnapshot) {
+                      if (deviceStorageSnapshot.connectionState == ConnectionState.waiting) {
+                        return const LinearProgressIndicator();
+                      }
 
-              final storageData = deviceStorageSnapshot.data;
-              if (storageData == null) return const Text('No device storage data set.');
+                      final storageData = deviceStorageSnapshot.data;
+                      if (storageData == null) return const Text('No device storage data set.');
 
-              List<TableRow> rows = [
-                TableUtils.tableHeadline('Key', ['Value'])
-              ];
+                      List<TableRow> rows = [
+                        TableUtils.tableHeadline('Key', ['Value'])
+                      ];
 
-              final keys = storageData.keys.toList();
-              keys.sort();
-              for (var key in keys) {
-                var value = storageData[key];
-                if (key == DeviceStorageKeys.keyAuthData && !_showAuthData) {
-                  value = '{--}';
-                }
-                rows.add(TableUtils.tableRow(key, [value ?? '-']));
-              }
+                      final keys = storageData.keys.toList();
+                      keys.sort();
+                      for (var key in keys) {
+                        var value = storageData[key];
+                        if (key == DeviceStorageKeys.keyAuthData && !_showAuthData) {
+                          value = '{--}';
+                        }
+                        rows.add(TableUtils.tableRow(key, [value ?? '-']));
+                      }
 
-              return Table(
-                // https://api.flutter.dev/flutter/widgets/Table-class.html
-                columnWidths: const <int, TableColumnWidth>{
-                  0: FixedColumnWidth(128), // IntrinsicColumnWidth(),
-                  1: FlexColumnWidth(),
-                },
-                border: TableBorder.symmetric(
-                  inside: const BorderSide(width: 1, color: Colors.black12),
-                ),
-                children: rows,
-              );
-            },
-            future: DeviceStorage.readAll(),
+                      return Table(
+                        // https://api.flutter.dev/flutter/widgets/Table-class.html
+                        columnWidths: const <int, TableColumnWidth>{
+                          0: FixedColumnWidth(128), // IntrinsicColumnWidth(),
+                          1: FlexColumnWidth(),
+                        },
+                        border: TableBorder.symmetric(
+                          inside: const BorderSide(width: 1, color: Colors.black12),
+                        ),
+                        children: rows,
+                      );
+                    },
+                    future: DeviceStorage.readAll(),
+                  )
+                : null,
           ),
+        ),
       ],
     );
   }
