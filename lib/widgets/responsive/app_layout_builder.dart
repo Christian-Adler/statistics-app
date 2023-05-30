@@ -7,6 +7,7 @@ import '../../models/app_info.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/main_navigation.dart';
+import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
 import '../../utils/hide_bottom_navigation_bar.dart';
 import '../navigation/navigation_menu_vertical.dart';
@@ -95,14 +96,13 @@ class AppLayoutBuilder extends StatelessWidget {
     }
     bodyW ??= body;
 
-    var colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: Colors.transparent,
       bottomNavigationBar: bottomNavBarW,
       body: DoubleBackToClose(
         checkCallback: () => _checkForNestedNavigatorsAndOverviewBeforeClose(context),
         child: Container(
-          decoration: BoxDecoration(gradient: LinearGradient(colors: [colorScheme.primary, colorScheme.secondary])),
+          decoration: BoxDecoration(gradient: ColorUtils.getThemeLinearGradient(context)),
           child: SafeArea(child: bodyW),
         ),
       ),

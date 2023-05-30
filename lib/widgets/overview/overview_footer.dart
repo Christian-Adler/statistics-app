@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth.dart';
+import '../../utils/color_utils.dart';
 
 class OverviewFooter extends StatelessWidget {
   const OverviewFooter({Key? key}) : super(key: key);
@@ -10,9 +11,7 @@ class OverviewFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 44,
-      decoration: BoxDecoration(
-          gradient:
-              LinearGradient(colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary])),
+      decoration: BoxDecoration(gradient: ColorUtils.getThemeLinearGradient(context)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
+import '../utils/color_utils.dart';
 import '../utils/globals.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -28,10 +29,10 @@ class AuthScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
+                colors: ColorUtils.getThemeGradientColors(context),
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: const [0, 1],
+                // stops: const [0, 1],
               ),
             ),
           ),
@@ -60,6 +61,7 @@ class _LoginTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var colorScheme = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -92,13 +94,14 @@ class _LoginTitle extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple.withOpacity(0.0), Colors.purple.withOpacity(0.5)],
+                  colors: [colorScheme.primary.withOpacity(0.0), colorScheme.primary.withOpacity(0.5)],
                 ),
               ),
             ),
             Text(
               AppInfo.appName,
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold, fontSize: 30, letterSpacing: 3),
+              style:
+                  TextStyle(color: colorScheme.onPrimary, fontWeight: FontWeight.bold, fontSize: 30, letterSpacing: 3),
             ),
           ],
         ),
@@ -242,7 +245,9 @@ class _AuthCardState extends State<_AuthCard> {
                     ),
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    suffixIcon: IconButton(onPressed: _toggleObscured, icon: Icon(_isObscured ? Icons.visibility_rounded : Icons.visibility_off_rounded)),
+                    suffixIcon: IconButton(
+                        onPressed: _toggleObscured,
+                        icon: Icon(_isObscured ? Icons.visibility_rounded : Icons.visibility_off_rounded)),
                     // suffixIcon: Icon(Icons.remove_red_eye),
                   ),
                   focusNode: passwordFieldFocusNode,

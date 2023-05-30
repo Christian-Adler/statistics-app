@@ -76,7 +76,7 @@ class _AppLayoutSettings extends StatelessWidget {
         ),
         Row(
           children: [
-            const Text('Primär-Farbe setzen'),
+            const Text('Theme setzen'),
             IconButton(
               icon: const Icon(
                 Icons.color_lens_rounded,
@@ -84,17 +84,19 @@ class _AppLayoutSettings extends StatelessWidget {
               ),
               onPressed: () {
                 final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                dynamicThemeData.primaryColor = Colors.purple;
+                // dynamicThemeData.primaryColor = Colors.purple;
+                dynamicThemeData.setPurpleTheme();
               },
             ),
             IconButton(
               icon: const Icon(
                 Icons.color_lens_rounded,
-                color: Colors.blue,
+                color: Color(0xff00a8aa),
               ),
               onPressed: () {
                 final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                dynamicThemeData.primaryColor = Colors.blue;
+                // dynamicThemeData.primaryColor = Colors.blue;
+                dynamicThemeData.setBlueTheme();
               },
             ),
           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/safe_area_info.dart';
 
 import '../models/navigation/screen_nav_info.dart';
+import '../utils/color_utils.dart';
 import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -22,10 +23,10 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
+            colors: ColorUtils.getThemeGradientColors(context),
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: const [0, 1],
+            // stops: const [0, 1],
           ),
         ),
         // child: const CenteredLogo(), // sehr kurz sichtbar - daher nur auf dem SplashScreen

@@ -16,7 +16,6 @@ class SolarPowerChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    var themeData = Theme.of(context);
 
     final powerData = Provider.of<Operating>(context);
 
@@ -62,7 +61,7 @@ class SolarPowerChart extends StatelessWidget {
 
     chartMeta.calcPadding();
 
-    final gradientColorsGeneratedPower = [themeData.colorScheme.primary, themeData.colorScheme.secondary];
+    final gradientColorsGeneratedPower = [Colors.purple, Colors.amber];
     final gradientColorsConsumedPower = [Colors.redAccent, Colors.orangeAccent];
     final gradientColorsFeedPower = [Colors.yellow, Colors.orangeAccent.withOpacity(0.1)];
     final gradientColorsSumUsedPower = [Colors.redAccent, Colors.orangeAccent];
@@ -95,10 +94,7 @@ class SolarPowerChart extends StatelessWidget {
                 spotsGeneratedPower,
                 gradientColorsGeneratedPower,
                 shadow: false,
-                fillColors: [
-                  themeData.colorScheme.primary.withOpacity(0.9),
-                  themeData.colorScheme.secondary.withOpacity(0.4)
-                ],
+                fillColors: [Colors.purple.withOpacity(0.9), Colors.amber.withOpacity(0.4)],
               ),
               Charts.createLineChartBarData(
                 spotsFeedPower,

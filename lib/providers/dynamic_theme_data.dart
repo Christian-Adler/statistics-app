@@ -1,15 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/color_utils.dart';
 
 class DynamicThemeData with ChangeNotifier {
-  MaterialColor _primaryColor = Colors.purple;
+  static final MaterialColor purpleThemePrimaryColor = ColorUtils.customMaterialColor(Colors.purple);
+  static final MaterialColor purpleThemeSecondaryColor = ColorUtils.customMaterialColor(Colors.amber);
+  static final MaterialColor purpleThemeTertiaryColor = ColorUtils.customMaterialColor(Colors.amber.shade800);
+  static final MaterialColor blueThemePrimaryColor = ColorUtils.customMaterialColor(const Color(0xff4c1a57));
+  static final MaterialColor blueThemeSecondaryColor = ColorUtils.customMaterialColor(const Color(0xffa6e300));
+  static final MaterialColor blueThemeTertiaryColor = ColorUtils.customMaterialColor(const Color(0xff00a8aa));
+  MaterialColor _primaryColor = purpleThemePrimaryColor;
+  MaterialColor _secondaryColor = purpleThemeSecondaryColor;
+  MaterialColor _tertiaryColor = purpleThemeTertiaryColor;
 
   set primaryColor(MaterialColor color) {
     _primaryColor = color;
     notifyListeners();
   }
 
+  setPurpleTheme() {
+    _primaryColor = purpleThemePrimaryColor;
+    _secondaryColor = purpleThemeSecondaryColor;
+    _tertiaryColor = purpleThemeTertiaryColor;
+    notifyListeners();
+  }
+
+  setBlueTheme() {
+    _primaryColor = blueThemePrimaryColor;
+    _secondaryColor = blueThemeSecondaryColor;
+    _tertiaryColor = blueThemeTertiaryColor;
+    notifyListeners();
+  }
+
   MaterialColor get primaryColor {
     return _primaryColor;
+  }
+
+  MaterialColor get secondaryColor {
+    return _secondaryColor;
+  }
+
+  MaterialColor get tertiaryColor {
+    return _tertiaryColor;
   }
 
   set changeInBuildByMediaQuery(bool value) {

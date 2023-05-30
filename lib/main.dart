@@ -74,8 +74,9 @@ class MyApp extends StatelessWidget {
             // Colors.purple,
             colorScheme:
                 ColorScheme.fromSwatch(primarySwatch: dynamicThemeData.primaryColor /* Colors.purple */).copyWith(
-              secondary: Colors.amber,
+              secondary: dynamicThemeData.secondaryColor, // Colors.amber,
               //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
+              tertiary: dynamicThemeData.tertiaryColor,
             ),
             textTheme: Theme.of(context).textTheme.copyWith(
                   titleLarge: TextStyle(color: Colors.purple.shade900),

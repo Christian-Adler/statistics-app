@@ -7,6 +7,7 @@ import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/main_navigation.dart';
 import '../../screens/overview_screen.dart';
+import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
 import '../../utils/nav/navigation_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
@@ -37,14 +38,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
           padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8),
           child: Container(
             decoration: BoxDecoration(
-              gradient: isActNavItem
-                  ? LinearGradient(
-                      colors: [
-                        colorScheme.primary,
-                        colorScheme.secondary,
-                      ],
-                    )
-                  : null,
+              gradient: isActNavItem ? ColorUtils.getThemeLinearGradient(context) : null,
               borderRadius: const BorderRadius.only(bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
             ),
             child: ListTile(
@@ -133,12 +127,7 @@ class _GradientDivider extends StatelessWidget {
       child: Container(
         height: 1,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).colorScheme.primary,
-              Theme.of(context).colorScheme.secondary,
-            ],
-          ),
+          gradient: ColorUtils.getThemeLinearGradient(context),
         ),
       ),
     );
