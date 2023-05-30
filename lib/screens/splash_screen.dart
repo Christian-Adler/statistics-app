@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/safe_area_info.dart';
 
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/globals.dart';
@@ -15,6 +16,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SafeAreaInfo.determineSafeAreaHeight(context);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

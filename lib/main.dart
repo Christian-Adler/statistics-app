@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/utils/safe_area_info.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -66,8 +65,6 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         final auth = Provider.of<Auth>(context);
         final dynamicThemeData = Provider.of<DynamicThemeData>(context);
-
-        SafeAreaInfo.determineSafeAreaHeight(context);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
