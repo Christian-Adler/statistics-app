@@ -85,7 +85,7 @@ class _CarRefuelTableHead extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _TableHeadline('Datum', 75 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline('Datum', 85 * widthFactor, textAlign: TextAlign.start),
         _TableHeadline('km', 50 * widthFactor),
         _TableHeadline('l', 25 * widthFactor),
         _TableHeadline('€/l', 40 * widthFactor),
@@ -131,7 +131,7 @@ class _TableHeadSeparator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             height: 1,
-            width: 310 * widthFactor, //240+70
+            width: 320 * widthFactor, //250+70
             color: Colors.grey.shade400,
           ),
         ],
@@ -182,7 +182,7 @@ class _CarRefuelTableState extends State<_CarRefuelTable> {
               children: [
                 Container(
                   height: 1,
-                  width: 240 * widget.widthFactor,
+                  width: 250 * widget.widthFactor,
                   color: Colors.grey.shade200,
                 ),
                 Container(
@@ -242,7 +242,7 @@ class _CarRefuelTableItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: 75 * widthFactor,
+          width: 85 * widthFactor,
           child: Text(_carRefuelItem.date),
         ),
         SizedBox(
