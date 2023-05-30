@@ -1,6 +1,5 @@
 # statistics-app
 
-
 ## Create Launcher Icons
 
 - run `flutter pub run flutter_launcher_icons`
@@ -8,9 +7,17 @@
 ## Build apk (Android)
 
 - Increase version in pubspec.yaml
-- run `flutter build apk --split-per-abi`
-- use `build\app\outputs\flutter-apk\app-arm64-v8a-release.apk`
 
+### CPU special apk
+
+- run `flutter build apk --split-per-abi`
+- use e.g. `build\app\outputs\flutter-apk\app-arm64-v8a-release.apk`
+
+### one apk bundle for all CPUs
+
+- run `flutter build apk`
+-
+    - use `build\app\outputs\flutter-apk\app-release.apk`
 
 ## IOS
 
@@ -28,11 +35,11 @@ end
 ```
 
 Installation des pod-files (M1/M2-Chip) - Did you try:
+
 - sudo gem install cocoapods
 - sudo arch -x86_64 gem install ffi
 - arch -x86_64 pod repo update
 - arch -x86_64 pod install (im ios Verzeichnis auf Console ausführen!)
-
 
 ## Edit readme.md
 
