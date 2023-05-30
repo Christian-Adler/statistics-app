@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
 
+import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
 import 'settings_card.dart';
 
@@ -30,10 +31,17 @@ class _ShowDeviceStorage extends StatefulWidget {
 
 class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
   var _showDeviceStorage = false;
+  var _showAuthData = false;
 
   void _toggleShowDeviceStorage() {
     setState(() {
       _showDeviceStorage = !_showDeviceStorage;
+    });
+  }
+
+  void _toggleShowAuthData() {
+    setState(() {
+      _showAuthData = !_showAuthData;
     });
   }
 
@@ -42,10 +50,26 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        OutlinedButton.icon(
-          onPressed: _toggleShowDeviceStorage,
-          icon: Icon(_showDeviceStorage ? Icons.visibility_off_rounded : Icons.visibility_rounded),
-          label: Text(_showDeviceStorage ? 'hide storage' : 'show storage'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            OutlinedButton.icon(
+              onPressed: _toggleShowDeviceStorage,
+              icon: Icon(_showDeviceStorage ? Icons.visibility_off_rounded : Icons.visibility_rounded),
+              label: Text(_showDeviceStorage ? 'hide storage' : 'show storage'),
+            ),
+            if (_showDeviceStorage)
+              SizedBox(
+                width: 200,
+                child: SwitchListTile(
+                  value: _showAuthData,
+                  onChanged: (_) {
+                    _toggleShowAuthData();
+                  },
+                  title: const Text('Login-Daten'),
+                ),
+              ),
+          ],
         ),
         if (_showDeviceStorage)
           FutureBuilder(
@@ -64,7 +88,10 @@ class _ShowDeviceStorageState extends State<_ShowDeviceStorage> {
               final keys = storageData.keys.toList();
               keys.sort();
               for (var key in keys) {
-                final value = storageData[key];
+                var value = storageData[key];
+                if (key == DeviceStorageKeys.keyAuthData && !_showAuthData) {
+                  value = '{--}';
+                }
                 rows.add(TableUtils.tableRow(key, [value ?? '-']));
               }
 
