@@ -39,6 +39,9 @@ class AppLayout with ChangeNotifier {
         'showNavigationItemTitle': _showNavigationItemTitle,
         'enableOverviewParallax': _enableOverviewParallax,
       };
+      // Nur speichern, wenn != default?
+      // if (!_showNavigationItemTitle) appLayoutData['showNavigationItemTitle'] = _showNavigationItemTitle;
+      // if (!_enableOverviewParallax) appLayoutData['enableOverviewParallax'] = _enableOverviewParallax;
       await DeviceStorage.write(DeviceStorageKeys.keyAppLayout, jsonEncode(appLayoutData));
     } catch (err) {
       // await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
