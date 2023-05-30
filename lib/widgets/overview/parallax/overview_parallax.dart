@@ -39,31 +39,24 @@ class _OverviewParallaxState extends State<OverviewParallax> {
   final double _bar2SeparatorWidth = 83;
 
   final _bar1DefaultColors = [
-    Colors.transparent,
     Colors.black26,
     Colors.black12,
-    Colors.transparent,
   ];
   final _bar1HighlightColors = [
-    Colors.amber.withOpacity(0),
-    Colors.amber,
-    Colors.purple,
-    Colors.deepPurpleAccent,
-    Colors.deepPurpleAccent.withOpacity(0),
+    const Color.fromRGBO(249, 201, 77, 1),
+    const Color.fromRGBO(250, 126, 92, 1),
+    const Color.fromRGBO(232, 54, 149, 1),
+    const Color.fromRGBO(109, 25, 134, 1),
   ];
   final _bar2DefaultColors = [
-    Colors.transparent,
     Colors.black54,
     Colors.black26,
-    Colors.transparent,
   ];
   final _bar2HighlightColors = [
-    const Color.fromRGBO(201, 255, 254, 0),
     const Color.fromRGBO(201, 255, 254, 1),
     const Color.fromRGBO(51, 212, 232, 1),
     const Color.fromRGBO(73, 255, 255, 1),
     const Color.fromRGBO(48, 173, 230, 1),
-    const Color.fromRGBO(48, 173, 230, 0),
   ];
 
   List<_BarItem> _bars1 = [];
@@ -82,6 +75,14 @@ class _OverviewParallaxState extends State<OverviewParallax> {
   @override
   void initState() {
     super.initState();
+
+    // Alle Farblisten am Anfang und Ende mit der entsprechenden transparenten Farbe erweitern
+    final colorLists = [_bar1DefaultColors, _bar2DefaultColors, _bar1HighlightColors, _bar2HighlightColors];
+    for (var barColorList in colorLists) {
+      barColorList.insert(0, barColorList.first.withOpacity(0));
+      barColorList.add(barColorList.last.withOpacity(0));
+    }
+
     _streamSubscriptions.add(
       accelerometerEvents.listen(
         (AccelerometerEvent event) {
@@ -192,13 +193,14 @@ class _OverviewParallaxState extends State<OverviewParallax> {
       }
     }
 
+    final mediaQueryUtils = MediaQueryUtils.of(context);
+
     final accelerometer = _accelerometerValues;
-    final isLandscape = MediaQueryUtils.of(context).isLandscape;
     double xRot = 0;
     double yRot = 0;
     // double z = 0;
     if (accelerometer != null) {
-      if (isLandscape) {
+      if (mediaQueryUtils.isLandscape) {
         // accelerometer achsen vertauschen
         yRot = accelerometer.elementAt(0);
         xRot = accelerometer.elementAt(1); //- 9.81;
@@ -212,6 +214,24 @@ class _OverviewParallaxState extends State<OverviewParallax> {
     // print(xRot);
     // print(yRot);
     // print(z);
+
+    // Navigation Buttons - bei Tablet zentriert
+    Widget navButtons = const SingleChildScrollViewWithScrollbar(
+      // No BottomNavBar hide on Overview Screen // scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
+      child: Center(child: OverviewNavigationButtons()),
+    );
+    if (mediaQueryUtils.isTablet) {
+      navButtons = AnimatedPositioned(
+        duration: const Duration(milliseconds: 250),
+        top: yRot * 2 * _motionSensitivityButtons,
+        bottom: yRot * 2 * -_motionSensitivityButtons,
+        right: xRot * -_motionSensitivityButtons,
+        left: xRot * _motionSensitivityButtons,
+        child: Center(
+          child: navButtons,
+        ),
+      );
+    }
 
     return Stack(
       children: [
@@ -261,19 +281,7 @@ class _OverviewParallaxState extends State<OverviewParallax> {
             ),
           ),
         ),
-        AnimatedPositioned(
-          duration: const Duration(milliseconds: 250),
-          top: yRot * 2 * _motionSensitivityButtons,
-          bottom: yRot * 2 * -_motionSensitivityButtons,
-          right: xRot * -_motionSensitivityButtons,
-          left: xRot * _motionSensitivityButtons,
-          child: const Center(
-            child: SingleChildScrollViewWithScrollbar(
-              // No BottomNavBar hide on Overview Screen // scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
-              child: Center(child: OverviewNavigationButtons()),
-            ),
-          ),
-        ),
+        navButtons,
       ],
     );
   }
