@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class IsometricBoxPainter extends CustomPainter {
   final gradientColors = <Color>[
     const Color(0xFFFFD060),
+    const Color(0xFFD64DBD),
     const Color(0xFF9E00F6),
   ];
 
@@ -50,15 +51,22 @@ class IsometricBoxPainter extends CustomPainter {
     final bottomRightInner = _Point(width * 0.8, height * 0.58);
 
     final outerBoxGradientColors = [gradientColors.first.withOpacity(0.8), gradientColors.last.withOpacity(0.8)];
+    // 3 farben unterstuetzen
+    if (gradientColors.length == 3) outerBoxGradientColors.insert(1, gradientColors[1].withOpacity(0.8));
     final innerBoxGradientColors = [gradientColors.first.withOpacity(0.8), gradientColors.last.withOpacity(0.5)];
+    if (gradientColors.length == 3) innerBoxGradientColors.insert(1, gradientColors[1].withOpacity(0.65));
+
     final outerTopColors = [
       outerBoxGradientColors.first.withOpacity(0.9),
       outerBoxGradientColors.last.withOpacity(0.8)
     ];
+    if (gradientColors.length == 3) outerTopColors.insert(1, gradientColors[1].withOpacity(0.85));
+
     final innerTopColors = [
       innerBoxGradientColors.first.withOpacity(0.9),
       innerBoxGradientColors.last.withOpacity(0.4)
     ];
+    if (gradientColors.length == 3) innerTopColors.insert(1, gradientColors[1].withOpacity(0.65));
 
     _paintBoxWalls(canvas, outerBoxGradientColors, top, middle, bottom, topLeft, bottomLeft, topRight, bottomRight);
 
@@ -67,7 +75,6 @@ class IsometricBoxPainter extends CustomPainter {
 
     _paintBoxTop(canvas, innerTopColors, topInner, middle, bottomInner, topLeftInner, bottomLeftInner, topRightInner,
         bottomRightInner);
-
     _paintBoxTop(canvas, outerTopColors, top, middle, bottom, topLeft, bottomLeft, topRight, bottomRight);
 
     final bottomBlur = _Point(hCenter, height * 1);
@@ -96,6 +103,14 @@ class IsometricBoxPainter extends CustomPainter {
 
   void _paintBoxWalls(Canvas canvas, List<Color> colors, _Point top, _Point middle, _Point bottom, _Point topLeft,
       _Point bottomLeft, _Point topRight, _Point bottomRight) {
+    // Stops dyn. berechnen
+    List<double>? stops;
+    if (colors.length == 2) {
+      stops = [0.0, 0.9];
+    } else if (colors.length == 3) {
+      stops = [0.0, 0.45, 0.9];
+    }
+
     final leftWall = Path();
     leftWall.moveTo(topLeft.x, topLeft.y);
     leftWall.lineTo(middle.x, middle.y);
@@ -103,7 +118,7 @@ class IsometricBoxPainter extends CustomPainter {
     leftWall.lineTo(bottomLeft.x, bottomLeft.y);
     leftWall.close();
 
-    paintGradient(canvas, leftWall, colors, 300, stops: [0.0, 0.9]);
+    paintGradient(canvas, leftWall, colors, 300, stops: stops);
 
     final rightWall = Path();
     rightWall.moveTo(topRight.x, topRight.y);
@@ -112,11 +127,19 @@ class IsometricBoxPainter extends CustomPainter {
     rightWall.lineTo(bottomRight.x, bottomRight.y);
     rightWall.close();
 
-    paintGradient(canvas, rightWall, colors, 240, stops: [0.0, 0.9]);
+    paintGradient(canvas, rightWall, colors, 240, stops: stops);
   }
 
   void _paintBoxTop(Canvas canvas, List<Color> colors, _Point top, _Point middle, _Point bottom, _Point topLeft,
       _Point bottomLeft, _Point topRight, _Point bottomRight) {
+    // Stops dyn. berechnen
+    List<double>? stops;
+    if (colors.length == 2) {
+      stops = [0.25, 0.8];
+    } else if (colors.length == 3) {
+      stops = [0.25, 0.55, 0.8];
+    }
+
     final topWall = Path();
     topWall.moveTo(top.x, top.y);
     topWall.lineTo(topLeft.x, topLeft.y);
@@ -124,7 +147,7 @@ class IsometricBoxPainter extends CustomPainter {
     topWall.lineTo(topRight.x, topRight.y);
     topWall.close();
 
-    paintGradient(canvas, topWall, colors, 270, stops: [0.25, 0.8]);
+    paintGradient(canvas, topWall, colors, 270, stops: stops);
   }
 
   @override
