@@ -15,62 +15,87 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300,
-      height: 200,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            width: (200 * 5 / 7).truncateToDouble(),
-            bottom: 0,
-            child: CustomPaint(painter: IsometricBoxPainter()),
-          ),
-          // Positioned(
-          //   top: 2,
-          //   right: 2,
-          //   width: 218,
-          //   height: 98,
-          //   child: _ColoredIconButton(
-          //       screenNavInfo.routeName, screenNavInfo.title, screenNavInfo.iconData, edgeColors[0], edgeColors[1]),
-          // ),
-        ],
+      // height: 300,
+      height: 205,
+      child: InkWell(
+        onTap: () {
+          Provider.of<MainNavigation>(context, listen: false).mainPageRoute = screenNavInfo.routeName;
+        },
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        splashColor: edgeColors.last.withOpacity(0.3),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 5,
+              left: 25,
+              width: (200 * 5 / 7).truncateToDouble(),
+              bottom: 0,
+              child: CustomPaint(
+                painter: IsometricBoxPainter(
+                  // [const Color(0xFFFFD060),const Color(0xFFD64DBD),const Color(0xFF9E00F6),],
+                  edgeColors,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 39 + 5,
+              left: 19 + 25,
+              width: 56,
+              height: 56,
+              child: Transform(
+                transform: Matrix4.rotationZ(-0.52),
+                child: Transform(
+                  transform: Matrix4.skewX(0.52),
+                  child: Icon(
+                    screenNavInfo.iconData,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 90 + 5,
+              left: 90 + 25,
+              width: 150,
+              height: 45,
+              child: Transform(
+                transform: Matrix4.skewY(-0.52),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        border: Border(
+                          right: BorderSide(
+                            color: edgeColors.first,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(screenNavInfo.title, style: TextStyle(color: edgeColors.first, fontSize: 20)),
+                      ),
+                    ),
+                    Container(
+                      height: 2,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [edgeColors.last.withOpacity(0), edgeColors.first]),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class _ColoredIconButton extends StatelessWidget {
-  final String text;
-  final String routeName;
-  final IconData iconData;
-  final Color color;
-  final Color color2;
-
-  const _ColoredIconButton(
-    this.routeName,
-    this.text,
-    this.iconData,
-    this.color,
-    this.color2,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      style: const ButtonStyle(
-        // minimumSize: MaterialStatePropertyAll(Size(200, 100)),
-        // elevation: MaterialStatePropertyAll(5),
-        backgroundColor: MaterialStatePropertyAll(Colors.white70),
-      ),
-      onPressed: () {
-        Provider.of<MainNavigation>(context, listen: false).mainPageRoute = routeName;
-      },
-      icon: Icon(
-        iconData,
-        size: 44,
-        color: color2,
-      ),
-      label: Text(text, style: TextStyle(color: color)),
     );
   }
 }

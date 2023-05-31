@@ -3,11 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class IsometricBoxPainter extends CustomPainter {
-  final gradientColors = <Color>[
-    const Color(0xFFFFD060),
-    const Color(0xFFD64DBD),
-    const Color(0xFF9E00F6),
-  ];
+  IsometricBoxPainter(this.gradientColors);
+
+  final List<Color> gradientColors;
 
   @override
   void paint(Canvas canvas, Size size) {
