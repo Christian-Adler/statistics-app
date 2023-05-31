@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/app_layout.dart';
 import '../../screens/car/car_screen.dart';
 import '../../screens/heart/heart_screen.dart';
 import '../../screens/operating/operating_screen.dart';
@@ -19,7 +21,7 @@ class OverviewNavigationButtons extends StatefulWidget {
 class _OverviewNavigationButtonsState extends State<OverviewNavigationButtons> {
   List<Widget> _buildNavigationButtons() {
     const separator = SizedBox(height: 30, width: 20);
-    bool showIsometric = true;
+    bool showIsometric = Provider.of<AppLayout>(context).useOverviewIsometricButtons;
     if (showIsometric) {
       return [
         separator,

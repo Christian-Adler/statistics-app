@@ -72,7 +72,14 @@ class _AppLayoutSettings extends StatelessWidget {
           onChanged: (bool value) {
             appLayout.enableOverviewParallax = value;
           },
-          title: const Text('Übersicht Parallax-Effekt anzeigen'),
+          title: const Text('In Übersicht Parallax-Effekt anzeigen'),
+        ),
+        SwitchListTile(
+          value: appLayout.useOverviewIsometricButtons,
+          onChanged: (bool value) {
+            appLayout.useOverviewIsometricButtons = value;
+          },
+          title: const Text('In Übersicht isometrische Buttons verwenden'),
         ),
         Row(
           children: [

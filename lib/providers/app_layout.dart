@@ -8,6 +8,7 @@ import '../utils/device_storage_keys.dart';
 class AppLayout with ChangeNotifier {
   bool _showNavigationItemTitle = true;
   bool _enableOverviewParallax = true;
+  bool _useOverviewIsometricButtons = true;
 
   AppLayout() {
     _init();
@@ -33,11 +34,22 @@ class AppLayout with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get useOverviewIsometricButtons {
+    return _useOverviewIsometricButtons;
+  }
+
+  set useOverviewIsometricButtons(bool value) {
+    _useOverviewIsometricButtons = value;
+    _store();
+    notifyListeners();
+  }
+
   void _store() async {
     try {
       final appLayoutData = {
         'showNavigationItemTitle': _showNavigationItemTitle,
         'enableOverviewParallax': _enableOverviewParallax,
+        'useOverviewIsometricButtons': _useOverviewIsometricButtons,
       };
       // Nur speichern, wenn != default?
       // if (!_showNavigationItemTitle) appLayoutData['showNavigationItemTitle'] = _showNavigationItemTitle;
