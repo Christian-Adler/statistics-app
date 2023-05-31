@@ -59,7 +59,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
             Positioned(
               top: 90 + 5,
               left: 90 + 25,
-              width: 150,
+              width: 155,
               height: 45,
               child: Transform(
                 transform: Matrix4.skewY(-0.52),
