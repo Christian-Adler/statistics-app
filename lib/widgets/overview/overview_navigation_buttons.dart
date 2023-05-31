@@ -6,6 +6,7 @@ import '../../screens/heart/heart_screen.dart';
 import '../../screens/operating/operating_screen.dart';
 import '../../screens/operating/solar_power_screen.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
+import 'overview_isometric_navigation_button.dart';
 import 'overview_large_navigation_button.dart';
 
 class OverviewNavigationButtons extends StatefulWidget {
@@ -17,28 +18,56 @@ class OverviewNavigationButtons extends StatefulWidget {
 
 class _OverviewNavigationButtonsState extends State<OverviewNavigationButtons> {
   List<Widget> _buildNavigationButtons() {
+    const separator = SizedBox(height: 30, width: 20);
+    bool showIsometric = true;
+    if (showIsometric) {
+      return [
+        separator,
+        OverviewIsometricNavigationButton(
+          screenNavInfo: OperatingScreen.screenNavInfo,
+          edgeColors: const [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
+        ),
+        separator,
+        OverviewIsometricNavigationButton(
+          screenNavInfo: SolarPowerScreen.screenNavInfo,
+          edgeColors: const [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
+        ),
+        separator,
+        OverviewIsometricNavigationButton(
+          screenNavInfo: CarScreen.screenNavInfo,
+          edgeColors: const [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
+        ),
+        separator,
+        OverviewIsometricNavigationButton(
+          screenNavInfo: HeartScreen.screenNavInfo,
+          edgeColors: const [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
+        ),
+        separator,
+      ];
+    }
+
     return [
-      const SizedBox(height: 30, width: 20),
+      separator,
       OverviewLargeNavigationButton(
         screenNavInfo: OperatingScreen.screenNavInfo,
         edgeColors: const [Color.fromRGBO(4, 118, 229, 1), Color.fromRGBO(0, 198, 238, 1)],
       ),
-      const SizedBox(height: 30, width: 20),
+      separator,
       OverviewLargeNavigationButton(
         screenNavInfo: SolarPowerScreen.screenNavInfo,
         edgeColors: const [Color.fromRGBO(59, 182, 65, 1), Color.fromRGBO(180, 246, 23, 1)],
       ),
-      const SizedBox(height: 30, width: 20),
+      separator,
       OverviewLargeNavigationButton(
         screenNavInfo: CarScreen.screenNavInfo,
         edgeColors: const [Color.fromRGBO(250, 161, 26, 1), Color.fromRGBO(251, 220, 33, 1)],
       ),
-      const SizedBox(height: 30, width: 20),
+      separator,
       OverviewLargeNavigationButton(
         screenNavInfo: HeartScreen.screenNavInfo,
         edgeColors: const [Color.fromRGBO(250, 47, 125, 1), Color.fromRGBO(255, 93, 162, 1)],
       ),
-      const SizedBox(height: 30, width: 20),
+      separator,
     ];
   }
 
