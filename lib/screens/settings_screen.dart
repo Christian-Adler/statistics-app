@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
         Text(SettingsScreen.screenNavInfo.title),
         ctx,
       ),
-      body: const _SettingsScreenBody(),
+      bodyBuilder: (ctx) => const _SettingsScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

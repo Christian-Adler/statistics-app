@@ -91,7 +91,7 @@ class OperatingScreenState extends State<OperatingScreen> {
           ),
         ],
       ),
-      body: OperatingView(showYearly: _showYearly),
+      bodyBuilder: (ctx) => OperatingView(showYearly: _showYearly),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

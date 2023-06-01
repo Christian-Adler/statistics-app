@@ -98,7 +98,7 @@ class CarScreenState extends State<CarScreen> {
           ),
         ],
       ),
-      body: const CarView(),
+      bodyBuilder: (ctx) => const CarView(),
       drawerBuilder: (ctx) => const AppDrawer(),
       floatingActionButtonBuilder: (ctx) {
         final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));

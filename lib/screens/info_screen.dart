@@ -33,7 +33,7 @@ class InfoScreen extends StatelessWidget {
         Text(InfoScreen.screenNavInfo.title),
         ctx,
       ),
-      body: const _InfoScreenBody(),
+      bodyBuilder: (ctx) => const _InfoScreenBody(),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

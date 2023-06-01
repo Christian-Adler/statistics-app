@@ -33,7 +33,7 @@ class OverviewScreen extends StatelessWidget {
         ),
         ctx,
       ),
-      body: const Overview(),
+      bodyBuilder: (ctx) => const Overview(),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

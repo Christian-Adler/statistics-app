@@ -91,7 +91,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
           ),
         ],
       ),
-      body: SolarPowerView(showYearly: _showYearly),
+      bodyBuilder: (ctx) => SolarPowerView(showYearly: _showYearly),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

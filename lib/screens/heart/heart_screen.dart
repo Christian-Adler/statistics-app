@@ -78,7 +78,7 @@ class HeartScreenState extends State<HeartScreen> {
           ),
         ],
       ),
-      body: const HeartView(),
+      bodyBuilder: (ctx) => const HeartView(),
       drawerBuilder: (ctx) => const AppDrawer(),
     );
   }

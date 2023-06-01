@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 
 class ScreenLayoutBuilder extends StatelessWidget {
-  final Widget body;
+  final Widget Function(BuildContext context) bodyBuilder;
 
   // Falls NestedNavigator erzeugt werden soll, dann mit GlobalKey, damit im WillPop zugegriffen werden kann
   final GlobalKey<NavigatorState>? createNestedNavigatorWithKey;
@@ -16,7 +16,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
 
   const ScreenLayoutBuilder({
     Key? key,
-    required this.body,
+    required this.bodyBuilder,
     this.drawerBuilder,
     this.appBarBuilder,
     this.floatingActionButtonBuilder,
@@ -53,7 +53,7 @@ class ScreenLayoutBuilder extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       drawer: buildDrawer ? drawerBuilder(context) : null,
-      body: body,
+      body: bodyBuilder(context),
       floatingActionButton: floatingActionButton,
     );
   }
