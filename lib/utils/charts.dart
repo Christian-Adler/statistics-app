@@ -85,7 +85,9 @@ class Charts {
     TitleMeta meta,
     ChartMetaData chartMeta,
   ) {
-    if (value % 1 != 0) {
+    // In yearly Charts no titles where displayed, because of values like 2016.0000000002
+    final onlyImportantDecimals = double.parse(value.toStringAsFixed(2));
+    if (onlyImportantDecimals % 1 != 0) {
       return Container();
     }
 
