@@ -75,17 +75,7 @@ class AppLayoutBuilder extends StatelessWidget {
             width: showNavigationTitle ? 304 : 56,
             child: Scaffold(
               appBar: appBar,
-              body: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(1.0, 0.0), //(x,y)
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
+              body: Drawer(
                 child: NavigationMenuVertical(showNavigationTitle),
               ),
             ),
