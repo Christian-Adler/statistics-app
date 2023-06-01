@@ -71,21 +71,19 @@ class MyApp extends StatelessWidget {
           title: AppInfo.appName,
           theme: ThemeData(
             primaryColor: dynamicThemeData.primaryColor,
-            // Colors.purple,
-            colorScheme:
-                ColorScheme.fromSwatch(primarySwatch: dynamicThemeData.primaryColor /* Colors.purple */).copyWith(
-              secondary: dynamicThemeData.secondaryColor, // Colors.amber,
+            colorScheme: ColorScheme.fromSwatch(primarySwatch: dynamicThemeData.primaryColor).copyWith(
+              secondary: dynamicThemeData.secondaryColor,
               //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
               tertiary: dynamicThemeData.tertiaryColor,
             ),
             textTheme: Theme.of(context).textTheme.copyWith(
-                  titleLarge: TextStyle(color: Colors.purple.shade900),
-                  titleSmall: TextStyle(color: Colors.purple.shade900),
+                  titleLarge: TextStyle(color: dynamicThemeData.primaryColor.shade700),
+                  titleSmall: TextStyle(color: dynamicThemeData.primaryColor.shade700),
                 ),
             drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: Colors.white),
             scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
             scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-                  thumbColor: MaterialStatePropertyAll(dynamicThemeData.primaryColor /* Colors.purple */),
+                  thumbColor: MaterialStatePropertyAll(dynamicThemeData.primaryColor),
                   radius: Radius.zero,
                   interactive: true,
                   // thickness: const MaterialStatePropertyAll(10),
