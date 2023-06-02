@@ -71,8 +71,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: AppInfo.appName,
           themeMode: dynamicThemeData.themeMode,
-          theme: ThemeUtils.buildThemeData(dynamicThemeData, context),
-          darkTheme: ThemeUtils.buildThemeData(dynamicThemeData, context),
+          theme: ThemeUtils.buildThemeData(dynamicThemeData, context, false),
+          darkTheme: ThemeUtils.buildThemeData(dynamicThemeData, context, true),
           home: auth.isAuth
               ? AppLayoutBuilder(
                   body: const MainNavigationStack(),
