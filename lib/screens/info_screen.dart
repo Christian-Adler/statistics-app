@@ -96,9 +96,12 @@ class _AppInfoCard extends StatelessWidget {
         children: [
           SizedBox(
             height: 20,
-            child: Image.asset(
-              Globals.assetImgCaLogo,
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                Globals.assetImgCaLogo,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Text(' ${DateFormat('yyyy').format(DateTime.now())} \u00a9 Christian Adler '),
@@ -109,9 +112,12 @@ class _AppInfoCard extends StatelessWidget {
         children: [
           SizedBox(
             height: 20,
-            child: Image.asset(
-              Globals.assetImgExploratiaLogo,
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                Globals.assetImgExploratiaLogo,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const Text(' https://www.exploratia.de'),
@@ -122,9 +128,12 @@ class _AppInfoCard extends StatelessWidget {
         children: [
           SizedBox(
             height: 20,
-            child: Image.asset(
-              Globals.assetImgEagleLogo,
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                Globals.assetImgEagleLogo,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const Text(' https://www.adlers-online.de'),
