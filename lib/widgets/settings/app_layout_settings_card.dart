@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
-import '../../providers/dynamic_theme_data.dart';
 import 'settings_card.dart';
 
 class AppLayoutSettingsCard extends StatefulWidget {
@@ -80,33 +79,6 @@ class _AppLayoutSettings extends StatelessWidget {
             appLayout.useOverviewIsometricButtons = value;
           },
           title: const Text('In Übersicht isometrische Buttons verwenden'),
-        ),
-        Row(
-          children: [
-            const Text('Theme setzen'),
-            IconButton(
-              icon: const Icon(
-                Icons.color_lens_rounded,
-                color: Colors.purple,
-              ),
-              onPressed: () {
-                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                // dynamicThemeData.primaryColor = Colors.purple;
-                dynamicThemeData.setPurpleTheme();
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.color_lens_rounded,
-                color: Color(0xff00a8aa),
-              ),
-              onPressed: () {
-                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                // dynamicThemeData.primaryColor = Colors.blue;
-                dynamicThemeData.setBlueTheme();
-              },
-            ),
-          ],
         ),
       ],
     );

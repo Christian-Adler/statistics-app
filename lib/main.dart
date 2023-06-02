@@ -70,7 +70,9 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: AppInfo.appName,
+          themeMode: dynamicThemeData.themeMode,
           theme: ThemeUtils.buildThemeData(dynamicThemeData, context),
+          darkTheme: ThemeUtils.buildThemeData(dynamicThemeData, context),
           home: auth.isAuth
               ? AppLayoutBuilder(
                   body: const MainNavigationStack(),
