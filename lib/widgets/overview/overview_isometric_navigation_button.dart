@@ -13,6 +13,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final iconColor = Theme.of(context).primaryColor;
     return SizedBox(
       width: 300,
       // height: 300,
@@ -51,7 +52,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
                   child: Icon(
                     screenNavInfo.iconData,
                     size: 50,
-                    color: Colors.white,
+                    color: iconColor,
                   ),
                 ),
               ),
@@ -69,7 +70,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
+                        color: iconColor.withOpacity(0.8),
                         border: Border(
                           right: BorderSide(
                             color: edgeColors.first,
