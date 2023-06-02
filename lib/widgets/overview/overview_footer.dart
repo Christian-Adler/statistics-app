@@ -11,7 +11,10 @@ class OverviewFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 44,
-      decoration: BoxDecoration(gradient: ColorUtils.getThemeLinearGradient(context)),
+      decoration: BoxDecoration(
+        gradient: ColorUtils.getThemeLinearGradient(context),
+        color: ColorUtils.getThemeOnGradientColor(context),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
