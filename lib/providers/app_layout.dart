@@ -71,6 +71,9 @@ class AppLayout with ChangeNotifier {
     if (data.containsKey('enableOverviewParallax')) {
       _enableOverviewParallax = data['enableOverviewParallax'] as bool;
     }
+    if (data.containsKey('useOverviewIsometricButtons')) {
+      _useOverviewIsometricButtons = data['useOverviewIsometricButtons'] as bool;
+    }
 
     notifyListeners();
   }
