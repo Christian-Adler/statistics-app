@@ -67,11 +67,12 @@ class _ColoredIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonBackground = Theme.of(context).primaryColor;
     return OutlinedButton.icon(
-      style: const ButtonStyle(
+      style: ButtonStyle(
         // minimumSize: MaterialStatePropertyAll(Size(200, 100)),
         // elevation: MaterialStatePropertyAll(5),
-        backgroundColor: MaterialStatePropertyAll(Colors.white70),
+        backgroundColor: MaterialStatePropertyAll(buttonBackground.withOpacity(0.7)),
       ),
       onPressed: () {
         Provider.of<MainNavigation>(context, listen: false).mainPageRoute = routeName;
