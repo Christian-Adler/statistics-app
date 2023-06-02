@@ -17,6 +17,7 @@ class DynamicThemeData with ChangeNotifier {
   MaterialColor _secondaryColor = purpleThemeSecondaryColor;
   MaterialColor _tertiaryColor = purpleThemeTertiaryColor;
 
+  bool _useSystemThemeMode = true;
   bool _darkMode = false;
 
   DynamicThemeData() {
@@ -24,17 +25,37 @@ class DynamicThemeData with ChangeNotifier {
   }
 
   ThemeMode get themeMode {
+    if (_useSystemThemeMode) return ThemeMode.system;
     return _darkMode ? ThemeMode.dark : ThemeMode.light;
   }
 
+  bool get systemThemeMode {
+    return _useSystemThemeMode;
+  }
+
+  set systemThemeMode(bool value) {
+    final doUpdate = _useSystemThemeMode != value;
+    if (doUpdate) {
+      _useSystemThemeMode = value;
+      _store();
+      notifyListeners();
+    }
+  }
+
+  /// Use darkMode getter/setter only in app theme settings card!<br><br>
+  /// To test if Theme is dark mode (e.g. if SystemMode is set) use:
+  /// <pre>final isDarkMode = Theme.of(context).brightness == Brightness.dark;</pre>
   bool get darkMode {
     return _darkMode;
   }
 
   set darkMode(bool value) {
-    _darkMode = value;
-    _store();
-    notifyListeners();
+    final doUpdate = _darkMode != value;
+    if (doUpdate) {
+      _darkMode = value;
+      _store();
+      notifyListeners();
+    }
   }
 
   set primaryColor(MaterialColor color) {
@@ -74,6 +95,7 @@ class DynamicThemeData with ChangeNotifier {
   void _store() async {
     try {
       final appLayoutData = {
+        'useSystemThemeMode': _useSystemThemeMode,
         'darkMode': _darkMode,
       };
       await DeviceStorage.write(DeviceStorageKeys.keyAppTheme, jsonEncode(appLayoutData));
@@ -89,6 +111,9 @@ class DynamicThemeData with ChangeNotifier {
     final data = jsonDecode(dataStr) as Map<String, dynamic>;
     if (data.containsKey('darkMode')) {
       _darkMode = data['darkMode'] as bool;
+    }
+    if (data.containsKey('useSystemThemeMode')) {
+      _useSystemThemeMode = data['useSystemThemeMode'] as bool;
     }
 
     notifyListeners();

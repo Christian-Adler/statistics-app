@@ -60,11 +60,20 @@ class _AppThemeSettings extends StatelessWidget {
       children: [
         const Divider(height: 10),
         SwitchListTile(
-          value: dynamicThemeData.darkMode,
+          value: dynamicThemeData.systemThemeMode,
           onChanged: (bool value) {
-            dynamicThemeData.darkMode = value;
+            dynamicThemeData.systemThemeMode = value;
           },
-          title: const Text('Dark Mode'),
+          title: const Text('Theme vom System übernehmen'),
+        ),
+        SwitchListTile(
+          value: dynamicThemeData.darkMode,
+          onChanged: dynamicThemeData.systemThemeMode
+              ? null
+              : (bool value) {
+                  dynamicThemeData.darkMode = value;
+                },
+          title: const Text('Dunkles Theme verwenden'),
         ),
         Row(
           children: [
