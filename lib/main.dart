@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/utils/theme_utils.dart';
 
 import 'models/app_info.dart';
 import 'providers/app_layout.dart';
@@ -69,30 +70,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: AppInfo.appName,
-          theme: ThemeData(
-            primaryColor: dynamicThemeData.primaryColor,
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: dynamicThemeData.primaryColor).copyWith(
-              secondary: dynamicThemeData.secondaryColor,
-              //   onPrimary: Colors.white, Farbe die auf primary verwendet wird.
-              tertiary: dynamicThemeData.tertiaryColor,
-            ),
-            textTheme: Theme.of(context).textTheme.copyWith(
-                  titleLarge: TextStyle(color: dynamicThemeData.primaryColor.shade700),
-                  titleSmall: TextStyle(color: dynamicThemeData.primaryColor.shade700),
-                ),
-            drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: Colors.white),
-            scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-            scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-                  thumbColor: MaterialStatePropertyAll(dynamicThemeData.primaryColor),
-                  radius: Radius.zero,
-                  interactive: true,
-                  // thickness: const MaterialStatePropertyAll(10),
-                  // thumbVisibility: const MaterialStatePropertyAll(true),
-                  // trackVisibility: const MaterialStatePropertyAll(true),
-                  // trackColor: const MaterialStatePropertyAll(Colors.blueAccent),
-                  // trackBorderColor: const MaterialStatePropertyAll(Colors.purpleAccent),
-                ),
-          ),
+          theme: ThemeUtils.buildThemeData(dynamicThemeData, context),
           home: auth.isAuth
               ? AppLayoutBuilder(
                   body: const MainNavigationStack(),
