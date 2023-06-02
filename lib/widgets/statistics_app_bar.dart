@@ -13,6 +13,7 @@ class StatisticsAppBar extends GradientAppBar {
   }) : super(
           title: title,
           gradientColors: ColorUtils.getThemeGradientColors(context),
+          foregroundColor: ColorUtils.getThemeOnGradientColor(context),
           actions: actions,
           automaticallyImplyLeading: automaticallyImplyLeading,
         );

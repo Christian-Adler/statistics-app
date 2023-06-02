@@ -6,19 +6,63 @@ import 'package:flutter_commons/utils/device_storage.dart';
 
 import '../utils/device_storage_keys.dart';
 
+class _ThemeColors {
+  final MaterialColor primary;
+  final MaterialColor? onPrimary;
+  final MaterialColor? secondary;
+  final MaterialColor? tertiary;
+  final List<Color> gradientColors;
+  final Color onGradientColor;
+
+  _ThemeColors({
+    required this.primary,
+    this.onPrimary,
+    this.secondary,
+    this.tertiary,
+    required this.gradientColors,
+    required this.onGradientColor,
+  });
+
+  _ThemeColors copyWidth({
+    MaterialColor? primary,
+    MaterialColor? onPrimary,
+    MaterialColor? secondary,
+    MaterialColor? tertiary,
+    List<Color>? gradientColors,
+    Color? onGradientColor,
+  }) =>
+      _ThemeColors(
+        primary: primary ?? this.primary,
+        onPrimary: onPrimary ?? this.onPrimary,
+        secondary: secondary ?? this.secondary,
+        tertiary: tertiary ?? this.tertiary,
+        gradientColors: gradientColors ?? this.gradientColors,
+        onGradientColor: onGradientColor ?? this.onGradientColor,
+      );
+}
+
 class DynamicThemeData with ChangeNotifier {
-  static final MaterialColor purpleThemePrimaryColor = ColorUtils.customMaterialColor(Colors.purple);
-  static final MaterialColor purpleThemeSecondaryColor = ColorUtils.customMaterialColor(Colors.amber);
-  static final MaterialColor purpleThemeTertiaryColor = ColorUtils.customMaterialColor(Colors.amber.shade800);
-  static final MaterialColor blueThemePrimaryColor = ColorUtils.customMaterialColor(const Color(0xff4c1a57));
-  static final MaterialColor blueThemeSecondaryColor = ColorUtils.customMaterialColor(const Color(0xffa6e300));
-  static final MaterialColor blueThemeTertiaryColor = ColorUtils.customMaterialColor(const Color(0xff00a8aa));
-  MaterialColor _primaryColor = purpleThemePrimaryColor;
-  MaterialColor _secondaryColor = purpleThemeSecondaryColor;
-  MaterialColor _tertiaryColor = purpleThemeTertiaryColor;
+  static final _purpleAmberColorsLight = _ThemeColors(
+    primary: ColorUtils.customMaterialColor(Colors.purple.shade700),
+    secondary: ColorUtils.customMaterialColor(Colors.amber),
+    gradientColors: [Colors.purple, Colors.amber.shade800, Colors.amber],
+    onGradientColor: Colors.white,
+  );
+  static final _purpleAmberColorsDark = _purpleAmberColorsLight.copyWidth(
+      primary: ColorUtils.customMaterialColor(const Color.fromRGBO(255, 145, 0, 1.0)),
+      onGradientColor: const Color.fromRGBO(49, 25, 0, 1.0));
+  static final _blueGreenColorsLight = _ThemeColors(
+    primary: ColorUtils.customMaterialColor(const Color(0xff00a8aa)),
+    secondary: ColorUtils.customMaterialColor(const Color(0xffa6e300)),
+    gradientColors: [const Color(0xff4c1a57), const Color(0xff00a8aa), const Color(0xffa6e300)],
+    onGradientColor: Colors.white,
+  );
+  static final _blueGreenColorsDark = _blueGreenColorsLight.copyWidth();
 
   bool _useSystemThemeMode = true;
   bool _darkMode = false;
+
+  bool _usePurpleColors = true;
 
   DynamicThemeData() {
     _init();
@@ -58,38 +102,47 @@ class DynamicThemeData with ChangeNotifier {
     }
   }
 
-  set primaryColor(MaterialColor color) {
-    _primaryColor = color;
-    _store();
-    notifyListeners();
-  }
-
   setPurpleTheme() {
-    _primaryColor = purpleThemePrimaryColor;
-    _secondaryColor = purpleThemeSecondaryColor;
-    _tertiaryColor = purpleThemeTertiaryColor;
+    _usePurpleColors = true;
     _store();
     notifyListeners();
   }
 
   setBlueTheme() {
-    _primaryColor = blueThemePrimaryColor;
-    _secondaryColor = blueThemeSecondaryColor;
-    _tertiaryColor = blueThemeTertiaryColor;
+    _usePurpleColors = false;
     _store();
     notifyListeners();
   }
 
-  MaterialColor get primaryColor {
-    return _primaryColor;
+  _ThemeColors _getActiveThemeColors(bool darkMode) {
+    if (_usePurpleColors) {
+      return darkMode ? _purpleAmberColorsDark : _purpleAmberColorsLight;
+    }
+    return darkMode ? _blueGreenColorsDark : _blueGreenColorsLight;
   }
 
-  MaterialColor get secondaryColor {
-    return _secondaryColor;
+  MaterialColor getPrimaryColor(bool darkMode) {
+    return _getActiveThemeColors(darkMode).primary;
   }
 
-  MaterialColor get tertiaryColor {
-    return _tertiaryColor;
+  Color getOnPrimaryColor(bool darkMode) {
+    return _getActiveThemeColors(darkMode).onGradientColor;
+  }
+
+  MaterialColor? getSecondaryColor(bool darkMode) {
+    return _getActiveThemeColors(darkMode).secondary;
+  }
+
+  MaterialColor? getTertiaryColor(bool darkMode) {
+    return _getActiveThemeColors(darkMode).tertiary;
+  }
+
+  List<Color> getGradientColors(bool darkMode) {
+    return _getActiveThemeColors(darkMode).gradientColors;
+  }
+
+  Color getOnGradientColor(bool darkMode) {
+    return _getActiveThemeColors(darkMode).onGradientColor;
   }
 
   void _store() async {
@@ -97,6 +150,7 @@ class DynamicThemeData with ChangeNotifier {
       final appLayoutData = {
         'useSystemThemeMode': _useSystemThemeMode,
         'darkMode': _darkMode,
+        'usePurpleColors': _usePurpleColors,
       };
       await DeviceStorage.write(DeviceStorageKeys.keyAppTheme, jsonEncode(appLayoutData));
     } catch (err) {
@@ -114,6 +168,9 @@ class DynamicThemeData with ChangeNotifier {
     }
     if (data.containsKey('useSystemThemeMode')) {
       _useSystemThemeMode = data['useSystemThemeMode'] as bool;
+    }
+    if (data.containsKey('usePurpleColors')) {
+      _usePurpleColors = data['usePurpleColors'] as bool;
     }
 
     notifyListeners();

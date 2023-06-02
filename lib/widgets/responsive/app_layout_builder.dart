@@ -52,7 +52,6 @@ class AppLayoutBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLayout = Provider.of<AppLayout>(context);
     bool showNavigationTitle = appLayout.showNavigationItemTitle;
-
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
 
     Widget? bottomNavBarW;
@@ -65,7 +64,11 @@ class AppLayoutBuilder extends StatelessWidget {
 
     Widget? bodyW;
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {
-      var appBar = AppBar(title: Text(AppInfo.appName));
+      var appBar = AppBar(
+        title: Text(AppInfo.appName),
+        foregroundColor: ColorUtils.getThemeOnGradientColor(context),
+        backgroundColor: ColorUtils.getThemeGradientColors(context).first,
+      );
       GlobalSettings.appBarHeight = appBar.preferredSize.height;
 
       bodyW = Row(

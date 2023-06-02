@@ -4,36 +4,35 @@ import 'package:flutter/services.dart';
 import '../providers/dynamic_theme_data.dart';
 
 class ThemeUtils {
-  static ThemeData buildThemeData(DynamicThemeData dynamicThemeData, BuildContext context, bool darkTheme) {
-    final brightness = darkTheme ? Brightness.dark : Brightness.light;
-    final scaffoldBackgroundColor =
-        darkTheme ? const Color.fromRGBO(10, 10, 10, 1) : const Color.fromRGBO(245, 245, 245, 1);
-    final drawerBackgroundColor = darkTheme ? const Color.fromRGBO(7, 7, 7, 1) : Colors.white;
+  static ThemeData buildThemeData(DynamicThemeData dynamicThemeData, BuildContext context, bool dark) {
+    final brightness = dark ? Brightness.dark : Brightness.light;
+    final scaffoldBackgroundColor = dark ? const Color.fromRGBO(10, 10, 10, 1) : const Color.fromRGBO(245, 245, 245, 1);
+    final drawerBackgroundColor = dark ? const Color.fromRGBO(7, 7, 7, 1) : Colors.white;
 
     return ThemeData(
       brightness: brightness,
-      primaryColor: darkTheme ? Colors.black : Colors.white,
-      primaryColorLight: darkTheme ? Colors.white : Colors.black,
-      primaryColorDark: darkTheme ? Colors.black : Colors.white,
-      canvasColor: darkTheme ? Colors.black : Colors.white,
-      indicatorColor: darkTheme ? Colors.white : Colors.black,
-      appBarTheme:
-          AppBarTheme(systemOverlayStyle: (darkTheme ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light)),
-      colorScheme: ColorScheme.fromSeed(seedColor: dynamicThemeData.primaryColor, brightness: brightness).copyWith(
-        // primary: dynamicThemeData.primaryColor,
+      primaryColor: dark ? Colors.black : Colors.white,
+      primaryColorLight: Colors.grey.shade200,
+      primaryColorDark: Colors.grey.shade900,
+      canvasColor: dark ? Colors.black : Colors.white,
+      indicatorColor: dark ? Colors.white : Colors.black,
+      appBarTheme: AppBarTheme(systemOverlayStyle: (dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light)),
+      colorScheme:
+          ColorScheme.fromSeed(seedColor: dynamicThemeData.getPrimaryColor(dark), brightness: brightness).copyWith(
+        primary: dynamicThemeData.getPrimaryColor(dark),
         // onPrimary: Colors.white, // Farbe die auf primary verwendet wird.
-        secondary: dynamicThemeData.secondaryColor,
-        tertiary: dynamicThemeData.tertiaryColor,
+        secondary: dynamicThemeData.getSecondaryColor(dark),
+        tertiary: dynamicThemeData.getTertiaryColor(dark),
       ),
       textTheme: TextTheme(
-        titleLarge: TextStyle(color: dynamicThemeData.primaryColor.shade700),
-        titleSmall: TextStyle(color: dynamicThemeData.primaryColor.shade700),
+        titleLarge: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
+        titleSmall: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
       ),
       drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: drawerBackgroundColor),
       // dividerColor: dividerColor, // Trenner bei MenuItems-Gruppierung
       scaffoldBackgroundColor: scaffoldBackgroundColor /* otherwise white|black */,
       scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
-            thumbColor: MaterialStatePropertyAll(dynamicThemeData.primaryColor),
+            thumbColor: MaterialStatePropertyAll(dynamicThemeData.getPrimaryColor(dark)),
             radius: Radius.zero,
             interactive: true,
             // thickness: const MaterialStatePropertyAll(10),

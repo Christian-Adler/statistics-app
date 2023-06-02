@@ -18,8 +18,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
   List<Widget> _buildNavItems(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final onPrimaryColor = colorScheme.onPrimary;
+    final onActiveColor = ColorUtils.getThemeOnGradientColor(context);
 
     final actRouteName = Provider.of<MainNavigation>(context).mainPageRoute;
 
@@ -33,7 +32,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
           isActNavItem = true;
         }
 
-        var navIcon = Icon(navItem.iconData, color: isActNavItem ? onPrimaryColor : null);
+        var navIcon = Icon(navItem.iconData, color: isActNavItem ? onActiveColor : null);
         final widget = Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8),
           child: Container(
@@ -47,7 +46,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
                   ? Text(
                       navItem.title,
                       style: TextStyle(
-                          color: isActNavItem ? onPrimaryColor : null,
+                          color: isActNavItem ? onActiveColor : null,
                           fontWeight: isActNavItem ? FontWeight.bold : null),
                     )
                   : navIcon,
