@@ -19,16 +19,14 @@ class OverviewFooter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 10),
-          Icon(
+          const Icon(
             Icons.alternate_email,
-            color: Theme.of(context).colorScheme.onPrimary,
           ),
           const SizedBox(width: 10),
           Text(
             Provider.of<Auth>(context, listen: false).serverUrl,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         ],
