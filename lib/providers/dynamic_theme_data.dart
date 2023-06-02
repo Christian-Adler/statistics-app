@@ -71,26 +71,6 @@ class DynamicThemeData with ChangeNotifier {
     return _tertiaryColor;
   }
 
-  set changeInBuildByMediaQuery(bool value) {
-    // Da dies ueber MediaQuery waehrend des Build gesetzt wird, darf im Fall einer Aenderung
-    // das notifyListeners erst spaeter erfolgen!
-    if (!value /* && pageTransitionsTheme == null */) {
-      doNotifyListenersPostFrame();
-    } else if (value /* && pageTransitionsTheme != null */) {
-      doNotifyListenersPostFrame();
-    }
-  }
-
-  void doNotifyListenersPostFrame() {
-    // https://stackoverflow.com/a/72657508
-    // waere wohl auch moeglich:
-    //  await Future.delayed(Duration(milliseconds: 1)); // use await
-    //   notifyListeners();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
-  }
-
   void _store() async {
     try {
       final appLayoutData = {
