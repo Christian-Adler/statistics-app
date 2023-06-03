@@ -13,7 +13,10 @@ import '../overview_navigation_buttons.dart';
 class OverviewParallax extends StatefulWidget {
   const OverviewParallax({
     super.key,
+    required this.darkMode,
   });
+
+  final bool darkMode;
 
   @override
   State<OverviewParallax> createState() => _OverviewParallaxState();
@@ -38,20 +41,14 @@ class _OverviewParallaxState extends State<OverviewParallax> {
   final double _bar2Width = 18;
   final double _bar2SeparatorWidth = 83;
 
-  final _bar1DefaultColors = [
-    Colors.black26,
-    Colors.black12,
-  ];
+  final List<Color> _bar1DefaultColors = [];
   final _bar1HighlightColors = [
     const Color.fromRGBO(249, 201, 77, 1),
     const Color.fromRGBO(250, 126, 92, 1),
     const Color.fromRGBO(232, 54, 149, 1),
     const Color.fromRGBO(109, 25, 134, 1),
   ];
-  final _bar2DefaultColors = [
-    Colors.black54,
-    Colors.black26,
-  ];
+  final List<Color> _bar2DefaultColors = [];
   final _bar2HighlightColors = [
     const Color.fromRGBO(201, 255, 254, 1),
     const Color.fromRGBO(51, 212, 232, 1),
@@ -75,6 +72,9 @@ class _OverviewParallaxState extends State<OverviewParallax> {
   @override
   void initState() {
     super.initState();
+
+    _bar1DefaultColors.addAll(widget.darkMode ? [Colors.white24, Colors.white12] : [Colors.black26, Colors.black12]);
+    _bar2DefaultColors.addAll(widget.darkMode ? [Colors.white54, Colors.white24] : [Colors.black54, Colors.black26]);
 
     // Alle Farblisten am Anfang und Ende mit der entsprechenden transparenten Farbe erweitern
     final colorLists = [_bar1DefaultColors, _bar2DefaultColors, _bar1HighlightColors, _bar2HighlightColors];

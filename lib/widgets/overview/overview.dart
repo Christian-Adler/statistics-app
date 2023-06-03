@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_layout.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/globals.dart';
+import '../../utils/theme_utils.dart';
 import '../layout/single_child_scroll_view_with_scrollbar.dart';
 import 'overview_footer.dart';
 import 'overview_navigation_buttons.dart';
@@ -38,6 +39,7 @@ class OverviewBody extends StatelessWidget {
     if (appLayout.enableOverviewParallax) {
       return OverviewParallax(
         key: GlobalKeys.overviewParallaxKey,
+        darkMode: ThemeUtils.isDarkMode(context),
       );
     }
 
