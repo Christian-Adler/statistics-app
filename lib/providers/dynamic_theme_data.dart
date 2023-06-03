@@ -50,8 +50,9 @@ class DynamicThemeData with ChangeNotifier {
   );
   static final _purpleAmberColorsDark = _purpleAmberColorsLight.copyWidth(
       primary: ColorUtils.customMaterialColor(const Color.fromRGBO(255, 145, 0, 1.0)),
-      gradientColors: [Colors.deepPurple.shade900, Colors.amber.shade800, Colors.amber],
+      gradientColors: [const Color(0xff4c1a57), Colors.amber.shade800, Colors.amber],
       onGradientColor: Colors.white);
+
   static final _blueGreenColorsLight = _ThemeColors(
     primary: ColorUtils.customMaterialColor(const Color(0xff00a8aa)),
     secondary: ColorUtils.customMaterialColor(const Color(0xffa6e300)),
