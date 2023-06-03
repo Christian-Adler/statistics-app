@@ -37,8 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fl_chart: ^0.62.0
   provider: ^6.0.5
-  intl: ^0.18.0
-  http: ^0.13.5
+  http: ^1.0.0
   # minSdk 18! https://stackoverflow.com/questions/52060516/flutter-how-to-change-android-minsdkversion-in-flutter-project
   flutter_secure_storage: ^8.0.0
   flutter_commons:
@@ -46,6 +45,9 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   package_info_plus: ^4.0.0
   sensors_plus: ^3.0.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # The following line is required for i18n
+  generate: true
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/eagle_logo.jpg
@@ -113,3 +118,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
