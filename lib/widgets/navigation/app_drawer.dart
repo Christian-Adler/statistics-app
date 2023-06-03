@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
+import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
 import '../../utils/nav/navigation_utils.dart';
 import '../logo/eagle_logo.dart';
@@ -40,6 +41,7 @@ class AppDrawer extends StatelessWidget {
             // icon: const Icon(Icons.exit_to_app))
             icon: const Icon(Icons.close))
       ],
+      actionsColor: ColorUtils.getThemeOnGradientColor(context),
     );
 
     GlobalSettings.appBarHeight = statisticsAppBarWithTitles.preferredSize.height;

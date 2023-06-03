@@ -19,7 +19,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
   List<Widget> _buildNavItems(BuildContext context) {
     final onActiveColor = ColorUtils.getThemeOnGradientColor(context);
-
+    final themeData = Theme.of(context);
     final actRouteName = Provider.of<MainNavigation>(context).mainPageRoute;
 
     List<Widget> result = [];
@@ -61,7 +61,10 @@ class NavigationMenuItemsVertical extends StatelessWidget {
 
         result.add(widget);
       } else if (navItem.isDividerSmall) {
-        result.add(const Divider(height: 1));
+        result.add(Divider(
+          height: 1,
+          color: themeData.indicatorColor.withOpacity(0.3),
+        ));
       } else if (navItem.isDividerLarge) {
         result.add(const _GradientDivider());
       }

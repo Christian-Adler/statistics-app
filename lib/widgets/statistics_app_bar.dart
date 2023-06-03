@@ -9,13 +9,13 @@ class StatisticsAppBar extends GradientAppBar {
     BuildContext context, {
     super.key,
     List<Widget>? actions,
+    Color? actionsColor,
     bool automaticallyImplyLeading = true,
   }) : super(
           title: title,
           gradientColors: ColorUtils.getThemeGradientColors(context),
-          foregroundColor: ColorUtils.getThemeOnGradientColor(context),
           actions: actions,
-          actionsColor: Theme.of(context).primaryColor,
+          actionsColor: actionsColor,
           automaticallyImplyLeading: automaticallyImplyLeading,
         );
 }

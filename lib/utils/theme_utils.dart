@@ -16,7 +16,11 @@ class ThemeUtils {
       primaryColorDark: Colors.grey.shade900,
       canvasColor: dark ? Colors.black : Colors.white,
       indicatorColor: dark ? Colors.white : Colors.black,
-      appBarTheme: AppBarTheme(systemOverlayStyle: (dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light)),
+      appBarTheme: AppBarTheme(
+          backgroundColor: dynamicThemeData.getGradientColors(dark).first,
+          foregroundColor: dynamicThemeData.getOnGradientColor(dark),
+          actionsIconTheme: IconThemeData(color: dark ? Colors.black : Colors.white),
+          systemOverlayStyle: (dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light)),
       colorScheme:
           ColorScheme.fromSeed(seedColor: dynamicThemeData.getPrimaryColor(dark), brightness: brightness).copyWith(
         primary: dynamicThemeData.getPrimaryColor(dark),
@@ -32,6 +36,7 @@ class ThemeUtils {
       drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: drawerBackgroundColor),
       // dividerColor: dividerColor, // Trenner bei MenuItems-Gruppierung
       scaffoldBackgroundColor: scaffoldBackgroundColor /* otherwise white|black */,
+
       scrollbarTheme: Theme.of(context).scrollbarTheme.copyWith(
             thumbColor: MaterialStatePropertyAll(dynamicThemeData.getPrimaryColor(dark)),
             radius: Radius.zero,
