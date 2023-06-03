@@ -77,7 +77,13 @@ class _AppThemeSettings extends StatelessWidget {
         ),
         Row(
           children: [
-            const Text('Theme setzen'),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Text(
+                'Theme setzen',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
             IconButton(
               icon: const Icon(
                 Icons.color_lens_rounded,
@@ -85,18 +91,17 @@ class _AppThemeSettings extends StatelessWidget {
               ),
               onPressed: () {
                 final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                // dynamicThemeData.primaryColor = Colors.purple;
                 dynamicThemeData.setPurpleTheme();
               },
             ),
-            IconButton(
+            IconButton.outlined(
+              // outlined geht nur mit useMaterial3:true :(
               icon: const Icon(
                 Icons.color_lens_rounded,
                 color: Color(0xff00a8aa),
               ),
               onPressed: () {
                 final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                // dynamicThemeData.primaryColor = Colors.blue;
                 dynamicThemeData.setBlueTheme();
               },
             ),
