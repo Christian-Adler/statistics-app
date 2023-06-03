@@ -96,7 +96,7 @@ class OperatingChart extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 5),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.left,
         ),
       ),

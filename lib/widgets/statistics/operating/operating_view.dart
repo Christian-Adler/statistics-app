@@ -80,8 +80,10 @@ class _OperatingState extends State<_Operating> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Center(
+                    child: Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
+                        style: Theme.of(context).textTheme.titleLarge),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
