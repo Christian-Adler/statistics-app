@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/statistics/heart/heart_add_value.dart';
@@ -7,7 +8,7 @@ import '../../widgets/statistics_app_bar.dart';
 
 class HeartAddValueScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Blutdruck eintragen',
+    (ctx) => S.of(ctx).screenTitleHeartAddValue,
     Icons.add,
     '/heart/add',
     () => const HeartAddValueScreen(),
@@ -29,7 +30,7 @@ class _HeartAddValueScreenState extends State<HeartAddValueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        Text(HeartAddValueScreen.screenNavInfo.title),
+        Text(HeartAddValueScreen.screenNavInfo.titleBuilder(context)),
         context,
         actions: [IconButton(onPressed: _saveHandler, icon: const Icon(Icons.save))],
       ),

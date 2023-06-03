@@ -24,6 +24,26 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("Englisch"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
-        "localeNameSystem": MessageLookupByLibrary.simpleMessage("System")
+        "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "logout": MessageLookupByLibrary.simpleMessage("Abmelden"),
+        "screenTitleCar": MessageLookupByLibrary.simpleMessage("Tanken"),
+        "screenTitleCarAddValue":
+            MessageLookupByLibrary.simpleMessage("Tanken eintragen"),
+        "screenTitleHeart": MessageLookupByLibrary.simpleMessage("Blutdruck"),
+        "screenTitleHeartAddValue":
+            MessageLookupByLibrary.simpleMessage("Blutdruck eintragen"),
+        "screenTitleInfo": MessageLookupByLibrary.simpleMessage("Info"),
+        "screenTitleOperating":
+            MessageLookupByLibrary.simpleMessage("Nebenkosten"),
+        "screenTitleOperatingAddValue":
+            MessageLookupByLibrary.simpleMessage("Betriebskosten eintragen"),
+        "screenTitleOverview":
+            MessageLookupByLibrary.simpleMessage("Übersicht"),
+        "screenTitleSettings":
+            MessageLookupByLibrary.simpleMessage("Einstellungen"),
+        "screenTitleSolarPower":
+            MessageLookupByLibrary.simpleMessage("Solar-Strom"),
+        "screenTitleSolarPowerAddValue": MessageLookupByLibrary.simpleMessage(
+            "Solar-Energie-Ertrag eintragen")
       };
 }

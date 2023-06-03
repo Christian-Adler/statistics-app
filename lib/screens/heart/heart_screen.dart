@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/nav/navigation_utils.dart';
@@ -13,7 +14,7 @@ import 'heart_add_value_screen.dart';
 
 class HeartScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Blutdruck',
+    (ctx) => S.of(ctx).screenTitleHeart,
     Icons.monitor_heart_outlined,
     '/heart',
     () => HeartScreen(key: GlobalKeys.heartScreenState),
@@ -39,14 +40,14 @@ class HeartScreenState extends State<HeartScreen> {
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
       showDialog(
           context: context,
-          builder: (context) {
+          builder: (ctx) {
             return AlertDialog(
-              title: Text(HeartAddValueScreen.screenNavInfo.title),
+              title: Text(HeartAddValueScreen.screenNavInfo.titleBuilder(ctx)),
               content: HeartAddValue(key: GlobalKeys.heartAddValueState),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(ctx);
                     },
                     child: const Text('Abbrechen')),
                 TextButton(
@@ -68,12 +69,12 @@ class HeartScreenState extends State<HeartScreen> {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: HeartScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(HeartScreen.screenNavInfo.title),
+        Text(HeartScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
         actions: [
           IconButton(
             onPressed: () => showAddValue(ctx),
-            tooltip: HeartAddValueScreen.screenNavInfo.title,
+            tooltip: HeartAddValueScreen.screenNavInfo.titleBuilder(ctx),
             icon: Icon(HeartAddValueScreen.screenNavInfo.iconData),
           ),
         ],

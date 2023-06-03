@@ -15,7 +15,7 @@ class NavigationItem extends NavigationItemBase {
 
   IconData get iconData => screenNavInfo.iconData;
 
-  String get title => screenNavInfo.title;
+  String getTitle(BuildContext context) => screenNavInfo.titleBuilder(context);
 
   void onNav(BuildContext context) {
     var navOverride = onNavOverride;

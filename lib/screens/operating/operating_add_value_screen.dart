@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/statistics/operating/operating_add_value.dart';
@@ -7,7 +8,7 @@ import '../../widgets/statistics_app_bar.dart';
 
 class OperatingAddValueScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Betriebskosten eintragen',
+    (ctx) => S.of(ctx).screenTitleOperatingAddValue,
     Icons.add,
     '/operating/add',
     () => const OperatingAddValueScreen(),
@@ -29,7 +30,7 @@ class _OperatingAddValueScreenState extends State<OperatingAddValueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        Text(OperatingAddValueScreen.screenNavInfo.title),
+        Text(OperatingAddValueScreen.screenNavInfo.titleBuilder(context)),
         context,
         actions: [IconButton(onPressed: _saveHandler, icon: const Icon(Icons.save))],
       ),

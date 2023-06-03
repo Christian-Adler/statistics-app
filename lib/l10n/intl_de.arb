@@ -2,5 +2,17 @@
   "@@locale": "de",
   "localeNameSystem": "System",
   "localeNameEnglish": "Englisch",
-  "localeNameGerman": "Deutsch"
+  "localeNameGerman": "Deutsch",
+  "logout": "Abmelden",
+  "screenTitleOverview": "Übersicht",
+  "screenTitleOperating": "Nebenkosten",
+  "screenTitleOperatingAddValue": "Betriebskosten eintragen",
+  "screenTitleSolarPower": "Solar-Strom",
+  "screenTitleSolarPowerAddValue": "Solar-Energie-Ertrag eintragen",
+  "screenTitleCar": "Tanken",
+  "screenTitleCarAddValue": "Tanken eintragen",
+  "screenTitleHeart": "Blutdruck",
+  "screenTitleHeartAddValue": "Blutdruck eintragen",
+  "screenTitleSettings": "Einstellungen",
+  "screenTitleInfo": "Info"
 }

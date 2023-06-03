@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ScreenNavInfo {
-  final String title;
+  final String Function(BuildContext) titleBuilder;
   final IconData iconData;
   final String routeName;
 
@@ -9,5 +9,6 @@ class ScreenNavInfo {
 
   final GlobalKey<NavigatorState>? screensNestedNavigatorKey;
 
-  const ScreenNavInfo(this.title, this.iconData, this.routeName, this.createScreen, {this.screensNestedNavigatorKey});
+  const ScreenNavInfo(this.titleBuilder, this.iconData, this.routeName, this.createScreen,
+      {this.screensNestedNavigatorKey});
 }

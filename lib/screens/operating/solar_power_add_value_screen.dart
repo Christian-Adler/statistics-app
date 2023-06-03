@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/statistics/operating/solar_power_add_value.dart';
@@ -7,7 +8,7 @@ import '../../widgets/statistics_app_bar.dart';
 
 class SolarPowerAddValueScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Solar Strom eintragen',
+    (ctx) => S.of(ctx).screenTitleSolarPowerAddValue,
     Icons.add,
     '/solar_power/add',
     () => const SolarPowerAddValueScreen(),
@@ -29,7 +30,7 @@ class _SolarPowerAddValueScreenState extends State<SolarPowerAddValueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        Text(SolarPowerAddValueScreen.screenNavInfo.title),
+        Text(SolarPowerAddValueScreen.screenNavInfo.titleBuilder(context)),
         context,
         actions: [IconButton(onPressed: _saveHandler, icon: const Icon(Icons.save))],
       ),

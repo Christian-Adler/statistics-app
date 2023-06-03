@@ -12,7 +12,7 @@ import '../utils/globals.dart';
 
 class AuthScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Auth',
+    (ctx) => 'Auth',
     Icons.login,
     '/auth',
     () => const AuthScreen(),

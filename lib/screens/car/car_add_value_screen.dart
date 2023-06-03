@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../widgets/statistics/car/car_add_value.dart';
@@ -7,7 +8,7 @@ import '../../widgets/statistics_app_bar.dart';
 
 class CarAddValueScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Tanken eintragen',
+    (ctx) => S.of(ctx).screenTitleCarAddValue,
     Icons.add,
     '/car/add',
     () => const CarAddValueScreen(),
@@ -29,7 +30,7 @@ class _CarAddValueScreenState extends State<CarAddValueScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: StatisticsAppBar(
-        Text(CarAddValueScreen.screenNavInfo.title),
+        Text(CarAddValueScreen.screenNavInfo.titleBuilder(context)),
         context,
         actions: [IconButton(onPressed: _saveHandler, icon: const Icon(Icons.save))],
       ),

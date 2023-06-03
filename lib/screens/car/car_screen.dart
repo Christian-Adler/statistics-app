@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/nav/navigation_utils.dart';
@@ -16,7 +17,7 @@ import 'car_add_value_screen.dart';
 
 class CarScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Tanken',
+    (ctx) => S.of(ctx).screenTitleCar,
     Icons.directions_car_outlined,
     '/car',
     () => CarScreen(key: GlobalKeys.carScreenState),
@@ -42,14 +43,14 @@ class CarScreenState extends State<CarScreen> {
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
       showDialog(
           context: context,
-          builder: (context) {
+          builder: (ctx) {
             return AlertDialog(
-              title: Text(CarAddValueScreen.screenNavInfo.title),
+              title: Text(CarAddValueScreen.screenNavInfo.titleBuilder(ctx)),
               content: CarAddValue(key: GlobalKeys.carAddValueState),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(ctx);
                     },
                     child: const Text('Abbrechen')),
                 TextButton(
@@ -74,7 +75,7 @@ class CarScreenState extends State<CarScreen> {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: CarScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(CarScreen.screenNavInfo.title),
+        Text(CarScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
         actions: [
           if (isLandscapeTablet) // als Test zur Veranschaulichung
@@ -84,7 +85,7 @@ class CarScreenState extends State<CarScreen> {
               // Der ctx ist unterhalb des nested navigators und findet daher diesen.
               // Wuerde man context verwenden, waere man im Context ueberhalb des nested Navigators
               // - daher wuerde dann der Root-navigator der App gefunden und dessen Stack verwendet.
-              tooltip: CarAddValueScreen.screenNavInfo.title,
+              tooltip: CarAddValueScreen.screenNavInfo.titleBuilder(ctx),
               icon: const Icon(Icons.add_box_outlined),
             ),
           IconButton(
@@ -93,7 +94,7 @@ class CarScreenState extends State<CarScreen> {
             // Der ctx ist unterhalb des nested navigators und findet daher diesen.
             // Wuerde man context verwenden, waere man im Context ueberhalb des nested Navigators
             // - daher wuerde dann der Root-navigator der App gefunden und dessen Stack verwendet.
-            tooltip: CarAddValueScreen.screenNavInfo.title,
+            tooltip: CarAddValueScreen.screenNavInfo.titleBuilder(ctx),
             icon: Icon(CarAddValueScreen.screenNavInfo.iconData),
           ),
         ],

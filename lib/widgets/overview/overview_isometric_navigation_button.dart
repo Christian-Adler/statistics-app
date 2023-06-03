@@ -60,7 +60,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
             Positioned(
               top: 90 + 5,
               left: 90 + 25,
-              width: 155,
+              width: 160,
               height: 45,
               child: Transform(
                 transform: Matrix4.skewY(-0.52),
@@ -80,7 +80,8 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(screenNavInfo.title, style: TextStyle(color: edgeColors.first, fontSize: 20)),
+                        child: Text(screenNavInfo.titleBuilder(context),
+                            style: TextStyle(color: edgeColors.first, fontSize: 20)),
                       ),
                     ),
                     Container(

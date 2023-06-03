@@ -79,6 +79,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview`
+  String get screenTitleOverview {
+    return Intl.message(
+      'Overview',
+      name: 'screenTitleOverview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operating`
+  String get screenTitleOperating {
+    return Intl.message(
+      'Operating',
+      name: 'screenTitleOperating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter operating costs`
+  String get screenTitleOperatingAddValue {
+    return Intl.message(
+      'Enter operating costs',
+      name: 'screenTitleOperatingAddValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Solar power`
+  String get screenTitleSolarPower {
+    return Intl.message(
+      'Solar power',
+      name: 'screenTitleSolarPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter solar power yield`
+  String get screenTitleSolarPowerAddValue {
+    return Intl.message(
+      'Enter solar power yield',
+      name: 'screenTitleSolarPowerAddValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refuel`
+  String get screenTitleCar {
+    return Intl.message(
+      'Refuel',
+      name: 'screenTitleCar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter refuel`
+  String get screenTitleCarAddValue {
+    return Intl.message(
+      'Enter refuel',
+      name: 'screenTitleCarAddValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blood pressure`
+  String get screenTitleHeart {
+    return Intl.message(
+      'Blood pressure',
+      name: 'screenTitleHeart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter blood pressure`
+  String get screenTitleHeartAddValue {
+    return Intl.message(
+      'Enter blood pressure',
+      name: 'screenTitleHeartAddValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get screenTitleSettings {
+    return Intl.message(
+      'Settings',
+      name: 'screenTitleSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get screenTitleInfo {
+    return Intl.message(
+      'Info',
+      name: 'screenTitleInfo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

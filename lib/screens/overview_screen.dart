@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/global_keys.dart';
 import '../widgets/logo/eagle_logo.dart';
@@ -10,7 +11,7 @@ import '../widgets/statistics_app_bar.dart';
 
 class OverviewScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Übersicht',
+    (ctx) => S.of(ctx).screenTitleOverview,
     Icons.home_outlined,
     '/overview',
     () => const OverviewScreen(),
@@ -27,7 +28,7 @@ class OverviewScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(OverviewScreen.screenNavInfo.title),
+            Text(OverviewScreen.screenNavInfo.titleBuilder(ctx)),
             const EagleLogo(),
           ],
         ),

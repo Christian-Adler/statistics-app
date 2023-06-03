@@ -7,7 +7,7 @@ import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Splash',
+    (_) => 'Splash',
     Icons.start,
     '/splash_screen',
     () => const SplashScreen(),

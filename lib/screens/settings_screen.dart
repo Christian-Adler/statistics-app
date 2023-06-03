@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/global_keys.dart';
 import '../utils/hide_bottom_navigation_bar.dart';
@@ -15,7 +16,7 @@ import '../widgets/statistics_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Einstellungen',
+    (ctx) => S.of(ctx).screenTitleSettings,
     Icons.settings,
     '/settings_screen',
     () => const SettingsScreen(),
@@ -29,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: SettingsScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(SettingsScreen.screenNavInfo.title),
+        Text(SettingsScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
       ),
       bodyBuilder: (ctx) => const _SettingsScreenBody(),

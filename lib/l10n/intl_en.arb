@@ -2,5 +2,17 @@
   "@@locale": "en",
   "localeNameSystem": "System",
   "localeNameEnglish": "English",
-  "localeNameGerman": "German"
+  "localeNameGerman": "German",
+  "logout": "Logout",
+  "screenTitleOverview": "Overview",
+  "screenTitleOperating": "Operating",
+  "screenTitleOperatingAddValue": "Enter operating costs",
+  "screenTitleSolarPower": "Solar power",
+  "screenTitleSolarPowerAddValue": "Enter solar power yield",
+  "screenTitleCar": "Refuel",
+  "screenTitleCarAddValue": "Enter refuel",
+  "screenTitleHeart": "Blood pressure",
+  "screenTitleHeartAddValue": "Enter blood pressure",
+  "screenTitleSettings": "Settings",
+  "screenTitleInfo": "Info"
 }

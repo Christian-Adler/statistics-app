@@ -17,7 +17,7 @@ class AppBottomNavigationBar extends StatelessWidget {
     for (var navItem in NavigationItems.navigationBarItems) {
       result.add(BottomNavigationBarItem(
         icon: Icon(navItem.iconData),
-        label: navItem.title,
+        label: navItem.getTitle(context),
       ));
     }
 
@@ -47,7 +47,7 @@ class AppBottomNavigationBar extends StatelessWidget {
         items.add(PopupMenuItem<int>(
             value: i,
             child: ListTile(
-              title: showNavigationTitle ? Text(navItem.title) : Icon(navItem.iconData),
+              title: showNavigationTitle ? Text(navItem.getTitle(context)) : Icon(navItem.iconData),
               leading: showNavigationTitle ? Icon(navItem.iconData) : null,
               // onTap: () { // dann geht das Menu nicht zu... :/
               //   navItem.onNav(context, navigator);

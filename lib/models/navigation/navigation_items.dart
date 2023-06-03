@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
 import '../../screens/car/car_screen.dart';
 import '../../screens/heart/heart_screen.dart';
 import '../../screens/info_screen.dart';
@@ -17,7 +18,7 @@ import 'screen_nav_info.dart';
 class NavigationItems {
   static final NavigationItem _logoutNavigationItem = NavigationItem(
     ScreenNavInfo(
-      'Logout',
+      (context) => S.of(context).logout,
       Icons.exit_to_app,
       '/logout',
       () => Container(),

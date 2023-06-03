@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/nav/navigation_utils.dart';
@@ -13,7 +14,7 @@ import 'solar_power_add_value_screen.dart';
 
 class SolarPowerScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Solar-Strom',
+    (ctx) => S.of(ctx).screenTitleSolarPower,
     Icons.solar_power_outlined,
     '/solar_power',
     () => SolarPowerScreen(key: GlobalKeys.solarPowerScreenState),
@@ -47,14 +48,14 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
       showDialog(
           context: context,
-          builder: (context) {
+          builder: (ctx) {
             return AlertDialog(
-              title: Text(SolarPowerAddValueScreen.screenNavInfo.title),
+              title: Text(SolarPowerAddValueScreen.screenNavInfo.titleBuilder(ctx)),
               content: SolarPowerAddValue(key: GlobalKeys.solarPowerAddValueState),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(ctx);
                     },
                     child: const Text('Abbrechen')),
                 TextButton(
@@ -76,7 +77,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: SolarPowerScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(SolarPowerScreen.screenNavInfo.title),
+        Text(SolarPowerScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
         actions: [
           IconButton(
@@ -86,7 +87,7 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
           ),
           IconButton(
             onPressed: () => showAddValue(ctx),
-            tooltip: SolarPowerAddValueScreen.screenNavInfo.title,
+            tooltip: SolarPowerAddValueScreen.screenNavInfo.titleBuilder(ctx),
             icon: Icon(SolarPowerAddValueScreen.screenNavInfo.iconData),
           ),
         ],

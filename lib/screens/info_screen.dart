@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../generated/l10n.dart';
 import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/about_dlg.dart';
@@ -17,7 +18,7 @@ import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Info',
+    (ctx) => S.of(ctx).screenTitleInfo,
     Icons.info_outline,
     '/info_screen',
     () => const InfoScreen(),
@@ -30,7 +31,7 @@ class InfoScreen extends StatelessWidget {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: InfoScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(InfoScreen.screenNavInfo.title),
+        Text(InfoScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
       ),
       bodyBuilder: (ctx) => const _InfoScreenBody(),

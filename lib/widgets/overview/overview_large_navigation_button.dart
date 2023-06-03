@@ -41,8 +41,8 @@ class OverviewLargeNavigationButton extends StatelessWidget {
             right: 2,
             width: 218,
             height: 98,
-            child: _ColoredIconButton(
-                screenNavInfo.routeName, screenNavInfo.title, screenNavInfo.iconData, edgeColors[0], edgeColors[1]),
+            child: _ColoredIconButton(screenNavInfo.routeName, screenNavInfo.titleBuilder(context),
+                screenNavInfo.iconData, edgeColors[0], edgeColors[1]),
           ),
         ],
       ),

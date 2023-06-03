@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/navigation/screen_nav_info.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/nav/navigation_utils.dart';
@@ -13,7 +14,7 @@ import 'operating_add_value_screen.dart';
 
 class OperatingScreen extends StatefulWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
-    'Nebenkosten',
+    (ctx) => S.of(ctx).screenTitleOperating,
     Icons.power_input_outlined,
     '/operating',
     () => OperatingScreen(key: GlobalKeys.operatingScreenState),
@@ -47,14 +48,14 @@ class OperatingScreenState extends State<OperatingScreen> {
     if (mediaQueryInfo.isTablet && mediaQueryInfo.isPortrait) {
       showDialog(
           context: context,
-          builder: (context) {
+          builder: (ctx) {
             return AlertDialog(
-              title: Text(OperatingAddValueScreen.screenNavInfo.title),
+              title: Text(OperatingAddValueScreen.screenNavInfo.titleBuilder(ctx)),
               content: OperatingAddValue(key: GlobalKeys.operatingAddValueState),
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(ctx);
                     },
                     child: const Text('Abbrechen')),
                 TextButton(
@@ -76,7 +77,7 @@ class OperatingScreenState extends State<OperatingScreen> {
     return ScreenLayoutBuilder(
       createNestedNavigatorWithKey: OperatingScreen.screenNavInfo.screensNestedNavigatorKey,
       appBarBuilder: (ctx) => StatisticsAppBar(
-        Text(OperatingScreen.screenNavInfo.title),
+        Text(OperatingScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
         actions: [
           IconButton(
@@ -86,7 +87,7 @@ class OperatingScreenState extends State<OperatingScreen> {
           ),
           IconButton(
             onPressed: () => showAddValue(ctx),
-            tooltip: OperatingAddValueScreen.screenNavInfo.title,
+            tooltip: OperatingAddValueScreen.screenNavInfo.titleBuilder(ctx),
             icon: Icon(OperatingAddValueScreen.screenNavInfo.iconData),
           ),
         ],

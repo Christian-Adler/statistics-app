@@ -24,6 +24,25 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("German"),
-        "localeNameSystem": MessageLookupByLibrary.simpleMessage("System")
+        "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "screenTitleCar": MessageLookupByLibrary.simpleMessage("Refuel"),
+        "screenTitleCarAddValue":
+            MessageLookupByLibrary.simpleMessage("Enter refuel"),
+        "screenTitleHeart":
+            MessageLookupByLibrary.simpleMessage("Blood pressure"),
+        "screenTitleHeartAddValue":
+            MessageLookupByLibrary.simpleMessage("Enter blood pressure"),
+        "screenTitleInfo": MessageLookupByLibrary.simpleMessage("Info"),
+        "screenTitleOperating":
+            MessageLookupByLibrary.simpleMessage("Operating"),
+        "screenTitleOperatingAddValue":
+            MessageLookupByLibrary.simpleMessage("Enter operating costs"),
+        "screenTitleOverview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "screenTitleSettings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "screenTitleSolarPower":
+            MessageLookupByLibrary.simpleMessage("Solar power"),
+        "screenTitleSolarPowerAddValue":
+            MessageLookupByLibrary.simpleMessage("Enter solar power yield")
       };
 }

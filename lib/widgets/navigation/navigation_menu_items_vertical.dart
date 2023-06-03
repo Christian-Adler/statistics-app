@@ -45,7 +45,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
               selected: isActNavItem,
               title: showNavigationTitle
                   ? Text(
-                      navItem.title,
+                      navItem.getTitle(context),
                       style: TextStyle(
                           color: isActNavItem ? onActiveColor : null,
                           fontWeight: isActNavItem ? FontWeight.bold : null),
