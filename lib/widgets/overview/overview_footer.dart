@@ -9,24 +9,26 @@ class OverviewFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onGradientColor = ColorUtils.getThemeOnGradientColor(context);
     return Container(
       height: 44,
       decoration: BoxDecoration(
         gradient: ColorUtils.getThemeLinearGradient(context),
-        color: ColorUtils.getThemeOnGradientColor(context),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 10),
-          const Icon(
+          Icon(
             Icons.alternate_email,
+            color: onGradientColor,
           ),
           const SizedBox(width: 10),
           Text(
             Provider.of<Auth>(context, listen: false).serverUrl,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: onGradientColor,
             ),
           ),
         ],
