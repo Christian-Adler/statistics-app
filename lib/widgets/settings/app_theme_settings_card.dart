@@ -80,14 +80,14 @@ class _AppThemeSettings extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Text(
-                'Theme setzen',
+                'Hauptfarbe wählen',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.color_lens_rounded,
-                color: Colors.purple,
+                color: Colors.purple.shade700,
               ),
               onPressed: () {
                 final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
