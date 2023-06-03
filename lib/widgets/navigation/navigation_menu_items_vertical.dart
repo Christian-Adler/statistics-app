@@ -35,7 +35,8 @@ class NavigationMenuItemsVertical extends StatelessWidget {
         var navIcon = Icon(navItem.iconData, color: isActNavItem ? onActiveColor : null);
         final widget = Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 4, right: 8),
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
             decoration: BoxDecoration(
               gradient: isActNavItem ? ColorUtils.getThemeLinearGradient(context) : null,
               borderRadius: const BorderRadius.only(bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
