@@ -128,7 +128,7 @@ class _TableHeadSeparator extends StatelessWidget {
             margin: const EdgeInsets.only(top: 4),
             height: 1,
             width: 320 * widthFactor,
-            color: Colors.grey.shade400,
+            color: Theme.of(context).indicatorColor.withOpacity(0.5),
           ),
         ],
       ),
@@ -165,6 +165,12 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
   @override
   Widget build(BuildContext context) {
     final bloodPressureItems = Provider.of<Heart>(context).bloodPressureItems;
+
+    var indicatorColor = Theme.of(context).indicatorColor;
+    final separatorColor = indicatorColor.withOpacity(0.05);
+    final tableItemSaturdayColor = indicatorColor.withOpacity(0.05);
+    final tableItemSundayColor = indicatorColor.withOpacity(0.1);
+
     return AnimationLimiter(
       child: Scrollbar(
         controller: _scrollController,
@@ -178,7 +184,7 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
                 Container(
                   height: 1,
                   width: 320 * widget.widthFactor,
-                  color: Colors.grey.shade200,
+                  color: separatorColor,
                 ),
               ],
             ),
@@ -195,7 +201,8 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _BloodPressureTableItem(bloodPressureItems[index], widget.widthFactor),
+                    : _BloodPressureTableItem(
+                        bloodPressureItems[index], widget.widthFactor, tableItemSaturdayColor, tableItemSundayColor),
               ),
             ),
           ),
@@ -209,14 +216,16 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
 class _BloodPressureTableItem extends StatelessWidget {
   final BloodPressureItem _bloodPressureItem;
   final double widthFactor;
+  final Color saturdayColor;
+  final Color sundayColor;
 
-  _BloodPressureTableItem(this._bloodPressureItem, this.widthFactor) : super(key: ValueKey(_bloodPressureItem.date));
+  _BloodPressureTableItem(this._bloodPressureItem, this.widthFactor, this.saturdayColor, this.sundayColor)
+      : super(key: ValueKey(_bloodPressureItem.date));
 
   @override
   Widget build(BuildContext context) {
-    final Color? bgColor = _bloodPressureItem.date.startsWith('So')
-        ? Colors.grey.shade300
-        : (_bloodPressureItem.date.startsWith('Sa') ? Colors.grey.shade200 : null);
+    final date = _bloodPressureItem.date;
+    final Color? bgColor = date.startsWith('So') ? sundayColor : (date.startsWith('Sa') ? saturdayColor : null);
 
     return Center(
       child: Container(
@@ -229,7 +238,7 @@ class _BloodPressureTableItem extends StatelessWidget {
           children: [
             SizedBox(
               width: 110 * widthFactor,
-              child: Text(_bloodPressureItem.date),
+              child: Text(date),
             ),
             SizedBox(
               width: 70 * widthFactor,

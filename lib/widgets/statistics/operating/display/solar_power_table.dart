@@ -51,7 +51,10 @@ class SolarPowerTable extends StatelessWidget {
           4: FlexColumnWidth(),
         },
         border: TableBorder.symmetric(
-          inside: const BorderSide(width: 1, color: Colors.black12),
+          inside: BorderSide(
+            width: 1,
+            color: Theme.of(context).indicatorColor.withOpacity(0.2),
+          ),
         ),
         children: rows,
       );

@@ -132,7 +132,7 @@ class _TableHeadSeparator extends StatelessWidget {
             margin: const EdgeInsets.only(top: 4),
             height: 1,
             width: 320 * widthFactor, //250+70
-            color: Colors.grey.shade400,
+            color: Theme.of(context).indicatorColor.withOpacity(0.5),
           ),
         ],
       ),
@@ -170,12 +170,14 @@ class _CarRefuelTableState extends State<_CarRefuelTable> {
   Widget build(BuildContext context) {
     final carRefuelItems = Provider.of<Car>(context).carRefuelItems;
 
+    final separatorColor = Theme.of(context).indicatorColor.withOpacity(0.2);
+
     return AnimationLimiter(
       child: Scrollbar(
         controller: _scrollController,
         child: ListView.separated(
           controller: _scrollController,
-          separatorBuilder: (context, index) => SizedBox(
+          separatorBuilder: (ctx, index) => SizedBox(
             height: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +185,7 @@ class _CarRefuelTableState extends State<_CarRefuelTable> {
                 Container(
                   height: 1,
                   width: 250 * widget.widthFactor,
-                  color: Colors.grey.shade200,
+                  color: separatorColor,
                 ),
                 Container(
                   width: 70 * widget.widthFactor,
