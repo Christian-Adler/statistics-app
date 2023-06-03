@@ -55,6 +55,9 @@ class _AppThemeSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final dynamicThemeData = Provider.of<DynamicThemeData>(context);
 
+    var themeData = Theme.of(context);
+    var activeColorBorder = Border(bottom: BorderSide(color: themeData.colorScheme.primary));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -81,29 +84,35 @@ class _AppThemeSettings extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Text(
                 'Hauptfarbe wählen',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: themeData.textTheme.titleMedium,
               ),
             ),
-            IconButton(
-              icon: Icon(
-                Icons.color_lens_rounded,
-                color: Colors.purple.shade700,
+            Container(
+              decoration: BoxDecoration(border: dynamicThemeData.usePurpleTheme ? activeColorBorder : null),
+              child: IconButton(
+                icon: Icon(
+                  Icons.color_lens_rounded,
+                  color: Colors.purple.shade700,
+                ),
+                onPressed: () {
+                  final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+                  dynamicThemeData.setPurpleTheme();
+                },
               ),
-              onPressed: () {
-                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                dynamicThemeData.setPurpleTheme();
-              },
             ),
-            IconButton.outlined(
-              // outlined geht nur mit useMaterial3:true :(
-              icon: const Icon(
-                Icons.color_lens_rounded,
-                color: Color(0xff00a8aa),
+            Container(
+              decoration: BoxDecoration(border: dynamicThemeData.usePurpleTheme ? null : activeColorBorder),
+              child: IconButton.outlined(
+                // outlined geht nur mit useMaterial3:true :(
+                icon: const Icon(
+                  Icons.color_lens_rounded,
+                  color: Color(0xff00a8aa),
+                ),
+                onPressed: () {
+                  final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
+                  dynamicThemeData.setBlueTheme();
+                },
               ),
-              onPressed: () {
-                final dynamicThemeData = Provider.of<DynamicThemeData>(context, listen: false);
-                dynamicThemeData.setBlueTheme();
-              },
             ),
           ],
         ),

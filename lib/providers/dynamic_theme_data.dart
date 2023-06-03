@@ -104,6 +104,10 @@ class DynamicThemeData with ChangeNotifier {
     }
   }
 
+  bool get usePurpleTheme {
+    return _usePurpleColors;
+  }
+
   setPurpleTheme() {
     _usePurpleColors = true;
     _store();
