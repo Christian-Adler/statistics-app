@@ -81,10 +81,10 @@ class S {
   }
 
   /// `Logout`
-  String get logout {
+  String get commonsLogout {
     return Intl.message(
       'Logout',
-      name: 'logout',
+      name: 'commonsLogout',
       desc: '',
       args: [],
     );

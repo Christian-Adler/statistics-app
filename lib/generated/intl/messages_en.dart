@@ -22,10 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("German"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
-        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "screenTitleCar": MessageLookupByLibrary.simpleMessage("Refuel"),
         "screenTitleCarAddValue":
             MessageLookupByLibrary.simpleMessage("Enter refuel"),

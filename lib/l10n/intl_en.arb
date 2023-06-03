@@ -3,7 +3,7 @@
   "localeNameSystem": "System",
   "localeNameEnglish": "English",
   "localeNameGerman": "German",
-  "logout": "Logout",
+  "commonsLogout": "Logout",
   "screenTitleOverview": "Overview",
   "screenTitleOperating": "Operating",
   "screenTitleOperatingAddValue": "Enter operating costs",

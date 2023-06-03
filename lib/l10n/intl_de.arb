@@ -3,7 +3,7 @@
   "localeNameSystem": "System",
   "localeNameEnglish": "Englisch",
   "localeNameGerman": "Deutsch",
-  "logout": "Abmelden",
+  "commonsLogout": "Abmelden",
   "screenTitleOverview": "Übersicht",
   "screenTitleOperating": "Nebenkosten",
   "screenTitleOperatingAddValue": "Betriebskosten eintragen",
