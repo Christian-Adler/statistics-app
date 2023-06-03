@@ -1,4 +1,6 @@
 {
   "@@locale": "de",
-  "helloWorld": "Hallo Welt"
+  "localeNameSystem": "System",
+  "localeNameEnglish": "Englisch",
+  "localeNameGerman": "Deutsch"
 }

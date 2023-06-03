@@ -6,6 +6,7 @@ import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
+import '../widgets/settings/app_language_settings_card.dart';
 import '../widgets/settings/app_layout_settings_card.dart';
 import '../widgets/settings/app_theme_settings_card.dart';
 import '../widgets/settings/device_storage_card.dart';
@@ -49,6 +50,7 @@ class _SettingsScreenBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            AppLanguageSettingsCard(),
             AppThemeSettingsCard(),
             AppLayoutSettingsCard(),
             ServerCard(),

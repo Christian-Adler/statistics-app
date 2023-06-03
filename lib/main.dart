@@ -4,8 +4,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'generated/l10n.dart';
 import 'models/app_info.dart';
 import 'providers/app_layout.dart';
+import 'providers/app_locale.dart';
 import 'providers/auth.dart';
 import 'providers/car.dart';
 import 'providers/dynamic_theme_data.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (context) => AppLocale(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => DynamicThemeData(),
         ),
         ChangeNotifierProvider(
@@ -67,6 +72,7 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         final auth = Provider.of<Auth>(context);
         final dynamicThemeData = Provider.of<DynamicThemeData>(context);
+        final appLocale = Provider.of<AppLocale>(context);
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -74,7 +80,8 @@ class MyApp extends StatelessWidget {
           themeMode: dynamicThemeData.themeMode,
           theme: ThemeUtils.buildThemeData(dynamicThemeData, context, false),
           darkTheme: ThemeUtils.buildThemeData(dynamicThemeData, context, true),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          locale: appLocale.locale,
+          localizationsDelegates: const [...AppLocalizations.localizationsDelegates, S.delegate],
           supportedLocales: AppLocalizations.supportedLocales,
           home: auth.isAuth
               ? AppLayoutBuilder(

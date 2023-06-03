@@ -50,12 +50,32 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hello World!`
-  String get helloWorld {
+  /// `System`
+  String get localeNameSystem {
     return Intl.message(
-      'Hello World!',
-      name: 'helloWorld',
-      desc: 'The conventional newborn programmer greeting',
+      'System',
+      name: 'localeNameSystem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get localeNameEnglish {
+    return Intl.message(
+      'English',
+      name: 'localeNameEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `German`
+  String get localeNameGerman {
+    return Intl.message(
+      'German',
+      name: 'localeNameGerman',
+      desc: '',
       args: [],
     );
   }
