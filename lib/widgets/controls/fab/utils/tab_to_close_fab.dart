@@ -20,7 +20,7 @@ class TabToCloseFab extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Icon(
                 Icons.close,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
