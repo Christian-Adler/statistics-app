@@ -198,7 +198,6 @@ class _AuthCardState extends State<_AuthCard> {
         child: Column(
           children: <Widget>[
             Card(
-              color: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.only(top: 7),
@@ -231,7 +230,6 @@ class _AuthCardState extends State<_AuthCard> {
             ),
             const SizedBox(height: 5),
             Card(
-              color: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.only(top: 7),
