@@ -20,14 +20,15 @@ class ThemeUtils {
       colorScheme:
           ColorScheme.fromSeed(seedColor: dynamicThemeData.getPrimaryColor(dark), brightness: brightness).copyWith(
         primary: dynamicThemeData.getPrimaryColor(dark),
-        // onPrimary: Colors.white, // Farbe die auf primary verwendet wird.
+        onPrimary: dynamicThemeData.getOnPrimaryColor(dark),
         secondary: dynamicThemeData.getSecondaryColor(dark),
         tertiary: dynamicThemeData.getTertiaryColor(dark),
       ),
-      textTheme: TextTheme(
-        titleLarge: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
-        titleSmall: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
-      ),
+      textTheme: const TextTheme(
+          // titleLarge: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
+          // titleMedium: TextStyle(fontWeight: FontWeight.bold),
+          // titleSmall: TextStyle(color: dynamicThemeData.getPrimaryColor(dark)),
+          ),
       drawerTheme: Theme.of(context).drawerTheme.copyWith(backgroundColor: drawerBackgroundColor),
       // dividerColor: dividerColor, // Trenner bei MenuItems-Gruppierung
       scaffoldBackgroundColor: scaffoldBackgroundColor /* otherwise white|black */,
