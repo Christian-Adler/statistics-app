@@ -65,6 +65,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sprache"),
         "settingsLanguageTitle":
             MessageLookupByLibrary.simpleMessage("Sprache"),
+        "settingsLayoutLabelShowNavigationTitles":
+            MessageLookupByLibrary.simpleMessage(
+                "Texte in Navigation anzeigen (Menü, Navigationsleiste)"),
+        "settingsLayoutLabelShowOverviewIsometricButtons":
+            MessageLookupByLibrary.simpleMessage(
+                "In Übersicht isometrische Buttons anzeigen"),
+        "settingsLayoutLabelShowOverviewParallaxEffect":
+            MessageLookupByLibrary.simpleMessage(
+                "In Übersicht Parallax-Effekt anzeigen (CPU intensiv)"),
+        "settingsLayoutTitle": MessageLookupByLibrary.simpleMessage("Anzeige"),
         "settingsThemeLabelChooseMainColor":
             MessageLookupByLibrary.simpleMessage("Hauptfarbe"),
         "settingsThemeLabelChooseMode":

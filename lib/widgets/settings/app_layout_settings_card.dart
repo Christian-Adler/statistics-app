@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../providers/app_layout.dart';
 import 'settings_card.dart';
 
@@ -26,7 +27,7 @@ class _AppLayoutSettingsCardState extends State<AppLayoutSettingsCard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('App Layout', style: Theme.of(context).textTheme.titleLarge),
+            Text(S.of(context).settingsLayoutTitle, style: Theme.of(context).textTheme.titleLarge),
             IconButton(
               onPressed: () => _toggleExpanded(),
               icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
@@ -64,21 +65,21 @@ class _AppLayoutSettings extends StatelessWidget {
           onChanged: (bool value) {
             appLayout.showNavigationItemTitle = value;
           },
-          title: const Text('Text in Navigation anzeigen'),
+          title: Text(S.of(context).settingsLayoutLabelShowNavigationTitles),
         ),
         SwitchListTile(
           value: appLayout.enableOverviewParallax,
           onChanged: (bool value) {
             appLayout.enableOverviewParallax = value;
           },
-          title: const Text('In Übersicht Parallax-Effekt anzeigen (CPU intensiv)'),
+          title: Text(S.of(context).settingsLayoutLabelShowOverviewParallaxEffect),
         ),
         SwitchListTile(
           value: appLayout.useOverviewIsometricButtons,
           onChanged: (bool value) {
             appLayout.useOverviewIsometricButtons = value;
           },
-          title: const Text('In Übersicht isometrische Buttons verwenden'),
+          title: Text(S.of(context).settingsLayoutLabelShowOverviewIsometricButtons),
         ),
       ],
     );

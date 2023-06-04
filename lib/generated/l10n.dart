@@ -300,6 +300,46 @@ class S {
     );
   }
 
+  /// `Display titles in navigation (drawer, app bar)`
+  String get settingsLayoutLabelShowNavigationTitles {
+    return Intl.message(
+      'Display titles in navigation (drawer, app bar)',
+      name: 'settingsLayoutLabelShowNavigationTitles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display isometric bar buttons in overview`
+  String get settingsLayoutLabelShowOverviewIsometricButtons {
+    return Intl.message(
+      'Display isometric bar buttons in overview',
+      name: 'settingsLayoutLabelShowOverviewIsometricButtons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display parallax effect in overview (cpu consuming)`
+  String get settingsLayoutLabelShowOverviewParallaxEffect {
+    return Intl.message(
+      'Display parallax effect in overview (cpu consuming)',
+      name: 'settingsLayoutLabelShowOverviewParallaxEffect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Layout`
+  String get settingsLayoutTitle {
+    return Intl.message(
+      'Layout',
+      name: 'settingsLayoutTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Mode`
   String get settingsThemeLabelChooseMode {
     return Intl.message(
