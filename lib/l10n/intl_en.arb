@@ -61,5 +61,42 @@
   "settingsThemeModeDark": "Dark Mode",
   "settingsThemeModeLight": "Light Mode",
   "settingsThemeModeSystem": "System Mode",
-  "settingsThemeTitle": "Theme"
+  "settingsThemeTitle": "Theme",
+  "solarPowerChartLegendItemGenerated": "Generated",
+  "solarPowerChartLegendItemFed": "Fed",
+  "solarPowerChartLegendItemConsumption": "Consumption",
+  "solarPowerChartLegendItemTotal": "Total",
+  "solarPowerChartSubLegendPriceAndFee": "Price : {price} €/kWh, Basic fee : {feePerMont} €/Monat",
+  "@solarPowerChartSubLegendPriceAndFee": {
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "1.2"
+      },
+      "feePerMont": {
+        "type": "String",
+        "example": "1.3"
+      }
+    }
+  },
+  "solarPowerTitle": "kWh / {period}",
+  "@solarPowerTitle": {
+    "placeholders": {
+      "period": {
+        "type": "String",
+        "example": "Month"
+      }
+    }
+  },
+  "solarPowerTitlePeriodMonth": "Month",
+  "solarPowerTitlePeriodYear": "Year",
+  "solarPowerTableHeadConsumption": "Consumption",
+  "solarPowerTableHeadConsumptionAbbrev": "Consum.",
+  "solarPowerTableHeadDate": "Date",
+  "solarPowerTableHeadFed": "Fed",
+  "solarPowerTableHeadFedAbbrev": "Fed",
+  "solarPowerTableHeadGenerated": "Generated",
+  "solarPowerTableHeadGeneratedAbbrev": "Gener.",
+  "solarPowerTableHeadTotal": "Total",
+  "solarPowerTableHeadTotalAbbrev": "Total"
 }

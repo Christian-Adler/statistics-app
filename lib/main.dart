@@ -16,6 +16,7 @@ import 'providers/main_navigation.dart';
 import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/splash_screen.dart';
+import 'utils/date_utils.dart';
 import 'utils/theme_utils.dart';
 import 'widgets/navigation/app_bottom_navigation_bar.dart';
 import 'widgets/navigation/main_navigation_stack.dart';
@@ -70,7 +71,6 @@ class MyApp extends StatelessWidget {
         ),
       ],
       builder: (context, _) {
-        final auth = Provider.of<Auth>(context);
         final dynamicThemeData = Provider.of<DynamicThemeData>(context);
         final appLocale = Provider.of<AppLocale>(context);
 
@@ -83,19 +83,41 @@ class MyApp extends StatelessWidget {
           locale: appLocale.locale,
           localizationsDelegates: const [...AppLocalizations.localizationsDelegates, S.delegate],
           supportedLocales: AppLocalizations.supportedLocales,
-          home: auth.isAuth
-              ? AppLayoutBuilder(
-                  body: const MainNavigationStack(),
-                  bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
-                )
-              : FutureBuilder(
-                  builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
-                      ? const SplashScreen()
-                      : const AuthScreen(),
-                  future: auth.tryAutoLogin(),
-                ),
+          home: const _Initializer(),
         );
       },
     );
+  }
+}
+
+class _Initializer extends StatelessWidget {
+  const _Initializer();
+
+  @override
+  Widget build(BuildContext context) {
+    // Nach Sprachwechsel muss DateUtil erneut initialisiert werden.
+    Provider.of<AppLocale>(context);
+    DateUtil.init();
+    return const _Home();
+  }
+}
+
+class _Home extends StatelessWidget {
+  const _Home();
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context);
+    return auth.isAuth
+        ? AppLayoutBuilder(
+            body: const MainNavigationStack(),
+            bottomNavigationBarBuilder: () => const AppBottomNavigationBar(),
+          )
+        : FutureBuilder(
+            builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting
+                ? const SplashScreen()
+                : const AuthScreen(),
+            future: auth.tryAutoLogin(),
+          );
   }
 }

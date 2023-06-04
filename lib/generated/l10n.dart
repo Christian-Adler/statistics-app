@@ -669,6 +669,176 @@ class S {
       args: [],
     );
   }
+
+  /// `Generated`
+  String get solarPowerChartLegendItemGenerated {
+    return Intl.message(
+      'Generated',
+      name: 'solarPowerChartLegendItemGenerated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fed`
+  String get solarPowerChartLegendItemFed {
+    return Intl.message(
+      'Fed',
+      name: 'solarPowerChartLegendItemFed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consumption`
+  String get solarPowerChartLegendItemConsumption {
+    return Intl.message(
+      'Consumption',
+      name: 'solarPowerChartLegendItemConsumption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get solarPowerChartLegendItemTotal {
+    return Intl.message(
+      'Total',
+      name: 'solarPowerChartLegendItemTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price : {price} €/kWh, Basic fee : {feePerMont} €/Monat`
+  String solarPowerChartSubLegendPriceAndFee(String price, String feePerMont) {
+    return Intl.message(
+      'Price : $price €/kWh, Basic fee : $feePerMont €/Monat',
+      name: 'solarPowerChartSubLegendPriceAndFee',
+      desc: '',
+      args: [price, feePerMont],
+    );
+  }
+
+  /// `kWh / {period}`
+  String solarPowerTitle(String period) {
+    return Intl.message(
+      'kWh / $period',
+      name: 'solarPowerTitle',
+      desc: '',
+      args: [period],
+    );
+  }
+
+  /// `Month`
+  String get solarPowerTitlePeriodMonth {
+    return Intl.message(
+      'Month',
+      name: 'solarPowerTitlePeriodMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year`
+  String get solarPowerTitlePeriodYear {
+    return Intl.message(
+      'Year',
+      name: 'solarPowerTitlePeriodYear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consumption`
+  String get solarPowerTableHeadConsumption {
+    return Intl.message(
+      'Consumption',
+      name: 'solarPowerTableHeadConsumption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consum.`
+  String get solarPowerTableHeadConsumptionAbbrev {
+    return Intl.message(
+      'Consum.',
+      name: 'solarPowerTableHeadConsumptionAbbrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get solarPowerTableHeadDate {
+    return Intl.message(
+      'Date',
+      name: 'solarPowerTableHeadDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fed`
+  String get solarPowerTableHeadFed {
+    return Intl.message(
+      'Fed',
+      name: 'solarPowerTableHeadFed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fed`
+  String get solarPowerTableHeadFedAbbrev {
+    return Intl.message(
+      'Fed',
+      name: 'solarPowerTableHeadFedAbbrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generated`
+  String get solarPowerTableHeadGenerated {
+    return Intl.message(
+      'Generated',
+      name: 'solarPowerTableHeadGenerated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gener.`
+  String get solarPowerTableHeadGeneratedAbbrev {
+    return Intl.message(
+      'Gener.',
+      name: 'solarPowerTableHeadGeneratedAbbrev',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get solarPowerTableHeadTotal {
+    return Intl.message(
+      'Total',
+      name: 'solarPowerTableHeadTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total`
+  String get solarPowerTableHeadTotalAbbrev {
+    return Intl.message(
+      'Total',
+      name: 'solarPowerTableHeadTotalAbbrev',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

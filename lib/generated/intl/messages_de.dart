@@ -20,6 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
+  static String m0(price, feePerMont) =>
+      "Preis : ${price} €/kWh, Grundgebühr : ${feePerMont} €/Monat";
+
+  static String m1(period) => "kWh / ${period}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "authBtnLogin": MessageLookupByLibrary.simpleMessage("Anmelden"),
@@ -134,6 +139,38 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsThemeModeSystem":
             MessageLookupByLibrary.simpleMessage("System"),
         "settingsThemeTitle":
-            MessageLookupByLibrary.simpleMessage("Modus & Farbe")
+            MessageLookupByLibrary.simpleMessage("Modus & Farbe"),
+        "solarPowerChartLegendItemConsumption":
+            MessageLookupByLibrary.simpleMessage("Verbrauch"),
+        "solarPowerChartLegendItemFed":
+            MessageLookupByLibrary.simpleMessage("Eingespeist"),
+        "solarPowerChartLegendItemGenerated":
+            MessageLookupByLibrary.simpleMessage("Erzeugt"),
+        "solarPowerChartLegendItemTotal":
+            MessageLookupByLibrary.simpleMessage("Gesamt"),
+        "solarPowerChartSubLegendPriceAndFee": m0,
+        "solarPowerTableHeadConsumption":
+            MessageLookupByLibrary.simpleMessage("Verbrauch"),
+        "solarPowerTableHeadConsumptionAbbrev":
+            MessageLookupByLibrary.simpleMessage("Verbr."),
+        "solarPowerTableHeadDate":
+            MessageLookupByLibrary.simpleMessage("Datum"),
+        "solarPowerTableHeadFed":
+            MessageLookupByLibrary.simpleMessage("Eingespeist"),
+        "solarPowerTableHeadFedAbbrev":
+            MessageLookupByLibrary.simpleMessage("Eingesp."),
+        "solarPowerTableHeadGenerated":
+            MessageLookupByLibrary.simpleMessage("Erzeugt"),
+        "solarPowerTableHeadGeneratedAbbrev":
+            MessageLookupByLibrary.simpleMessage("Erzeugt"),
+        "solarPowerTableHeadTotal":
+            MessageLookupByLibrary.simpleMessage("Gesamt"),
+        "solarPowerTableHeadTotalAbbrev":
+            MessageLookupByLibrary.simpleMessage("Gesamt"),
+        "solarPowerTitle": m1,
+        "solarPowerTitlePeriodMonth":
+            MessageLookupByLibrary.simpleMessage("Monat"),
+        "solarPowerTitlePeriodYear":
+            MessageLookupByLibrary.simpleMessage("Jahr")
       };
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../providers/operating.dart';
 import '../../../../utils/date_utils.dart';
 import '../../../responsive/device_dependent_constrained_box.dart';
@@ -19,10 +20,20 @@ class SolarPowerTable extends StatelessWidget {
     Widget buildValueTable() {
       List<TableRow> rows = [
         TableUtils.tableHeadline(
-            'Datum',
+            S.of(context).solarPowerTableHeadDate,
             deviceSize.width < 400
-                ? ['Erzeugt', 'Eingesp.', 'Verbr.', 'Gesamt']
-                : ['Erzeugt', 'Eingespeist', 'Verbrauch', 'Gesamt'])
+                ? [
+                    S.of(context).solarPowerTableHeadGeneratedAbbrev,
+                    S.of(context).solarPowerTableHeadFedAbbrev,
+                    S.of(context).solarPowerTableHeadConsumptionAbbrev,
+                    S.of(context).solarPowerTableHeadTotalAbbrev
+                  ]
+                : [
+                    S.of(context).solarPowerTableHeadGenerated,
+                    S.of(context).solarPowerTableHeadFed,
+                    S.of(context).solarPowerTableHeadConsumption,
+                    S.of(context).solarPowerTableHeadTotal
+                  ])
       ];
 
       final operatingItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;

@@ -61,5 +61,22 @@
   "settingsThemeModeDark": "Dunkel",
   "settingsThemeModeLight": "Hell",
   "settingsThemeModeSystem": "System",
-  "settingsThemeTitle": "Modus & Farbe"
+  "settingsThemeTitle": "Modus & Farbe",
+  "solarPowerChartLegendItemConsumption": "Verbrauch",
+  "solarPowerChartLegendItemFed": "Eingespeist",
+  "solarPowerChartLegendItemGenerated": "Erzeugt",
+  "solarPowerChartLegendItemTotal": "Gesamt",
+  "solarPowerChartSubLegendPriceAndFee": "Preis : {price} €/kWh, Grundgebühr : {feePerMont} €/Monat",
+  "solarPowerTitle": "kWh / {period}",
+  "solarPowerTitlePeriodMonth": "Monat",
+  "solarPowerTitlePeriodYear": "Jahr",
+  "solarPowerTableHeadConsumption": "Verbrauch",
+  "solarPowerTableHeadConsumptionAbbrev": "Verbr.",
+  "solarPowerTableHeadDate": "Datum",
+  "solarPowerTableHeadFed": "Eingespeist",
+  "solarPowerTableHeadFedAbbrev": "Eingesp.",
+  "solarPowerTableHeadGenerated": "Erzeugt",
+  "solarPowerTableHeadGeneratedAbbrev": "Erzeugt",
+  "solarPowerTableHeadTotal": "Gesamt",
+  "solarPowerTableHeadTotalAbbrev": "Gesamt"
 }

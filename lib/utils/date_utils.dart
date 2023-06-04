@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:intl/intl.dart';
 
 class DateUtil {
-  static final Map<int, String> month2ShortName = Map.unmodifiable(_createMonth2ShortNameMapping());
+  static Map<int, String> _month2ShortName = _createMonth2ShortNameMapping();
 
   static Map<int, String> _createMonth2ShortNameMapping() {
     Map<int, String> result = {};
@@ -12,12 +12,17 @@ class DateUtil {
     }
     // 0 == 12 damit einfach % gerechnet werden kann
     result[0] = DateFormat.MMM().format(DateTime(2023, 12));
-    return result;
+    return Map.unmodifiable(result);
+  }
+
+  /// Muss nach Sprachwechsel aufgerufen werden!
+  static void init() {
+    _month2ShortName = _createMonth2ShortNameMapping();
   }
 
   static String getMonthShort(int month) {
     var m = math.min(12, math.max(0, month));
-    return month2ShortName[m] ?? 'Unset';
+    return _month2ShortName[m] ?? 'Unset';
   }
 
   static DateTime getInsertDate() {

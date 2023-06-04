@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
@@ -61,7 +62,8 @@ class _SolarPowerState extends State<_SolarPower> {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+              child: Text(
+                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO error log
             ),
           );
         } else {
@@ -71,7 +73,11 @@ class _SolarPowerState extends State<_SolarPower> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  Text('kWh / ${widget.showYearly ? 'Jahr' : 'Monat'}', style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                      S.of(context).solarPowerTitle(widget.showYearly
+                          ? S.of(context).solarPowerTitlePeriodYear
+                          : S.of(context).solarPowerTitlePeriodMonth),
+                      style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
                     height: 10,
                   ),

@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../models/chart/chart_meta_data.dart';
 import '../../../../models/chart/legend_item.dart';
 import '../../../../providers/operating.dart';
@@ -117,26 +118,26 @@ class SolarPowerChart extends StatelessWidget {
         builder: (ctx, constraints) {
           if (constraints.maxWidth > 450) {
             return SimpleLegend(items: [
-              LegendItem('Erzeugt', gradientColorsGeneratedPower),
-              LegendItem('Eingespeist', gradientColorsFeedPower),
-              LegendItem('Verbraucht', gradientColorsConsumedPower),
-              LegendItem(
-                  'Gesamt', [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+              LegendItem(S.of(context).solarPowerChartLegendItemGenerated, gradientColorsGeneratedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemFed, gradientColorsFeedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemConsumption, gradientColorsConsumedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemTotal,
+                  [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
             ]);
           } else {
             return Column(
               children: [
                 SimpleLegend(items: [
-                  LegendItem('Erzeugt', gradientColorsGeneratedPower),
-                  LegendItem('Eingespeist', gradientColorsFeedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemGenerated, gradientColorsGeneratedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemFed, gradientColorsFeedPower),
                 ]),
                 const SizedBox(
                   height: 5,
                 ),
                 SimpleLegend(items: [
-                  LegendItem('Verbraucht', gradientColorsConsumedPower),
-                  LegendItem(
-                      'Gesamt', [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+                  LegendItem(S.of(context).solarPowerChartLegendItemConsumption, gradientColorsConsumedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemTotal,
+                      [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
                 ]),
               ],
             );
@@ -144,8 +145,8 @@ class SolarPowerChart extends StatelessWidget {
         },
       ),
       const SizedBox(height: 10),
-      Text(
-          'Preis : ${Operating.chargePerValueConsumedPower.toStringAsFixed(2)} €/kWh, Grundgebühr : ${Operating.chargePerMonthConsumedPower.toStringAsFixed(2)} €/Monat'),
+      Text(S.of(context).solarPowerChartSubLegendPriceAndFee(Operating.chargePerValueConsumedPower.toStringAsFixed(2),
+          Operating.chargePerMonthConsumedPower.toStringAsFixed(2))),
     ]);
   }
 }
