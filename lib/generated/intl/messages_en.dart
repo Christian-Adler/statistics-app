@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
-        "localeNameGerman": MessageLookupByLibrary.simpleMessage("German"),
+        "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
         "screenTitleCar": MessageLookupByLibrary.simpleMessage("Refuel"),
         "screenTitleCarAddValue":

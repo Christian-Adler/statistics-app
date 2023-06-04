@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `German`
+  /// `Deutsch`
   String get localeNameGerman {
     return Intl.message(
-      'German',
+      'Deutsch',
       name: 'localeNameGerman',
       desc: '',
       args: [],

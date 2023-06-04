@@ -9,7 +9,8 @@ class AppLanguage {
 
   AppLanguage(this.name, this.locale, this.getI18nName);
 
-  static final AppLanguage systemLanguage = AppLanguage('System', null, (ctx) => S.of(ctx).localeNameSystem);
+  static final systemLanguage = AppLanguage('System', null, (ctx) => S.of(ctx).localeNameSystem);
+  static final englishLanguage = AppLanguage('English', const Locale('en'), (ctx) => S.of(ctx).localeNameEnglish);
 
   static final List<AppLanguage> _knownLanguages = [];
 
@@ -17,7 +18,7 @@ class AppLanguage {
     if (_knownLanguages.isNotEmpty) return;
     _knownLanguages.addAll([
       AppLanguage.systemLanguage,
-      AppLanguage('English', const Locale('en'), (ctx) => S.of(ctx).localeNameEnglish),
+      AppLanguage.englishLanguage,
       AppLanguage('German', const Locale('de'), (ctx) => S.of(ctx).localeNameGerman),
     ]);
   }

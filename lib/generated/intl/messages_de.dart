@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Abmelden"),
-        "localeNameEnglish": MessageLookupByLibrary.simpleMessage("Englisch"),
+        "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
         "screenTitleCar": MessageLookupByLibrary.simpleMessage("Tanken"),
