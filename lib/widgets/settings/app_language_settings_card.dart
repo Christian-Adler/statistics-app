@@ -1,52 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/widgets/settings/expandable_settings_card.dart';
 
 import '../../generated/l10n.dart';
 import '../../models/i18n/app_language.dart';
 import '../../providers/app_locale.dart';
-import 'settings_card.dart';
 
-class AppLanguageSettingsCard extends StatefulWidget {
+class AppLanguageSettingsCard extends StatelessWidget {
   const AppLanguageSettingsCard({Key? key}) : super(key: key);
 
   @override
-  State<AppLanguageSettingsCard> createState() => _AppLanguageSettingsCardState();
-}
-
-class _AppLanguageSettingsCardState extends State<AppLanguageSettingsCard> {
-  var _expanded = false;
-
-  void _toggleExpanded() {
-    setState(() {
-      _expanded = !_expanded;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SettingsCard(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(S.of(context).settingsLanguageTitle, style: Theme.of(context).textTheme.titleLarge),
-            IconButton(
-              onPressed: () => _toggleExpanded(),
-              icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
-                  color: Theme.of(context).colorScheme.primary),
-              visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-            ),
-          ],
-        ),
-        children: [
-          AnimatedCrossFade(
-            duration: const Duration(milliseconds: 300),
-            crossFadeState: _expanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            firstChild: const _AppLanguageSettings(),
-            secondChild: Container(
-              height: 0,
-            ),
-          ),
-        ]);
+    return ExpandableSettingsCard(
+      title: Text(S.of(context).settingsLanguageTitle, style: Theme.of(context).textTheme.titleLarge),
+      content: const _AppLanguageSettings(),
+    );
   }
 }
 

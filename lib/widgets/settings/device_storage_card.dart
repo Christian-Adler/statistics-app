@@ -5,49 +5,17 @@ import 'package:flutter_commons/utils/table_utils.dart';
 import '../../generated/l10n.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
-import 'settings_card.dart';
+import 'expandable_settings_card.dart';
 
-class DeviceStorageCard extends StatefulWidget {
+class DeviceStorageCard extends StatelessWidget {
   const DeviceStorageCard({Key? key}) : super(key: key);
 
   @override
-  State<DeviceStorageCard> createState() => _DeviceStorageCardState();
-}
-
-class _DeviceStorageCardState extends State<DeviceStorageCard> {
-  var _expanded = false;
-
-  void _toggleExpanded() {
-    setState(() {
-      _expanded = !_expanded;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SettingsCard(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(S.of(context).settingsDeviceStorageTitle, style: Theme.of(context).textTheme.titleLarge),
-            IconButton(
-              onPressed: () => _toggleExpanded(),
-              icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
-                  color: Theme.of(context).colorScheme.primary),
-              visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-            ),
-          ],
-        ),
-        children: [
-          AnimatedCrossFade(
-            duration: const Duration(milliseconds: 300),
-            crossFadeState: _expanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            firstChild: const _DeviceStorage(),
-            secondChild: Container(
-              height: 0,
-            ),
-          ),
-        ]);
+    return ExpandableSettingsCard(
+      title: Text(S.of(context).settingsDeviceStorageTitle, style: Theme.of(context).textTheme.titleLarge),
+      content: const _DeviceStorage(),
+    );
   }
 }
 

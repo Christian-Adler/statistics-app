@@ -9,52 +9,20 @@ import '../../generated/l10n.dart';
 import '../../providers/auth.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
-import 'settings_card.dart';
+import 'expandable_settings_card.dart';
 
-class ServerCard extends StatefulWidget {
+class ServerCard extends StatelessWidget {
   const ServerCard({Key? key}) : super(key: key);
-
-  @override
-  State<ServerCard> createState() => _ServerCardState();
-}
-
-class _ServerCardState extends State<ServerCard> {
-  var _expanded = false;
-
-  void _toggleExpanded() {
-    setState(() {
-      _expanded = !_expanded;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<Auth>(context);
 
-    return SettingsCard(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(S.of(context).settingsServerTitle, style: Theme.of(context).textTheme.titleLarge),
-            IconButton(
-              onPressed: () => _toggleExpanded(),
-              icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
-                  color: Theme.of(context).colorScheme.primary),
-              visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-            ),
-          ],
-        ),
-        children: [
-          Text(auth.serverUrl),
-          AnimatedCrossFade(
-            duration: const Duration(milliseconds: 300),
-            crossFadeState: _expanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            firstChild: _ChangeServer(expanded: _expanded),
-            secondChild: Container(
-              height: 0,
-            ),
-          ),
-        ]);
+    return ExpandableSettingsCard(
+      title: Text('${S.of(context).settingsServerTitle} (${auth.serverUrl})',
+          style: Theme.of(context).textTheme.titleLarge),
+      content: const _ChangeServer(expanded: true),
+    );
   }
 }
 
