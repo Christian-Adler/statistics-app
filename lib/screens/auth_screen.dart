@@ -32,6 +32,7 @@ class AuthScreen extends StatelessWidget {
         child: const Icon(Icons.settings),
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             context: context,
             builder: _buildSettingsSheet,
           );
@@ -167,6 +168,7 @@ class _AuthCardState extends State<_AuthCard> {
   }
 
   Future<void> _submit() async {
+    if (!context.mounted) return;
     var currentState = _formKey.currentState;
     if (currentState == null || !currentState.validate()) {
       return; // Invalid!
@@ -185,7 +187,8 @@ class _AuthCardState extends State<_AuthCard> {
       //   }
       //   _showErrorDialog(errorMessage);
     } catch (err) {
-      var errorMessage = S.of(context).authErrorMsgAuthenticationFailed;
+      var errorMessage = 'Failure during login!';
+      if (context.mounted) errorMessage = S.of(context).authErrorMsgAuthenticationFailed;
       // TODO write err to log
       _showErrorDialog(errorMessage);
     }
@@ -314,7 +317,7 @@ Widget _buildSettingsSheet(context) {
         children: [
           DeviceDependentConstrainedBox(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               child: Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
