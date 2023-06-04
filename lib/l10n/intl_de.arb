@@ -6,6 +6,7 @@
   "authInputLabelPassword": "Passwort",
   "authInputValidatorMsgEnterValidServer": "Geben sie einen validen Server an!",
   "authInputValidatorMsgPasswordToShort": "Geben sie ein gültiges Passwort ein!",
+  "authSettingsTitle": "Einstellungen",
   "bloodPressureAddValueInputLabelDiastolic": "diastolisch (unterer) (mmHg)",
   "bloodPressureAddValueInputLabelSystolic": "systolisch (oberer) (mmHg)",
   "bloodPressureTableHeadDate": "Datum",

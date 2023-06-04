@@ -10,6 +10,9 @@ import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/color_utils.dart';
 import '../utils/globals.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import '../widgets/responsive/device_dependent_constrained_box.dart';
+import '../widgets/settings/app_language_settings_card.dart';
 
 class AuthScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
@@ -25,6 +28,15 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.settings),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: _buildSettingsSheet,
+          );
+        },
+      ),
       body: Stack(
         children: [
           Container(
@@ -291,4 +303,48 @@ class _AuthCardState extends State<_AuthCard> {
       ),
     );
   }
+}
+
+Widget _buildSettingsSheet(context) {
+  return SizedBox(
+    width: double.infinity,
+    child: SingleChildScrollViewWithScrollbar(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DeviceDependentConstrainedBox(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: Text(
+                            S.of(context).authSettingsTitle,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: const Icon(Icons.close))
+                      ],
+                    ),
+                    const Divider(),
+                    const ChooseLanguage(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

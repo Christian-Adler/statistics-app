@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Settings`
+  String get authSettingsTitle {
+    return Intl.message(
+      'Settings',
+      name: 'authSettingsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `diastolic (lower) (mmHg)`
   String get bloodPressureAddValueInputLabelDiastolic {
     return Intl.message(

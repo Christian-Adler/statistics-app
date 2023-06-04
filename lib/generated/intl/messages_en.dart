@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter a valid server!"),
         "authInputValidatorMsgPasswordToShort":
             MessageLookupByLibrary.simpleMessage("Password is too short!"),
+        "authSettingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
         "bloodPressureAddValueInputLabelDiastolic":
             MessageLookupByLibrary.simpleMessage("diastolic (lower) (mmHg)"),
         "bloodPressureAddValueInputLabelSystolic":
