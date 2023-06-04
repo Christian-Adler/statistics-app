@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/heart/blood_pressure_item.dart';
 import '../../../providers/heart.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
@@ -53,7 +55,8 @@ class _HeartState extends State<_Heart> {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+              child: Text(
+                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO Fehler ins Log
             ),
           );
         } else {
@@ -83,10 +86,10 @@ class _BloodPressureTableHead extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _TableHeadline('Datum', 110 * widthFactor, textAlign: TextAlign.start),
-        _TableHeadline('Morgen', 70 * widthFactor),
-        _TableHeadline('Mittag', 70 * widthFactor),
-        _TableHeadline('Abend', 70 * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadDate, 110 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline(S.of(context).bloodPressureTableHeadMorning, 70 * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadMidday, 70 * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadEvening, 70 * widthFactor),
       ],
     );
   }
@@ -171,6 +174,8 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
     final tableItemSaturdayColor = indicatorColor.withOpacity(0.05);
     final tableItemSundayColor = indicatorColor.withOpacity(0.1);
 
+    final dateFormatYYYYMMDD = DateFormat(S.of(context).patternsDateYYYYMMDD);
+
     return AnimationLimiter(
       child: Scrollbar(
         controller: _scrollController,
@@ -201,8 +206,8 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _BloodPressureTableItem(
-                        bloodPressureItems[index], widget.widthFactor, tableItemSaturdayColor, tableItemSundayColor),
+                    : _BloodPressureTableItem(bloodPressureItems[index], dateFormatYYYYMMDD, widget.widthFactor,
+                        tableItemSaturdayColor, tableItemSundayColor),
               ),
             ),
           ),
@@ -215,17 +220,21 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
 
 class _BloodPressureTableItem extends StatelessWidget {
   final BloodPressureItem _bloodPressureItem;
+  final DateFormat dateFormat;
   final double widthFactor;
   final Color saturdayColor;
   final Color sundayColor;
 
-  _BloodPressureTableItem(this._bloodPressureItem, this.widthFactor, this.saturdayColor, this.sundayColor)
+  _BloodPressureTableItem(
+      this._bloodPressureItem, this.dateFormat, this.widthFactor, this.saturdayColor, this.sundayColor)
       : super(key: ValueKey(_bloodPressureItem.date));
 
   @override
   Widget build(BuildContext context) {
     final date = _bloodPressureItem.date;
-    final Color? bgColor = date.startsWith('So') ? sundayColor : (date.startsWith('Sa') ? saturdayColor : null);
+    final formattedDate = dateFormat.format(date);
+    final Color? bgColor =
+        date.weekday == DateTime.sunday ? sundayColor : (date.weekday == DateTime.saturday ? saturdayColor : null);
 
     return Center(
       child: Container(
@@ -238,7 +247,7 @@ class _BloodPressureTableItem extends StatelessWidget {
           children: [
             SizedBox(
               width: 110 * widthFactor,
-              child: Text(date),
+              child: Text(formattedDate),
             ),
             SizedBox(
               width: 70 * widthFactor,

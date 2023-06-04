@@ -6,6 +6,7 @@ import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
@@ -55,7 +56,8 @@ class _CarState extends State<_Car> {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+              child: Text(
+                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO Fehler ins Log
             ),
           );
         } else {
@@ -85,12 +87,12 @@ class _CarRefuelTableHead extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _TableHeadline('Datum', 85 * widthFactor, textAlign: TextAlign.start),
-        _TableHeadline('km', 50 * widthFactor),
-        _TableHeadline('l', 25 * widthFactor),
-        _TableHeadline('€/l', 40 * widthFactor),
-        _TableHeadline('€', 50 * widthFactor),
-        _TableHeadline('l/100km', 70 * widthFactor, textAlign: TextAlign.end),
+        _TableHeadline(S.of(context).carTableHeadDate, 85 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline(S.of(context).carTableHeadKilometers, 50 * widthFactor),
+        _TableHeadline(S.of(context).carTableHeadLiters, 25 * widthFactor),
+        _TableHeadline(S.of(context).carTableHeadEuroPerLiter, 40 * widthFactor),
+        _TableHeadline(S.of(context).carTableHeadEuro, 50 * widthFactor),
+        _TableHeadline(S.of(context).carTableHeadLitersPer100Kilometers, 70 * widthFactor, textAlign: TextAlign.end),
       ],
     );
   }

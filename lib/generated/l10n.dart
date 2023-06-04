@@ -110,6 +110,106 @@ class S {
     );
   }
 
+  /// `Date`
+  String get bloodPressureTableHeadDate {
+    return Intl.message(
+      'Date',
+      name: 'bloodPressureTableHeadDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evening`
+  String get bloodPressureTableHeadEvening {
+    return Intl.message(
+      'Evening',
+      name: 'bloodPressureTableHeadEvening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Midday`
+  String get bloodPressureTableHeadMidday {
+    return Intl.message(
+      'Midday',
+      name: 'bloodPressureTableHeadMidday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Morning`
+  String get bloodPressureTableHeadMorning {
+    return Intl.message(
+      'Morning',
+      name: 'bloodPressureTableHeadMorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get carTableHeadDate {
+    return Intl.message(
+      'Date',
+      name: 'carTableHeadDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `km`
+  String get carTableHeadKilometers {
+    return Intl.message(
+      'km',
+      name: 'carTableHeadKilometers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `l`
+  String get carTableHeadLiters {
+    return Intl.message(
+      'l',
+      name: 'carTableHeadLiters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `€/l`
+  String get carTableHeadEuroPerLiter {
+    return Intl.message(
+      '€/l',
+      name: 'carTableHeadEuroPerLiter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `€`
+  String get carTableHeadEuro {
+    return Intl.message(
+      '€',
+      name: 'carTableHeadEuro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `l/100km`
+  String get carTableHeadLitersPer100Kilometers {
+    return Intl.message(
+      'l/100km',
+      name: 'carTableHeadLitersPer100Kilometers',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Logout`
   String get commonsLogout {
     return Intl.message(
@@ -170,6 +270,16 @@ class S {
     );
   }
 
+  /// `Failed to load data...`
+  String get commonsMsgErrorFailedToLoadData {
+    return Intl.message(
+      'Failed to load data...',
+      name: 'commonsMsgErrorFailedToLoadData',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `System`
   String get localeNameSystem {
     return Intl.message(
@@ -195,6 +305,26 @@ class S {
     return Intl.message(
       'Deutsch',
       name: 'localeNameGerman',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E, yyyy-MM-dd`
+  String get patternsDateWeekdayWithDate {
+    return Intl.message(
+      'E, yyyy-MM-dd',
+      name: 'patternsDateWeekdayWithDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `yyyy-MM-dd`
+  String get patternsDateYYYYMMDD {
+    return Intl.message(
+      'yyyy-MM-dd',
+      name: 'patternsDateYYYYMMDD',
       desc: '',
       args: [],
     );

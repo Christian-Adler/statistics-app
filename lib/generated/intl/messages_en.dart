@@ -33,6 +33,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter a valid server!"),
         "authInputValidatorMsgPasswordToShort":
             MessageLookupByLibrary.simpleMessage("Password is too short!"),
+        "bloodPressureTableHeadDate":
+            MessageLookupByLibrary.simpleMessage("Date"),
+        "bloodPressureTableHeadEvening":
+            MessageLookupByLibrary.simpleMessage("Evening"),
+        "bloodPressureTableHeadMidday":
+            MessageLookupByLibrary.simpleMessage("Midday"),
+        "bloodPressureTableHeadMorning":
+            MessageLookupByLibrary.simpleMessage("Morning"),
+        "carTableHeadDate": MessageLookupByLibrary.simpleMessage("Date"),
+        "carTableHeadEuro": MessageLookupByLibrary.simpleMessage("€"),
+        "carTableHeadEuroPerLiter": MessageLookupByLibrary.simpleMessage("€/l"),
+        "carTableHeadKilometers": MessageLookupByLibrary.simpleMessage("km"),
+        "carTableHeadLiters": MessageLookupByLibrary.simpleMessage("l"),
+        "carTableHeadLitersPer100Kilometers":
+            MessageLookupByLibrary.simpleMessage("l/100km"),
         "commonsDialogBtnNo": MessageLookupByLibrary.simpleMessage("No"),
         "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Ok"),
         "commonsDialogBtnYes": MessageLookupByLibrary.simpleMessage("Yes"),
@@ -41,9 +56,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "commonsDialogTitleErrorOccurred":
             MessageLookupByLibrary.simpleMessage("An Error Occurred"),
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "commonsMsgErrorFailedToLoadData":
+            MessageLookupByLibrary.simpleMessage("Failed to load data..."),
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "patternsDateWeekdayWithDate":
+            MessageLookupByLibrary.simpleMessage("E, yyyy-MM-dd"),
+        "patternsDateYYYYMMDD":
+            MessageLookupByLibrary.simpleMessage("yyyy-MM-dd"),
         "screenTitleCar": MessageLookupByLibrary.simpleMessage("Refuel"),
         "screenTitleCarAddValue":
             MessageLookupByLibrary.simpleMessage("Enter refuel"),

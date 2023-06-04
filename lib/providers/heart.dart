@@ -40,9 +40,9 @@ class Heart with ChangeNotifier {
       final ts = map['timestamp'];
       final timestamp = ts is int ? ts : (ts as double).toInt(); // echter Server liefert double!?
       final date = DateTime.fromMillisecondsSinceEpoch(timestamp, isUtc: false);
-      final key = DateFormat('E, dd.MM.yyyy').format(date);
+      final key = DateFormat('yyyy-MM-dd').format(date);
       if (!date2Item.containsKey(key)) keys.add(key);
-      var bloodPressureItem = date2Item.putIfAbsent(key, () => BloodPressureItem(key));
+      var bloodPressureItem = date2Item.putIfAbsent(key, () => BloodPressureItem(date));
 
       var high = (map['high'] as int);
       var low = (map['low'] as int);

@@ -1,5 +1,5 @@
 class BloodPressureItem {
-  final String date;
+  final DateTime date;
   List<BloodPressureValue> morning = [];
   List<BloodPressureValue> midday = [];
   List<BloodPressureValue> evening = [];
