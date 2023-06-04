@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../providers/app_layout.dart';
-import 'expandable_settings_card.dart';
+import '../controls/card/expandable_settings_card.dart';
 
 class AppLayoutSettingsCard extends StatelessWidget {
   const AppLayoutSettingsCard({Key? key}) : super(key: key);

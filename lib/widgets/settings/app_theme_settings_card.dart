@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../models/theme/app_theme.dart';
 import '../../providers/dynamic_theme_data.dart';
-import 'expandable_settings_card.dart';
+import '../controls/card/expandable_settings_card.dart';
 
 class AppThemeSettingsCard extends StatelessWidget {
   const AppThemeSettingsCard({Key? key}) : super(key: key);

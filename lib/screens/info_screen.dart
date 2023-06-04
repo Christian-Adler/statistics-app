@@ -7,13 +7,13 @@ import '../models/navigation/screen_nav_info.dart';
 import '../utils/about_dlg.dart';
 import '../utils/globals.dart';
 import '../utils/hide_bottom_navigation_bar.dart';
+import '../widgets/controls/card/settings_card.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/logo/exploratia_logo.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
-import '../widgets/settings/settings_card.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class InfoScreen extends StatelessWidget {

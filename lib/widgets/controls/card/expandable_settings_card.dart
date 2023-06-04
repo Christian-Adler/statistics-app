@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'settings_card.dart';
 
 class ExpandableSettingsCard extends StatefulWidget {
+  /// Damit die Card die Device-Constraints einhalten kann, muss umschliessende Column z.B. center sein.
   const ExpandableSettingsCard({super.key, required this.title, required this.content});
 
   final Widget title;

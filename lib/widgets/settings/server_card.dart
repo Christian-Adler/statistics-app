@@ -9,7 +9,7 @@ import '../../generated/l10n.dart';
 import '../../providers/auth.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
-import 'expandable_settings_card.dart';
+import '../controls/card/expandable_settings_card.dart';
 
 class ServerCard extends StatelessWidget {
   const ServerCard({Key? key}) : super(key: key);
@@ -21,15 +21,13 @@ class ServerCard extends StatelessWidget {
     return ExpandableSettingsCard(
       title: Text('${S.of(context).settingsServerTitle} (${auth.serverUrl})',
           style: Theme.of(context).textTheme.titleLarge),
-      content: const _ChangeServer(expanded: true),
+      content: const _ChangeServer(),
     );
   }
 }
 
 class _ChangeServer extends StatefulWidget {
-  final bool expanded;
-
-  const _ChangeServer({required this.expanded});
+  const _ChangeServer();
 
   @override
   State<_ChangeServer> createState() => _ChangeServerState();
@@ -134,7 +132,7 @@ class _ChangeServerState extends State<_ChangeServer> {
               ],
             );
           },
-          future: !widget.expanded ? Future.value('[]') : DeviceStorage.read(DeviceStorageKeys.keyServers),
+          future: DeviceStorage.read(DeviceStorageKeys.keyServers),
         ),
         Form(
           key: _form,

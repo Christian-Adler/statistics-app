@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'settings_card.dart';
+import '../controls/card/settings_card.dart';
 
 class AnimationTestCard extends StatelessWidget {
   const AnimationTestCard({Key? key}) : super(key: key);
