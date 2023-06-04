@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
+import '../../models/theme/app_theme.dart';
 import '../../providers/dynamic_theme_data.dart';
 import 'settings_card.dart';
 
@@ -26,7 +28,7 @@ class _AppThemeSettingsCardState extends State<AppThemeSettingsCard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('App Theme', style: Theme.of(context).textTheme.titleLarge),
+            Text(S.of(context).settingsThemeTitle, style: Theme.of(context).textTheme.titleLarge),
             IconButton(
               onPressed: () => _toggleExpanded(),
               icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
@@ -54,6 +56,7 @@ class _AppThemeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamicThemeData = Provider.of<DynamicThemeData>(context);
+    final appTheme = dynamicThemeData.mode;
 
     var themeData = Theme.of(context);
     var activeColorBorder = Border(bottom: BorderSide(color: themeData.colorScheme.primary));
@@ -62,29 +65,52 @@ class _AppThemeSettings extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Divider(height: 10),
-        SwitchListTile(
-          value: dynamicThemeData.systemThemeMode,
-          onChanged: (bool value) {
-            dynamicThemeData.systemThemeMode = value;
-          },
-          title: const Text('Theme vom System übernehmen'),
-        ),
-        SwitchListTile(
-          value: dynamicThemeData.darkMode,
-          onChanged: dynamicThemeData.systemThemeMode
-              ? null
-              : (bool value) {
-                  dynamicThemeData.darkMode = value;
-                },
-          title: const Text('Dunkles Theme verwenden'),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: SizedBox(
+                  width: 100,
+                  child: Text(S.of(context).settingsThemeLabelChooseMode, style: themeData.textTheme.titleMedium)),
+            ),
+            DropdownButton<AppTheme>(
+              icon: Icon(
+                Icons.arrow_drop_down_outlined,
+                color: themeData.colorScheme.primary,
+              ),
+              underline: Container(
+                height: 2,
+                color: themeData.colorScheme.primary,
+              ),
+              value: appTheme,
+              items: AppTheme.modes().map<DropdownMenuItem<AppTheme>>((theme) {
+                BoxDecoration? boxDeco;
+                if (theme == appTheme) {
+                  boxDeco = BoxDecoration(border: Border(bottom: BorderSide(color: themeData.colorScheme.primary)));
+                }
+                return DropdownMenuItem(
+                    value: theme,
+                    child: Container(
+                        decoration: boxDeco,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Text(theme.getI18nName(context)),
+                        )));
+              }).toList(),
+              onChanged: (value) => dynamicThemeData.mode = value,
+            )
+          ],
         ),
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Text(
-                'Hauptfarbe wählen',
-                style: themeData.textTheme.titleMedium,
+              padding: const EdgeInsets.only(left: 16),
+              child: SizedBox(
+                width: 100,
+                child: Text(
+                  S.of(context).settingsThemeLabelChooseMainColor,
+                  style: themeData.textTheme.titleMedium,
+                ),
               ),
             ),
             Container(

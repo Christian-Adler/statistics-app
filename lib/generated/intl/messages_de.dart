@@ -62,7 +62,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "screenTitleSolarPowerAddValue": MessageLookupByLibrary.simpleMessage(
             "Solar-Energie-Ertrag eintragen"),
         "settingsLanguageLabelChooseLanguage":
-            MessageLookupByLibrary.simpleMessage("Sprache wählen"),
-        "settingsLanguageTitle": MessageLookupByLibrary.simpleMessage("Sprache")
+            MessageLookupByLibrary.simpleMessage("Sprache"),
+        "settingsLanguageTitle":
+            MessageLookupByLibrary.simpleMessage("Sprache"),
+        "settingsThemeLabelChooseMainColor":
+            MessageLookupByLibrary.simpleMessage("Hauptfarbe"),
+        "settingsThemeLabelChooseMode":
+            MessageLookupByLibrary.simpleMessage("Modus"),
+        "settingsThemeModeDark": MessageLookupByLibrary.simpleMessage("Dunkel"),
+        "settingsThemeModeLight": MessageLookupByLibrary.simpleMessage("Hell"),
+        "settingsThemeModeSystem":
+            MessageLookupByLibrary.simpleMessage("System"),
+        "settingsThemeTitle":
+            MessageLookupByLibrary.simpleMessage("Modus & Farbe")
       };
 }

@@ -59,8 +59,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "screenTitleSolarPowerAddValue":
             MessageLookupByLibrary.simpleMessage("Enter solar power yield"),
         "settingsLanguageLabelChooseLanguage":
-            MessageLookupByLibrary.simpleMessage("Choose language"),
+            MessageLookupByLibrary.simpleMessage("Language"),
         "settingsLanguageTitle":
-            MessageLookupByLibrary.simpleMessage("Language")
+            MessageLookupByLibrary.simpleMessage("Language"),
+        "settingsThemeLabelChooseMainColor":
+            MessageLookupByLibrary.simpleMessage("Main Color"),
+        "settingsThemeLabelChooseMode":
+            MessageLookupByLibrary.simpleMessage("Mode"),
+        "settingsThemeModeDark":
+            MessageLookupByLibrary.simpleMessage("Dark Mode"),
+        "settingsThemeModeLight":
+            MessageLookupByLibrary.simpleMessage("Light Mode"),
+        "settingsThemeModeSystem":
+            MessageLookupByLibrary.simpleMessage("System Mode"),
+        "settingsThemeTitle": MessageLookupByLibrary.simpleMessage("Theme")
       };
 }

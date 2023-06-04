@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 
+import '../models/theme/app_theme.dart';
 import '../utils/device_storage_keys.dart';
 
 class _ThemeColors {
@@ -75,33 +76,20 @@ class DynamicThemeData with ChangeNotifier {
     return _darkMode ? ThemeMode.dark : ThemeMode.light;
   }
 
-  bool get systemThemeMode {
-    return _useSystemThemeMode;
-  }
-
-  set systemThemeMode(bool value) {
-    final doUpdate = _useSystemThemeMode != value;
-    if (doUpdate) {
-      _useSystemThemeMode = value;
-      _store();
-      notifyListeners();
-    }
-  }
-
   /// Use darkMode getter/setter only in app theme settings card!<br><br>
   /// To test if Theme is dark mode (e.g. if SystemMode is set) use:
   /// <pre>final isDarkMode = Theme.of(context).brightness == Brightness.dark;</pre>
-  bool get darkMode {
-    return _darkMode;
+  AppTheme get mode {
+    if (_useSystemThemeMode) return AppTheme.systemMode;
+    return _darkMode ? AppTheme.darkMode : AppTheme.lightMode;
   }
 
-  set darkMode(bool value) {
-    final doUpdate = _darkMode != value;
-    if (doUpdate) {
-      _darkMode = value;
-      _store();
-      notifyListeners();
-    }
+  set mode(AppTheme? appTheme) {
+    if (appTheme == null) return;
+    _useSystemThemeMode = appTheme.system;
+    _darkMode = appTheme.dark;
+    _store();
+    notifyListeners();
   }
 
   bool get usePurpleTheme {

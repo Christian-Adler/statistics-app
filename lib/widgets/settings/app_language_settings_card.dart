@@ -76,7 +76,8 @@ class _AppLanguageSettings extends StatelessWidget {
                 color: themeData.colorScheme.primary,
               ),
               underline: Container(
-                height: 0,
+                height: 2,
+                color: themeData.colorScheme.primary,
               ),
               value: appLanguage,
               items: AppLanguage.languages().map<DropdownMenuItem<AppLanguage>>((appLang) {
@@ -89,7 +90,7 @@ class _AppLanguageSettings extends StatelessWidget {
                     child: Container(
                         decoration: boxDeco,
                         child: Padding(
-                          padding: const EdgeInsets.all(7.0),
+                          padding: const EdgeInsets.all(6.0),
                           child: Text(appLang.getI18nName(context)),
                         )));
               }).toList(),

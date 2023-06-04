@@ -23,6 +23,12 @@
   "screenTitleHeartAddValue": "Enter blood pressure",
   "screenTitleSettings": "Settings",
   "screenTitleInfo": "Info",
-  "settingsLanguageLabelChooseLanguage": "Choose language",
-  "settingsLanguageTitle": "Language"
+  "settingsLanguageLabelChooseLanguage": "Language",
+  "settingsLanguageTitle": "Language",
+  "settingsThemeLabelChooseMode": "Mode",
+  "settingsThemeLabelChooseMainColor": "Main Color",
+  "settingsThemeModeDark": "Dark Mode",
+  "settingsThemeModeLight": "Light Mode",
+  "settingsThemeModeSystem": "System Mode",
+  "settingsThemeTitle": "Theme"
 }

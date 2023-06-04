@@ -23,6 +23,12 @@
   "screenTitleHeartAddValue": "Blutdruck eintragen",
   "screenTitleSettings": "Einstellungen",
   "screenTitleInfo": "Info",
-  "settingsLanguageLabelChooseLanguage": "Sprache wählen",
-  "settingsLanguageTitle": "Sprache"
+  "settingsLanguageLabelChooseLanguage": "Sprache",
+  "settingsLanguageTitle": "Sprache",
+  "settingsThemeLabelChooseMode": "Modus",
+  "settingsThemeLabelChooseMainColor": "Hauptfarbe",
+  "settingsThemeModeDark": "Dunkel",
+  "settingsThemeModeLight": "Hell",
+  "settingsThemeModeSystem": "System",
+  "settingsThemeTitle": "Modus & Farbe"
 }

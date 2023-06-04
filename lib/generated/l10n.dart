@@ -280,10 +280,10 @@ class S {
     );
   }
 
-  /// `Choose language`
+  /// `Language`
   String get settingsLanguageLabelChooseLanguage {
     return Intl.message(
-      'Choose language',
+      'Language',
       name: 'settingsLanguageLabelChooseLanguage',
       desc: '',
       args: [],
@@ -295,6 +295,66 @@ class S {
     return Intl.message(
       'Language',
       name: 'settingsLanguageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mode`
+  String get settingsThemeLabelChooseMode {
+    return Intl.message(
+      'Mode',
+      name: 'settingsThemeLabelChooseMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Main Color`
+  String get settingsThemeLabelChooseMainColor {
+    return Intl.message(
+      'Main Color',
+      name: 'settingsThemeLabelChooseMainColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get settingsThemeModeDark {
+    return Intl.message(
+      'Dark Mode',
+      name: 'settingsThemeModeDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light Mode`
+  String get settingsThemeModeLight {
+    return Intl.message(
+      'Light Mode',
+      name: 'settingsThemeModeLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System Mode`
+  String get settingsThemeModeSystem {
+    return Intl.message(
+      'System Mode',
+      name: 'settingsThemeModeSystem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get settingsThemeTitle {
+    return Intl.message(
+      'Theme',
+      name: 'settingsThemeTitle',
       desc: '',
       args: [],
     );
