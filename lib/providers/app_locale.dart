@@ -5,6 +5,7 @@ import 'package:flutter_commons/utils/device_storage.dart';
 
 import '../models/i18n/app_language.dart';
 import '../utils/device_storage_keys.dart';
+import '../utils/global_settings.dart';
 
 class AppLocale with ChangeNotifier {
   AppLanguage _appLanguage = AppLanguage.systemLanguage;
@@ -48,6 +49,8 @@ class AppLocale with ChangeNotifier {
       final languageName = data['appLocale'] as String;
       _appLanguage = AppLanguage.languages().firstWhere((element) => element.name == languageName);
     }
+
+    GlobalSettings.onFirstDrawRelevantProviderInitialized();
 
     notifyListeners();
   }

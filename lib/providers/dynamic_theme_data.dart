@@ -6,6 +6,7 @@ import 'package:flutter_commons/utils/device_storage.dart';
 
 import '../models/theme/app_theme.dart';
 import '../utils/device_storage_keys.dart';
+import '../utils/global_settings.dart';
 
 class _ThemeColors {
   final MaterialColor primary;
@@ -166,6 +167,8 @@ class DynamicThemeData with ChangeNotifier {
     if (data.containsKey('usePurpleColors')) {
       _usePurpleColors = data['usePurpleColors'] as bool;
     }
+
+    GlobalSettings.onFirstDrawRelevantProviderInitialized();
 
     notifyListeners();
   }

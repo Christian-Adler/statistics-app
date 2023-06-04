@@ -17,6 +17,7 @@ import 'providers/operating.dart';
 import 'screens/auth_screen.dart';
 import 'screens/splash_screen.dart';
 import 'utils/date_utils.dart';
+import 'utils/global_settings.dart';
 import 'utils/theme_utils.dart';
 import 'widgets/navigation/app_bottom_navigation_bar.dart';
 import 'widgets/navigation/main_navigation_stack.dart';
@@ -95,9 +96,17 @@ class _Initializer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DynamicThemeData>(context);
     // Nach Sprachwechsel muss DateUtil erneut initialisiert werden.
     Provider.of<AppLocale>(context);
     DateUtil.init();
+
+    // Wenn alle fuer das erste Anzeigen notwendigen Provider geladen sind... dann Home anzeigen.
+    // Ansonsten einfach nur einen Container anzeigen um die Zeit auszusitzen in der Sprache
+    // und App-Farbe noch nicht klar sind. Ansonsten kann es zum Flackern kommen:
+    // Wenn zuerst mit dem Default gezeichnet wird und dann der Provider geladen ist und neu gezeichnet wird.
+    if (!GlobalSettings.allFirstDrawRelevantProvidersInitialized()) return Container();
+
     return const _Home();
   }
 }
