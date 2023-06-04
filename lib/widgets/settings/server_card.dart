@@ -5,6 +5,7 @@ import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../providers/auth.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
@@ -34,7 +35,7 @@ class _ServerCardState extends State<ServerCard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Server', style: Theme.of(context).textTheme.titleLarge),
+            Text(S.of(context).settingsServerTitle, style: Theme.of(context).textTheme.titleLarge),
             IconButton(
               onPressed: () => _toggleExpanded(),
               icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
@@ -107,11 +108,12 @@ class _ChangeServerState extends State<_ChangeServer> {
     try {
       await _changeServer(_server);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
     }
   }
 
   void _removeServer(String server) async {
+    final snackbarMsgServerRemoved = S.of(context).settingsServerSnackbarMsgServerRemoved;
     try {
       List<String> servers = [];
       var strServers = await DeviceStorage.read(DeviceStorageKeys.keyServers);
@@ -120,11 +122,11 @@ class _ChangeServerState extends State<_ChangeServer> {
       }
       if (servers.remove(server)) {
         await DeviceStorage.write(DeviceStorageKeys.keyServers, jsonEncode(servers));
-        _showSnackBar('Server entfernt...');
+        _showSnackBar(snackbarMsgServerRemoved);
       }
       setState(() {});
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
     }
   }
 
@@ -135,7 +137,7 @@ class _ChangeServerState extends State<_ChangeServer> {
       children: [
         const Divider(height: 10),
         FutureBuilder(
-          builder: (context, serversSnapshot) {
+          builder: (ctx, serversSnapshot) {
             if (serversSnapshot.connectionState == ConnectionState.waiting) return Container();
             final storageData = serversSnapshot.data;
             if (storageData == null) return const Text('No servers stored.');
@@ -143,7 +145,7 @@ class _ChangeServerState extends State<_ChangeServer> {
             return Column(
               children: [
                 ...servers.map((serverAddress) {
-                  var disabled = (Provider.of<Auth>(context, listen: false).serverUrl == serverAddress);
+                  var disabled = (Provider.of<Auth>(ctx, listen: false).serverUrl == serverAddress);
                   return ListTile(
                     leading: CircleAvatar(
                       child: Icon(serverAddress.startsWith('https') ? Icons.https_outlined : Icons.http),
@@ -152,7 +154,7 @@ class _ChangeServerState extends State<_ChangeServer> {
                       onPressed: disabled ? null : () => _removeServer(serverAddress),
                       icon: Icon(
                         Icons.remove_circle_outline,
-                        color: disabled ? Theme.of(context).disabledColor : Theme.of(context).colorScheme.error,
+                        color: disabled ? Theme.of(ctx).disabledColor : Theme.of(ctx).colorScheme.error,
                       ),
                     ),
                     title: OutlinedButton(
@@ -174,11 +176,15 @@ class _ChangeServerState extends State<_ChangeServer> {
               Expanded(
                 child: TextFormField(
                   autofocus: true,
-                  decoration: const InputDecoration(labelText: 'Server'),
+                  decoration: InputDecoration(labelText: S.of(context).settingsServerInputLabelServer),
                   textInputAction: TextInputAction.send,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter a server';
-                    if (!value.startsWith('http')) return 'Please provide a valid server address';
+                    if (value == null || value.isEmpty) {
+                      return S.of(context).settingsServerInputValidatorMsgEnterServer;
+                    }
+                    if (!value.startsWith('http')) {
+                      return S.of(context).settingsServerInputValidatorMsgProvideValidServer;
+                    }
                     return null;
                   },
                   onSaved: (value) => _server = value!,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
 
+import '../../generated/l10n.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
 import 'settings_card.dart';
@@ -28,7 +29,7 @@ class _DeviceStorageCardState extends State<DeviceStorageCard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Device Storage', style: Theme.of(context).textTheme.titleLarge),
+            Text(S.of(context).settingsDeviceStorageTitle, style: Theme.of(context).textTheme.titleLarge),
             IconButton(
               onPressed: () => _toggleExpanded(),
               icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
@@ -82,7 +83,8 @@ class _DeviceStorageState extends State<_DeviceStorage> {
             if (storageData == null) return const Text('No device storage data set.');
 
             List<TableRow> rows = [
-              TableUtils.tableHeadline('Key', ['Value'])
+              TableUtils.tableHeadline(
+                  S.of(context).settingsDeviceStorageTableHeadKey, [S.of(context).settingsDeviceStorageTableHeadValue])
             ];
 
             final keys = storageData.keys.toList();
@@ -112,15 +114,16 @@ class _DeviceStorageState extends State<_DeviceStorage> {
         const Divider(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 200,
+              width: 265,
               child: SwitchListTile(
                 value: _showAuthData,
                 onChanged: (_) {
                   _toggleShowAuthData();
                 },
-                title: const Text('Login-Daten'),
+                title: Text(S.of(context).settingsDeviceStorageLabelShowAuthData),
               ),
             ),
             const _ClearDeviceStorage(),
@@ -141,14 +144,14 @@ class _ClearDeviceStorage extends StatelessWidget {
         showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Are you sure?'),
-            content: const Text('Do you really want to remove all data from device and log out?'),
+            title: Text(S.of(context).commonsDialogTitleAreYouSure),
+            content: Text(S.of(context).settingsDeviceStorageDialogMsgRemoveAllDataAndLogout),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(ctx).pop(false);
                 },
-                child: const Text('No'),
+                child: Text(S.of(context).commonsDialogBtnNo),
               ),
               TextButton(
                 onPressed: () async {
@@ -156,14 +159,14 @@ class _ClearDeviceStorage extends StatelessWidget {
                   await Globals.logout(ctx);
                   await DeviceStorage.deleteAll();
                 },
-                child: const Text('Yes'),
+                child: Text(S.of(context).commonsDialogBtnYes),
               ),
             ],
           ),
         );
       },
       icon: const Icon(Icons.lock_reset),
-      label: const Text('clear storage & logout'),
+      label: Text(S.of(context).settingsDeviceStorageBtnClearStorageAndLogout),
     );
   }
 }

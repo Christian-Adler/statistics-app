@@ -120,6 +120,16 @@ class S {
     );
   }
 
+  /// `Are you sure?`
+  String get commonsDialogTitleAreYouSure {
+    return Intl.message(
+      'Are you sure?',
+      name: 'commonsDialogTitleAreYouSure',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `An Error Occurred`
   String get commonsDialogTitleErrorOccurred {
     return Intl.message(
@@ -130,11 +140,31 @@ class S {
     );
   }
 
-  /// `Okay`
+  /// `No`
+  String get commonsDialogBtnNo {
+    return Intl.message(
+      'No',
+      name: 'commonsDialogBtnNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
   String get commonsDialogBtnOkay {
     return Intl.message(
-      'Okay',
+      'Ok',
       name: 'commonsDialogBtnOkay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get commonsDialogBtnYes {
+    return Intl.message(
+      'Yes',
+      name: 'commonsDialogBtnYes',
       desc: '',
       args: [],
     );
@@ -280,6 +310,66 @@ class S {
     );
   }
 
+  /// `Clear device storage & logout`
+  String get settingsDeviceStorageBtnClearStorageAndLogout {
+    return Intl.message(
+      'Clear device storage & logout',
+      name: 'settingsDeviceStorageBtnClearStorageAndLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to remove all app data from your device and log out?`
+  String get settingsDeviceStorageDialogMsgRemoveAllDataAndLogout {
+    return Intl.message(
+      'Do you really want to remove all app data from your device and log out?',
+      name: 'settingsDeviceStorageDialogMsgRemoveAllDataAndLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show auth data`
+  String get settingsDeviceStorageLabelShowAuthData {
+    return Intl.message(
+      'Show auth data',
+      name: 'settingsDeviceStorageLabelShowAuthData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Key`
+  String get settingsDeviceStorageTableHeadKey {
+    return Intl.message(
+      'Key',
+      name: 'settingsDeviceStorageTableHeadKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get settingsDeviceStorageTableHeadValue {
+    return Intl.message(
+      'Value',
+      name: 'settingsDeviceStorageTableHeadValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device Storage`
+  String get settingsDeviceStorageTitle {
+    return Intl.message(
+      'Device Storage',
+      name: 'settingsDeviceStorageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language`
   String get settingsLanguageLabelChooseLanguage {
     return Intl.message(
@@ -335,6 +425,56 @@ class S {
     return Intl.message(
       'Layout',
       name: 'settingsLayoutTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server`
+  String get settingsServerInputLabelServer {
+    return Intl.message(
+      'Server',
+      name: 'settingsServerInputLabelServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a server`
+  String get settingsServerInputValidatorMsgEnterServer {
+    return Intl.message(
+      'Enter a server',
+      name: 'settingsServerInputValidatorMsgEnterServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Provide a valid server address`
+  String get settingsServerInputValidatorMsgProvideValidServer {
+    return Intl.message(
+      'Provide a valid server address',
+      name: 'settingsServerInputValidatorMsgProvideValidServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server removed...`
+  String get settingsServerSnackbarMsgServerRemoved {
+    return Intl.message(
+      'Server removed...',
+      name: 'settingsServerSnackbarMsgServerRemoved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server`
+  String get settingsServerTitle {
+    return Intl.message(
+      'Server',
+      name: 'settingsServerTitle',
       desc: '',
       args: [],
     );

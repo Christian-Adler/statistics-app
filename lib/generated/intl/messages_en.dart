@@ -33,7 +33,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter a valid server!"),
         "authInputValidatorMsgPasswordToShort":
             MessageLookupByLibrary.simpleMessage("Password is too short!"),
-        "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Okay"),
+        "commonsDialogBtnNo": MessageLookupByLibrary.simpleMessage("No"),
+        "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Ok"),
+        "commonsDialogBtnYes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "commonsDialogTitleAreYouSure":
+            MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "commonsDialogTitleErrorOccurred":
             MessageLookupByLibrary.simpleMessage("An Error Occurred"),
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -58,6 +62,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Solar power"),
         "screenTitleSolarPowerAddValue":
             MessageLookupByLibrary.simpleMessage("Enter solar power yield"),
+        "settingsDeviceStorageBtnClearStorageAndLogout":
+            MessageLookupByLibrary.simpleMessage(
+                "Clear device storage & logout"),
+        "settingsDeviceStorageDialogMsgRemoveAllDataAndLogout":
+            MessageLookupByLibrary.simpleMessage(
+                "Do you really want to remove all app data from your device and log out?"),
+        "settingsDeviceStorageLabelShowAuthData":
+            MessageLookupByLibrary.simpleMessage("Show auth data"),
+        "settingsDeviceStorageTableHeadKey":
+            MessageLookupByLibrary.simpleMessage("Key"),
+        "settingsDeviceStorageTableHeadValue":
+            MessageLookupByLibrary.simpleMessage("Value"),
+        "settingsDeviceStorageTitle":
+            MessageLookupByLibrary.simpleMessage("Device Storage"),
         "settingsLanguageLabelChooseLanguage":
             MessageLookupByLibrary.simpleMessage("Language"),
         "settingsLanguageTitle":
@@ -72,6 +90,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Display parallax effect in overview (cpu consuming)"),
         "settingsLayoutTitle": MessageLookupByLibrary.simpleMessage("Layout"),
+        "settingsServerInputLabelServer":
+            MessageLookupByLibrary.simpleMessage("Server"),
+        "settingsServerInputValidatorMsgEnterServer":
+            MessageLookupByLibrary.simpleMessage("Enter a server"),
+        "settingsServerInputValidatorMsgProvideValidServer":
+            MessageLookupByLibrary.simpleMessage(
+                "Provide a valid server address"),
+        "settingsServerSnackbarMsgServerRemoved":
+            MessageLookupByLibrary.simpleMessage("Server removed..."),
+        "settingsServerTitle": MessageLookupByLibrary.simpleMessage("Server"),
         "settingsThemeLabelChooseMainColor":
             MessageLookupByLibrary.simpleMessage("Main Color"),
         "settingsThemeLabelChooseMode":

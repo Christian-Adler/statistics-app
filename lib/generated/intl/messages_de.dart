@@ -35,7 +35,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "authInputValidatorMsgPasswordToShort":
             MessageLookupByLibrary.simpleMessage(
                 "Geben sie ein gültiges Passwort ein!"),
-        "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("OK"),
+        "commonsDialogBtnNo": MessageLookupByLibrary.simpleMessage("Nein"),
+        "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Ok"),
+        "commonsDialogBtnYes": MessageLookupByLibrary.simpleMessage("Ja"),
+        "commonsDialogTitleAreYouSure":
+            MessageLookupByLibrary.simpleMessage("Sind sie sicher?"),
         "commonsDialogTitleErrorOccurred":
             MessageLookupByLibrary.simpleMessage("Fehler"),
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Abmelden"),
@@ -61,6 +65,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Solar-Strom"),
         "screenTitleSolarPowerAddValue": MessageLookupByLibrary.simpleMessage(
             "Solar-Energie-Ertrag eintragen"),
+        "settingsDeviceStorageBtnClearStorageAndLogout":
+            MessageLookupByLibrary.simpleMessage(
+                "Lösche gespeicherte App-Daten & Abmelden"),
+        "settingsDeviceStorageDialogMsgRemoveAllDataAndLogout":
+            MessageLookupByLibrary.simpleMessage(
+                "Wollen sie wirklich alle App-Daten löschen und abmelden?"),
+        "settingsDeviceStorageLabelShowAuthData":
+            MessageLookupByLibrary.simpleMessage("Login-Daten anzeigen"),
+        "settingsDeviceStorageTableHeadKey":
+            MessageLookupByLibrary.simpleMessage("Schlüssel"),
+        "settingsDeviceStorageTableHeadValue":
+            MessageLookupByLibrary.simpleMessage("Wert"),
+        "settingsDeviceStorageTitle":
+            MessageLookupByLibrary.simpleMessage("Geräte-Speicher"),
         "settingsLanguageLabelChooseLanguage":
             MessageLookupByLibrary.simpleMessage("Sprache"),
         "settingsLanguageTitle":
@@ -75,6 +93,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "In Übersicht Parallax-Effekt anzeigen (CPU intensiv)"),
         "settingsLayoutTitle": MessageLookupByLibrary.simpleMessage("Anzeige"),
+        "settingsServerInputLabelServer":
+            MessageLookupByLibrary.simpleMessage("Server"),
+        "settingsServerInputValidatorMsgEnterServer":
+            MessageLookupByLibrary.simpleMessage(
+                "Geben sie eine Server-Adresse ein!"),
+        "settingsServerInputValidatorMsgProvideValidServer":
+            MessageLookupByLibrary.simpleMessage(
+                "Geben sie eine gültige Server-Adresse ein!"),
+        "settingsServerSnackbarMsgServerRemoved":
+            MessageLookupByLibrary.simpleMessage("Server entfernt..."),
+        "settingsServerTitle": MessageLookupByLibrary.simpleMessage("Server"),
         "settingsThemeLabelChooseMainColor":
             MessageLookupByLibrary.simpleMessage("Hauptfarbe"),
         "settingsThemeLabelChooseMode":
