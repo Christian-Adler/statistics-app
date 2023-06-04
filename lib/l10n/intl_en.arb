@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
-  "authErrorMsgAuthenticationFailed": "Could not authenticate you. Please try again later.",
   "authBtnLogin": "Login",
+  "authErrorMsgAuthenticationFailed": "Could not authenticate you. Please try again later.",
   "authInputLabelServer": "Server",
   "authInputLabelPassword": "Password",
   "authInputValidatorMsgEnterValidServer": "Enter a valid server!",
@@ -22,5 +22,7 @@
   "screenTitleHeart": "Blood pressure",
   "screenTitleHeartAddValue": "Enter blood pressure",
   "screenTitleSettings": "Settings",
-  "screenTitleInfo": "Info"
+  "screenTitleInfo": "Info",
+  "settingsLanguageLabelChooseLanguage": "Choose language",
+  "settingsLanguageTitle": "Language"
 }

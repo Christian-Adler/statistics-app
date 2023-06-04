@@ -50,21 +50,21 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Could not authenticate you. Please try again later.`
-  String get authErrorMsgAuthenticationFailed {
-    return Intl.message(
-      'Could not authenticate you. Please try again later.',
-      name: 'authErrorMsgAuthenticationFailed',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Login`
   String get authBtnLogin {
     return Intl.message(
       'Login',
       name: 'authBtnLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Could not authenticate you. Please try again later.`
+  String get authErrorMsgAuthenticationFailed {
+    return Intl.message(
+      'Could not authenticate you. Please try again later.',
+      name: 'authErrorMsgAuthenticationFailed',
       desc: '',
       args: [],
     );
@@ -275,6 +275,26 @@ class S {
     return Intl.message(
       'Info',
       name: 'screenTitleInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose language`
+  String get settingsLanguageLabelChooseLanguage {
+    return Intl.message(
+      'Choose language',
+      name: 'settingsLanguageLabelChooseLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get settingsLanguageTitle {
+    return Intl.message(
+      'Language',
+      name: 'settingsLanguageTitle',
       desc: '',
       args: [],
     );

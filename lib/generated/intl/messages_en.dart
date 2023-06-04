@@ -57,6 +57,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "screenTitleSolarPower":
             MessageLookupByLibrary.simpleMessage("Solar power"),
         "screenTitleSolarPowerAddValue":
-            MessageLookupByLibrary.simpleMessage("Enter solar power yield")
+            MessageLookupByLibrary.simpleMessage("Enter solar power yield"),
+        "settingsLanguageLabelChooseLanguage":
+            MessageLookupByLibrary.simpleMessage("Choose language"),
+        "settingsLanguageTitle":
+            MessageLookupByLibrary.simpleMessage("Language")
       };
 }

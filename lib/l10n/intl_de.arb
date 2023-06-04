@@ -1,7 +1,7 @@
 {
   "@@locale": "de",
-  "authErrorMsgAuthenticationFailed": "Login fehlgeschlagen. Bitte später nochmals versuchen.",
   "authBtnLogin": "Anmelden",
+  "authErrorMsgAuthenticationFailed": "Login fehlgeschlagen. Bitte später nochmals versuchen.",
   "authInputLabelServer": "Server",
   "authInputLabelPassword": "Passwort",
   "authInputValidatorMsgEnterValidServer": "Geben sie einen validen Server an!",
@@ -22,5 +22,7 @@
   "screenTitleHeart": "Blutdruck",
   "screenTitleHeartAddValue": "Blutdruck eintragen",
   "screenTitleSettings": "Einstellungen",
-  "screenTitleInfo": "Info"
+  "screenTitleInfo": "Info",
+  "settingsLanguageLabelChooseLanguage": "Sprache wählen",
+  "settingsLanguageTitle": "Sprache"
 }

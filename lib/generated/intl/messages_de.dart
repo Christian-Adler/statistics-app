@@ -60,6 +60,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "screenTitleSolarPower":
             MessageLookupByLibrary.simpleMessage("Solar-Strom"),
         "screenTitleSolarPowerAddValue": MessageLookupByLibrary.simpleMessage(
-            "Solar-Energie-Ertrag eintragen")
+            "Solar-Energie-Ertrag eintragen"),
+        "settingsLanguageLabelChooseLanguage":
+            MessageLookupByLibrary.simpleMessage("Sprache wählen"),
+        "settingsLanguageTitle": MessageLookupByLibrary.simpleMessage("Sprache")
       };
 }

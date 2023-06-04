@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/i18n/app_language.dart';
 import '../../providers/app_locale.dart';
 import 'settings_card.dart';
@@ -27,7 +28,7 @@ class _AppLanguageSettingsCardState extends State<AppLanguageSettingsCard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('App Language', style: Theme.of(context).textTheme.titleLarge),
+            Text(S.of(context).settingsLanguageTitle, style: Theme.of(context).textTheme.titleLarge),
             IconButton(
               onPressed: () => _toggleExpanded(),
               icon: Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
@@ -67,7 +68,7 @@ class _AppLanguageSettings extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Text('Sprache wählen', style: themeData.textTheme.titleMedium),
+              child: Text(S.of(context).settingsLanguageLabelChooseLanguage, style: themeData.textTheme.titleMedium),
             ),
             DropdownButton<AppLanguage>(
               icon: Icon(
