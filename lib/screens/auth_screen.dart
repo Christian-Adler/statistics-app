@@ -31,11 +31,14 @@ class AuthScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.settings),
         onPressed: () {
-          showModalBottomSheet(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            context: context,
-            builder: _buildSettingsSheet,
-          );
+          showDialog(
+              context: context,
+              builder: (ctx) {
+                return const AlertDialog(
+                  title: _SettingsDialogTitle(),
+                  content: _SettingsDialogContent(),
+                );
+              });
         },
       ),
       body: Stack(
@@ -308,46 +311,43 @@ class _AuthCardState extends State<_AuthCard> {
   }
 }
 
-Widget _buildSettingsSheet(context) {
-  return SizedBox(
-    width: double.infinity,
-    child: SingleChildScrollViewWithScrollbar(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DeviceDependentConstrainedBox(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              child: Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          child: Text(
-                            S.of(context).authSettingsTitle,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: const Icon(Icons.close))
-                      ],
-                    ),
-                    const Divider(),
-                    const ChooseLanguage(),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+class _SettingsDialogTitle extends StatelessWidget {
+  const _SettingsDialogTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          S.of(context).authSettingsTitle,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.close))
+      ],
+    );
+  }
+}
+
+class _SettingsDialogContent extends StatelessWidget {
+  const _SettingsDialogContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SingleChildScrollViewWithScrollbar(
+      child: DeviceDependentConstrainedBox(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // const Divider(),
+            ChooseLanguage(),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
