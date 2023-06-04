@@ -57,12 +57,12 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
                     onPressed: () {
                       Navigator.pop(ctx);
                     },
-                    child: const Text('Abbrechen')),
+                    child: Text(S.of(context).commonsDialogBtnCancel)),
                 TextButton(
                   onPressed: () {
                     _saveHandler(); // SaveHandler macht bei Erfolg selbst pop
                   },
-                  child: const Text('Speichern'),
+                  child: Text(S.of(context).commonsDialogBtnSave),
                 )
               ],
             );
@@ -82,7 +82,6 @@ class SolarPowerScreenState extends State<SolarPowerScreen> {
         actions: [
           IconButton(
             onPressed: () => _toggleYearly(),
-            tooltip: 'Zeige ${_showYearly ? 'Monatsansicht' : 'Jahresansicht'}',
             icon: Icon(_showYearly ? Icons.calendar_month_outlined : Icons.calendar_today_outlined),
           ),
           IconButton(

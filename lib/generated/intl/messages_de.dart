@@ -42,6 +42,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "authInputValidatorMsgPasswordToShort":
             MessageLookupByLibrary.simpleMessage(
                 "Geben sie ein gültiges Passwort ein!"),
+        "bloodPressureAddValueInputLabelDiastolic":
+            MessageLookupByLibrary.simpleMessage(
+                "diastolisch (unterer) (mmHg)"),
+        "bloodPressureAddValueInputLabelSystolic":
+            MessageLookupByLibrary.simpleMessage("systolisch (oberer) (mmHg)"),
         "bloodPressureTableHeadDate":
             MessageLookupByLibrary.simpleMessage("Datum"),
         "bloodPressureTableHeadEvening":
@@ -50,6 +55,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mittag"),
         "bloodPressureTableHeadMorning":
             MessageLookupByLibrary.simpleMessage("Morgen"),
+        "carAddValueInputLabelCentPerLiter":
+            MessageLookupByLibrary.simpleMessage("ct/l (1,199€ = 120ct/l)"),
+        "carAddValueInputLabelKilometers":
+            MessageLookupByLibrary.simpleMessage("km-Stand (km)"),
+        "carAddValueInputLabelLiters":
+            MessageLookupByLibrary.simpleMessage("Liter (gerundet) (l)"),
         "carTableHeadDate": MessageLookupByLibrary.simpleMessage("Datum"),
         "carTableHeadEuro": MessageLookupByLibrary.simpleMessage("€"),
         "carTableHeadEuroPerLiter": MessageLookupByLibrary.simpleMessage("€/l"),
@@ -57,8 +68,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "carTableHeadLiters": MessageLookupByLibrary.simpleMessage("l"),
         "carTableHeadLitersPer100Kilometers":
             MessageLookupByLibrary.simpleMessage("l/100km"),
+        "commonsDialogBtnCancel":
+            MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "commonsDialogBtnNo": MessageLookupByLibrary.simpleMessage("Nein"),
         "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Ok"),
+        "commonsDialogBtnSave":
+            MessageLookupByLibrary.simpleMessage("Speichern"),
         "commonsDialogBtnYes": MessageLookupByLibrary.simpleMessage("Ja"),
         "commonsDialogTitleAreYouSure":
             MessageLookupByLibrary.simpleMessage("Sind sie sicher?"),
@@ -67,9 +82,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Abmelden"),
         "commonsMsgErrorFailedToLoadData": MessageLookupByLibrary.simpleMessage(
             "Fehler beim Laden der Daten..."),
+        "commonsSnackbarMsgSaved":
+            MessageLookupByLibrary.simpleMessage("Gespeichert..."),
+        "commonsValidatorMsgEmptyValue":
+            MessageLookupByLibrary.simpleMessage("Bitte Wert eingeben"),
+        "commonsValidatorMsgNumberGtZeroRequired":
+            MessageLookupByLibrary.simpleMessage(
+                "Bitte gültige Zahl > 0 eingeben"),
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "operatingAddValueInputLabelPower":
+            MessageLookupByLibrary.simpleMessage("Strom (kWh)"),
+        "operatingAddValueInputLabelPowerFed":
+            MessageLookupByLibrary.simpleMessage("Strom Eingespeist (kWh)"),
+        "operatingAddValueInputLabelPowerHeatingDay":
+            MessageLookupByLibrary.simpleMessage("Strom Wärmepumpe HT (kWh)"),
+        "operatingAddValueInputLabelPowerHeatingNight":
+            MessageLookupByLibrary.simpleMessage("Strom Wärmepumpe NT (kWh)"),
+        "operatingAddValueInputLabelWater":
+            MessageLookupByLibrary.simpleMessage(
+                "Wasser (m³ = alle großen Zahlen)"),
         "operatingChartHeating":
             MessageLookupByLibrary.simpleMessage("Heizung (kWh)"),
         "operatingChartPowerConsumed":
@@ -163,6 +196,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("System"),
         "settingsThemeTitle":
             MessageLookupByLibrary.simpleMessage("Modus & Farbe"),
+        "solarPowerAddValueInputLabelPowerGenerated":
+            MessageLookupByLibrary.simpleMessage(
+                "Erzeugte Solar Energie (kWh)"),
         "solarPowerChartLegendItemConsumption":
             MessageLookupByLibrary.simpleMessage("Verbrauch"),
         "solarPowerChartLegendItemFed":

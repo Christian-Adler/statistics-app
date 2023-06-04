@@ -3,6 +3,7 @@ import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/date_utils.dart';
@@ -25,7 +26,7 @@ class OperatingAddValueState extends State<OperatingAddValue> {
   double _heatingNT = 0.0;
 
   void _showSuccessMessage() {
-    Dialogs.showSnackBar('gespeichert...', context);
+    Dialogs.showSnackBar(S.of(context).commonsSnackbarMsgSaved, context);
   }
 
   Future<void> saveForm() async {
@@ -42,9 +43,9 @@ class OperatingAddValueState extends State<OperatingAddValue> {
       await power.addOperatingEntry(_water, _consumedPower, _feedPower, _heatingHT, _heatingNT);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
     }
 
     setState(() {
@@ -70,61 +71,61 @@ class OperatingAddValueState extends State<OperatingAddValue> {
         ),
         TextFormField(
           autofocus: true,
-          decoration: const InputDecoration(labelText: 'Wasser (m³ = alle großen Zahlen)'),
+          decoration: InputDecoration(labelText: S.of(context).operatingAddValueInputLabelWater),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _water = double.parse(value!),
         ),
         TextFormField(
-          decoration: const InputDecoration(labelText: 'Strom (kWh)'),
+          decoration: InputDecoration(labelText: S.of(context).operatingAddValueInputLabelPower),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _consumedPower = double.parse(value!),
         ),
         TextFormField(
-          decoration: const InputDecoration(labelText: 'Strom Eingespeist (kWh)'),
+          decoration: InputDecoration(labelText: S.of(context).operatingAddValueInputLabelPowerFed),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _feedPower = double.parse(value!),
         ),
         TextFormField(
-          decoration: const InputDecoration(labelText: 'Strom Wärmepumpe HT (kWh)'),
+          decoration: InputDecoration(labelText: S.of(context).operatingAddValueInputLabelPowerHeatingDay),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _heatingHT = double.parse(value!),
         ),
         TextFormField(
-          decoration: const InputDecoration(labelText: 'Strom Wärmepumpe NT (kWh)'),
+          decoration: InputDecoration(labelText: S.of(context).operatingAddValueInputLabelPowerHeatingNight),
           textInputAction: TextInputAction.send,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _heatingNT = double.parse(value!),

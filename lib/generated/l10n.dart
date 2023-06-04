@@ -110,6 +110,26 @@ class S {
     );
   }
 
+  /// `diastolic (lower) (mmHg)`
+  String get bloodPressureAddValueInputLabelDiastolic {
+    return Intl.message(
+      'diastolic (lower) (mmHg)',
+      name: 'bloodPressureAddValueInputLabelDiastolic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `systolic (upper) (mmHg)`
+  String get bloodPressureAddValueInputLabelSystolic {
+    return Intl.message(
+      'systolic (upper) (mmHg)',
+      name: 'bloodPressureAddValueInputLabelSystolic',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date`
   String get bloodPressureTableHeadDate {
     return Intl.message(
@@ -145,6 +165,36 @@ class S {
     return Intl.message(
       'Morning',
       name: 'bloodPressureTableHeadMorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ct/l (1.199€ = 120ct/l)`
+  String get carAddValueInputLabelCentPerLiter {
+    return Intl.message(
+      'ct/l (1.199€ = 120ct/l)',
+      name: 'carAddValueInputLabelCentPerLiter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mileage (km)`
+  String get carAddValueInputLabelKilometers {
+    return Intl.message(
+      'Mileage (km)',
+      name: 'carAddValueInputLabelKilometers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liters (rounded) (l)`
+  String get carAddValueInputLabelLiters {
+    return Intl.message(
+      'Liters (rounded) (l)',
+      name: 'carAddValueInputLabelLiters',
       desc: '',
       args: [],
     );
@@ -240,6 +290,16 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get commonsDialogBtnCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'commonsDialogBtnCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No`
   String get commonsDialogBtnNo {
     return Intl.message(
@@ -260,6 +320,16 @@ class S {
     );
   }
 
+  /// `Save`
+  String get commonsDialogBtnSave {
+    return Intl.message(
+      'Save',
+      name: 'commonsDialogBtnSave',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Yes`
   String get commonsDialogBtnYes {
     return Intl.message(
@@ -275,6 +345,36 @@ class S {
     return Intl.message(
       'Failed to load data...',
       name: 'commonsMsgErrorFailedToLoadData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saved...`
+  String get commonsSnackbarMsgSaved {
+    return Intl.message(
+      'Saved...',
+      name: 'commonsSnackbarMsgSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a value`
+  String get commonsValidatorMsgEmptyValue {
+    return Intl.message(
+      'Please enter a value',
+      name: 'commonsValidatorMsgEmptyValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide a valid number > 0`
+  String get commonsValidatorMsgNumberGtZeroRequired {
+    return Intl.message(
+      'Please provide a valid number > 0',
+      name: 'commonsValidatorMsgNumberGtZeroRequired',
       desc: '',
       args: [],
     );
@@ -305,6 +405,56 @@ class S {
     return Intl.message(
       'Deutsch',
       name: 'localeNameGerman',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power (kWh)`
+  String get operatingAddValueInputLabelPower {
+    return Intl.message(
+      'Power (kWh)',
+      name: 'operatingAddValueInputLabelPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power Fed (kWh)`
+  String get operatingAddValueInputLabelPowerFed {
+    return Intl.message(
+      'Power Fed (kWh)',
+      name: 'operatingAddValueInputLabelPowerFed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power Heating HT (kWh)`
+  String get operatingAddValueInputLabelPowerHeatingDay {
+    return Intl.message(
+      'Power Heating HT (kWh)',
+      name: 'operatingAddValueInputLabelPowerHeatingDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strom Heating NT (kWh)`
+  String get operatingAddValueInputLabelPowerHeatingNight {
+    return Intl.message(
+      'Strom Heating NT (kWh)',
+      name: 'operatingAddValueInputLabelPowerHeatingNight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Water (m³ = alle großen Zahlen)`
+  String get operatingAddValueInputLabelWater {
+    return Intl.message(
+      'Water (m³ = alle großen Zahlen)',
+      name: 'operatingAddValueInputLabelWater',
       desc: '',
       args: [],
     );
@@ -765,6 +915,16 @@ class S {
     return Intl.message(
       'Theme',
       name: 'settingsThemeTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generated Solar Power (kWh)`
+  String get solarPowerAddValueInputLabelPowerGenerated {
+    return Intl.message(
+      'Generated Solar Power (kWh)',
+      name: 'solarPowerAddValueInputLabelPowerGenerated',
       desc: '',
       args: [],
     );

@@ -3,6 +3,7 @@ import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/date_utils.dart';
@@ -21,7 +22,7 @@ class SolarPowerAddValueState extends State<SolarPowerAddValue> {
   var _value = 0.0;
 
   void _showSuccessMessage() {
-    Dialogs.showSnackBar('gespeichert...', context);
+    Dialogs.showSnackBar(S.of(context).commonsSnackbarMsgSaved, context);
   }
 
   Future<void> saveForm() async {
@@ -38,9 +39,9 @@ class SolarPowerAddValueState extends State<SolarPowerAddValue> {
       await power.addSolarPowerEntry(_value);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
     }
 
     setState(() {
@@ -66,13 +67,13 @@ class SolarPowerAddValueState extends State<SolarPowerAddValue> {
         ),
         TextFormField(
           autofocus: true,
-          decoration: const InputDecoration(labelText: 'Erzeugte Solar Energie (kWh)'),
+          decoration: InputDecoration(labelText: S.of(context).solarPowerAddValueInputLabelPowerGenerated),
           textInputAction: TextInputAction.done,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a kWh value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = double.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _value = double.parse(value!),

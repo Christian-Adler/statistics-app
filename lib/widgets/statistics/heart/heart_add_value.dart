@@ -3,6 +3,7 @@ import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/heart.dart';
 import '../../layout/scrollable_centered_form_wrapper.dart';
@@ -21,7 +22,7 @@ class HeartAddValueState extends State<HeartAddValue> {
   int _low = 0;
 
   void _showSuccessMessage() {
-    Dialogs.showSnackBar('gespeichert...', context);
+    Dialogs.showSnackBar(S.of(context).commonsSnackbarMsgSaved, context);
   }
 
   Future<void> saveForm() async {
@@ -38,9 +39,9 @@ class HeartAddValueState extends State<HeartAddValue> {
       await power.addBloodPressureEntry(_high, _low);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
     }
 
     setState(() {
@@ -66,25 +67,25 @@ class HeartAddValueState extends State<HeartAddValue> {
         ),
         TextFormField(
           autofocus: true,
-          decoration: const InputDecoration(labelText: 'systolisch (oberer)'),
+          decoration: InputDecoration(labelText: S.of(context).bloodPressureAddValueInputLabelSystolic),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = int.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _high = int.parse(value!),
         ),
         TextFormField(
-          decoration: const InputDecoration(labelText: 'diastolisch (unterer)'),
+          decoration: InputDecoration(labelText: S.of(context).bloodPressureAddValueInputLabelDiastolic),
           textInputAction: TextInputAction.done,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Please enter a value';
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
             var val = int.tryParse(value);
-            if (val == null || val <= 0) return 'Please provide a valid number > 0';
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
           onSaved: (value) => _low = int.parse(value!),

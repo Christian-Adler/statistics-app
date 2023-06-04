@@ -52,12 +52,12 @@ class CarScreenState extends State<CarScreen> {
                     onPressed: () {
                       Navigator.pop(ctx);
                     },
-                    child: const Text('Abbrechen')),
+                    child: Text(S.of(context).commonsDialogBtnCancel)),
                 TextButton(
                   onPressed: () {
                     _saveHandler(); // SaveHandler macht bei Erfolg selbst pop
                   },
-                  child: const Text('Speichern'),
+                  child: Text(S.of(context).commonsDialogBtnSave),
                 )
               ],
             );
