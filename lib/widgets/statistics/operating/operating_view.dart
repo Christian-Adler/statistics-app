@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/charts.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
@@ -69,7 +70,8 @@ class _OperatingState extends State<_Operating> {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Error occurred:${dataSnapshot.error?.toString() ?? ''}'),
+              child: Text(
+                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO ErrorLog
             ),
           );
         } else {
@@ -81,14 +83,17 @@ class _OperatingState extends State<_Operating> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Text('Betriebskosten / ${widget.showYearly ? 'Jahr' : 'Monat'}',
+                    child: Text(
+                        S.of(context).operatingTitle(widget.showYearly
+                            ? S.of(context).operatingTitlePeriodYear
+                            : S.of(context).operatingTitlePeriodMonth),
                         style: Theme.of(context).textTheme.titleLarge),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   OperatingChart(
-                    title: 'Wasser (m³)',
+                    title: S.of(context).operatingChartWater,
                     baseColor: const Color.fromRGBO(51, 255, 255, 1),
                     maxHue: 70,
                     showYearly: widget.showYearly,
@@ -100,7 +105,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Heizung (kWh)',
+                    title: S.of(context).operatingChartHeating,
                     baseColor: const Color.fromRGBO(255, 0, 255, 1),
                     maxHue: -50,
                     showYearly: widget.showYearly,
@@ -112,7 +117,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Strom (kWh)',
+                    title: S.of(context).operatingChartPowerConsumed,
                     baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
@@ -126,7 +131,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Strom Erzeugt (kWh)',
+                    title: S.of(context).operatingChartPowerGenerated,
                     baseColor: const Color.fromRGBO(117, 49, 255, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
@@ -137,7 +142,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Strom Eingespeist (kWh)',
+                    title: S.of(context).operatingChartPowerFed,
                     baseColor: const Color.fromRGBO(224, 152, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
@@ -148,7 +153,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Strom Erzeugt Eigenverbrauch (kWh)',
+                    title: S.of(context).operatingChartPowerGeneratedOwnConsumption,
                     baseColor: const Color.fromRGBO(194, 224, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
@@ -159,7 +164,7 @@ class _OperatingState extends State<_Operating> {
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: 'Strom Verbrauch gesamt (kWh)',
+                    title: S.of(context).operatingChartPowerConsumedTotal,
                     baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,

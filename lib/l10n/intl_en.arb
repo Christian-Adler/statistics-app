@@ -26,6 +26,24 @@
   "localeNameSystem": "System",
   "localeNameEnglish": "English",
   "localeNameGerman": "Deutsch",
+  "operatingChartPowerConsumed": "Power consumed (kWh)",
+  "operatingChartPowerConsumedTotal": "Power consumed total (kWh)",
+  "operatingChartPowerFed": "Power fed (kWh)",
+  "operatingChartPowerGenerated": "Power generated (kWh)",
+  "operatingChartPowerGeneratedOwnConsumption": "Power generated own consumption (kWh)",
+  "operatingChartHeating": "Heating (kWh)",
+  "operatingChartWater": "Water (m³)",
+  "operatingTitle": "Operating costs / {period}",
+  "@operatingTitle": {
+    "placeholders": {
+      "period": {
+        "type": "String",
+        "example": "Month"
+      }
+    }
+  },
+  "operatingTitlePeriodMonth": "Month",
+  "operatingTitlePeriodYear": "Year",
   "patternsDateWeekdayWithDate": "E, yyyy-MM-dd",
   "patternsDateYYYYMMDD": "yyyy-MM-dd",
   "screenTitleOverview": "Overview",

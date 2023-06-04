@@ -20,10 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(price, feePerMont) =>
+  static String m0(period) => "Operating costs / ${period}";
+
+  static String m1(price, feePerMont) =>
       "Price : ${price} €/kWh, Basic fee : ${feePerMont} €/Monat";
 
-  static String m1(period) => "kWh / ${period}";
+  static String m2(period) => "kWh / ${period}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -66,6 +68,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "operatingChartHeating":
+            MessageLookupByLibrary.simpleMessage("Heating (kWh)"),
+        "operatingChartPowerConsumed":
+            MessageLookupByLibrary.simpleMessage("Power consumed (kWh)"),
+        "operatingChartPowerConsumedTotal":
+            MessageLookupByLibrary.simpleMessage("Power consumed total (kWh)"),
+        "operatingChartPowerFed":
+            MessageLookupByLibrary.simpleMessage("Power fed (kWh)"),
+        "operatingChartPowerGenerated":
+            MessageLookupByLibrary.simpleMessage("Power generated (kWh)"),
+        "operatingChartPowerGeneratedOwnConsumption":
+            MessageLookupByLibrary.simpleMessage(
+                "Power generated own consumption (kWh)"),
+        "operatingChartWater":
+            MessageLookupByLibrary.simpleMessage("Water (m³)"),
+        "operatingTitle": m0,
+        "operatingTitlePeriodMonth":
+            MessageLookupByLibrary.simpleMessage("Month"),
+        "operatingTitlePeriodYear":
+            MessageLookupByLibrary.simpleMessage("Year"),
         "patternsDateWeekdayWithDate":
             MessageLookupByLibrary.simpleMessage("E, yyyy-MM-dd"),
         "patternsDateYYYYMMDD":
@@ -145,7 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Generated"),
         "solarPowerChartLegendItemTotal":
             MessageLookupByLibrary.simpleMessage("Total"),
-        "solarPowerChartSubLegendPriceAndFee": m0,
+        "solarPowerChartSubLegendPriceAndFee": m1,
         "solarPowerTableHeadConsumption":
             MessageLookupByLibrary.simpleMessage("Consumption"),
         "solarPowerTableHeadConsumptionAbbrev":
@@ -162,7 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total"),
         "solarPowerTableHeadTotalAbbrev":
             MessageLookupByLibrary.simpleMessage("Total"),
-        "solarPowerTitle": m1,
+        "solarPowerTitle": m2,
         "solarPowerTitlePeriodMonth":
             MessageLookupByLibrary.simpleMessage("Month"),
         "solarPowerTitlePeriodYear":

@@ -310,6 +310,106 @@ class S {
     );
   }
 
+  /// `Power consumed (kWh)`
+  String get operatingChartPowerConsumed {
+    return Intl.message(
+      'Power consumed (kWh)',
+      name: 'operatingChartPowerConsumed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power consumed total (kWh)`
+  String get operatingChartPowerConsumedTotal {
+    return Intl.message(
+      'Power consumed total (kWh)',
+      name: 'operatingChartPowerConsumedTotal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power fed (kWh)`
+  String get operatingChartPowerFed {
+    return Intl.message(
+      'Power fed (kWh)',
+      name: 'operatingChartPowerFed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power generated (kWh)`
+  String get operatingChartPowerGenerated {
+    return Intl.message(
+      'Power generated (kWh)',
+      name: 'operatingChartPowerGenerated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Power generated own consumption (kWh)`
+  String get operatingChartPowerGeneratedOwnConsumption {
+    return Intl.message(
+      'Power generated own consumption (kWh)',
+      name: 'operatingChartPowerGeneratedOwnConsumption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heating (kWh)`
+  String get operatingChartHeating {
+    return Intl.message(
+      'Heating (kWh)',
+      name: 'operatingChartHeating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Water (m³)`
+  String get operatingChartWater {
+    return Intl.message(
+      'Water (m³)',
+      name: 'operatingChartWater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operating costs / {period}`
+  String operatingTitle(String period) {
+    return Intl.message(
+      'Operating costs / $period',
+      name: 'operatingTitle',
+      desc: '',
+      args: [period],
+    );
+  }
+
+  /// `Month`
+  String get operatingTitlePeriodMonth {
+    return Intl.message(
+      'Month',
+      name: 'operatingTitlePeriodMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year`
+  String get operatingTitlePeriodYear {
+    return Intl.message(
+      'Year',
+      name: 'operatingTitlePeriodYear',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `E, yyyy-MM-dd`
   String get patternsDateWeekdayWithDate {
     return Intl.message(
