@@ -155,17 +155,17 @@ class DynamicThemeData with ChangeNotifier {
 
   void _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppTheme);
-    if (dataStr == null) return;
-
-    final data = jsonDecode(dataStr) as Map<String, dynamic>;
-    if (data.containsKey('darkMode')) {
-      _darkMode = data['darkMode'] as bool;
-    }
-    if (data.containsKey('useSystemThemeMode')) {
-      _useSystemThemeMode = data['useSystemThemeMode'] as bool;
-    }
-    if (data.containsKey('usePurpleColors')) {
-      _usePurpleColors = data['usePurpleColors'] as bool;
+    if (dataStr != null) {
+      final data = jsonDecode(dataStr) as Map<String, dynamic>;
+      if (data.containsKey('darkMode')) {
+        _darkMode = data['darkMode'] as bool;
+      }
+      if (data.containsKey('useSystemThemeMode')) {
+        _useSystemThemeMode = data['useSystemThemeMode'] as bool;
+      }
+      if (data.containsKey('usePurpleColors')) {
+        _usePurpleColors = data['usePurpleColors'] as bool;
+      }
     }
 
     GlobalSettings.onFirstDrawRelevantProviderInitialized();

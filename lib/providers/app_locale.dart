@@ -42,12 +42,12 @@ class AppLocale with ChangeNotifier {
 
   void _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppLocale);
-    if (dataStr == null) return;
-
-    final data = jsonDecode(dataStr) as Map<String, dynamic>;
-    if (data.containsKey('appLocale')) {
-      final languageName = data['appLocale'] as String;
-      _appLanguage = AppLanguage.languages().firstWhere((element) => element.name == languageName);
+    if (dataStr != null) {
+      final data = jsonDecode(dataStr) as Map<String, dynamic>;
+      if (data.containsKey('appLocale')) {
+        final languageName = data['appLocale'] as String;
+        _appLanguage = AppLanguage.languages().firstWhere((element) => element.name == languageName);
+      }
     }
 
     GlobalSettings.onFirstDrawRelevantProviderInitialized();
