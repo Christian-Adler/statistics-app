@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/l10n.dart';
 import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
@@ -140,14 +141,14 @@ class _AuthCardState extends State<_AuthCard> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('An Error Occurred'),
+        title: Text(S.of(ctx).commonsDialogTitleErrorOccurred),
         content: Text(message),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
               },
-              child: const Text('Okay'))
+              child: Text(S.of(ctx).commonsDialogBtnOkay))
         ],
       ),
     );
@@ -172,7 +173,8 @@ class _AuthCardState extends State<_AuthCard> {
       //   }
       //   _showErrorDialog(errorMessage);
     } catch (err) {
-      var errorMessage = 'Could not authenticate you. Please try again later. $err';
+      var errorMessage = S.of(context).authErrorMsgAuthenticationFailed;
+      // TODO write err to log
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -202,22 +204,22 @@ class _AuthCardState extends State<_AuthCard> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 7),
                 child: TextFormField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     isDense: true,
                     // Reduces height a bit
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none, // No border
                       // borderRadius: BorderRadius.circular(12), // Apply corner radius
                     ),
-                    labelText: 'Server',
-                    prefixIcon: Icon(Icons.http),
+                    labelText: S.of(context).authInputLabelServer,
+                    prefixIcon: const Icon(Icons.http),
                   ),
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.next,
                   // initialValue: 'https://',
                   validator: (value) {
                     if (value == null || value.isEmpty || !value.startsWith('http') || value.length < 10) {
-                      return 'Enter a valid server!';
+                      return S.of(context).authInputValidatorMsgEnterValidServer;
                     }
                     return null;
                   },
@@ -241,7 +243,7 @@ class _AuthCardState extends State<_AuthCard> {
                       borderSide: BorderSide.none, // No border
                       // borderRadius: BorderRadius.circular(12), // Apply corner radius
                     ),
-                    labelText: 'Password',
+                    labelText: S.of(context).authInputLabelPassword,
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                         onPressed: _toggleObscured,
@@ -254,7 +256,7 @@ class _AuthCardState extends State<_AuthCard> {
                   obscureText: _isObscured,
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length < 5) {
-                      return 'Password is too short!';
+                      return S.of(context).authInputValidatorMsgPasswordToShort;
                     }
                     return null;
                   },
@@ -282,7 +284,7 @@ class _AuthCardState extends State<_AuthCard> {
                     EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                   ),
                 ),
-                child: const Text('LOGIN'),
+                child: Text(S.of(context).authBtnLogin),
               ),
           ],
         ),

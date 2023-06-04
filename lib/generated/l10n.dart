@@ -50,6 +50,96 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Could not authenticate you. Please try again later.`
+  String get authErrorMsgAuthenticationFailed {
+    return Intl.message(
+      'Could not authenticate you. Please try again later.',
+      name: 'authErrorMsgAuthenticationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get authBtnLogin {
+    return Intl.message(
+      'Login',
+      name: 'authBtnLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server`
+  String get authInputLabelServer {
+    return Intl.message(
+      'Server',
+      name: 'authInputLabelServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get authInputLabelPassword {
+    return Intl.message(
+      'Password',
+      name: 'authInputLabelPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid server!`
+  String get authInputValidatorMsgEnterValidServer {
+    return Intl.message(
+      'Enter a valid server!',
+      name: 'authInputValidatorMsgEnterValidServer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password is too short!`
+  String get authInputValidatorMsgPasswordToShort {
+    return Intl.message(
+      'Password is too short!',
+      name: 'authInputValidatorMsgPasswordToShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get commonsLogout {
+    return Intl.message(
+      'Logout',
+      name: 'commonsLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An Error Occurred`
+  String get commonsDialogTitleErrorOccurred {
+    return Intl.message(
+      'An Error Occurred',
+      name: 'commonsDialogTitleErrorOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Okay`
+  String get commonsDialogBtnOkay {
+    return Intl.message(
+      'Okay',
+      name: 'commonsDialogBtnOkay',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `System`
   String get localeNameSystem {
     return Intl.message(
@@ -75,16 +165,6 @@ class S {
     return Intl.message(
       'Deutsch',
       name: 'localeNameGerman',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Logout`
-  String get commonsLogout {
-    return Intl.message(
-      'Logout',
-      name: 'commonsLogout',
       desc: '',
       args: [],
     );

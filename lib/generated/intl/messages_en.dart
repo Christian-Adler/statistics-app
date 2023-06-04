@@ -22,6 +22,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "authBtnLogin": MessageLookupByLibrary.simpleMessage("Login"),
+        "authErrorMsgAuthenticationFailed":
+            MessageLookupByLibrary.simpleMessage(
+                "Could not authenticate you. Please try again later."),
+        "authInputLabelPassword":
+            MessageLookupByLibrary.simpleMessage("Password"),
+        "authInputLabelServer": MessageLookupByLibrary.simpleMessage("Server"),
+        "authInputValidatorMsgEnterValidServer":
+            MessageLookupByLibrary.simpleMessage("Enter a valid server!"),
+        "authInputValidatorMsgPasswordToShort":
+            MessageLookupByLibrary.simpleMessage("Password is too short!"),
+        "commonsDialogBtnOkay": MessageLookupByLibrary.simpleMessage("Okay"),
+        "commonsDialogTitleErrorOccurred":
+            MessageLookupByLibrary.simpleMessage("An Error Occurred"),
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
