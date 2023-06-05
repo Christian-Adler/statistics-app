@@ -33,10 +33,10 @@ class _ExpandableSettingsCardState extends State<ExpandableSettingsCard> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 widget.title,
-                const Spacer(),
+                const SizedBox(width: 10),
                 Icon(_expanded ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined,
                     color: Theme.of(context).colorScheme.primary),
               ],

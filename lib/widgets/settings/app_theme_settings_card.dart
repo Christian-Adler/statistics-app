@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -12,7 +13,7 @@ class AppThemeSettingsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpandableSettingsCard(
-      title: Text(S.of(context).settingsThemeTitle, style: Theme.of(context).textTheme.titleLarge),
+      title: OverflowText(S.of(context).settingsThemeTitle, style: Theme.of(context).textTheme.titleLarge),
       content: const _AppThemeSettings(),
     );
   }

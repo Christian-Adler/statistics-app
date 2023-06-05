@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
+import 'package:flutter_commons/widgets/text/overflow_text.dart';
 
 import '../../generated/l10n.dart';
 import '../../utils/device_storage_keys.dart';
@@ -13,7 +14,7 @@ class DeviceStorageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpandableSettingsCard(
-      title: Text(S.of(context).settingsDeviceStorageTitle, style: Theme.of(context).textTheme.titleLarge),
+      title: OverflowText(S.of(context).settingsDeviceStorageTitle, style: Theme.of(context).textTheme.titleLarge),
       content: const _DeviceStorage(),
     );
   }

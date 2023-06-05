@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
+import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -19,7 +20,7 @@ class ServerCard extends StatelessWidget {
     final auth = Provider.of<Auth>(context);
 
     return ExpandableSettingsCard(
-      title: Text('${S.of(context).settingsServerTitle} (${auth.serverUrl})',
+      title: OverflowText('${S.of(context).settingsServerTitle} (${auth.serverUrl})',
           style: Theme.of(context).textTheme.titleLarge),
       content: const _ChangeServer(),
     );
