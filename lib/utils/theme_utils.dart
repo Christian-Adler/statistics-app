@@ -17,10 +17,12 @@ class ThemeUtils {
       canvasColor: dark ? Colors.black : Colors.white,
       indicatorColor: dark ? Colors.white : Colors.black,
       appBarTheme: AppBarTheme(
-          backgroundColor: dynamicThemeData.getGradientColors(dark).first,
-          foregroundColor: dynamicThemeData.getOnGradientColor(dark),
-          actionsIconTheme: IconThemeData(color: dark ? Colors.black : Colors.white),
-          systemOverlayStyle: (dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light)),
+        backgroundColor: dynamicThemeData.getGradientColors(dark).first,
+        foregroundColor: dynamicThemeData.getOnGradientColor(dark),
+        actionsIconTheme: IconThemeData(color: dark ? Colors.black : Colors.white),
+        systemOverlayStyle: SystemUiOverlayStyle
+            .light, // in all cases the background is dark -> light status bar (dark ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light),
+      ),
       colorScheme:
           ColorScheme.fromSeed(seedColor: dynamicThemeData.getPrimaryColor(dark), brightness: brightness).copyWith(
         primary: dynamicThemeData.getPrimaryColor(dark),
