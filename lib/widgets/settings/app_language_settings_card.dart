@@ -56,7 +56,7 @@ class ChooseLanguage extends StatelessWidget {
             color: themeData.colorScheme.primary,
           ),
           underline: Container(
-            height: 2,
+            height: 1,
             color: themeData.colorScheme.primary,
           ),
           value: appLanguage,
@@ -70,7 +70,7 @@ class ChooseLanguage extends StatelessWidget {
                 child: Container(
                     decoration: boxDeco,
                     child: Padding(
-                      padding: const EdgeInsets.all(6.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(appLang.getI18nName(context)),
                     )));
           }).toList(),

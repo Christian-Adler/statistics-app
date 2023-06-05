@@ -28,7 +28,7 @@ class _AppThemeSettings extends StatelessWidget {
     final appTheme = dynamicThemeData.mode;
 
     var themeData = Theme.of(context);
-    var activeColorBorder = Border(bottom: BorderSide(color: themeData.colorScheme.primary));
+    var activeColorBorder = Border(bottom: BorderSide(color: themeData.colorScheme.primary, width: 1));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,7 +48,7 @@ class _AppThemeSettings extends StatelessWidget {
                 color: themeData.colorScheme.primary,
               ),
               underline: Container(
-                height: 2,
+                height: 1,
                 color: themeData.colorScheme.primary,
               ),
               value: appTheme,
@@ -62,7 +62,7 @@ class _AppThemeSettings extends StatelessWidget {
                     child: Container(
                         decoration: boxDeco,
                         child: Padding(
-                          padding: const EdgeInsets.all(6.0),
+                          padding: const EdgeInsets.all(5.0),
                           child: Text(theme.getI18nName(context)),
                         )));
               }).toList(),
