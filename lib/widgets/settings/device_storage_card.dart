@@ -80,9 +80,8 @@ class _DeviceStorageState extends State<_DeviceStorage> {
           future: DeviceStorage.readAll(),
         ),
         const Divider(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
           children: [
             SizedBox(
               width: 265,
