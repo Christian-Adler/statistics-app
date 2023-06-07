@@ -4,10 +4,13 @@ import 'package:flutter/rendering.dart';
 class HideBottomNavigationBar {
   static final ValueNotifier<bool> visible = ValueNotifier<bool>(true);
 
-  static void setScrollDirection(ScrollDirection userScrollDirection) {
-    if (userScrollDirection == ScrollDirection.reverse && visible.value) {
+  static void setScrollPosition(ScrollPosition scrollPos) {
+    // Scroller ganz oben? Dann auf jeden Fall wieder anzeigen
+    if (scrollPos.pixels == 0) {
+      visible.value = true;
+    } else if (scrollPos.userScrollDirection == ScrollDirection.reverse && visible.value) {
       visible.value = false;
-    } else if (userScrollDirection == ScrollDirection.forward && !visible.value) {
+    } else if (scrollPos.userScrollDirection == ScrollDirection.forward && !visible.value) {
       visible.value = true;
     }
   }

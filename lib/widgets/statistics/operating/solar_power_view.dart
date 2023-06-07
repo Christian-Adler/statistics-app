@@ -68,7 +68,7 @@ class _SolarPowerState extends State<_SolarPower> {
           );
         } else {
           return SingleChildScrollViewWithScrollbar(
-            scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
+            scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

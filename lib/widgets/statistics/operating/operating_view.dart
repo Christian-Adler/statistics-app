@@ -76,7 +76,7 @@ class _OperatingState extends State<_Operating> {
           );
         } else {
           return SingleChildScrollViewWithScrollbar(
-            scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
+            scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

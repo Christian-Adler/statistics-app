@@ -160,7 +160,7 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
   @override
   void initState() {
     _scrollController.addListener(() {
-      HideBottomNavigationBar.setScrollDirection(_scrollController.position.userScrollDirection);
+      HideBottomNavigationBar.setScrollPosition(_scrollController.position);
     });
     super.initState();
   }
