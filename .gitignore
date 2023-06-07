@@ -48,3 +48,4 @@ app.*.map.json
 
 login.txt
 pubspec.lock
+build_apk_split.bat
