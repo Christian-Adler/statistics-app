@@ -11,6 +11,7 @@ class DailyFiles {
   static Directory? _appDocumentsDir;
   static Directory? _tmpDir;
   static Directory? _logsDir;
+  static String _todaysLog = '';
 
   static Future<void> init() async {
     _appDocumentsDir = await getApplicationDocumentsDirectory();
@@ -21,13 +22,17 @@ class DailyFiles {
     if (!(await logsDir.exists())) logsDir = await logsDir.create();
     _logsDir = logsDir;
 
-    writeToTodayFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
+    _writeLogStart();
 
     try {
       await _clearTmpDir();
     } catch (err) {
       writeToTodayFile(err.toString());
     }
+  }
+
+  static void _writeLogStart() {
+    writeToTodayFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
   }
 
   /// liefert die Dateinamen unter logs (ohne die Endung .txt)
@@ -56,11 +61,14 @@ class DailyFiles {
     return _logsDir != null;
   }
 
-  static void writeToTodayFile(String value) async {
+  static Future<void> writeToTodayFile(String value) async {
     final logsDir = _logsDir;
     if (logsDir == null) return;
 
-    var myFile = File('${logsDir.path}/${DateFormat('yyyy-MM-dd').format(DateTime.now())}.txt');
+    var todayLog = '${DateFormat('yyyy-MM-dd').format(DateTime.now())}.txt';
+    _todaysLog = todayLog;
+
+    var myFile = File('${logsDir.path}/$todayLog');
     var sink = myFile.openWrite(mode: FileMode.append);
     sink.write('${DateTime.now()} - $value\n');
     await sink.flush();
@@ -83,29 +91,34 @@ class DailyFiles {
     return '${logsDir.path}/$fn';
   }
 
-  static void deleteLog(String filename) async {
+  static Future<void> deleteLog(String filename) async {
     final logsDir = _logsDir;
     if (logsDir == null) return;
     await File('${logsDir.path}/$filename').delete();
+
+    // Aktuelles File entfernen? Dann neues File anlegen...
+    if (filename == _todaysLog) {
+      _writeLogStart();
+    }
   }
 
-  static void deleteAllLogs() async {
+  static Future<void> deleteAllLogs() async {
     final logsDir = _logsDir;
     if (logsDir == null) return;
     _logsDir = null;
-    await logsDir.delete();
+    await logsDir.delete(recursive: true);
     await init();
   }
 
   static Future<void> _clearTmpDir() async {
     final tmpDir = _tmpDir;
     if (tmpDir == null) return;
-    tmpDir.list(recursive: true).listen((file) {
+    tmpDir.list(recursive: true).listen((file) async {
       if (file is File) {
         if (kDebugMode) {
           print('del tmp file $file');
         }
-        file.delete();
+        await file.delete();
       }
     });
   }
