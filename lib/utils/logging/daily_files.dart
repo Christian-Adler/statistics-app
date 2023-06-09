@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -13,7 +14,10 @@ class DailyFiles {
   static Directory? _appDocumentsDir;
   static Directory? _tmpDir;
   static Directory? _logsDir;
-  static String _todaysLog = '';
+  static String _todayLog = '';
+
+  static final List<_MsgQueueItem> _msgQueue = [];
+  static bool _timerSet = false;
 
   static Future<void> init() async {
     _appDocumentsDir = await getApplicationDocumentsDirectory();
@@ -29,12 +33,12 @@ class DailyFiles {
     try {
       await _clearTmpDir();
     } catch (err) {
-      writeToTodayFile(err.toString());
+      writeToFile(err.toString());
     }
   }
 
   static void _writeLogStart() {
-    writeToTodayFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
+    writeToFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
   }
 
   /// liefert die Dateinamen unter logs (ohne die Endung .txt)
@@ -63,16 +67,64 @@ class DailyFiles {
     return _logsDir != null;
   }
 
-  static Future<void> writeToTodayFile(String value) async {
+  static void writeToFile(String value) {
+    final dateTime = DateTime.now();
+    final ms = dateTime.millisecond.toString().padLeft(3, '0');
+    final msgQueueItem = _MsgQueueItem(
+        DateFormat('yyyy-MM-dd').format(dateTime), '${DateFormat('HH:mm:ss').format(dateTime)}.$ms', value);
+    _msgQueue.add(msgQueueItem);
+    if (_timerSet) return;
+    _timerSet = true;
+    Timer(
+      const Duration(milliseconds: 1000),
+      () async {
+        final messages = [..._msgQueue];
+        _msgQueue.clear();
+        _timerSet = false;
+        if (messages.isEmpty) return;
+        try {
+          await _writeToTodayFile(messages);
+        } catch (err) {
+          if (kDebugMode) {
+            print('Failed to write logs!\n\n$err');
+          }
+        }
+      },
+    );
+  }
+
+  static Future<void> _writeToTodayFile(List<_MsgQueueItem> msgQueueItems) async {
     final logsDir = _logsDir;
     if (logsDir == null) return;
 
-    var todayLog = '${DateFormat('yyyy-MM-dd').format(DateTime.now())}.txt';
-    _todaysLog = todayLog;
+    if (msgQueueItems.isEmpty) return;
 
-    var myFile = File('${logsDir.path}/$todayLog');
-    var sink = myFile.openWrite(mode: FileMode.append);
-    sink.write('${DateTime.now()} - $value\n');
+    var soFarDate = msgQueueItems.first.date;
+    var todayLog = '$soFarDate.txt';
+    _todayLog = todayLog;
+
+    var logFile = File('${logsDir.path}/$todayLog');
+    var sink = logFile.openWrite(mode: FileMode.append);
+
+    for (var i = 0; i < msgQueueItems.length; ++i) {
+      var msgQueueItem = msgQueueItems[i];
+
+      // check for new date
+      if (soFarDate != msgQueueItem.date) {
+        await sink.flush();
+        await sink.close();
+
+        soFarDate = msgQueueItems.first.date;
+        todayLog = '$soFarDate.txt';
+        _todayLog = todayLog;
+
+        logFile = File('${logsDir.path}/$todayLog');
+        sink = logFile.openWrite(mode: FileMode.append);
+      }
+
+      sink.write('${msgQueueItem.date} ${msgQueueItem.time} ${msgQueueItem.text}\n');
+    }
+
     await sink.flush();
     await sink.close();
   }
@@ -102,7 +154,7 @@ class DailyFiles {
     await File('${logsDir.path}/$filename').delete();
 
     // Aktuelles File entfernen? Dann neues File anlegen...
-    if (filename == _todaysLog) {
+    if (filename == _todayLog) {
       _writeLogStart();
     }
   }
@@ -137,4 +189,12 @@ class DailyFiles {
     await ZipFile.createFromDirectory(sourceDir: logsDir, zipFile: zipFile, recurseSubDirs: true);
     return zipFile.path;
   }
+}
+
+class _MsgQueueItem {
+  _MsgQueueItem(this.date, this.time, this.text);
+
+  final String date;
+  final String time;
+  final String text;
 }

@@ -54,6 +54,7 @@ dependencies:
   share_plus: ^7.0.2
   # zip files
   flutter_archive: ^5.0.0
+  logger: ^1.4.0
 
 dev_dependencies:
   flutter_test:

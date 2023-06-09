@@ -63,6 +63,8 @@ class LogScreen extends StatelessWidget {
                           Navigator.of(ctx).pop(false);
                           try {
                             await DailyFiles.deleteLog(logFileN);
+                            // 1s warten, damit im Fall von heutigem Log das heutige File dann schon wieder erstellt wurde.
+                            await Future.delayed(const Duration(seconds: 1), () {});
                           } catch (err) {
                             DialogUtils.showSimpleOkErrDialog(
                                 '${S.of(ctx).logDialogMsgErrorDeleteLogFailed}\n\n$err', ctx);
@@ -93,33 +95,36 @@ class _LogScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollViewWithScrollbar(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder(
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const LinearProgressIndicator();
-              } else if (snapshot.hasError) {
-                // .. do error handling
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text('${S.of(ctx).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
-                  ),
-                );
-              }
-              final logFileContent = snapshot.data;
-              if (logFileContent == null) {
-                return Text(S.of(ctx).logMsgErrorFileNotFound(logFileName));
-              }
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollViewWithScrollbar(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder(
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const LinearProgressIndicator();
+                } else if (snapshot.hasError) {
+                  // .. do error handling
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text('${S.of(ctx).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
+                    ),
+                  );
+                }
+                final logFileContent = snapshot.data;
+                if (logFileContent == null) {
+                  return Text(S.of(ctx).logMsgErrorFileNotFound(logFileName));
+                }
 
-              return Text(logFileContent,
-                  style: const TextStyle(
-                    fontFeatures: [FontFeature.tabularFigures()],
-                  ));
-            },
-            future: DailyFiles.readLog(logFileName, context)),
+                return Text(logFileContent,
+                    style: const TextStyle(
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ));
+              },
+              future: DailyFiles.readLog(logFileName, context)),
+        ),
       ),
     );
   }
