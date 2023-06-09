@@ -20,12 +20,14 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(period) => "Operating costs / ${period}";
+  static String m0(file) => "Log file ${file} not found!";
 
-  static String m1(price, feePerMont) =>
+  static String m1(period) => "Operating costs / ${period}";
+
+  static String m2(price, feePerMont) =>
       "Price : ${price} €/kWh, Basic fee : ${feePerMont} €/Monat";
 
-  static String m2(period) => "kWh / ${period}";
+  static String m3(period) => "kWh / ${period}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -89,6 +91,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
+        "logDialogMsgDeleteLog": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to delete the log file?"),
+        "logDialogMsgDeleteLogFailed":
+            MessageLookupByLibrary.simpleMessage("Failed to delete log file!"),
+        "logMsgFileNotFound": m0,
         "operatingAddValueInputLabelPower":
             MessageLookupByLibrary.simpleMessage("Power (kWh)"),
         "operatingAddValueInputLabelPowerFed":
@@ -115,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Power generated own consumption (kWh)"),
         "operatingChartWater":
             MessageLookupByLibrary.simpleMessage("Water (m³)"),
-        "operatingTitle": m0,
+        "operatingTitle": m1,
         "operatingTitlePeriodMonth":
             MessageLookupByLibrary.simpleMessage("Month"),
         "operatingTitlePeriodYear":
@@ -204,7 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Generated"),
         "solarPowerChartLegendItemTotal":
             MessageLookupByLibrary.simpleMessage("Total"),
-        "solarPowerChartSubLegendPriceAndFee": m1,
+        "solarPowerChartSubLegendPriceAndFee": m2,
         "solarPowerTableHeadConsumption":
             MessageLookupByLibrary.simpleMessage("Consumption"),
         "solarPowerTableHeadConsumptionAbbrev":
@@ -221,7 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total"),
         "solarPowerTableHeadTotalAbbrev":
             MessageLookupByLibrary.simpleMessage("Total"),
-        "solarPowerTitle": m2,
+        "solarPowerTitle": m3,
         "solarPowerTitlePeriodMonth":
             MessageLookupByLibrary.simpleMessage("Month"),
         "solarPowerTitlePeriodYear":

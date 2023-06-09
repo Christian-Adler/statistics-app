@@ -420,6 +420,36 @@ class S {
     );
   }
 
+  /// `Do you really want to delete the log file?`
+  String get logDialogMsgDeleteLog {
+    return Intl.message(
+      'Do you really want to delete the log file?',
+      name: 'logDialogMsgDeleteLog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to delete log file!`
+  String get logDialogMsgDeleteLogFailed {
+    return Intl.message(
+      'Failed to delete log file!',
+      name: 'logDialogMsgDeleteLogFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log file {file} not found!`
+  String logMsgFileNotFound(String file) {
+    return Intl.message(
+      'Log file $file not found!',
+      name: 'logMsgFileNotFound',
+      desc: '',
+      args: [file],
+    );
+  }
+
   /// `Power (kWh)`
   String get operatingAddValueInputLabelPower {
     return Intl.message(

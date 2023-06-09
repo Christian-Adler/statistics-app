@@ -37,6 +37,17 @@
   "localeNameSystem": "System",
   "localeNameEnglish": "English",
   "localeNameGerman": "Deutsch",
+  "logDialogMsgDeleteLog": "Do you really want to delete the log file?",
+  "logDialogMsgDeleteLogFailed": "Failed to delete log file!",
+  "logMsgFileNotFound": "Log file {file} not found!",
+  "@logMsgFileNotFound": {
+    "placeholders": {
+      "file": {
+        "type": "String",
+        "example": "2023-06-09.txt"
+      }
+    }
+  },
   "operatingAddValueInputLabelPower": "Power (kWh)",
   "operatingAddValueInputLabelPowerFed": "Power Fed (kWh)",
   "operatingAddValueInputLabelPowerHeatingDay": "Power Heating HT (kWh)",

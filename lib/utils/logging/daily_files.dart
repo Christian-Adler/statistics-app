@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../models/app_info.dart';
 
 class DailyFiles {
@@ -75,12 +77,15 @@ class DailyFiles {
     await sink.close();
   }
 
-  static Future<String> readLog(String filename) async {
+  static Future<String> readLog(String filename, BuildContext context) async {
     final logsDir = _logsDir;
     if (logsDir == null) return 'No logs dir set/found!';
     String fn = filename;
     final logFile = File('${logsDir.path}/$fn');
-    if (!await logFile.exists()) return 'Log file not found!';
+
+    var logMsgFileNotFound = S.of(context).logMsgFileNotFound(filename);
+    if (!await logFile.exists()) return logMsgFileNotFound;
+
     return logFile.readAsString();
   }
 

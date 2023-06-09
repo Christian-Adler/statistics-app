@@ -45,7 +45,7 @@ class LogScreen extends StatelessWidget {
                   context: context,
                   builder: (ctx) => AlertDialog(
                     title: Text(S.of(context).commonsDialogTitleAreYouSure),
-                    content: Text(S.of(context).settingsDeviceStorageDialogMsgRemoveAllDataAndLogout), // TODO message
+                    content: Text(S.of(context).logDialogMsgDeleteLog),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -60,7 +60,7 @@ class LogScreen extends StatelessWidget {
                           try {
                             await DailyFiles.deleteLog(logFileN);
                           } catch (err) {
-                            DialogUtils.showSimpleOkErrDialog("Failed to delete log! $err", ctx); // TODO i18n
+                            DialogUtils.showSimpleOkErrDialog('${S.of(ctx).logDialogMsgDeleteLogFailed}\n\n$err', ctx);
                           }
                           final rebuildLogs = rebuildLogsScreen;
                           if (rebuildLogs != null) rebuildLogs();
@@ -100,14 +100,13 @@ class _LogScreenBody extends StatelessWidget {
                 return Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                        '${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'), // TODO ErrorLog
+                    child: Text('${S.of(ctx).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
                   ),
                 );
               }
               final logFileContent = snapshot.data;
               if (logFileContent == null) {
-                return Text('No log file $logFileName found!');
+                return Text(S.of(ctx).logMsgFileNotFound(logFileName));
               }
 
               return Text(logFileContent,
@@ -115,7 +114,7 @@ class _LogScreenBody extends StatelessWidget {
                     fontFeatures: [FontFeature.tabularFigures()],
                   ));
             },
-            future: DailyFiles.readLog(logFileName)),
+            future: DailyFiles.readLog(logFileName, context)),
       ),
     );
   }
