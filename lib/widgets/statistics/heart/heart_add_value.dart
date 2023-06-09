@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/heart.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../layout/scrollable_centered_form_wrapper.dart';
 
 class HeartAddValue extends StatefulWidget {
@@ -39,9 +40,9 @@ class HeartAddValueState extends State<HeartAddValue> {
       await power.addBloodPressureEntry(_high, _low);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.message, context);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
     }
 
     setState(() {

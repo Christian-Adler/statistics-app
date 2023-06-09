@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/car.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../layout/scrollable_centered_form_wrapper.dart';
 
 class CarAddValue extends StatefulWidget {
@@ -40,9 +41,9 @@ class CarAddValueState extends State<CarAddValue> {
       await power.addCarRefuelEntry(_liter, _centPerLiter, _km);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.message, context);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
     }
 
     setState(() {

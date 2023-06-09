@@ -7,6 +7,7 @@ import '../../../generated/l10n.dart';
 import '../../../models/exception/api_exception.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/date_utils.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../layout/scrollable_centered_form_wrapper.dart';
 
 class OperatingAddValue extends StatefulWidget {
@@ -43,9 +44,9 @@ class OperatingAddValueState extends State<OperatingAddValue> {
       await power.addOperatingEntry(_water, _consumedPower, _feedPower, _heatingHT, _heatingNT);
       _showSuccessMessage();
     } on ApiException catch (err) {
-      await Dialogs.simpleOkDialog(err.message, context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.message, context);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
     }
 
     setState(() {
