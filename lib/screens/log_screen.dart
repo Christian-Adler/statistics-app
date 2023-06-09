@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:statistics/utils/logging/daily_files.dart';
 import 'package:statistics/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
@@ -63,7 +65,10 @@ class _LogScreenBody extends StatelessWidget {
                 return Text('No log file $logFileName found!');
               }
 
-              return Text(logFileContent);
+              return Text(logFileContent,
+                  style: const TextStyle(
+                    fontFeatures: [FontFeature.tabularFigures()],
+                  ));
             },
             future: DailyFiles.readLog(logFileName)),
       ),

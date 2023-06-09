@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../models/app_info.dart';
+
 class DailyFiles {
   static Directory? _appDocumentsDir;
   static Directory? _logsDir;
@@ -15,7 +17,7 @@ class DailyFiles {
     if (!(await logsDir.exists())) logsDir = await logsDir.create();
     _logsDir = logsDir;
 
-    writeToTodayFile('------- START -------\nTODO Version'); // TODO App Version
+    writeToTodayFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
   }
 
   /// liefert die Dateinamen unter logs (ohne die Endung .txt)
