@@ -113,7 +113,7 @@ class _ClearDeviceStorage extends StatelessWidget {
           context: context,
           builder: (ctx) => AlertDialog(
             title: Text(S.of(context).commonsDialogTitleAreYouSure),
-            content: Text(S.of(context).settingsDeviceStorageDialogMsgRemoveAllDataAndLogout),
+            content: Text(S.of(context).settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout),
             actions: [
               TextButton(
                 onPressed: () {

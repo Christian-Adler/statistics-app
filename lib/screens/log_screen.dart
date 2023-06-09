@@ -34,8 +34,12 @@ class LogScreen extends StatelessWidget {
           ctx,
           actions: [
             IconButton(
-              onPressed: () {
-                Share.shareXFiles([XFile(DailyFiles.getFullLogPath(logFileN))], text: 'App Log $logFileName');
+              onPressed: () async {
+                try {
+                  await Share.shareXFiles([XFile(DailyFiles.getFullLogPath(logFileN))], text: 'App Log $logFileName');
+                } catch (err) {
+                  DialogUtils.showSimpleOkErrDialog('${S.of(ctx).commonsMsgErrorFailedToShareData}\n\n$err', ctx);
+                }
               },
               icon: const Icon(Icons.share_outlined),
             ),
@@ -45,7 +49,7 @@ class LogScreen extends StatelessWidget {
                   context: context,
                   builder: (ctx) => AlertDialog(
                     title: Text(S.of(context).commonsDialogTitleAreYouSure),
-                    content: Text(S.of(context).logDialogMsgDeleteLog),
+                    content: Text(S.of(context).logDialogMsgQueryDeleteLog),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -60,7 +64,8 @@ class LogScreen extends StatelessWidget {
                           try {
                             await DailyFiles.deleteLog(logFileN);
                           } catch (err) {
-                            DialogUtils.showSimpleOkErrDialog('${S.of(ctx).logDialogMsgDeleteLogFailed}\n\n$err', ctx);
+                            DialogUtils.showSimpleOkErrDialog(
+                                '${S.of(ctx).logDialogMsgErrorDeleteLogFailed}\n\n$err', ctx);
                           }
                           final rebuildLogs = rebuildLogsScreen;
                           if (rebuildLogs != null) rebuildLogs();
@@ -106,7 +111,7 @@ class _LogScreenBody extends StatelessWidget {
               }
               final logFileContent = snapshot.data;
               if (logFileContent == null) {
-                return Text(S.of(ctx).logMsgFileNotFound(logFileName));
+                return Text(S.of(ctx).logMsgErrorFileNotFound(logFileName));
               }
 
               return Text(logFileContent,

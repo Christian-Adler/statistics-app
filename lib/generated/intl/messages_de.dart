@@ -86,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Abmelden"),
         "commonsMsgErrorFailedToLoadData": MessageLookupByLibrary.simpleMessage(
             "Fehler beim Laden der Daten..."),
+        "commonsMsgErrorFailedToShareData":
+            MessageLookupByLibrary.simpleMessage("Fehler beim Teilen..."),
         "commonsSnackbarMsgSaved":
             MessageLookupByLibrary.simpleMessage("Gespeichert..."),
         "commonsValidatorMsgEmptyValue":
@@ -96,11 +98,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
-        "logDialogMsgDeleteLog": MessageLookupByLibrary.simpleMessage(
-            "Wollen sie die Log-Datei wirklich löschen?"),
-        "logDialogMsgDeleteLogFailed": MessageLookupByLibrary.simpleMessage(
-            "Fehler beim Löschen der Log-Datei!"),
-        "logMsgFileNotFound": m0,
+        "logDialogMsgErrorDeleteLogFailed":
+            MessageLookupByLibrary.simpleMessage(
+                "Fehler beim Löschen der Log-Datei!"),
+        "logDialogMsgQueryDeleteLog": MessageLookupByLibrary.simpleMessage(
+            "Wollen sie wirklich die Log-Datei löschen?"),
+        "logMsgErrorFileNotFound": m0,
+        "logsDialogMsgErrorFailedToClearAllLogs":
+            MessageLookupByLibrary.simpleMessage(
+                "Fehler beim Löschen aller Log-Dateien!"),
+        "logsDialogMsgErrorFailedToZipLogs":
+            MessageLookupByLibrary.simpleMessage(
+                "Fehler beim Zippen der Log-Dateien!"),
+        "logsDialogMsgQueryDeleteAllLogs": MessageLookupByLibrary.simpleMessage(
+            "Wollen sie wirklich alle Log-Dateien löschen?"),
+        "logsMsgNoLogFilesFound":
+            MessageLookupByLibrary.simpleMessage("Keine Log-Dateien gefunden"),
         "operatingAddValueInputLabelPower":
             MessageLookupByLibrary.simpleMessage("Strom (kWh)"),
         "operatingAddValueInputLabelPowerFed":
@@ -162,7 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsDeviceStorageBtnClearStorageAndLogout":
             MessageLookupByLibrary.simpleMessage(
                 "Lösche gespeicherte App-Daten & Abmelden"),
-        "settingsDeviceStorageDialogMsgRemoveAllDataAndLogout":
+        "settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout":
             MessageLookupByLibrary.simpleMessage(
                 "Wollen sie wirklich alle App-Daten löschen und abmelden?"),
         "settingsDeviceStorageLabelShowAuthData":

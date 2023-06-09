@@ -31,16 +31,17 @@
   "commonsDialogBtnSave": "Save",
   "commonsDialogBtnYes": "Yes",
   "commonsMsgErrorFailedToLoadData": "Failed to load data...",
+  "commonsMsgErrorFailedToShareData": "Failed to share...",
   "commonsSnackbarMsgSaved": "Saved...",
   "commonsValidatorMsgEmptyValue": "Please enter a value",
   "commonsValidatorMsgNumberGtZeroRequired": "Please provide a valid number > 0",
   "localeNameSystem": "System",
   "localeNameEnglish": "English",
   "localeNameGerman": "Deutsch",
-  "logDialogMsgDeleteLog": "Do you really want to delete the log file?",
-  "logDialogMsgDeleteLogFailed": "Failed to delete log file!",
-  "logMsgFileNotFound": "Log file {file} not found!",
-  "@logMsgFileNotFound": {
+  "logDialogMsgQueryDeleteLog": "Do you really want to delete the log file?",
+  "logDialogMsgErrorDeleteLogFailed": "Failed to delete log file!",
+  "logMsgErrorFileNotFound": "Log file {file} not found!",
+  "@logMsgErrorFileNotFound": {
     "placeholders": {
       "file": {
         "type": "String",
@@ -48,6 +49,10 @@
       }
     }
   },
+  "logsDialogMsgErrorFailedToClearAllLogs": "Failed to clear all logs!",
+  "logsDialogMsgErrorFailedToZipLogs": "Failed to zip logs!",
+  "logsDialogMsgQueryDeleteAllLogs": "Do you really want to delete all log files?",
+  "logsMsgNoLogFilesFound": "No log files found",
   "operatingAddValueInputLabelPower": "Power (kWh)",
   "operatingAddValueInputLabelPowerFed": "Power Fed (kWh)",
   "operatingAddValueInputLabelPowerHeatingDay": "Power Heating HT (kWh)",
@@ -87,7 +92,7 @@
   "screenTitleSolarPower": "Solar power",
   "screenTitleSolarPowerAddValue": "Enter solar power yield",
   "settingsDeviceStorageBtnClearStorageAndLogout": "Clear device storage & logout",
-  "settingsDeviceStorageDialogMsgRemoveAllDataAndLogout": "Do you really want to remove all app data from your device and log out?",
+  "settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout": "Do you really want to remove all app data from your device and log out?",
   "settingsDeviceStorageLabelShowAuthData": "Show auth data",
   "settingsDeviceStorageTableHeadKey": "Key",
   "settingsDeviceStorageTableHeadValue": "Value",

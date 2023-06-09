@@ -41,9 +41,15 @@ class _LogsScreenState extends State<LogsScreen> {
             onPressed: () async {
               try {
                 final zipAllLogs = await DailyFiles.zipAllLogs();
-                await Share.shareXFiles([XFile(zipAllLogs)], text: 'App Logs');
+                try {
+                  await Share.shareXFiles([XFile(zipAllLogs)], text: 'App Logs');
+                } catch (err) {
+                  if (ctx.mounted) {
+                    DialogUtils.showSimpleOkErrDialog('${S.of(ctx).commonsMsgErrorFailedToShareData}\n\n$err', ctx);
+                  }
+                }
               } catch (err) {
-                DialogUtils.showSimpleOkErrDialog("Failed to zip and share all logs! $err", ctx); // TODO i18n
+                DialogUtils.showSimpleOkErrDialog('${S.of(ctx).logsDialogMsgErrorFailedToZipLogs}\n\n$err', ctx);
               }
             },
             icon: const Icon(Icons.share_outlined),
@@ -54,7 +60,7 @@ class _LogsScreenState extends State<LogsScreen> {
                 context: context,
                 builder: (ctx) => AlertDialog(
                   title: Text(S.of(context).commonsDialogTitleAreYouSure),
-                  content: Text(S.of(context).settingsDeviceStorageDialogMsgRemoveAllDataAndLogout), // TODO message
+                  content: Text(S.of(context).logsDialogMsgQueryDeleteAllLogs),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -68,7 +74,8 @@ class _LogsScreenState extends State<LogsScreen> {
                         try {
                           await DailyFiles.deleteAllLogs();
                         } catch (err) {
-                          DialogUtils.showSimpleOkErrDialog("Failed to clear all logs! $err", ctx); // TODO i18n
+                          DialogUtils.showSimpleOkErrDialog(
+                              '${S.of(ctx).logsDialogMsgQueryDeleteAllLogs}\n\n$err', ctx);
                         }
                         _rebuild();
                       },
@@ -125,11 +132,8 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
                 }
                 final logFiles = snapshot.data;
                 if (logFiles == null) {
-                  return const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text('No log files'), // TODO MessageI18n
-                    ),
+                  return Center(
+                    child: Text(S.of(context).logsMsgNoLogFilesFound),
                   );
                 }
                 return SingleChildScrollViewWithScrollbar(
@@ -160,7 +164,7 @@ class Chip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActionChip(
-      // avatar: Icon(Icons.favorite),
+      avatar: Icon(Icons.short_text_outlined, color: Theme.of(context).colorScheme.primary),
       label: Text(logFileName.replaceAll('.txt', '')),
       onPressed: () => Navigator.of(context).push(
         NavigatorTransitionBuilder.buildSlideHTransition(LogScreen(

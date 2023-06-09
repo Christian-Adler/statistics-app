@@ -360,6 +360,16 @@ class S {
     );
   }
 
+  /// `Failed to share...`
+  String get commonsMsgErrorFailedToShareData {
+    return Intl.message(
+      'Failed to share...',
+      name: 'commonsMsgErrorFailedToShareData',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Saved...`
   String get commonsSnackbarMsgSaved {
     return Intl.message(
@@ -421,32 +431,72 @@ class S {
   }
 
   /// `Do you really want to delete the log file?`
-  String get logDialogMsgDeleteLog {
+  String get logDialogMsgQueryDeleteLog {
     return Intl.message(
       'Do you really want to delete the log file?',
-      name: 'logDialogMsgDeleteLog',
+      name: 'logDialogMsgQueryDeleteLog',
       desc: '',
       args: [],
     );
   }
 
   /// `Failed to delete log file!`
-  String get logDialogMsgDeleteLogFailed {
+  String get logDialogMsgErrorDeleteLogFailed {
     return Intl.message(
       'Failed to delete log file!',
-      name: 'logDialogMsgDeleteLogFailed',
+      name: 'logDialogMsgErrorDeleteLogFailed',
       desc: '',
       args: [],
     );
   }
 
   /// `Log file {file} not found!`
-  String logMsgFileNotFound(String file) {
+  String logMsgErrorFileNotFound(String file) {
     return Intl.message(
       'Log file $file not found!',
-      name: 'logMsgFileNotFound',
+      name: 'logMsgErrorFileNotFound',
       desc: '',
       args: [file],
+    );
+  }
+
+  /// `Failed to clear all logs!`
+  String get logsDialogMsgErrorFailedToClearAllLogs {
+    return Intl.message(
+      'Failed to clear all logs!',
+      name: 'logsDialogMsgErrorFailedToClearAllLogs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to zip logs!`
+  String get logsDialogMsgErrorFailedToZipLogs {
+    return Intl.message(
+      'Failed to zip logs!',
+      name: 'logsDialogMsgErrorFailedToZipLogs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to delete all log files?`
+  String get logsDialogMsgQueryDeleteAllLogs {
+    return Intl.message(
+      'Do you really want to delete all log files?',
+      name: 'logsDialogMsgQueryDeleteAllLogs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No log files found`
+  String get logsMsgNoLogFilesFound {
+    return Intl.message(
+      'No log files found',
+      name: 'logsMsgNoLogFilesFound',
+      desc: '',
+      args: [],
     );
   }
 
@@ -761,10 +811,10 @@ class S {
   }
 
   /// `Do you really want to remove all app data from your device and log out?`
-  String get settingsDeviceStorageDialogMsgRemoveAllDataAndLogout {
+  String get settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout {
     return Intl.message(
       'Do you really want to remove all app data from your device and log out?',
-      name: 'settingsDeviceStorageDialogMsgRemoveAllDataAndLogout',
+      name: 'settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout',
       desc: '',
       args: [],
     );

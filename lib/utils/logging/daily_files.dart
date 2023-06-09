@@ -83,7 +83,7 @@ class DailyFiles {
     String fn = filename;
     final logFile = File('${logsDir.path}/$fn');
 
-    var logMsgFileNotFound = S.of(context).logMsgFileNotFound(filename);
+    var logMsgFileNotFound = S.of(context).logMsgErrorFileNotFound(filename);
     if (!await logFile.exists()) return logMsgFileNotFound;
 
     return logFile.readAsString();

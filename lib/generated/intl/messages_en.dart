@@ -81,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "commonsMsgErrorFailedToLoadData":
             MessageLookupByLibrary.simpleMessage("Failed to load data..."),
+        "commonsMsgErrorFailedToShareData":
+            MessageLookupByLibrary.simpleMessage("Failed to share..."),
         "commonsSnackbarMsgSaved":
             MessageLookupByLibrary.simpleMessage("Saved..."),
         "commonsValidatorMsgEmptyValue":
@@ -91,11 +93,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "localeNameEnglish": MessageLookupByLibrary.simpleMessage("English"),
         "localeNameGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "localeNameSystem": MessageLookupByLibrary.simpleMessage("System"),
-        "logDialogMsgDeleteLog": MessageLookupByLibrary.simpleMessage(
-            "Do you really want to delete the log file?"),
-        "logDialogMsgDeleteLogFailed":
+        "logDialogMsgErrorDeleteLogFailed":
             MessageLookupByLibrary.simpleMessage("Failed to delete log file!"),
-        "logMsgFileNotFound": m0,
+        "logDialogMsgQueryDeleteLog": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to delete the log file?"),
+        "logMsgErrorFileNotFound": m0,
+        "logsDialogMsgErrorFailedToClearAllLogs":
+            MessageLookupByLibrary.simpleMessage("Failed to clear all logs!"),
+        "logsDialogMsgErrorFailedToZipLogs":
+            MessageLookupByLibrary.simpleMessage("Failed to zip logs!"),
+        "logsDialogMsgQueryDeleteAllLogs": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to delete all log files?"),
+        "logsMsgNoLogFilesFound":
+            MessageLookupByLibrary.simpleMessage("No log files found"),
         "operatingAddValueInputLabelPower":
             MessageLookupByLibrary.simpleMessage("Power (kWh)"),
         "operatingAddValueInputLabelPowerFed":
@@ -155,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settingsDeviceStorageBtnClearStorageAndLogout":
             MessageLookupByLibrary.simpleMessage(
                 "Clear device storage & logout"),
-        "settingsDeviceStorageDialogMsgRemoveAllDataAndLogout":
+        "settingsDeviceStorageDialogMsgQueryRemoveAllDataAndLogout":
             MessageLookupByLibrary.simpleMessage(
                 "Do you really want to remove all app data from your device and log out?"),
         "settingsDeviceStorageLabelShowAuthData":
