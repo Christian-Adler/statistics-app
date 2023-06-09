@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -7,10 +9,12 @@ import '../../models/app_info.dart';
 
 class DailyFiles {
   static Directory? _appDocumentsDir;
+  static Directory? _tmpDir;
   static Directory? _logsDir;
 
   static Future<void> init() async {
     _appDocumentsDir = await getApplicationDocumentsDirectory();
+    _tmpDir = await getTemporaryDirectory();
     final appDocDir = _appDocumentsDir;
     if (appDocDir == null) return;
     var logsDir = Directory('${appDocDir.path}/logs');
@@ -18,6 +22,12 @@ class DailyFiles {
     _logsDir = logsDir;
 
     writeToTodayFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
+
+    try {
+      await _clearTmpDir();
+    } catch (err) {
+      writeToTodayFile(err.toString());
+    }
   }
 
   /// liefert die Dateinamen unter logs (ohne die Endung .txt)
@@ -27,6 +37,16 @@ class DailyFiles {
     if (logs == null) return result;
     await logs.list().forEach((element) {
       // result.add(element.path);
+      result.add(element.path.split(Platform.pathSeparator).last);
+    });
+    return result.reversed.toList();
+  }
+
+  static Future<List<String>> listTmpFileNames() async {
+    final logs = _tmpDir;
+    List<String> result = [];
+    if (logs == null) return result;
+    await logs.list().forEach((element) {
       result.add(element.path.split(Platform.pathSeparator).last);
     });
     return result.reversed.toList();
@@ -75,5 +95,28 @@ class DailyFiles {
     _logsDir = null;
     await logsDir.delete();
     await init();
+  }
+
+  static Future<void> _clearTmpDir() async {
+    final tmpDir = _tmpDir;
+    if (tmpDir == null) return;
+    tmpDir.list(recursive: true).listen((file) {
+      if (file is File) {
+        if (kDebugMode) {
+          print('del tmp file $file');
+        }
+        file.delete();
+      }
+    });
+  }
+
+  static Future<String> zipAllLogs() async {
+    final tmpDir = _tmpDir;
+    if (tmpDir == null) throw 'No tmp dir available!';
+    final logsDir = _logsDir;
+    if (logsDir == null) throw 'No log dir found!';
+    var zipFile = File('${tmpDir.path}/logs_${DateFormat('yyyy-MM-dd_HH_mm_ss').format(DateTime.now())}.zip');
+    await ZipFile.createFromDirectory(sourceDir: logsDir, zipFile: zipFile, recurseSubDirs: true);
+    return zipFile.path;
   }
 }

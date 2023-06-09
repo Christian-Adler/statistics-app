@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:statistics/utils/logging/daily_files.dart';
-import 'package:statistics/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
+import '../utils/dialog_utils.dart';
+import '../utils/logging/daily_files.dart';
 import '../utils/nav/navigator_transition_builder.dart';
+import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'log_screen.dart';
@@ -25,6 +27,20 @@ class LogsScreen extends StatelessWidget {
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(LogsScreen.screenNavInfo.titleBuilder(ctx)),
         ctx,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                try {
+                  final zipAllLogs = await DailyFiles.zipAllLogs();
+                  print(zipAllLogs);
+                  await Share.shareXFiles([XFile(zipAllLogs)], text: 'App Logs');
+                  // await DailyFiles.listTmpFileNames();
+                } catch (err) {
+                  DialogUtils.showSimpleOkErrDialog("Failed to zip and share all logs! $err", ctx);
+                }
+              },
+              icon: const Icon(Icons.share_outlined))
+        ],
       ),
       bodyBuilder: (ctx) => const _LogsScreenBody(),
     );
@@ -41,7 +57,7 @@ class _LogsScreenBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('TODO LogLevel / delete all logs'),
+          Text('TODO LogLevel / delete all logs'), // TODO delete mit share in die AppBar-Actinos
           const Divider(),
           Expanded(
             child: FutureBuilder(
