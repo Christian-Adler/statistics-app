@@ -7,6 +7,8 @@ import '../models/navigation/screen_nav_info.dart';
 import '../utils/about_dlg.dart';
 import '../utils/globals.dart';
 import '../utils/hide_bottom_navigation_bar.dart';
+import '../utils/logging/daily_files.dart';
+import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/controls/card/settings_card.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/ca_logo.dart';
@@ -15,6 +17,7 @@ import '../widgets/logo/exploratia_logo.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
+import 'logs_screen.dart';
 
 class InfoScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
@@ -45,6 +48,12 @@ class _InfoScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    VoidCallback? showLogsHandler;
+    if (DailyFiles.logsDirAvailable()) {
+      showLogsHandler =
+          () => Navigator.of(context).push(NavigatorTransitionBuilder.buildSlideHTransition(const LogsScreen()));
+    }
+
     return SingleChildScrollViewWithScrollbar(
       scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
       child: Column(
@@ -76,10 +85,18 @@ class _InfoScreenBody extends StatelessWidget {
           const _AppInfoCard(),
           Center(
             child: OutlinedButton.icon(
-                onPressed: () => AboutDlg.showAboutDlg(context),
-                icon: const Icon(Icons.info_outline),
-                label: const Text('App info')),
-          )
+              onPressed: () => AboutDlg.showAboutDlg(context),
+              icon: const Icon(Icons.info_outline),
+              label: const Text('App info'),
+            ),
+          ),
+          Center(
+            child: OutlinedButton.icon(
+              onPressed: showLogsHandler,
+              icon: Icon(LogsScreen.screenNavInfo.iconData),
+              label: Text(LogsScreen.screenNavInfo.titleBuilder(context)),
+            ),
+          ),
         ],
       ),
     );

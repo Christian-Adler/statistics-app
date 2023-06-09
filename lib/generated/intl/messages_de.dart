@@ -137,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "screenTitleHeartAddValue":
             MessageLookupByLibrary.simpleMessage("Blutdruck eintragen"),
         "screenTitleInfo": MessageLookupByLibrary.simpleMessage("Info"),
+        "screenTitleLog": MessageLookupByLibrary.simpleMessage("Log - "),
+        "screenTitleLogs":
+            MessageLookupByLibrary.simpleMessage("Applikation Logs"),
         "screenTitleOperating":
             MessageLookupByLibrary.simpleMessage("Nebenkosten"),
         "screenTitleOperatingAddValue":

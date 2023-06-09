@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/utils/logging/daily_files.dart';
 
 import 'generated/l10n.dart';
 import 'models/app_info.dart';
@@ -26,8 +27,9 @@ import 'widgets/responsive/app_layout_builder.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   AppInfo.init();
-  initializeDateFormatting('de_DE', null).then((_) {
+  initializeDateFormatting('de_DE', null).then((_) async {
     Intl.defaultLocale = 'de_DE';
+    await DailyFiles.init();
     runApp(const MyApp());
   });
 }

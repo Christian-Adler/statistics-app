@@ -590,56 +590,6 @@ class S {
     );
   }
 
-  /// `Overview`
-  String get screenTitleOverview {
-    return Intl.message(
-      'Overview',
-      name: 'screenTitleOverview',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Operating`
-  String get screenTitleOperating {
-    return Intl.message(
-      'Operating',
-      name: 'screenTitleOperating',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter operating costs`
-  String get screenTitleOperatingAddValue {
-    return Intl.message(
-      'Enter operating costs',
-      name: 'screenTitleOperatingAddValue',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Solar power`
-  String get screenTitleSolarPower {
-    return Intl.message(
-      'Solar power',
-      name: 'screenTitleSolarPower',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter solar power yield`
-  String get screenTitleSolarPowerAddValue {
-    return Intl.message(
-      'Enter solar power yield',
-      name: 'screenTitleSolarPowerAddValue',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Refuel`
   String get screenTitleCar {
     return Intl.message(
@@ -680,6 +630,66 @@ class S {
     );
   }
 
+  /// `Info`
+  String get screenTitleInfo {
+    return Intl.message(
+      'Info',
+      name: 'screenTitleInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log - `
+  String get screenTitleLog {
+    return Intl.message(
+      'Log - ',
+      name: 'screenTitleLog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application logs`
+  String get screenTitleLogs {
+    return Intl.message(
+      'Application logs',
+      name: 'screenTitleLogs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operating`
+  String get screenTitleOperating {
+    return Intl.message(
+      'Operating',
+      name: 'screenTitleOperating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter operating costs`
+  String get screenTitleOperatingAddValue {
+    return Intl.message(
+      'Enter operating costs',
+      name: 'screenTitleOperatingAddValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview`
+  String get screenTitleOverview {
+    return Intl.message(
+      'Overview',
+      name: 'screenTitleOverview',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get screenTitleSettings {
     return Intl.message(
@@ -690,11 +700,21 @@ class S {
     );
   }
 
-  /// `Info`
-  String get screenTitleInfo {
+  /// `Solar power`
+  String get screenTitleSolarPower {
     return Intl.message(
-      'Info',
-      name: 'screenTitleInfo',
+      'Solar power',
+      name: 'screenTitleSolarPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter solar power yield`
+  String get screenTitleSolarPowerAddValue {
+    return Intl.message(
+      'Enter solar power yield',
+      name: 'screenTitleSolarPowerAddValue',
       desc: '',
       args: [],
     );
