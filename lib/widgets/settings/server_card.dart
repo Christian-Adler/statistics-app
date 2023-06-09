@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../providers/auth.dart';
 import '../../utils/device_storage_keys.dart';
+import '../../utils/dialog_utils.dart';
 import '../../utils/globals.dart';
 import '../controls/card/expandable_settings_card.dart';
 
@@ -75,7 +76,7 @@ class _ChangeServerState extends State<_ChangeServer> {
     try {
       await _changeServer(_server);
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
     }
   }
 
@@ -93,7 +94,7 @@ class _ChangeServerState extends State<_ChangeServer> {
       }
       setState(() {});
     } catch (err) {
-      await Dialogs.simpleOkDialog(err.toString(), context, title: S.of(context).commonsDialogTitleErrorOccurred);
+      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
     }
   }
 
