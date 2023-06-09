@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:statistics/utils/logging/daily_files.dart';
 import 'package:statistics/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 
@@ -29,6 +30,13 @@ class LogScreen extends StatelessWidget {
         return StatisticsAppBar(
           Text(LogScreen.screenNavInfo.titleBuilder(ctx) + logFileN.replaceAll('.txt', '')),
           ctx,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Share.shareXFiles([XFile(DailyFiles.getFullLogPath(logFileN))], text: 'App Log $logFileName');
+                },
+                icon: const Icon(Icons.share_outlined))
+          ],
         );
       },
       bodyBuilder: (ctx) => _LogScreenBody(logFileN),

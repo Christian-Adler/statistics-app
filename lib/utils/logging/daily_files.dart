@@ -29,7 +29,7 @@ class DailyFiles {
       // result.add(element.path);
       result.add(element.path.split(Platform.pathSeparator).last);
     });
-    return result;
+    return result.reversed.toList();
   }
 
   static bool logsDirAvailable() {
@@ -54,6 +54,13 @@ class DailyFiles {
     final logFile = File('${logsDir.path}/$fn');
     if (!await logFile.exists()) return 'Log file not found!';
     return logFile.readAsString();
+  }
+
+  static String getFullLogPath(String filename) {
+    final logsDir = _logsDir;
+    if (logsDir == null) return 'No logs dir set/found!';
+    String fn = filename;
+    return '${logsDir.path}/$fn';
   }
 
   static void deleteLog(String filename) async {
