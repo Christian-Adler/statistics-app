@@ -84,8 +84,10 @@ class _LogOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     final fileLine = _StackUtils.determineFileLine();
+    var error = event.origin.error;
+
     // FileOutput
-    _Outputs.outFile(event, fileLine);
+    _Outputs.outFile(event, fileLine, error);
   }
 }
 
@@ -93,10 +95,11 @@ class _LogOutputWithConsole extends LogOutput {
   @override
   void output(OutputEvent event) {
     final fileLine = _StackUtils.determineFileLine();
+    var error = event.origin.error;
 
-    _Outputs.outCons(event, fileLine);
+    _Outputs.outCons(event, fileLine, error);
     // FileOutput
-    _Outputs.outFile(event, fileLine);
+    _Outputs.outFile(event, fileLine, error);
   }
 }
 
@@ -110,7 +113,7 @@ class _Outputs {
     Level.wtf: 'WTF  ',
   };
 
-  static void outFile(OutputEvent event, String fileLine) {
+  static void outFile(OutputEvent event, String fileLine, dynamic error) {
     String logMsg = '';
     for (var line in event.lines) {
       if (logMsg.isNotEmpty) logMsg += '\n';
@@ -118,13 +121,27 @@ class _Outputs {
     }
 
     logMsg = '${_normalizedLevel(event.level)} $fileLine $logMsg';
+    if (error != null) {
+      logMsg += '\n$error';
+    }
     DailyFiles.writeToFile(logMsg);
   }
 
-  static void outCons(OutputEvent event, String fileLine) {
+  static void outCons(OutputEvent event, String fileLine, dynamic error) {
+    bool first = true;
     for (var line in event.lines) {
       if (kDebugMode) {
-        print('${_normalizedLevel(event.level)} $fileLine $line');
+        if (first) {
+          first = false;
+          print('${_normalizedLevel(event.level)} $fileLine $line');
+        } else {
+          print(line);
+        }
+      }
+    }
+    if (error != null) {
+      if (kDebugMode) {
+        print(error);
       }
     }
   }
