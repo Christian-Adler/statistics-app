@@ -38,7 +38,7 @@ class DailyFiles {
   }
 
   static void _writeLogStart() {
-    writeToFile('START\n---------------------\n App Version ${AppInfo.version}\n---------------------');
+    writeToFile('START\n-------------------------\n App Version ${AppInfo.version}\n-------------------------');
   }
 
   /// liefert die Dateinamen unter logs (ohne die Endung .txt)
@@ -144,6 +144,22 @@ class DailyFiles {
       return lines.map((e) => e.replaceFirst(' | ', '\n')).join('\n');
     }
     return lines.join('\n');
+  }
+
+  static Future<List<String>> readLogLines(String filename, BuildContext context, bool addNLAfterLogLevel) async {
+    final logsDir = _logsDir;
+    if (logsDir == null) return ['No logs dir set/found!'];
+    String fn = filename;
+    final logFile = File('${logsDir.path}/$fn');
+
+    final logMsgFileNotFound = S.of(context).logMsgErrorFileNotFound(filename);
+    if (!await logFile.exists()) return [logMsgFileNotFound];
+
+    final lines = await logFile.readAsLines();
+    if (addNLAfterLogLevel) {
+      return lines.map((e) => e.replaceFirst(' | ', '\n')).toList();
+    }
+    return lines;
   }
 
   static String getFullLogPath(String filename) {
