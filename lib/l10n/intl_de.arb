@@ -44,6 +44,7 @@
   "logsDialogMsgErrorFailedToClearAllLogs": "Fehler beim Löschen aller Log-Dateien!",
   "logsDialogMsgErrorFailedToZipLogs": "Fehler beim Zippen der Log-Dateien!",
   "logsDialogMsgQueryDeleteAllLogs": "Wollen sie wirklich alle Log-Dateien löschen?",
+  "logsLabelChooseLogLevel": "Log Level",
   "logsMsgNoLogFilesFound": "Keine Log-Dateien gefunden",
   "operatingAddValueInputLabelPower": "Strom (kWh)",
   "operatingAddValueInputLabelPowerFed": "Strom Eingespeist (kWh)",

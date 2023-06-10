@@ -26,9 +26,9 @@ import 'widgets/responsive/app_layout_builder.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  AppInfo.init();
   initializeDateFormatting('de_DE', null).then((_) async {
     Intl.defaultLocale = 'de_DE';
+    await AppInfo.init();
     await DailyFiles.init();
     runApp(const MyApp());
   });

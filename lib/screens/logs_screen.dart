@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../generated/l10n.dart';
@@ -124,8 +125,6 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('TODO LogLevel '), // TODO LogLevel
-          const Divider(),
           Expanded(
             child: FutureBuilder(
               builder: (ctx, snapshot) {
@@ -160,6 +159,18 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
               future: DailyFiles.listLogFileNames(),
             ),
           ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(S.of(context).logsLabelChooseLogLevel),
+              ),
+              const _LogLevelSelector(),
+            ],
+          ),
         ],
       ),
     );
@@ -184,5 +195,50 @@ class Chip extends StatelessWidget {
         )),
       ),
     );
+  }
+}
+
+class _LogLevelSelector extends StatefulWidget {
+  const _LogLevelSelector();
+
+  @override
+  State<_LogLevelSelector> createState() => _LogLevelSelectorState();
+}
+
+class _LogLevelSelectorState extends State<_LogLevelSelector> {
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+
+    return DropdownButton<Level>(
+        icon: Icon(
+          Icons.arrow_drop_down_outlined,
+          color: themeData.colorScheme.primary,
+        ),
+        underline: Container(
+          height: 1,
+          color: themeData.colorScheme.primary,
+        ),
+        value: LogUtils.logLevel,
+        items: LogUtils.getKnownLevels().map<DropdownMenuItem<Level>>((logLevel) {
+          BoxDecoration? boxDeco;
+          if (logLevel == LogUtils.logLevel) {
+            boxDeco = BoxDecoration(border: Border(bottom: BorderSide(color: themeData.colorScheme.primary)));
+          }
+          return DropdownMenuItem(
+              value: logLevel,
+              child: Container(
+                  decoration: boxDeco,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(logLevel.name.toUpperCase()),
+                  )));
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            LogUtils.logLevel = value;
+            setState(() {});
+          }
+        });
   }
 }

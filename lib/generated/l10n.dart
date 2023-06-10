@@ -490,6 +490,16 @@ class S {
     );
   }
 
+  /// `Log Level`
+  String get logsLabelChooseLogLevel {
+    return Intl.message(
+      'Log Level',
+      name: 'logsLabelChooseLogLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No log files found`
   String get logsMsgNoLogFilesFound {
     return Intl.message(

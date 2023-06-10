@@ -104,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Failed to zip logs!"),
         "logsDialogMsgQueryDeleteAllLogs": MessageLookupByLibrary.simpleMessage(
             "Do you really want to delete all log files?"),
+        "logsLabelChooseLogLevel":
+            MessageLookupByLibrary.simpleMessage("Log Level"),
         "logsMsgNoLogFilesFound":
             MessageLookupByLibrary.simpleMessage("No log files found"),
         "operatingAddValueInputLabelPower":

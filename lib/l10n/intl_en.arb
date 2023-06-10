@@ -52,6 +52,7 @@
   "logsDialogMsgErrorFailedToClearAllLogs": "Failed to clear all logs!",
   "logsDialogMsgErrorFailedToZipLogs": "Failed to zip logs!",
   "logsDialogMsgQueryDeleteAllLogs": "Do you really want to delete all log files?",
+  "logsLabelChooseLogLevel": "Log Level",
   "logsMsgNoLogFilesFound": "No log files found",
   "operatingAddValueInputLabelPower": "Power (kWh)",
   "operatingAddValueInputLabelPowerFed": "Power Fed (kWh)",
