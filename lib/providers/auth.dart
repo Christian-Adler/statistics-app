@@ -59,7 +59,9 @@ class Auth with ChangeNotifier {
       // reset
       _serverUrl = tmpServerUrl;
       _pw = tmpPw;
-      notifyListeners();
+      // Im Catch kein NotifyListeners - es hat sich ja nichts geaendert!
+      // Zudem wird dann auch der AuthScreen neu erzeugt und dann wird die bisherige Server-Adresse nicht uebernommen.
+      // notifyListeners();
       rethrow;
     }
   }
