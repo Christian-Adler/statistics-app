@@ -11,6 +11,7 @@ import '../providers/auth.dart';
 import '../utils/color_utils.dart';
 import '../utils/globals.dart';
 import '../utils/logging/daily_files.dart';
+import '../utils/logging/log_utils.dart';
 import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/responsive/device_dependent_constrained_box.dart';
@@ -140,7 +141,7 @@ class _AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<_AuthCard> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
+  final _form = GlobalKey<FormState>();
   final Map<String, String> _authData = {
     'server': '',
     'password': '',
@@ -149,6 +150,8 @@ class _AuthCardState extends State<_AuthCard> {
 
   final passwordFieldFocusNode = FocusNode();
   var _isObscured = true;
+
+  final logger = LogUtils.logger;
 
   @override
   void dispose() {
@@ -175,14 +178,16 @@ class _AuthCardState extends State<_AuthCard> {
 
   Future<void> _submit() async {
     if (!context.mounted) return;
-    var currentState = _formKey.currentState;
+    var currentState = _form.currentState;
     if (currentState == null || !currentState.validate()) {
       return; // Invalid!
     }
     currentState.save();
+
     setState(() {
       _isLoading = true;
     });
+
     try {
       Dialogs.dismissKeyboard(context);
       await Provider.of<Auth>(context, listen: false).logIn(_authData['server']!, _authData['password']!);
@@ -194,8 +199,8 @@ class _AuthCardState extends State<_AuthCard> {
       //   _showErrorDialog(errorMessage);
     } catch (err) {
       var errorMessage = 'Failure during login!';
+      logger.w(errorMessage, err);
       if (context.mounted) errorMessage = S.of(context).authErrorMsgAuthenticationFailed;
-      // TODO write err to log
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -217,7 +222,7 @@ class _AuthCardState extends State<_AuthCard> {
     return SizedBox(
       width: min(400, deviceSize.width * 0.75),
       child: Form(
-        key: _formKey,
+        key: _form,
         child: Column(
           children: <Widget>[
             Card(
