@@ -10,9 +10,12 @@ import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/color_utils.dart';
 import '../utils/globals.dart';
+import '../utils/logging/daily_files.dart';
+import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/responsive/device_dependent_constrained_box.dart';
 import '../widgets/settings/app_language_settings_card.dart';
+import 'logs_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   static final ScreenNavInfo screenNavInfo = ScreenNavInfo(
@@ -338,13 +341,25 @@ class _SettingsDialogContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollViewWithScrollbar(
+    VoidCallback? showLogsHandler;
+    if (DailyFiles.logsDirAvailable()) {
+      showLogsHandler =
+          () => Navigator.of(context).push(NavigatorTransitionBuilder.buildSlideHTransition(const LogsScreen()));
+    }
+
+    return SingleChildScrollViewWithScrollbar(
       child: DeviceDependentConstrainedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // const Divider(),
-            ChooseLanguage(),
+            const ChooseLanguage(),
+            const Divider(),
+            OutlinedButton.icon(
+              onPressed: showLogsHandler,
+              icon: Icon(LogsScreen.screenNavInfo.iconData),
+              label: Text(LogsScreen.screenNavInfo.titleBuilder(context)),
+            ),
           ],
         ),
       ),
