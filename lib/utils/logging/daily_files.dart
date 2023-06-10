@@ -122,7 +122,7 @@ class DailyFiles {
         sink = logFile.openWrite(mode: FileMode.append);
       }
 
-      sink.write('${msgQueueItem.date} ${msgQueueItem.time} ${msgQueueItem.text}\n');
+      sink.write('[${msgQueueItem.date} ${msgQueueItem.time}] ${msgQueueItem.text}\n');
     }
 
     await sink.flush();
@@ -138,7 +138,6 @@ class DailyFiles {
     var logMsgFileNotFound = S.of(context).logMsgErrorFileNotFound(filename);
     if (!await logFile.exists()) return logMsgFileNotFound;
 
-    // return logFile.readAsString();
     final lines = await logFile.readAsLines();
     if (addNLAfterLogLevel) {
       return lines.map((e) => e.replaceFirst(' | ', '\n')).join('\n');
@@ -156,10 +155,31 @@ class DailyFiles {
     if (!await logFile.exists()) return [logMsgFileNotFound];
 
     final lines = await logFile.readAsLines();
-    if (addNLAfterLogLevel) {
-      return lines.map((e) => e.replaceFirst(' | ', '\n')).toList();
+
+    List<String> result = [];
+    String actString = '';
+
+    for (var line in lines) {
+      if (line.startsWith('[') && actString.isNotEmpty) {
+        result.add(actString);
+        actString = '';
+      }
+
+      String l = line;
+      if (actString.isEmpty && addNLAfterLogLevel) {
+        l = l.replaceFirst(' (', '\n(');
+        l = l.replaceFirst(') ', ')\n');
+      }
+
+      if (actString.isNotEmpty) actString += '\n';
+      actString += l;
     }
-    return lines;
+
+    if (actString.isNotEmpty) {
+      result.add(actString);
+    }
+
+    return result;
   }
 
   static String getFullLogPath(String filename) {

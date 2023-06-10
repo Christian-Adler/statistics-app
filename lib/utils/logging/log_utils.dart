@@ -69,7 +69,7 @@ class LogUtils {
 class _Printer extends LogPrinter {
   @override
   List<String> log(LogEvent event) {
-    return [event.message];
+    return [event.message.toString()];
   }
 }
 
@@ -83,17 +83,20 @@ class _Filter extends LogFilter {
 class _LogOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
+    final fileLine = _StackUtils.determineFileLine();
     // FileOutput
-    _Outputs.outFile(event);
+    _Outputs.outFile(event, fileLine);
   }
 }
 
 class _LogOutputWithConsole extends LogOutput {
   @override
   void output(OutputEvent event) {
-    _Outputs.outCons(event);
+    final fileLine = _StackUtils.determineFileLine();
+
+    _Outputs.outCons(event, fileLine);
     // FileOutput
-    _Outputs.outFile(event);
+    _Outputs.outFile(event, fileLine);
   }
 }
 
@@ -107,25 +110,46 @@ class _Outputs {
     Level.wtf: 'WTF  ',
   };
 
-  static void outFile(OutputEvent event) {
+  static void outFile(OutputEvent event, String fileLine) {
     String logMsg = '';
     for (var line in event.lines) {
       if (logMsg.isNotEmpty) logMsg += '\n';
       logMsg += line;
     }
-    logMsg = '${_normalizedLevel(event.level)} | $logMsg';
+
+    logMsg = '${_normalizedLevel(event.level)} $fileLine $logMsg';
     DailyFiles.writeToFile(logMsg);
   }
 
-  static void outCons(OutputEvent event) {
+  static void outCons(OutputEvent event, String fileLine) {
     for (var line in event.lines) {
       if (kDebugMode) {
-        print('${_normalizedLevel(event.level)} | $line');
+        print('${_normalizedLevel(event.level)} $fileLine $line');
       }
     }
   }
 
   static String _normalizedLevel(Level level) {
     return _levelMapping[level] ?? 'UNKNOWN';
+  }
+}
+
+class _StackUtils {
+  static String determineFileLine() {
+    String fileLine = StackTrace.current
+        .toString()
+        .split('\n')
+        .where(
+          (line) =>
+              !line.contains('package:logger') &&
+              !line.contains('package:statistics/utils/logging/log_utils.dart') &&
+              line.isNotEmpty,
+        )
+        .toList()
+        .first;
+    fileLine = fileLine.substring(fileLine.indexOf('('));
+    // man koennte noch den standard-Package-Pfad kuerzen, aber dann kann man in der Console beim Debug nicht mehr klicken :(
+    //.replaceFirst('package:statistics', '..');
+    return fileLine;
   }
 }

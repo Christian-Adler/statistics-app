@@ -125,7 +125,7 @@ class _LogLines extends StatelessWidget {
 
   final List<String> logLines;
 
-  static const double linePad = 2;
+  static const double linePad = 4;
   static const double outerPad = 8;
 
   @override
