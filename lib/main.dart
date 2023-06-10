@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/utils/logging/daily_files.dart';
 
 import 'generated/l10n.dart';
 import 'models/app_info.dart';
@@ -19,6 +18,8 @@ import 'screens/auth_screen.dart';
 import 'screens/splash_screen.dart';
 import 'utils/date_utils.dart';
 import 'utils/global_settings.dart';
+import 'utils/logging/daily_files.dart';
+import 'utils/logging/log_utils.dart';
 import 'utils/theme_utils.dart';
 import 'widgets/navigation/app_bottom_navigation_bar.dart';
 import 'widgets/navigation/main_navigation_stack.dart';
@@ -29,6 +30,7 @@ void main() {
   initializeDateFormatting('de_DE', null).then((_) async {
     Intl.defaultLocale = 'de_DE';
     await AppInfo.init();
+    await LogUtils.init();
     await DailyFiles.init();
     runApp(const MyApp());
   });

@@ -135,8 +135,8 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                          '${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'), // TODO ErrorLog
+                      child:
+                          Text('${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
                     ),
                   );
                 }

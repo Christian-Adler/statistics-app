@@ -1,9 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:statistics/utils/logging/daily_files.dart';
 
+import '../device_storage_keys.dart';
+
 class LogUtils {
-  static Level logLevel = Level.info;
+  static Level _logLevel = Level.warning;
+
+  static Level get logLevel {
+    return _logLevel;
+  }
+
+  static set logLevel(Level logLevel) {
+    _logLevel = logLevel;
+    _store();
+  }
 
   static final logger = Logger(
     filter: _Filter(),
@@ -27,6 +41,28 @@ class LogUtils {
 
   static List<Level> getKnownLevels() {
     return [Level.debug, Level.info, Level.warning, Level.error];
+  }
+
+  static void _store() async {
+    try {
+      final loggingData = {
+        'logLevel': _logLevel.name,
+      };
+      await DeviceStorage.write(DeviceStorageKeys.keyLogging, jsonEncode(loggingData));
+    } catch (err) {
+      // await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+    }
+  }
+
+  static Future<void> init() async {
+    final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyLogging);
+    if (dataStr != null) {
+      final data = jsonDecode(dataStr) as Map<String, dynamic>;
+      if (data.containsKey('logLevel')) {
+        final level = data['logLevel'] as String;
+        _logLevel = getKnownLevels().firstWhere((element) => element.name == level, orElse: () => Level.warning);
+      }
+    }
   }
 }
 
