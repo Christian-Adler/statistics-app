@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../generated/l10n.dart';
@@ -123,7 +124,7 @@ class _LogScreenBody extends StatelessWidget {
                       fontFeatures: [FontFeature.tabularFigures()],
                     ));
               },
-              future: DailyFiles.readLog(logFileName, context)),
+              future: DailyFiles.readLog(logFileName, context, !MediaQueryUtils.of(context).isTablet)),
         ),
       ),
     );

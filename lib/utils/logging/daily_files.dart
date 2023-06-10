@@ -129,7 +129,7 @@ class DailyFiles {
     await sink.close();
   }
 
-  static Future<String> readLog(String filename, BuildContext context) async {
+  static Future<String> readLog(String filename, BuildContext context, bool addNLAfterLogLevel) async {
     final logsDir = _logsDir;
     if (logsDir == null) return 'No logs dir set/found!';
     String fn = filename;
@@ -138,7 +138,12 @@ class DailyFiles {
     var logMsgFileNotFound = S.of(context).logMsgErrorFileNotFound(filename);
     if (!await logFile.exists()) return logMsgFileNotFound;
 
-    return logFile.readAsString();
+    // return logFile.readAsString();
+    final lines = await logFile.readAsLines();
+    if (addNLAfterLogLevel) {
+      return lines.map((e) => e.replaceFirst(' | ', '\n')).join('\n');
+    }
+    return lines.join('\n');
   }
 
   static String getFullLogPath(String filename) {
