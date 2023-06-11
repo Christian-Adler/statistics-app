@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/utils/dialog_utils.dart';
 
 import '../generated/l10n.dart';
 import '../models/app_info.dart';
@@ -159,23 +160,6 @@ class _AuthCardState extends State<_AuthCard> {
     super.dispose();
   }
 
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(S.of(ctx).commonsDialogTitleErrorOccurred),
-        content: Text(message),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: Text(S.of(ctx).commonsDialogBtnOkay))
-        ],
-      ),
-    );
-  }
-
   Future<void> _submit() async {
     if (!context.mounted) return;
     var currentState = _form.currentState;
@@ -198,10 +182,8 @@ class _AuthCardState extends State<_AuthCard> {
       //   }
       //   _showErrorDialog(errorMessage);
     } catch (err) {
-      var errorMessage = 'Failure during login!';
-      logger.w(errorMessage, err);
-      if (context.mounted) errorMessage = S.of(context).authErrorMsgAuthenticationFailed;
-      _showErrorDialog(errorMessage);
+      if (!context.mounted) return;
+      DialogUtils.showSimpleOkErrDialog(err, context);
     }
     setState(() {
       _isLoading = false;

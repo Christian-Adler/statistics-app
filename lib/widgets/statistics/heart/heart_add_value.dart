@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
-import '../../../models/exception/api_exception.dart';
 import '../../../providers/heart.dart';
 import '../../../utils/dialog_utils.dart';
 import '../../layout/scrollable_centered_form_wrapper.dart';
@@ -39,10 +38,8 @@ class HeartAddValueState extends State<HeartAddValue> {
     try {
       await power.addBloodPressureEntry(_high, _low);
       _showSuccessMessage();
-    } on ApiException catch (err) {
-      await DialogUtils.showSimpleOkErrDialog(err.message, context);
     } catch (err) {
-      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
+      await DialogUtils.showSimpleOkErrDialog(err, context);
     }
 
     setState(() {

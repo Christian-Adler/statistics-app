@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../providers/operating.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../scroll_footer.dart';
+import '../centered_error_text.dart';
 import 'display/solar_power_chart.dart';
 import 'display/solar_power_table.dart';
 
@@ -20,7 +22,13 @@ class SolarPowerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => Provider.of<Operating>(context, listen: false).fetchData(),
+      onRefresh: () async {
+        try {
+          await Provider.of<Operating>(context, listen: false).fetchData();
+        } catch (e) {
+          await DialogUtils.showSimpleOkErrDialog(e, context);
+        }
+      },
       child: _SolarPower(_showYearly),
     );
   }
@@ -58,14 +66,7 @@ class _SolarPowerState extends State<_SolarPower> {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return const LinearProgressIndicator();
         } else if (dataSnapshot.hasError) {
-          // .. do error handling
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO error log
-            ),
-          );
+          return CenteredErrorText(dataSnapshot.error!);
         } else {
           return SingleChildScrollViewWithScrollbar(
             scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,

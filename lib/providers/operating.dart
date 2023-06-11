@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 
 import '../models/chart/operating_chart_item.dart';
 import '../utils/date_utils.dart';
+import '../utils/error_code.dart';
 import '../utils/http_utils.dart';
+import '../utils/logging/log_utils.dart';
 import 'auth.dart';
 
 class Operating with ChangeNotifier {
@@ -34,7 +36,18 @@ class Operating with ChangeNotifier {
   Future<void> _sendAndFetchData(Map<String, String>? params) async {
     if (_auth == null) return;
 
-    final result = await HttpUtils.sendRequest('haus_nebenkosten', params, _auth!);
+    Map<String, dynamic> result;
+    try {
+      result = await HttpUtils.sendRequest('haus_nebenkosten', params, _auth!);
+    } catch (e) {
+      if (params == null) {
+        LogUtils.logger.w('Failed to load data from server.', e);
+        throw ErrorCode.failedToLoadDataFromServer;
+      } else {
+        LogUtils.logger.w('Failed to send data to server.', e);
+        throw ErrorCode.failedToSendDataToServer;
+      }
+    }
 
     // Monatswerte
     var charges = result['charge'] as Map<String, dynamic>;

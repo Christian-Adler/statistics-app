@@ -1,7 +1,7 @@
 {
   "@@locale": "de",
   "authBtnLogin": "Anmelden",
-  "authErrorMsgAuthenticationFailed": "Login fehlgeschlagen. Bitte später nochmals versuchen.",
+  "authErrorMsgAuthenticationFailed": "Login fehlgeschlagen.\nBitte Anmeldedaten prüfen, oder später nochmals versuchen.",
   "authInputLabelServer": "Server",
   "authInputLabelPassword": "Passwort",
   "authInputValidatorMsgEnterValidServer": "Geben sie einen validen Server an!",
@@ -31,6 +31,7 @@
   "commonsDialogBtnSave": "Speichern",
   "commonsDialogBtnYes": "Ja",
   "commonsMsgErrorFailedToLoadData": "Fehler beim Laden der Daten...",
+  "commonsMsgErrorFailedToSendData": "Fehler beim Speichern der Daten...",
   "commonsMsgErrorFailedToShareData": "Fehler beim Teilen...",
   "commonsSnackbarMsgSaved": "Gespeichert...",
   "commonsValidatorMsgEmptyValue": "Bitte Wert eingeben",

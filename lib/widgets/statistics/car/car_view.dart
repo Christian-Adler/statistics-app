@@ -5,10 +5,12 @@ import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:statistics/widgets/statistics/centered_error_text.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 
@@ -18,7 +20,13 @@ class CarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => Provider.of<Car>(context, listen: false).fetchData(),
+      onRefresh: () async {
+        try {
+          await Provider.of<Car>(context, listen: false).fetchData();
+        } catch (e) {
+          await DialogUtils.showSimpleOkErrDialog(e, context);
+        }
+      },
       child: _Car(),
     );
   }
@@ -52,14 +60,7 @@ class _CarState extends State<_Car> {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return const LinearProgressIndicator();
         } else if (dataSnapshot.hasError) {
-          // .. do error handling
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO Fehler ins Log
-            ),
-          );
+          return CenteredErrorText(dataSnapshot.error!);
         } else {
           final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
           double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;

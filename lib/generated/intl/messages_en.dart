@@ -32,9 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "authBtnLogin": MessageLookupByLibrary.simpleMessage("Login"),
-        "authErrorMsgAuthenticationFailed":
-            MessageLookupByLibrary.simpleMessage(
-                "Could not authenticate you. Please try again later."),
+        "authErrorMsgAuthenticationFailed": MessageLookupByLibrary.simpleMessage(
+            "Could not authenticate you.\nPlease check credentials or try again later."),
         "authInputLabelPassword":
             MessageLookupByLibrary.simpleMessage("Password"),
         "authInputLabelServer": MessageLookupByLibrary.simpleMessage("Server"),
@@ -81,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "commonsLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "commonsMsgErrorFailedToLoadData":
             MessageLookupByLibrary.simpleMessage("Failed to load data..."),
+        "commonsMsgErrorFailedToSendData":
+            MessageLookupByLibrary.simpleMessage("Failed to send data..."),
         "commonsMsgErrorFailedToShareData":
             MessageLookupByLibrary.simpleMessage("Failed to share..."),
         "commonsSnackbarMsgSaved":

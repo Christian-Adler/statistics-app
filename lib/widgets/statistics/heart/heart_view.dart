@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/heart/blood_pressure_item.dart';
 import '../../../providers/heart.dart';
+import '../../../utils/dialog_utils.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
+import '../centered_error_text.dart';
 
 class HeartView extends StatelessWidget {
   const HeartView({super.key});
@@ -17,7 +19,13 @@ class HeartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => Provider.of<Heart>(context, listen: false).fetchData(),
+      onRefresh: () async {
+        try {
+          await Provider.of<Heart>(context, listen: false).fetchData();
+        } catch (e) {
+          await DialogUtils.showSimpleOkErrDialog(e, context);
+        }
+      },
       child: _Heart(),
     );
   }
@@ -51,14 +59,7 @@ class _HeartState extends State<_Heart> {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return const LinearProgressIndicator();
         } else if (dataSnapshot.hasError) {
-          // .. do error handling
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                  '${S.of(context).commonsMsgErrorFailedToLoadData} ${dataSnapshot.error?.toString() ?? ''}'), // TODO Fehler ins Log
-            ),
-          );
+          return CenteredErrorText(dataSnapshot.error!);
         } else {
           final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
           double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;

@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Could not authenticate you. Please try again later.`
+  /// `Could not authenticate you.\nPlease check credentials or try again later.`
   String get authErrorMsgAuthenticationFailed {
     return Intl.message(
-      'Could not authenticate you. Please try again later.',
+      'Could not authenticate you.\nPlease check credentials or try again later.',
       name: 'authErrorMsgAuthenticationFailed',
       desc: '',
       args: [],
@@ -355,6 +355,16 @@ class S {
     return Intl.message(
       'Failed to load data...',
       name: 'commonsMsgErrorFailedToLoadData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to send data...`
+  String get commonsMsgErrorFailedToSendData {
+    return Intl.message(
+      'Failed to send data...',
+      name: 'commonsMsgErrorFailedToSendData',
       desc: '',
       args: [],
     );

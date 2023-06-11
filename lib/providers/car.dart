@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 
 import '../models/car/car_refuel_item.dart';
 import '../utils/date_utils.dart';
+import '../utils/error_code.dart';
 import '../utils/http_utils.dart';
+import '../utils/logging/log_utils.dart';
 import 'auth.dart';
 
 class Car with ChangeNotifier {
@@ -26,7 +28,18 @@ class Car with ChangeNotifier {
   Future<void> _sendAndFetchData(Map<String, String>? params) async {
     if (_auth == null) return;
 
-    final result = await HttpUtils.sendRequest('auto', params, _auth!);
+    Map<String, dynamic> result;
+    try {
+      result = await HttpUtils.sendRequest('auto', params, _auth!);
+    } catch (e) {
+      if (params == null) {
+        LogUtils.logger.w('Failed to load data from server.', e);
+        throw ErrorCode.failedToLoadDataFromServer;
+      } else {
+        LogUtils.logger.w('Failed to send data to server.', e);
+        throw ErrorCode.failedToSendDataToServer;
+      }
+    }
 
     final dataList = result['data'] as List<dynamic>;
     _carRefuelItems.clear();

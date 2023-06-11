@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "authBtnLogin": "Login",
-  "authErrorMsgAuthenticationFailed": "Could not authenticate you. Please try again later.",
+  "authErrorMsgAuthenticationFailed": "Could not authenticate you.\nPlease check credentials or try again later.",
   "authInputLabelServer": "Server",
   "authInputLabelPassword": "Password",
   "authInputValidatorMsgEnterValidServer": "Enter a valid server!",
@@ -31,6 +31,7 @@
   "commonsDialogBtnSave": "Save",
   "commonsDialogBtnYes": "Yes",
   "commonsMsgErrorFailedToLoadData": "Failed to load data...",
+  "commonsMsgErrorFailedToSendData": "Failed to send data...",
   "commonsMsgErrorFailedToShareData": "Failed to share...",
   "commonsSnackbarMsgSaved": "Saved...",
   "commonsValidatorMsgEmptyValue": "Please enter a value",

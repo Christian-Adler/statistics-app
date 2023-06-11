@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
-import '../../../models/exception/api_exception.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/date_utils.dart';
 import '../../../utils/dialog_utils.dart';
@@ -39,10 +38,8 @@ class SolarPowerAddValueState extends State<SolarPowerAddValue> {
     try {
       await power.addSolarPowerEntry(_value);
       _showSuccessMessage();
-    } on ApiException catch (err) {
-      await DialogUtils.showSimpleOkErrDialog(err.message, context);
     } catch (err) {
-      await DialogUtils.showSimpleOkErrDialog(err.toString(), context);
+      await DialogUtils.showSimpleOkErrDialog(err, context);
     }
 
     setState(() {
