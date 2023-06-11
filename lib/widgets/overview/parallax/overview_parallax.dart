@@ -7,6 +7,7 @@ import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../utils/global_keys.dart';
 import '../../../utils/globals.dart';
+import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../overview_navigation_buttons.dart';
 
@@ -217,7 +218,7 @@ class _OverviewParallaxState extends State<OverviewParallax> {
 
     // Navigation Buttons - bei Tablet zentriert
     Widget navButtons = const SingleChildScrollViewWithScrollbar(
-      // No BottomNavBar hide on Overview Screen // scrollDirectionCallback: HideBottomNavigationBar.setScrollDirection,
+      scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
       child: Center(child: OverviewNavigationButtons()),
     );
     if (mediaQueryUtils.isTablet) {
