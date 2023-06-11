@@ -47,7 +47,7 @@ class Charts {
     List<TouchedSpotIndicatorData?> result = [];
     for (var _ in spotIndexes) {
       result.add(TouchedSpotIndicatorData(
-        FlLine(
+        const FlLine(
           color: Colors.grey,
           strokeWidth: 2,
         ),
@@ -129,9 +129,9 @@ class Charts {
           getTitlesWidget: (value, meta) => _createTitlesLeft(value, meta),
           reservedSize: 40,
         ),
-        drawBehindEverything: true,
+        drawBelowEverything: true,
       ),
-      rightTitles: AxisTitles(
+      rightTitles: const AxisTitles(
         sideTitles: SideTitles(showTitles: false),
       ),
       bottomTitles: AxisTitles(
@@ -143,9 +143,9 @@ class Charts {
               !chartMeta.yearly && chartMeta.showYearOnJan ? 36 : 20,
           // interval: 1,
         ),
-        drawBehindEverything: true,
+        drawBelowEverything: true,
       ),
-      topTitles: AxisTitles(
+      topTitles: const AxisTitles(
         sideTitles: SideTitles(showTitles: false),
       ),
     );
@@ -164,7 +164,7 @@ class Charts {
   }
 
   static FlGridData _createGridData() {
-    return FlGridData(
+    return const FlGridData(
       show: false,
       drawVerticalLine: true,
       drawHorizontalLine: true,
@@ -201,10 +201,10 @@ class Charts {
   }
 
   static LineChartBarData createLineChartBarData(
-    List<FlSpot>? spots,
+    List<FlSpot> spots,
     List<Color> gradientColors, {
     shadow = false,
-    double? barWidth = 4,
+    double barWidth = 4,
     List<Color>? fillColors,
     List<int>? dashArray,
     ChartMetaData? chartMetaData,
@@ -223,14 +223,14 @@ class Charts {
       isCurved: true,
       preventCurveOverShooting: true,
       // curveSmoothness: 0.5,
-      shadow: shadow ? Charts._createLineShadow() : null,
+      shadow: shadow ? Charts._createLineShadow() : const Shadow(color: Colors.transparent),
       isStrokeCapRound: true,
     );
   }
 
   static LineChart createLineChartData(
     ChartMetaData chartMeta,
-    List<LineChartBarData>? lineBarsData, {
+    List<LineChartBarData> lineBarsData, {
     int fractionDigits = 2,
     List<TextSpan> Function(double, int)? provideTooltipExt,
   }) {
@@ -242,7 +242,7 @@ class Charts {
         maxX: chartMeta.xMax,
         lineTouchData:
             Charts._createLineTouchData(fractionDigits: fractionDigits, provideTooltipExt: provideTooltipExt),
-        clipData: FlClipData.all(),
+        clipData: const FlClipData.all(),
         gridData: Charts._createGridData(),
         borderData: Charts._createBorderData(),
         lineBarsData: lineBarsData,
