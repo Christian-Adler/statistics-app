@@ -34,16 +34,6 @@ class _LogsScreenState extends State<LogsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final logger = LogUtils.logger;
-
-    logger.d("Debug log");
-
-    logger.i("Info log");
-
-    logger.w("Warning log");
-
-    logger.e("Error log", 'Test Error');
-
     return ScreenLayoutBuilder(
       appBarBuilder: (ctx) => StatisticsAppBar(
         Text(LogsScreen.screenNavInfo.titleBuilder(ctx)),
