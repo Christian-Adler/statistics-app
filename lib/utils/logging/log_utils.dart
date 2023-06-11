@@ -171,6 +171,7 @@ class _StackUtils {
   static _FileLineAndStack determineFileLine() {
     final stack = StackTrace.current
         .toString()
+        .replaceAll('<anonymous closure>', '')
         .split('\n')
         .where(
           (line) =>
