@@ -5,13 +5,15 @@ class SingleChildScrollViewWithScrollbar extends StatefulWidget {
   final Axis scrollDirection;
   final double Function()? getScrollPos;
   final void Function(ScrollPosition value)? scrollPositionCallback;
+  final Future<void> Function()? onRefresh;
 
   const SingleChildScrollViewWithScrollbar(
       {Key? key,
       required this.child,
       this.scrollDirection = Axis.vertical,
       this.getScrollPos,
-      this.scrollPositionCallback})
+      this.scrollPositionCallback,
+      this.onRefresh})
       : super(key: key);
 
   @override
@@ -44,13 +46,24 @@ class _SingleChildScrollViewWithScrollbarState extends State<SingleChildScrollVi
     if (getScrollP != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => scroll(getScrollP()));
     }
-    return Scrollbar(
+
+    final refreshHandler = widget.onRefresh;
+    ScrollPhysics? scrollPhysics = (refreshHandler != null) ? const AlwaysScrollableScrollPhysics() : null;
+
+    final scrollbar = Scrollbar(
       controller: _scrollController,
       child: SingleChildScrollView(
+        physics: scrollPhysics,
         controller: _scrollController,
         scrollDirection: widget.scrollDirection,
         child: widget.child,
       ),
     );
+
+    if (refreshHandler == null) {
+      return scrollbar;
+    }
+
+    return RefreshIndicator(onRefresh: refreshHandler, child: scrollbar);
   }
 }
