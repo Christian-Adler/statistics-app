@@ -86,10 +86,19 @@ class LogScreen extends StatelessWidget {
   }
 }
 
-class _LogScreenBody extends StatelessWidget {
+class _LogScreenBody extends StatefulWidget {
   const _LogScreenBody(this.logFileName);
 
   final String logFileName;
+
+  @override
+  State<_LogScreenBody> createState() => _LogScreenBodyState();
+}
+
+class _LogScreenBodyState extends State<_LogScreenBody> {
+  void _rebuild() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,20 +119,24 @@ class _LogScreenBody extends StatelessWidget {
             }
             final logFileContent = snapshot.data;
             if (logFileContent == null) {
-              return Text(S.of(ctx).logMsgErrorFileNotFound(logFileName));
+              return Text(S.of(ctx).logMsgErrorFileNotFound(widget.logFileName));
             }
 
-            return _LogLines(logLines: logFileContent);
+            return _LogLines(
+              logLines: logFileContent,
+              refreshHandler: _rebuild,
+            );
           },
-          future: DailyFiles.readLogLines(logFileName, context, !MediaQueryUtils.of(context).isTablet)),
+          future: DailyFiles.readLogLines(widget.logFileName, context, !MediaQueryUtils.of(context).isTablet)),
     );
   }
 }
 
 class _LogLines extends StatelessWidget {
-  const _LogLines({required this.logLines});
+  const _LogLines({required this.logLines, required this.refreshHandler});
 
   final List<String> logLines;
+  final VoidCallback refreshHandler;
 
   static const double linePad = 4;
   static const double outerPad = 8;
@@ -131,32 +144,37 @@ class _LogLines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-      child: ListView.builder(
-          itemBuilder: (context, index) {
-            var logLineText = logLines[index];
-            var logLine = _LogLine(
-              logLine: logLineText,
-              key: ValueKey(logLineText.length > 28 ? logLineText.substring(0, 27) : logLineText),
-            );
+      child: RefreshIndicator(
+        onRefresh: () async {
+          refreshHandler();
+        },
+        child: ListView.builder(
+            itemBuilder: (context, index) {
+              var logLineText = logLines[index];
+              var logLine = _LogLine(
+                logLine: logLineText,
+                key: ValueKey(logLineText.length > 28 ? logLineText.substring(0, 27) : logLineText),
+              );
 
-            if (index == 0) {
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: outerPad, right: outerPad, top: outerPad, bottom: linePad),
+                  child: logLine,
+                );
+              }
+              if (index == logLines.length - 1) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: outerPad, right: outerPad, top: linePad, bottom: outerPad),
+                  child: logLine,
+                );
+              }
               return Padding(
-                padding: const EdgeInsets.only(left: outerPad, right: outerPad, top: outerPad, bottom: linePad),
+                padding: const EdgeInsets.symmetric(vertical: linePad, horizontal: outerPad),
                 child: logLine,
               );
-            }
-            if (index == logLines.length - 1) {
-              return Padding(
-                padding: const EdgeInsets.only(left: outerPad, right: outerPad, top: linePad, bottom: outerPad),
-                child: logLine,
-              );
-            }
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: linePad, horizontal: outerPad),
-              child: logLine,
-            );
-          },
-          itemCount: logLines.length),
+            },
+            itemCount: logLines.length),
+      ),
     );
   }
 }
