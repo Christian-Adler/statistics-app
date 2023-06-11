@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:statistics/utils/logging/daily_files.dart';
 
+import '../../models/app_info.dart';
 import '../device_storage_keys.dart';
+import 'daily_files.dart';
 
 class LogUtils {
   static Level _logLevel = Level.warning;
@@ -152,6 +153,8 @@ class _Outputs {
 }
 
 class _StackUtils {
+  static final packageName = AppInfo.appName.toLowerCase();
+
   static String determineFileLine() {
     String fileLine = StackTrace.current
         .toString()
@@ -159,7 +162,7 @@ class _StackUtils {
         .where(
           (line) =>
               !line.contains('package:logger') &&
-              !line.contains('package:statistics/utils/logging/log_utils.dart') &&
+              !line.contains('package:$packageName/utils/logging/log_utils.dart') &&
               line.isNotEmpty,
         )
         .toList()
