@@ -120,59 +120,60 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: FutureBuilder(
-              builder: (ctx, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const LinearProgressIndicator();
-                } else if (snapshot.hasError) {
-                  // .. do error handling
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child:
-                          Text('${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
-                    ),
-                  );
-                }
-                final logFiles = snapshot.data;
-                if (logFiles == null) {
-                  return Center(
-                    child: Text(S.of(context).logsMsgNoLogFilesFound),
-                  );
-                }
-                return SingleChildScrollViewWithScrollbar(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: FutureBuilder(
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LinearProgressIndicator();
+              } else if (snapshot.hasError) {
+                // .. do error handling
+                return Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text('${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
+                  ),
+                );
+              }
+              final logFiles = snapshot.data;
+              if (logFiles == null) {
+                return Center(
+                  child: Text(S.of(context).logsMsgNoLogFilesFound),
+                );
+              }
+              return SingleChildScrollViewWithScrollbar(
+                onRefresh: () async {
+                  _rebuild();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Center(
                     child: Wrap(
                       spacing: 16,
                       children: [...logFiles.map((logFile) => Chip(logFile, _rebuild))],
                     ),
                   ),
-                );
-              },
-              future: DailyFiles.listLogFileNames(),
+                ),
+              );
+            },
+            future: DailyFiles.listLogFileNames(),
+          ),
+        ),
+        const Divider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Text(S.of(context).logsLabelChooseLogLevel),
             ),
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Text(S.of(context).logsLabelChooseLogLevel),
-              ),
-              const _LogLevelSelector(),
-            ],
-          ),
-        ],
-      ),
+            const _LogLevelSelector(),
+          ],
+        ),
+      ],
     );
   }
 }
