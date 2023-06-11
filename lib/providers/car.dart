@@ -13,17 +13,17 @@ class Car with ChangeNotifier {
 
   Future<void> fetchDataIfNotYetLoaded() async {
     if (_carRefuelItems.isEmpty) {
-      await sendAndFetchData_(null);
+      await _sendAndFetchData(null);
       notifyListeners();
     }
   }
 
   Future<void> fetchData() async {
-    await sendAndFetchData_(null);
+    await _sendAndFetchData(null);
     notifyListeners();
   }
 
-  Future<void> sendAndFetchData_(Map<String, String>? params) async {
+  Future<void> _sendAndFetchData(Map<String, String>? params) async {
     if (_auth == null) return;
 
     final result = await HttpUtils.sendRequest('auto', params, _auth!);
@@ -62,7 +62,7 @@ class Car with ChangeNotifier {
       'inputCent': centPerLiter.toInt().toString(),
       'inputKm': km.toInt().toString(),
     };
-    await sendAndFetchData_(params);
+    await _sendAndFetchData(params);
     notifyListeners();
   }
 }

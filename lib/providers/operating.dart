@@ -21,17 +21,17 @@ class Operating with ChangeNotifier {
 
   Future<void> fetchDataIfNotYetLoaded() async {
     if (_operatingItems.isEmpty) {
-      await sendAndFetchData_(null);
+      await _sendAndFetchData(null);
       notifyListeners();
     }
   }
 
   Future<void> fetchData() async {
-    await sendAndFetchData_(null);
+    await _sendAndFetchData(null);
     notifyListeners();
   }
 
-  Future<void> sendAndFetchData_(Map<String, String>? params) async {
+  Future<void> _sendAndFetchData(Map<String, String>? params) async {
     if (_auth == null) return;
 
     final result = await HttpUtils.sendRequest('haus_nebenkosten', params, _auth!);
@@ -135,7 +135,7 @@ class Operating with ChangeNotifier {
       'inputHausMonat': insertDate.month.toString(),
       'inputStromSolar': value.toInt().toString(),
     };
-    await sendAndFetchData_(params);
+    await _sendAndFetchData(params);
     notifyListeners();
   }
 
@@ -151,7 +151,7 @@ class Operating with ChangeNotifier {
       'inputStromWP_HT': heatingHT.toInt().toString(),
       'inputStromWP_NT': heatingNT.toInt().toString(),
     };
-    await sendAndFetchData_(params);
+    await _sendAndFetchData(params);
     notifyListeners();
   }
 }

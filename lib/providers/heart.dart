@@ -13,17 +13,17 @@ class Heart with ChangeNotifier {
 
   Future<void> fetchDataIfNotYetLoaded() async {
     if (_bloodPressureItems.isEmpty) {
-      await sendAndFetchData_(null);
+      await _sendAndFetchData(null);
       notifyListeners();
     }
   }
 
   Future<void> fetchData() async {
-    await sendAndFetchData_(null);
+    await _sendAndFetchData(null);
     notifyListeners();
   }
 
-  Future<void> sendAndFetchData_(Map<String, String>? params) async {
+  Future<void> _sendAndFetchData(Map<String, String>? params) async {
     if (_auth == null) return;
 
     final result = await HttpUtils.sendRequest('bloodpressure', params, _auth!);
@@ -73,7 +73,7 @@ class Heart with ChangeNotifier {
       'inputHigh': high.toString(),
       'inputLow': low.toString(),
     };
-    await sendAndFetchData_(params);
+    await _sendAndFetchData(params);
     notifyListeners();
   }
 }
