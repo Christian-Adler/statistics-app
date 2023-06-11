@@ -95,12 +95,12 @@ class _LogOutput extends LogOutput {
 class _LogOutputWithConsole extends LogOutput {
   @override
   void output(OutputEvent event) {
-    final fileLine = _StackUtils.determineFileLine();
+    final fileLineAndStack = _StackUtils.determineFileLine();
     var error = event.origin.error;
 
-    _Outputs.outCons(event, fileLine, error);
+    _Outputs.outCons(event, fileLineAndStack, error);
     // FileOutput
-    _Outputs.outFile(event, fileLine, error);
+    _Outputs.outFile(event, fileLineAndStack, error);
   }
 }
 
@@ -114,27 +114,32 @@ class _Outputs {
     Level.wtf: 'WTF  ',
   };
 
-  static void outFile(OutputEvent event, String fileLine, dynamic error) {
+  static void outFile(OutputEvent event, _FileLineAndStack fileLineAndStack, dynamic error) {
     String logMsg = '';
     for (var line in event.lines) {
       if (logMsg.isNotEmpty) logMsg += '\n';
       logMsg += line;
     }
 
-    logMsg = '${_normalizedLevel(event.level)} $fileLine $logMsg';
+    logMsg = '${_normalizedLevel(event.level)} | ${fileLineAndStack.fileLine} $logMsg';
     if (error != null) {
-      logMsg += '\n$error';
+      logMsg += '\n  Error:\n$error';
     }
+
+    if (fileLineAndStack.stack != null && event.level.index >= Level.warning.index) {
+      logMsg += '\n  Stack:\n${fileLineAndStack.stack}';
+    }
+
     DailyFiles.writeToFile(logMsg);
   }
 
-  static void outCons(OutputEvent event, String fileLine, dynamic error) {
+  static void outCons(OutputEvent event, _FileLineAndStack fileLineAndStack, dynamic error) {
     bool first = true;
     for (var line in event.lines) {
       if (kDebugMode) {
         if (first) {
           first = false;
-          print('${_normalizedLevel(event.level)} $fileLine $line');
+          print('${_normalizedLevel(event.level)} ${fileLineAndStack.fileLine} $line');
         } else {
           print(line);
         }
@@ -142,7 +147,15 @@ class _Outputs {
     }
     if (error != null) {
       if (kDebugMode) {
+        print('  Error:');
         print(error);
+      }
+    }
+
+    if (fileLineAndStack.stack != null && event.level.index >= Level.warning.index) {
+      if (kDebugMode) {
+        print('  Stack:');
+        print(fileLineAndStack.stack);
       }
     }
   }
@@ -155,8 +168,8 @@ class _Outputs {
 class _StackUtils {
   static final packageName = AppInfo.appName.toLowerCase();
 
-  static String determineFileLine() {
-    String fileLine = StackTrace.current
+  static _FileLineAndStack determineFileLine() {
+    final stack = StackTrace.current
         .toString()
         .split('\n')
         .where(
@@ -165,11 +178,23 @@ class _StackUtils {
               !line.contains('package:$packageName/utils/logging/log_utils.dart') &&
               line.isNotEmpty,
         )
-        .toList()
-        .first;
-    fileLine = fileLine.substring(fileLine.indexOf('('));
+        .where((line) => line.contains('package:$packageName/'))
+        .map((line) => line.substring(line.indexOf(' ')).trimLeft())
+        .toList();
+    String fileLine = stack.first;
+    // fileLine = fileLine.substring(fileLine.indexOf('('));
     // man koennte noch den standard-Package-Pfad kuerzen, aber dann kann man in der Console beim Debug nicht mehr klicken :(
     //.replaceFirst('package:statistics', '..');
-    return fileLine;
+
+    final String? s = stack.length > 1 ? stack.join('\n') : null;
+
+    return _FileLineAndStack(fileLine, s);
   }
+}
+
+class _FileLineAndStack {
+  final String fileLine;
+  final String? stack;
+
+  _FileLineAndStack(this.fileLine, this.stack);
 }

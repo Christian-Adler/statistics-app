@@ -167,7 +167,7 @@ class DailyFiles {
 
       String l = line;
       if (actString.isEmpty && addNLAfterLogLevel) {
-        l = l.replaceFirst(' (', '\n(');
+        l = l.replaceFirst(' | ', '\n');
         l = l.replaceFirst(') ', ')\n');
       }
 
