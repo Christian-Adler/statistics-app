@@ -56,8 +56,15 @@ class ChooseLanguage extends StatelessWidget {
             color: themeData.colorScheme.primary,
           ),
           underline: Container(
-            height: 1,
-            color: themeData.colorScheme.primary,
+            height: 2.0,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: themeData.colorScheme.primary,
+                  width: 2.0,
+                ),
+              ),
+            ),
           ),
           value: appLanguage,
           items: AppLanguage.languages().map<DropdownMenuItem<AppLanguage>>((appLang) {

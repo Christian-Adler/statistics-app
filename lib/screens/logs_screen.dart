@@ -110,6 +110,8 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -151,17 +153,20 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
             future: DailyFiles.listLogFileNames(),
           ),
         ),
-        const Divider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Text(S.of(context).logsLabelChooseLogLevel),
-            ),
-            const _LogLevelSelector(),
-          ],
+        Container(
+          height: 56, // gleiche Hoehe wie bottomAppNavigationBar
+          color: themeData.primaryColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(S.of(context).logsLabelChooseLogLevel),
+              ),
+              const _LogLevelSelector(),
+            ],
+          ),
         ),
       ],
     );
@@ -202,13 +207,22 @@ class _LogLevelSelectorState extends State<_LogLevelSelector> {
     final themeData = Theme.of(context);
 
     return DropdownButton<Level>(
+        dropdownColor: themeData.cardColor,
+        // borderRadius: BorderRadius.circular(4),
         icon: Icon(
           Icons.arrow_drop_down_outlined,
           color: themeData.colorScheme.primary,
         ),
         underline: Container(
-          height: 1,
-          color: themeData.colorScheme.primary,
+          height: 2.0,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: themeData.colorScheme.primary,
+                width: 2.0,
+              ),
+            ),
+          ),
         ),
         value: LogUtils.logLevel,
         items: LogUtils.getKnownLevels().map<DropdownMenuItem<Level>>((logLevel) {
