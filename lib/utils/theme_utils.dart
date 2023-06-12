@@ -6,7 +6,7 @@ import '../providers/dynamic_theme_data.dart';
 class ThemeUtils {
   static ThemeData buildThemeData(DynamicThemeData dynamicThemeData, BuildContext context, bool dark) {
     final brightness = dark ? Brightness.dark : Brightness.light;
-    final scaffoldBackgroundColor = dark ? const Color.fromRGBO(10, 10, 10, 1) : const Color.fromRGBO(240, 240, 240, 1);
+    final scaffoldBackgroundColor = dark ? const Color.fromRGBO(15, 15, 15, 1) : const Color.fromRGBO(240, 240, 240, 1);
     final drawerBackgroundColor = dark ? const Color.fromRGBO(7, 7, 7, 1) : Colors.white;
 
     return ThemeData(
