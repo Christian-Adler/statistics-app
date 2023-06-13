@@ -194,6 +194,8 @@ class _LogLine extends StatelessWidget {
       col = Colors.orange;
     } else if (logLine.contains('ERROR')) {
       col = Colors.red;
+    } else if (logLine.contains('WTF')) {
+      col = Colors.purple;
     }
     return Text(
       logLine,
