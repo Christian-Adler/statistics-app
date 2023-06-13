@@ -76,8 +76,7 @@ class _LogsScreenState extends State<LogsScreen> {
                         try {
                           await DailyFiles.deleteAllLogs();
                         } catch (err) {
-                          DialogUtils.showSimpleOkErrDialog(
-                              '${S.of(ctx).logsDialogMsgQueryDeleteAllLogs}\n\n$err', ctx);
+                          DialogUtils.showSimpleOkErrDialog('${S.of(ctx).logsDialogMsgQueryDeleteAllLogs}\n\n$err', ctx);
                         }
                         _rebuild();
                       },
@@ -153,22 +152,26 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
             future: DailyFiles.listLogFileNames(),
           ),
         ),
-        Container(
-          height: 56, // gleiche Hoehe wie bottomAppNavigationBar
-          color: themeData.primaryColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Text(S.of(context).logsLabelChooseLogLevel),
-              ),
-              const _LogLevelSelector(),
-              Spacer(),
-              const _LogTest(),
-            ],
+        Material(
+          elevation: themeData.bottomAppBarTheme.elevation ?? 8, // same as Bottom NavBar
+          child: Container(
+            height: themeData.bottomAppBarTheme.height ?? 56, // same as Bottom NavBar
+            color: themeData.bottomAppBarTheme.color ?? themeData.primaryColor,
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Text(S.of(context).logsLabelChooseLogLevel),
+                ),
+                const _LogLevelSelector(),
+                const Spacer(),
+                const _LogTest(),
+              ],
+            ),
           ),
         ),
       ],
@@ -258,18 +261,23 @@ class _LogTest extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final logger = LogUtils.logger;
-    return IconButton(
-        onPressed: () {
-          logger.d('Debug Message');
-          logger.i('Info Message');
-          logger.w('Warning Message');
-          logger.e('Error Message');
-          logger.wtf('WTF Message');
-        },
-        icon: Icon(
-          Icons.short_text_rounded,
-          color: themeData.indicatorColor.withOpacity(0.3),
-        ));
-    // todo https://github.com/flutter/flutter/issues/30658
+    // IconButton Problem https://github.com/flutter/flutter/issues/30658
+    return Tooltip(
+      message: 'Write test log messages...',
+      child: MaterialButton(
+          height: 50,
+          onPressed: () {
+            logger.d('Debug Message');
+            logger.i('Info Message');
+            logger.w('Warning Message');
+            logger.e('Error Message');
+            logger.wtf('WTF Message');
+          },
+          shape: const CircleBorder(),
+          child: Icon(
+            Icons.short_text_rounded,
+            color: themeData.indicatorColor.withOpacity(0.3),
+          )),
+    );
   }
 }
