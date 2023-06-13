@@ -160,11 +160,14 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Text(S.of(context).logsLabelChooseLogLevel),
               ),
               const _LogLevelSelector(),
+              Spacer(),
+              const _LogTest(),
             ],
           ),
         ),
@@ -245,5 +248,28 @@ class _LogLevelSelectorState extends State<_LogLevelSelector> {
             setState(() {});
           }
         });
+  }
+}
+
+class _LogTest extends StatelessWidget {
+  const _LogTest();
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final logger = LogUtils.logger;
+    return IconButton(
+        onPressed: () {
+          logger.d('Debug Message');
+          logger.i('Info Message');
+          logger.w('Warning Message');
+          logger.e('Error Message');
+          logger.wtf('WTF Message');
+        },
+        icon: Icon(
+          Icons.short_text_rounded,
+          color: themeData.indicatorColor.withOpacity(0.3),
+        ));
+    // todo https://github.com/flutter/flutter/issues/30658
   }
 }
