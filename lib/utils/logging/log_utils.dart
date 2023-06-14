@@ -130,7 +130,7 @@ class _Outputs {
       logMsg += '\n  Stack:\n${fileLineAndStack.stack}';
     }
 
-    DailyFiles.writeToFile(logMsg);
+    DailyFiles.writeToFile(logMsg, dateTime: event.origin.time);
   }
 
   static void outCons(OutputEvent event, _FileLineAndStack fileLineAndStack, dynamic error) {

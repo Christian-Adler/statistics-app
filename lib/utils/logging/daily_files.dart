@@ -67,11 +67,11 @@ class DailyFiles {
     return _logsDir != null;
   }
 
-  static void writeToFile(String value) {
-    final dateTime = DateTime.now();
-    final ms = dateTime.millisecond.toString().padLeft(3, '0');
+  static void writeToFile(String value, {DateTime? dateTime}) {
+    final logDateTime = dateTime ?? DateTime.now();
+    final ms = logDateTime.millisecond.toString().padLeft(3, '0');
     final msgQueueItem = _MsgQueueItem(
-        DateFormat('yyyy-MM-dd').format(dateTime), '${DateFormat('HH:mm:ss').format(dateTime)}.$ms', value);
+        DateFormat('yyyy-MM-dd').format(logDateTime), '${DateFormat('HH:mm:ss').format(logDateTime)}.$ms', value);
     _msgQueue.add(msgQueueItem);
     if (_timerSet) return;
     _timerSet = true;
