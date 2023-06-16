@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
+import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/utils/dialog_utils.dart';
 
@@ -14,7 +15,6 @@ import '../utils/globals.dart';
 import '../utils/logging/daily_files.dart';
 import '../utils/logging/log_utils.dart';
 import '../utils/nav/navigator_transition_builder.dart';
-import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/responsive/device_dependent_constrained_box.dart';
 import '../widgets/settings/app_language_settings_card.dart';
 import 'logs_screen.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/dialog_utils.dart';
 import '../../../utils/hide_bottom_navigation_bar.dart';
-import '../../layout/single_child_scroll_view_with_scrollbar.dart';
 import '../../scroll_footer.dart';
 import '../centered_error_text.dart';
 import 'display/solar_power_chart.dart';
@@ -69,7 +69,7 @@ class _SolarPowerState extends State<_SolarPower> {
           return CenteredErrorText(dataSnapshot.error!);
         } else {
           return SingleChildScrollViewWithScrollbar(
-            scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
+            scrollPositionHandler: HideBottomNavigationBar.setScrollPosition,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(

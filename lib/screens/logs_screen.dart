@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:logger/logger.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -8,7 +9,6 @@ import '../utils/dialog_utils.dart';
 import '../utils/logging/daily_files.dart';
 import '../utils/logging/log_utils.dart';
 import '../utils/nav/navigator_transition_builder.dart';
-import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'log_screen.dart';
@@ -76,7 +76,8 @@ class _LogsScreenState extends State<LogsScreen> {
                         try {
                           await DailyFiles.deleteAllLogs();
                         } catch (err) {
-                          DialogUtils.showSimpleOkErrDialog('${S.of(ctx).logsDialogMsgQueryDeleteAllLogs}\n\n$err', ctx);
+                          DialogUtils.showSimpleOkErrDialog(
+                              '${S.of(ctx).logsDialogMsgQueryDeleteAllLogs}\n\n$err', ctx);
                         }
                         _rebuild();
                       },
@@ -135,7 +136,7 @@ class _LogsScreenBodyState extends State<_LogsScreenBody> {
                 );
               }
               return SingleChildScrollViewWithScrollbar(
-                onRefresh: () async {
+                onRefreshCallback: () async {
                   _rebuild();
                 },
                 child: Padding(

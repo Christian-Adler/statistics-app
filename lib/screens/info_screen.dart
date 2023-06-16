@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
+import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:intl/intl.dart';
 
 import '../generated/l10n.dart';
@@ -10,7 +11,6 @@ import '../utils/hide_bottom_navigation_bar.dart';
 import '../utils/logging/daily_files.dart';
 import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/controls/card/settings_card.dart';
-import '../widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/logo/exploratia_logo.dart';
@@ -55,7 +55,7 @@ class _InfoScreenBody extends StatelessWidget {
     }
 
     return SingleChildScrollViewWithScrollbar(
-      scrollPositionCallback: HideBottomNavigationBar.setScrollPosition,
+      scrollPositionHandler: HideBottomNavigationBar.setScrollPosition,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
