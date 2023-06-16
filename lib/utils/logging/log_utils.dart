@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:logger/logger.dart';
 
-import '../../models/app_info.dart';
 import '../device_storage_keys.dart';
 import 'daily_files.dart';
 

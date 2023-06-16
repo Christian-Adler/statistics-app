@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:intl/intl.dart';
 
-import '../models/app_info.dart';
 import 'globals.dart';
 
 class AboutDlg {

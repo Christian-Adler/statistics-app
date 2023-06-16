@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:statistics/utils/dialog_utils.dart';
 
 import '../generated/l10n.dart';
-import '../models/app_info.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/color_utils.dart';

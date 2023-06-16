@@ -40,10 +40,11 @@ dependencies:
   http: ^1.0.0
   # minSdk 18! https://stackoverflow.com/questions/52060516/flutter-how-to-change-android-minsdkversion-in-flutter-project
   flutter_secure_storage: ^8.0.0
+  flutter_app_info:
+    git: https://github.com/Christian-Adler/flutter_app_info.git
   flutter_commons:
     git: https://github.com/Christian-Adler/flutter_commons.git
   flutter_staggered_animations: ^1.1.1
-  package_info_plus: ^4.0.0
   sensors_plus: ^3.0.1
   flutter_localizations:
     sdk: flutter

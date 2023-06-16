@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/app_info.dart';
 import '../../providers/app_layout.dart';
 import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';

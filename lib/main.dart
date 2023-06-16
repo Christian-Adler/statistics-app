@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
-import 'models/app_info.dart';
 import 'providers/app_layout.dart';
 import 'providers/app_locale.dart';
 import 'providers/auth.dart';

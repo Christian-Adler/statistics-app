@@ -3,12 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../models/app_info.dart';
 
 class DailyFiles {
   static Directory? _appDocumentsDir;
