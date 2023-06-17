@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 
 import '../utils/device_storage_keys.dart';
 import '../utils/error_code.dart';
 import '../utils/http_utils.dart';
-import '../utils/logging/log_utils.dart';
 
 class Auth with ChangeNotifier {
   String? _serverUrl;
@@ -62,7 +62,7 @@ class Auth with ChangeNotifier {
       _serverUrl = tmpServerUrl;
       _pw = tmpPw;
 
-      LogUtils.logger.w('Failure during login!', e);
+      SimpleLogging.logger.w('Failure during login!', e);
 
       // Im Catch kein NotifyListeners - es hat sich ja nichts geaendert!
       // Zudem wird dann auch der AuthScreen neu erzeugt und dann wird die bisherige Server-Adresse nicht uebernommen.

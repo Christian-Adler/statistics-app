@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_simple_logging/daily_files.dart';
+import 'package:flutter_simple_logging/widgets/logs_view.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/dialog_utils.dart';
-import '../utils/logging/daily_files.dart';
-import '../utils/logging/log_utils.dart';
 import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
@@ -91,194 +89,17 @@ class _LogsScreenState extends State<LogsScreen> {
           ),
         ],
       ),
-      bodyBuilder: (ctx) => _LogsScreenBody(key: UniqueKey()),
-    );
-  }
-}
-
-class _LogsScreenBody extends StatefulWidget {
-  const _LogsScreenBody({Key? key});
-
-  @override
-  State<_LogsScreenBody> createState() => _LogsScreenBodyState();
-}
-
-class _LogsScreenBodyState extends State<_LogsScreenBody> {
-  void _rebuild() {
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: FutureBuilder(
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const LinearProgressIndicator();
-              } else if (snapshot.hasError) {
-                // .. do error handling
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text('${S.of(context).commonsMsgErrorFailedToLoadData} ${snapshot.error?.toString() ?? ''}'),
-                  ),
-                );
-              }
-              final logFiles = snapshot.data;
-              if (logFiles == null) {
-                return Center(
-                  child: Text(S.of(context).logsMsgNoLogFilesFound),
-                );
-              }
-              return SingleChildScrollViewWithScrollbar(
-                onRefreshCallback: () async {
-                  _rebuild();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Center(
-                    child: Wrap(
-                      spacing: 16,
-                      children: [...logFiles.map((logFile) => Chip(logFile, _rebuild))],
-                    ),
-                  ),
-                ),
-              );
-            },
-            future: DailyFiles.listLogFileNames(),
-          ),
-        ),
-        Material(
-          elevation: themeData.bottomAppBarTheme.elevation ?? 8, // same as Bottom NavBar
-          child: Container(
-            height: themeData.bottomAppBarTheme.height ?? 56, // same as Bottom NavBar
-            color: themeData.bottomAppBarTheme.color ?? themeData.primaryColor,
-
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(S.of(context).logsLabelChooseLogLevel),
-                ),
-                const _LogLevelSelector(),
-                const Spacer(),
-                const _LogTest(),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Chip extends StatelessWidget {
-  const Chip(this.logFileName, this.rebuildLogsScreen, {super.key});
-
-  final String logFileName;
-  final VoidCallback? rebuildLogsScreen;
-
-  @override
-  Widget build(BuildContext context) {
-    return ActionChip(
-      avatar: Icon(Icons.short_text_outlined, color: Theme.of(context).colorScheme.primary),
-      label: Text(logFileName.replaceAll('.txt', '')),
-      onPressed: () => Navigator.of(context).push(
-        NavigatorTransitionBuilder.buildSlideHTransition(LogScreen(
-          logFileName: logFileName,
-          rebuildLogsScreen: rebuildLogsScreen,
-        )),
+      bodyBuilder: (ctx) => LogsView(
+        key: UniqueKey(),
+        logSelectHandler: (String logFileName, void Function() rebuildLogsView) {
+          Navigator.of(ctx).push(
+            NavigatorTransitionBuilder.buildSlideHTransition(LogScreen(
+              logFileName: logFileName,
+              rebuildLogsView: rebuildLogsView,
+            )),
+          );
+        },
       ),
-    );
-  }
-}
-
-class _LogLevelSelector extends StatefulWidget {
-  const _LogLevelSelector();
-
-  @override
-  State<_LogLevelSelector> createState() => _LogLevelSelectorState();
-}
-
-class _LogLevelSelectorState extends State<_LogLevelSelector> {
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-
-    return DropdownButton<Level>(
-        dropdownColor: themeData.cardColor,
-        // borderRadius: BorderRadius.circular(4),
-        icon: Icon(
-          Icons.arrow_drop_down_outlined,
-          color: themeData.colorScheme.primary,
-        ),
-        underline: Container(
-          height: 2.0,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: themeData.colorScheme.primary,
-                width: 2.0,
-              ),
-            ),
-          ),
-        ),
-        value: LogUtils.logLevel,
-        items: LogUtils.getKnownLevels().map<DropdownMenuItem<Level>>((logLevel) {
-          BoxDecoration? boxDeco;
-          if (logLevel == LogUtils.logLevel) {
-            boxDeco = BoxDecoration(border: Border(bottom: BorderSide(color: themeData.colorScheme.primary)));
-          }
-          return DropdownMenuItem(
-              value: logLevel,
-              child: Container(
-                  decoration: boxDeco,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(logLevel.name.toUpperCase()),
-                  )));
-        }).toList(),
-        onChanged: (value) {
-          if (value != null) {
-            LogUtils.logLevel = value;
-            setState(() {});
-          }
-        });
-  }
-}
-
-class _LogTest extends StatelessWidget {
-  const _LogTest();
-
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-    final logger = LogUtils.logger;
-    // IconButton Problem https://github.com/flutter/flutter/issues/30658
-    return Tooltip(
-      message: 'Write test log messages...',
-      child: MaterialButton(
-          height: 50,
-          onPressed: () {
-            logger.d('Debug Message');
-            logger.i('Info Message');
-            logger.w('Warning Message');
-            logger.e('Error Message');
-            logger.wtf('WTF Message');
-          },
-          shape: const CircleBorder(),
-          child: Icon(
-            Icons.short_text_rounded,
-            color: themeData.indicatorColor.withOpacity(0.3),
-          )),
     );
   }
 }

@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import 'package:flutter_simple_logging/daily_files.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/utils/dialog_utils.dart';
 
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
 import '../utils/color_utils.dart';
+import '../utils/dialog_utils.dart';
 import '../utils/globals.dart';
-import '../utils/logging/daily_files.dart';
-import '../utils/logging/log_utils.dart';
 import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/responsive/device_dependent_constrained_box.dart';
 import '../widgets/settings/app_language_settings_card.dart';
@@ -152,7 +152,7 @@ class _AuthCardState extends State<_AuthCard> {
   final passwordFieldFocusNode = FocusNode();
   var _isObscured = true;
 
-  final logger = LogUtils.logger;
+  final logger = SimpleLogging.logger;
 
   @override
   void dispose() {

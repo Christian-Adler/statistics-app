@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 import 'package:intl/intl.dart';
 
 import '../models/heart/blood_pressure_item.dart';
 import '../utils/error_code.dart';
 import '../utils/http_utils.dart';
-import '../utils/logging/log_utils.dart';
 import 'auth.dart';
 
 class Heart with ChangeNotifier {
@@ -33,10 +33,10 @@ class Heart with ChangeNotifier {
       result = await HttpUtils.sendRequest('bloodpressure', params, _auth!);
     } catch (e) {
       if (params == null) {
-        LogUtils.logger.w('Failed to load data from server.', e);
+        SimpleLogging.logger.w('Failed to load data from server.', e);
         throw ErrorCode.failedToLoadDataFromServer;
       } else {
-        LogUtils.logger.w('Failed to send data to server.', e);
+        SimpleLogging.logger.w('Failed to send data to server.', e);
         throw ErrorCode.failedToSendDataToServer;
       }
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import 'package:flutter_simple_logging/daily_files.dart';
 import 'package:intl/intl.dart';
 
 import '../generated/l10n.dart';
@@ -8,7 +9,6 @@ import '../models/navigation/screen_nav_info.dart';
 import '../utils/about_dlg.dart';
 import '../utils/globals.dart';
 import '../utils/hide_bottom_navigation_bar.dart';
-import '../utils/logging/daily_files.dart';
 import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/controls/card/settings_card.dart';
 import '../widgets/logo/ca_logo.dart';

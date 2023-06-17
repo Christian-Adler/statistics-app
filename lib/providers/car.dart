@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 
 import '../models/car/car_refuel_item.dart';
 import '../utils/date_utils.dart';
 import '../utils/error_code.dart';
 import '../utils/http_utils.dart';
-import '../utils/logging/log_utils.dart';
 import 'auth.dart';
 
 class Car with ChangeNotifier {
@@ -33,10 +33,10 @@ class Car with ChangeNotifier {
       result = await HttpUtils.sendRequest('auto', params, _auth!);
     } catch (e) {
       if (params == null) {
-        LogUtils.logger.w('Failed to load data from server.', e);
+        SimpleLogging.logger.w('Failed to load data from server.', e);
         throw ErrorCode.failedToLoadDataFromServer;
       } else {
-        LogUtils.logger.w('Failed to send data to server.', e);
+        SimpleLogging.logger.w('Failed to send data to server.', e);
         throw ErrorCode.failedToSendDataToServer;
       }
     }
