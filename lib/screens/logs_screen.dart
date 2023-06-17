@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_logging/daily_files.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 import 'package:flutter_simple_logging/widgets/logs_view.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -46,6 +49,12 @@ class _LogsScreenState extends State<LogsScreen> {
                 } catch (err) {
                   if (ctx.mounted) {
                     DialogUtils.showSimpleOkErrDialog('${S.of(ctx).commonsMsgErrorFailedToShareData}\n\n$err', ctx);
+                  }
+                } finally {
+                  try {
+                    await File(zipAllLogs).delete();
+                  } catch (err2) {
+                    SimpleLogging.logger.w('Failed to delete zipped logs "$zipAllLogs" after sharing!');
                   }
                 }
               } catch (err) {

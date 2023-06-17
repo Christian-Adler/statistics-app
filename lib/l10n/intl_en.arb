@@ -41,20 +41,8 @@
   "localeNameGerman": "Deutsch",
   "logDialogMsgQueryDeleteLog": "Do you really want to delete the log file?",
   "logDialogMsgErrorDeleteLogFailed": "Failed to delete log file!",
-  "logMsgErrorFileNotFound": "Log file {file} not found!",
-  "@logMsgErrorFileNotFound": {
-    "placeholders": {
-      "file": {
-        "type": "String",
-        "example": "2023-06-09.txt"
-      }
-    }
-  },
-  "logsDialogMsgErrorFailedToClearAllLogs": "Failed to clear all logs!",
   "logsDialogMsgErrorFailedToZipLogs": "Failed to zip logs!",
   "logsDialogMsgQueryDeleteAllLogs": "Do you really want to delete all log files?",
-  "logsLabelChooseLogLevel": "Log Level",
-  "logsMsgNoLogFilesFound": "No log files found",
   "operatingAddValueInputLabelPower": "Power (kWh)",
   "operatingAddValueInputLabelPowerFed": "Power Fed (kWh)",
   "operatingAddValueInputLabelPowerHeatingDay": "Power Heating HT (kWh)",

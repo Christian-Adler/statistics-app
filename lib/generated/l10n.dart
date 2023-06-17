@@ -460,26 +460,6 @@ class S {
     );
   }
 
-  /// `Log file {file} not found!`
-  String logMsgErrorFileNotFound(String file) {
-    return Intl.message(
-      'Log file $file not found!',
-      name: 'logMsgErrorFileNotFound',
-      desc: '',
-      args: [file],
-    );
-  }
-
-  /// `Failed to clear all logs!`
-  String get logsDialogMsgErrorFailedToClearAllLogs {
-    return Intl.message(
-      'Failed to clear all logs!',
-      name: 'logsDialogMsgErrorFailedToClearAllLogs',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Failed to zip logs!`
   String get logsDialogMsgErrorFailedToZipLogs {
     return Intl.message(
@@ -495,26 +475,6 @@ class S {
     return Intl.message(
       'Do you really want to delete all log files?',
       name: 'logsDialogMsgQueryDeleteAllLogs',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Log Level`
-  String get logsLabelChooseLogLevel {
-    return Intl.message(
-      'Log Level',
-      name: 'logsLabelChooseLogLevel',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No log files found`
-  String get logsMsgNoLogFilesFound {
-    return Intl.message(
-      'No log files found',
-      name: 'logsMsgNoLogFilesFound',
       desc: '',
       args: [],
     );

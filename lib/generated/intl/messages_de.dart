@@ -20,14 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
-  static String m0(file) => "Log-Datei ${file} wurde nicht gefunden!";
+  static String m0(period) => "Betriebskosten / ${period}";
 
-  static String m1(period) => "Betriebskosten / ${period}";
-
-  static String m2(price, feePerMont) =>
+  static String m1(price, feePerMont) =>
       "Preis : ${price} €/kWh, Grundgebühr : ${feePerMont} €/Monat";
 
-  static String m3(period) => "kWh / ${period}";
+  static String m2(period) => "kWh / ${period}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -104,19 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Fehler beim Löschen der Log-Datei!"),
         "logDialogMsgQueryDeleteLog": MessageLookupByLibrary.simpleMessage(
             "Wollen sie wirklich die Log-Datei löschen?"),
-        "logMsgErrorFileNotFound": m0,
-        "logsDialogMsgErrorFailedToClearAllLogs":
-            MessageLookupByLibrary.simpleMessage(
-                "Fehler beim Löschen aller Log-Dateien!"),
         "logsDialogMsgErrorFailedToZipLogs":
             MessageLookupByLibrary.simpleMessage(
                 "Fehler beim Zippen der Log-Dateien!"),
         "logsDialogMsgQueryDeleteAllLogs": MessageLookupByLibrary.simpleMessage(
             "Wollen sie wirklich alle Log-Dateien löschen?"),
-        "logsLabelChooseLogLevel":
-            MessageLookupByLibrary.simpleMessage("Log Level"),
-        "logsMsgNoLogFilesFound":
-            MessageLookupByLibrary.simpleMessage("Keine Log-Dateien gefunden"),
         "operatingAddValueInputLabelPower":
             MessageLookupByLibrary.simpleMessage("Strom (kWh)"),
         "operatingAddValueInputLabelPowerFed":
@@ -144,7 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Strom Erzeugt Eigenverbrauch (kWh)"),
         "operatingChartWater":
             MessageLookupByLibrary.simpleMessage("Wasser (m³)"),
-        "operatingTitle": m1,
+        "operatingTitle": m0,
         "operatingTitlePeriodMonth":
             MessageLookupByLibrary.simpleMessage("Monat"),
         "operatingTitlePeriodYear":
@@ -235,7 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Erzeugt"),
         "solarPowerChartLegendItemTotal":
             MessageLookupByLibrary.simpleMessage("Gesamt"),
-        "solarPowerChartSubLegendPriceAndFee": m2,
+        "solarPowerChartSubLegendPriceAndFee": m1,
         "solarPowerTableHeadConsumption":
             MessageLookupByLibrary.simpleMessage("Verbrauch"),
         "solarPowerTableHeadConsumptionAbbrev":
@@ -254,7 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gesamt"),
         "solarPowerTableHeadTotalAbbrev":
             MessageLookupByLibrary.simpleMessage("Gesamt"),
-        "solarPowerTitle": m3,
+        "solarPowerTitle": m2,
         "solarPowerTitlePeriodMonth":
             MessageLookupByLibrary.simpleMessage("Monat"),
         "solarPowerTitlePeriodYear":
