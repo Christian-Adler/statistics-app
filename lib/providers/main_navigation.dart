@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 
 import '../models/navigation/navigation_items.dart';
-import '../utils/hide_bottom_navigation_bar.dart';
 
 class MainNavigation with ChangeNotifier {
   int _mainPageIndex = 0;

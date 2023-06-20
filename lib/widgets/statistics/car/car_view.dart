@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,6 @@ import '../../../generated/l10n.dart';
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
 import '../../../utils/dialog_utils.dart';
-import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 
 class CarView extends StatelessWidget {

@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../utils/global_keys.dart';
 import '../../../utils/globals.dart';
-import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../overview_navigation_buttons.dart';
 
 class OverviewParallax extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
 import '../../utils/global_keys.dart';
 import '../../utils/globals.dart';
-import '../../utils/hide_bottom_navigation_bar.dart';
 import '../../utils/theme_utils.dart';
 import 'overview_footer.dart';
 import 'overview_navigation_buttons.dart';

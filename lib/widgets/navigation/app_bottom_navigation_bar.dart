@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
 import '../../providers/main_navigation.dart';
-import '../../utils/hide_bottom_navigation_bar.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({Key? key}) : super(key: key);

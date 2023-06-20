@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../providers/operating.dart';
 import '../../../utils/dialog_utils.dart';
-import '../../../utils/hide_bottom_navigation_bar.dart';
 import '../../scroll_footer.dart';
 import '../centered_error_text.dart';
 import 'display/solar_power_chart.dart';

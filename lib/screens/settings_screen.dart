@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:flutter_commons/widgets/responsive/screen_layout_builder.dart';
 
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/global_keys.dart';
-import '../utils/hide_bottom_navigation_bar.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/settings/app_language_settings_card.dart';
 import '../widgets/settings/app_layout_settings_card.dart';
