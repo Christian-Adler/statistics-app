@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/card/expandable_settings_card.dart';
 import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../models/theme/app_theme.dart';
 import '../../providers/dynamic_theme_data.dart';
-import '../controls/card/expandable_settings_card.dart';
 
 class AppThemeSettingsCard extends StatelessWidget {
   const AppThemeSettingsCard({Key? key}) : super(key: key);

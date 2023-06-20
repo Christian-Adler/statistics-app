@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/dialogs.dart';
+import 'package:flutter_commons/widgets/card/expandable_settings_card.dart';
 import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,6 @@ import '../../providers/auth.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/dialog_utils.dart';
 import '../../utils/globals.dart';
-import '../controls/card/expandable_settings_card.dart';
 
 class ServerCard extends StatelessWidget {
   const ServerCard({Key? key}) : super(key: key);

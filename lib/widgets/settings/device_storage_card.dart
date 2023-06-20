@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 import 'package:flutter_commons/utils/table_utils.dart';
+import 'package:flutter_commons/widgets/card/expandable_settings_card.dart';
 import 'package:flutter_commons/widgets/text/overflow_text.dart';
 
 import '../../generated/l10n.dart';
 import '../../utils/device_storage_keys.dart';
 import '../../utils/globals.dart';
-import '../controls/card/expandable_settings_card.dart';
 
 class DeviceStorageCard extends StatelessWidget {
   const DeviceStorageCard({Key? key}) : super(key: key);

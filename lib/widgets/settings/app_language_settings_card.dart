@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/card/expandable_settings_card.dart';
 import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../models/i18n/app_language.dart';
 import '../../providers/app_locale.dart';
-import '../controls/card/expandable_settings_card.dart';
 
 class AppLanguageSettingsCard extends StatelessWidget {
   const AppLanguageSettingsCard({Key? key}) : super(key: key);

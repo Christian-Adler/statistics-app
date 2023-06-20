@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/card/expandable_settings_card.dart';
 import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../providers/app_layout.dart';
-import '../controls/card/expandable_settings_card.dart';
 
 class AppLayoutSettingsCard extends StatelessWidget {
   const AppLayoutSettingsCard({Key? key}) : super(key: key);
