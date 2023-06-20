@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/widgets/responsive/screen_layout_builder.dart';
 
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
@@ -6,7 +7,6 @@ import '../utils/global_keys.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/navigation/app_drawer.dart';
 import '../widgets/overview/overview.dart';
-import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
 
 class OverviewScreen extends StatelessWidget {

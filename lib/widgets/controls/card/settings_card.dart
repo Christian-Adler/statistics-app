@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../responsive/device_dependent_constrained_box.dart';
+import 'package:flutter_commons/widgets/responsive/device_dependent_constrained_box.dart';
 
 class SettingsCard extends StatelessWidget {
   final dynamic title;
@@ -18,7 +17,7 @@ class SettingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DeviceDependentConstrainedBox(
+    return DeviceDependentWidthConstrainedBox(
       child: Card(
         margin: const EdgeInsets.all(8.0),
         child: Padding(

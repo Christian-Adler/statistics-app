@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import 'package:flutter_commons/widgets/responsive/screen_layout_builder.dart';
 import 'package:flutter_simple_logging/daily_files.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +16,6 @@ import '../widgets/logo/ca_logo.dart';
 import '../widgets/logo/eagle_logo.dart';
 import '../widgets/logo/exploratia_logo.dart';
 import '../widgets/navigation/app_drawer.dart';
-import '../widgets/responsive/screen_layout_builder.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'logs_screen.dart';
 

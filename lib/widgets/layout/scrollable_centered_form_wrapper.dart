@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
+import 'package:flutter_commons/widgets/responsive/device_dependent_constrained_box.dart';
 
-import '../responsive/device_dependent_constrained_box.dart';
 import 'center_horizontal.dart';
 
 /// Wrapper fuer Formulare.<br>
@@ -16,7 +16,7 @@ class ScrollableCenteredFormWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollViewWithScrollbar(
       child: CenterH(
-        child: DeviceDependentConstrainedBox(
+        child: DeviceDependentWidthConstrainedBox(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
