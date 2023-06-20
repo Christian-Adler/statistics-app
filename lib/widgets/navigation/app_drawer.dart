@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
+import 'package:flutter_commons/utils/nav/navigation_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
 import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
-import '../../utils/nav/navigation_utils.dart';
 import '../logo/eagle_logo.dart';
 import '../statistics_app_bar.dart';
 import 'navigation_menu_vertical.dart';

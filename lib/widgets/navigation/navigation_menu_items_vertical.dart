@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
+import 'package:flutter_commons/utils/nav/navigation_utils.dart';
 import 'package:flutter_commons/widgets/layout/single_child_scroll_view_with_scrollbar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,6 @@ import '../../providers/main_navigation.dart';
 import '../../screens/overview_screen.dart';
 import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
-import '../../utils/nav/navigation_utils.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
   final bool showNavigationTitle;

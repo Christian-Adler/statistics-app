@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_commons/utils/nav/navigator_transition_builder.dart';
 import 'package:flutter_commons/widgets/responsive/screen_layout_builder.dart';
 import 'package:flutter_simple_logging/daily_files.dart';
 import 'package:flutter_simple_logging/flutter_simple_logging.dart';
@@ -10,7 +11,6 @@ import 'package:share_plus/share_plus.dart';
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../utils/dialog_utils.dart';
-import '../utils/nav/navigator_transition_builder.dart';
 import '../widgets/statistics_app_bar.dart';
 import 'log_screen.dart';
 
