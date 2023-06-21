@@ -51,13 +51,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
-  # determine paths like tmp or app data
-  path_provider: ^2.0.15
   # call native share dialog
   share_plus: ^7.0.2
-  # zip files
-  flutter_archive: ^5.0.0
-  logger: ^1.4.0
 
 dev_dependencies:
   flutter_test:
