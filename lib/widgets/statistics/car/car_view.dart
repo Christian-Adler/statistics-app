@@ -6,13 +6,13 @@ import 'package:flutter_commons/utils/hide_bottom_navigation_bar.dart';
 import 'package:flutter_commons/utils/media_query_utils.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:statistics/widgets/statistics/centered_error_text.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../models/car/car_refuel_item.dart';
 import '../../../providers/car.dart';
 import '../../../utils/dialog_utils.dart';
 import '../../scroll_footer.dart';
+import '../centered_error_text.dart';
 
 class CarView extends StatelessWidget {
   const CarView({super.key});
