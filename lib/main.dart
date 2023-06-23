@@ -98,10 +98,13 @@ class _Initializer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<DynamicThemeData>(context);
+    final dynamicThemeData = Provider.of<DynamicThemeData>(context);
     // Nach Sprachwechsel muss DateUtil erneut initialisiert werden.
     Provider.of<AppLocale>(context);
     DateUtil.init();
+
+    // DarkMode true/false in dynamicThemeData setzen
+    WidgetsBinding.instance.addPostFrameCallback((_) => dynamicThemeData.darkMode = ThemeUtils.isDarkMode(context));
 
     // Wenn alle fuer das erste Anzeigen notwendigen Provider geladen sind... dann Home anzeigen.
     // Ansonsten einfach nur einen Container anzeigen um die Zeit auszusitzen in der Sprache

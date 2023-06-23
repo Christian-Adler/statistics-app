@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/widgets/ext/gradient_app_bar.dart';
+import 'package:provider/provider.dart';
 
-import '../utils/color_utils.dart';
+import '../providers/dynamic_theme_data.dart';
 
 class StatisticsAppBar extends GradientAppBar {
   StatisticsAppBar(
@@ -13,7 +14,7 @@ class StatisticsAppBar extends GradientAppBar {
     bool automaticallyImplyLeading = true,
   }) : super(
           title: title,
-          gradientColors: ColorUtils.getThemeGradientColors(context),
+          gradientColors: Provider.of<DynamicThemeData>(context).getActiveThemeColors().gradientColors,
           actions: actions,
           actionsColor: actionsColor,
           automaticallyImplyLeading: automaticallyImplyLeading,

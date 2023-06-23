@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/color_utils.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
 
-import '../models/theme/app_theme.dart';
 import '../utils/device_storage_keys.dart';
 import '../utils/global_settings.dart';
 
-class _ThemeColors {
+class ThemeColors {
   final MaterialColor primary;
   final MaterialColor? onPrimary;
   final MaterialColor? secondary;
@@ -16,7 +15,7 @@ class _ThemeColors {
   final List<Color> gradientColors;
   final Color onGradientColor;
 
-  _ThemeColors({
+  ThemeColors({
     required this.primary,
     this.onPrimary,
     this.secondary,
@@ -25,7 +24,7 @@ class _ThemeColors {
     required this.onGradientColor,
   });
 
-  _ThemeColors copyWidth({
+  ThemeColors copyWidth({
     MaterialColor? primary,
     MaterialColor? onPrimary,
     MaterialColor? secondary,
@@ -33,7 +32,7 @@ class _ThemeColors {
     List<Color>? gradientColors,
     Color? onGradientColor,
   }) =>
-      _ThemeColors(
+      ThemeColors(
         primary: primary ?? this.primary,
         onPrimary: onPrimary ?? this.onPrimary,
         secondary: secondary ?? this.secondary,
@@ -43,27 +42,29 @@ class _ThemeColors {
       );
 }
 
-class DynamicThemeData with ChangeNotifier {
-  static final _purpleAmberColorsLight = _ThemeColors(
+class _DefinedThemeColors {
+  static final purpleAmberColorsLight = ThemeColors(
     primary: ColorUtils.customMaterialColor(Colors.purple.shade700),
     secondary: ColorUtils.customMaterialColor(Colors.amber),
     gradientColors: [Colors.purple, Colors.amber.shade800, Colors.amber],
     onGradientColor: Colors.white,
   );
-  static final _purpleAmberColorsDark = _purpleAmberColorsLight.copyWidth(
+  static final purpleAmberColorsDark = purpleAmberColorsLight.copyWidth(
       primary: ColorUtils.customMaterialColor(const Color.fromRGBO(255, 145, 0, 1.0)),
       gradientColors: [const Color(0xff4c1a57), Colors.amber.shade800, Colors.amber],
       onGradientColor: Colors.white);
 
-  static final _blueGreenColorsLight = _ThemeColors(
+  static final blueGreenColorsLight = ThemeColors(
     primary: ColorUtils.customMaterialColor(const Color(0xff00a8aa)),
     secondary: ColorUtils.customMaterialColor(const Color(0xffa6e300)),
     gradientColors: [const Color(0xff4c1a57), const Color(0xff00a8aa), const Color(0xffa6e300)],
     onGradientColor: Colors.white,
   );
-  static final _blueGreenColorsDark = _blueGreenColorsLight.copyWidth();
+  static final blueGreenColorsDark = blueGreenColorsLight.copyWidth();
+}
 
-  bool _useSystemThemeMode = true;
+class DynamicThemeData with ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
   bool _darkMode = false;
 
   bool _usePurpleColors = true;
@@ -73,23 +74,28 @@ class DynamicThemeData with ChangeNotifier {
   }
 
   ThemeMode get themeMode {
-    if (_useSystemThemeMode) return ThemeMode.system;
-    return _darkMode ? ThemeMode.dark : ThemeMode.light;
+    return _themeMode;
   }
 
-  /// Use darkMode getter/setter only in app theme settings card!<br><br>
-  /// To test if Theme is dark mode (e.g. if SystemMode is set) use:
-  /// <pre>final isDarkMode = Theme.of(context).brightness == Brightness.dark;</pre>
-  AppTheme get mode {
-    if (_useSystemThemeMode) return AppTheme.systemMode;
-    return _darkMode ? AppTheme.darkMode : AppTheme.lightMode;
-  }
-
-  set mode(AppTheme? appTheme) {
-    if (appTheme == null) return;
-    _useSystemThemeMode = appTheme.system;
-    _darkMode = appTheme.dark;
+  set themeMode(ThemeMode? themeMode) {
+    if (themeMode == null) return;
+    _themeMode = themeMode;
+    if (_themeMode == ThemeMode.dark) {
+      _darkMode = true;
+    } else if (_themeMode == ThemeMode.light) {
+      _darkMode = false;
+    }
     _store();
+    notifyListeners();
+  }
+
+  bool get darkMode {
+    return _darkMode;
+  }
+
+  set darkMode(bool darkMode) {
+    if (_darkMode == darkMode) return;
+    _darkMode = darkMode;
     notifyListeners();
   }
 
@@ -109,42 +115,49 @@ class DynamicThemeData with ChangeNotifier {
     notifyListeners();
   }
 
-  _ThemeColors _getActiveThemeColors(bool darkMode) {
+  ThemeColors getActiveThemeColors() {
     if (_usePurpleColors) {
-      return darkMode ? _purpleAmberColorsDark : _purpleAmberColorsLight;
+      return _darkMode ? _DefinedThemeColors.purpleAmberColorsDark : _DefinedThemeColors.purpleAmberColorsLight;
     }
-    return darkMode ? _blueGreenColorsDark : _blueGreenColorsLight;
+    return _darkMode ? _DefinedThemeColors.blueGreenColorsDark : _DefinedThemeColors.blueGreenColorsLight;
   }
 
-  MaterialColor getPrimaryColor(bool darkMode) {
-    return _getActiveThemeColors(darkMode).primary;
+  ThemeColors getThemeColors(bool darkMode) {
+    if (_usePurpleColors) {
+      return darkMode ? _DefinedThemeColors.purpleAmberColorsDark : _DefinedThemeColors.purpleAmberColorsLight;
+    }
+    return darkMode ? _DefinedThemeColors.blueGreenColorsDark : _DefinedThemeColors.blueGreenColorsLight;
   }
 
-  Color getOnPrimaryColor(bool darkMode) {
-    return _getActiveThemeColors(darkMode).onGradientColor;
+  MaterialColor getPrimaryColor() {
+    return getActiveThemeColors().primary;
   }
 
-  MaterialColor? getSecondaryColor(bool darkMode) {
-    return _getActiveThemeColors(darkMode).secondary;
+  Color getOnPrimaryColor() {
+    var activeThemeColors = getActiveThemeColors();
+    return activeThemeColors.onPrimary ?? activeThemeColors.onGradientColor;
   }
 
-  MaterialColor? getTertiaryColor(bool darkMode) {
-    return _getActiveThemeColors(darkMode).tertiary;
+  MaterialColor? getSecondaryColor() {
+    return getActiveThemeColors().secondary;
   }
 
-  List<Color> getGradientColors(bool darkMode) {
-    return _getActiveThemeColors(darkMode).gradientColors;
+  MaterialColor? getTertiaryColor() {
+    return getActiveThemeColors().tertiary;
   }
 
-  Color getOnGradientColor(bool darkMode) {
-    return _getActiveThemeColors(darkMode).onGradientColor;
+  List<Color> getGradientColors() {
+    return getActiveThemeColors().gradientColors;
+  }
+
+  Color getOnGradientColor() {
+    return getActiveThemeColors().onGradientColor;
   }
 
   void _store() async {
     try {
       final appLayoutData = {
-        'useSystemThemeMode': _useSystemThemeMode,
-        'darkMode': _darkMode,
+        'themeMode': _themeMode.name,
         'usePurpleColors': _usePurpleColors,
       };
       await DeviceStorage.write(DeviceStorageKeys.keyAppTheme, jsonEncode(appLayoutData));
@@ -157,11 +170,13 @@ class DynamicThemeData with ChangeNotifier {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppTheme);
     if (dataStr != null) {
       final data = jsonDecode(dataStr) as Map<String, dynamic>;
-      if (data.containsKey('darkMode')) {
-        _darkMode = data['darkMode'] as bool;
-      }
-      if (data.containsKey('useSystemThemeMode')) {
-        _useSystemThemeMode = data['useSystemThemeMode'] as bool;
+      if (data.containsKey('themeMode')) {
+        final themeName = data['themeMode'] as String;
+        if (themeName == ThemeMode.dark.name) {
+          _themeMode = ThemeMode.dark;
+        } else {
+          _themeMode = themeName == ThemeMode.light.name ? ThemeMode.light : ThemeMode.system;
+        }
       }
       if (data.containsKey('usePurpleColors')) {
         _usePurpleColors = data['usePurpleColors'] as bool;

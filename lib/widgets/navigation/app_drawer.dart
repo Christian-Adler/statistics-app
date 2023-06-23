@@ -4,7 +4,7 @@ import 'package:flutter_commons/utils/nav/navigation_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_layout.dart';
-import '../../utils/color_utils.dart';
+import '../../providers/dynamic_theme_data.dart';
 import '../../utils/global_settings.dart';
 import '../logo/eagle_logo.dart';
 import '../statistics_app_bar.dart';
@@ -21,6 +21,8 @@ class AppDrawer extends StatelessWidget {
     if (!showNavigationTitle) {
       return _buildDrawerWithNoTitles(context);
     }
+
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
 
     final statisticsAppBarWithTitles = StatisticsAppBar(
       Row(
@@ -41,7 +43,7 @@ class AppDrawer extends StatelessWidget {
             // icon: const Icon(Icons.exit_to_app))
             icon: const Icon(Icons.close))
       ],
-      actionsColor: ColorUtils.getThemeOnGradientColor(context),
+      actionsColor: activeThemeColors.onGradientColor,
     );
 
     GlobalSettings.appBarHeight = statisticsAppBarWithTitles.preferredSize.height;

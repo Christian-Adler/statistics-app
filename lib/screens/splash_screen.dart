@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/safe_area_info.dart';
+import 'package:provider/provider.dart';
 
 import '../models/navigation/screen_nav_info.dart';
-import '../utils/color_utils.dart';
+import '../providers/dynamic_theme_data.dart';
 import '../utils/globals.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -18,12 +19,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SafeAreaInfo.determineSafeAreaHeight(context);
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: ColorUtils.getThemeGradientColors(context),
+            colors: activeThemeColors.gradientColors,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             // stops: const [0, 1],

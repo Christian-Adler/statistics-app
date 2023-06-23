@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_item.dart';
 import '../../models/navigation/navigation_items.dart';
+import '../../providers/dynamic_theme_data.dart';
 import '../../providers/main_navigation.dart';
 import '../../screens/overview_screen.dart';
-import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
 
 class NavigationMenuItemsVertical extends StatelessWidget {
@@ -18,7 +18,8 @@ class NavigationMenuItemsVertical extends StatelessWidget {
   const NavigationMenuItemsVertical(this.showNavigationTitle, {Key? key}) : super(key: key);
 
   List<Widget> _buildNavItems(BuildContext context) {
-    final onActiveColor = ColorUtils.getThemeOnGradientColor(context);
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
+    final onActiveColor = activeThemeColors.onGradientColor;
     final themeData = Theme.of(context);
     final actRouteName = Provider.of<MainNavigation>(context).mainPageRoute;
 
@@ -38,7 +39,7 @@ class NavigationMenuItemsVertical extends StatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             decoration: BoxDecoration(
-              gradient: isActNavItem ? ColorUtils.getThemeLinearGradient(context) : null,
+              gradient: isActNavItem ? LinearGradient(colors: activeThemeColors.gradientColors) : null,
               borderRadius: const BorderRadius.only(bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
             ),
             child: ListTile(
@@ -125,12 +126,13 @@ class _GradientDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Container(
         height: 1,
         decoration: BoxDecoration(
-          gradient: ColorUtils.getThemeLinearGradient(context),
+          gradient: LinearGradient(colors: activeThemeColors.gradientColors),
         ),
       ),
     );

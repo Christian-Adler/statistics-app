@@ -4,8 +4,8 @@ import 'package:flutter_commons/widgets/text/overflow_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../models/theme/app_theme.dart';
 import '../../providers/dynamic_theme_data.dart';
+import '../../utils/theme_utils.dart';
 
 class AppThemeSettingsCard extends StatelessWidget {
   const AppThemeSettingsCard({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _AppThemeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamicThemeData = Provider.of<DynamicThemeData>(context);
-    final appTheme = dynamicThemeData.mode;
+    final appThemeMode = dynamicThemeData.themeMode;
 
     var themeData = Theme.of(context);
     var activeColorBorder = Border(bottom: BorderSide(color: themeData.colorScheme.primary, width: 1));
@@ -42,7 +42,7 @@ class _AppThemeSettings extends StatelessWidget {
                   width: 100,
                   child: Text(S.of(context).settingsThemeLabelChooseMode, style: themeData.textTheme.titleMedium)),
             ),
-            DropdownButton<AppTheme>(
+            DropdownButton<ThemeMode>(
               icon: Icon(
                 Icons.arrow_drop_down_outlined,
                 color: themeData.colorScheme.primary,
@@ -58,10 +58,10 @@ class _AppThemeSettings extends StatelessWidget {
                   ),
                 ),
               ),
-              value: appTheme,
-              items: AppTheme.modes().map<DropdownMenuItem<AppTheme>>((theme) {
+              value: appThemeMode,
+              items: ThemeMode.values.map<DropdownMenuItem<ThemeMode>>((theme) {
                 BoxDecoration? boxDeco;
-                if (theme == appTheme) {
+                if (theme == appThemeMode) {
                   boxDeco = BoxDecoration(border: Border(bottom: BorderSide(color: themeData.colorScheme.primary)));
                 }
                 return DropdownMenuItem(
@@ -70,10 +70,10 @@ class _AppThemeSettings extends StatelessWidget {
                         decoration: boxDeco,
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(theme.getI18nName(context)),
+                          child: Text(ThemeUtils.getThemeModeI18nName(theme, context)),
                         )));
               }).toList(),
-              onChanged: (value) => dynamicThemeData.mode = value,
+              onChanged: (value) => dynamicThemeData.themeMode = value,
             )
           ],
         ),

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../models/navigation/screen_nav_info.dart';
 import '../providers/auth.dart';
-import '../utils/color_utils.dart';
+import '../providers/dynamic_theme_data.dart';
 import '../utils/dialog_utils.dart';
 import '../utils/globals.dart';
 import '../widgets/settings/app_language_settings_card.dart';
@@ -32,6 +32,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.settings),
@@ -51,7 +52,7 @@ class AuthScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: ColorUtils.getThemeGradientColors(context),
+                colors: activeThemeColors.gradientColors,
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 // stops: const [0, 1],

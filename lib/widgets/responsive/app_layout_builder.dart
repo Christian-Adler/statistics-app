@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/app_layout.dart';
+import '../../providers/dynamic_theme_data.dart';
 import '../../providers/main_navigation.dart';
-import '../../utils/color_utils.dart';
 import '../../utils/global_settings.dart';
 import '../navigation/navigation_menu_vertical.dart';
 
@@ -53,6 +53,7 @@ class AppLayoutBuilder extends StatelessWidget {
     final appLayout = Provider.of<AppLayout>(context);
     bool showNavigationTitle = appLayout.showNavigationItemTitle;
     final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
+    final activeThemeColors = Provider.of<DynamicThemeData>(context).getActiveThemeColors();
 
     Widget? bottomNavBarW;
     if (mediaQueryInfo.isPortrait) {
@@ -66,8 +67,8 @@ class AppLayoutBuilder extends StatelessWidget {
     if (mediaQueryInfo.isLandscape && mediaQueryInfo.isTablet) {
       var appBar = AppBar(
         title: Text(AppInfo.appName),
-        foregroundColor: ColorUtils.getThemeOnGradientColor(context),
-        backgroundColor: ColorUtils.getThemeGradientColors(context).first,
+        foregroundColor: activeThemeColors.onGradientColor,
+        backgroundColor: activeThemeColors.gradientColors.first,
       );
       GlobalSettings.appBarHeight = appBar.preferredSize.height;
 
@@ -95,7 +96,7 @@ class AppLayoutBuilder extends StatelessWidget {
       body: DoubleBackToClose(
         checkCallback: () => _checkForNestedNavigatorsAndOverviewBeforeClose(context),
         child: Container(
-          decoration: BoxDecoration(gradient: ColorUtils.getThemeLinearGradient(context)),
+          decoration: BoxDecoration(gradient: LinearGradient(colors: activeThemeColors.gradientColors)),
           child: SafeArea(child: bodyW),
         ),
       ),
