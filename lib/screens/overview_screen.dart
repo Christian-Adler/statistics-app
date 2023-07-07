@@ -16,6 +16,7 @@ class OverviewScreen extends StatelessWidget {
     '/overview',
     () => const OverviewScreen(),
     screensNestedNavigatorKey: GlobalKeys.overviewScreenNavigatorKey,
+    disposeIfNotVisible: true,
   );
 
   const OverviewScreen({Key? key}) : super(key: key);

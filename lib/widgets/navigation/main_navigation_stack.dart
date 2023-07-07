@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/navigation/navigation_items.dart';
 import '../../providers/main_navigation.dart';
-import '../../screens/overview_screen.dart';
 
 class MainNavigationStack extends StatelessWidget {
   const MainNavigationStack({Key? key}) : super(key: key);
@@ -13,14 +12,11 @@ class MainNavigationStack extends StatelessWidget {
 
     List<Widget> widgets = [];
 
-    // Overview State nicht erhalten. Wg. SensorListener
-    final List<int> doNotStoreStateScreens = [NavigationItems.mainNavigationItemsIndexOf(OverviewScreen.screenNavInfo)];
-
     for (var i = 0; i < NavigationItems.mainNavigationItems.length; ++i) {
       var navigationItem = NavigationItems.mainNavigationItems[i];
 
-      if ((doNotStoreStateScreens.contains(mainPageIndex) || !doNotStoreStateScreens.contains(i)) &&
-          visited.contains(i)) {
+      // Schon besucht? && (aktuelle Seite || State soll erhalten bleiben)
+      if (visited.contains(i) && (i == mainPageIndex || !navigationItem.disposeIfNotVisible)) {
         // Hier bleibt der State erhalten. Wenn der State nicht erhalten bleiben soll
         // (z.B. nested Navigator soll zurueck gesetzt werden usw.) dann nur createScreen, wenn aktiver Tab.
         widgets.add(navigationItem.screenNavInfo.createScreen());

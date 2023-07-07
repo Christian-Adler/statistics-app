@@ -17,6 +17,8 @@ class NavigationItem extends NavigationItemBase {
 
   String getTitle(BuildContext context) => screenNavInfo.titleBuilder(context);
 
+  bool get disposeIfNotVisible => screenNavInfo.disposeIfNotVisible;
+
   void onNav(BuildContext context) {
     var navOverride = onNavOverride;
     if (navOverride != null) {
