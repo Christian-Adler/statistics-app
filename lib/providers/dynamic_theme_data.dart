@@ -154,7 +154,7 @@ class DynamicThemeData with ChangeNotifier {
     return getActiveThemeColors().onGradientColor;
   }
 
-  void _store() async {
+  Future<void> _store() async {
     try {
       final appLayoutData = {
         'themeMode': _themeMode.name,
@@ -166,7 +166,7 @@ class DynamicThemeData with ChangeNotifier {
     }
   }
 
-  void _init() async {
+  Future<void> _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppTheme);
     if (dataStr != null) {
       final data = jsonDecode(dataStr) as Map<String, dynamic>;

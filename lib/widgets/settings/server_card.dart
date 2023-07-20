@@ -80,7 +80,7 @@ class _ChangeServerState extends State<_ChangeServer> {
     }
   }
 
-  void _removeServer(String server) async {
+  Future<void> _removeServer(String server) async {
     final snackbarMsgServerRemoved = S.of(context).settingsServerSnackbarMsgServerRemoved;
     try {
       List<String> servers = [];

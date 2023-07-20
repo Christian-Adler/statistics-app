@@ -32,7 +32,7 @@ class AppBottomNavigationBar extends StatelessWidget {
     return result;
   }
 
-  void _onItemTapped(int index, BuildContext context, bool showNavigationTitle) async {
+  Future<void> _onItemTapped(int index, BuildContext context, bool showNavigationTitle) async {
     if (index < NavigationItems.navigationBarItems.length) {
       var navigationItem = NavigationItems.navigationBarItems.elementAt(index);
       navigationItem.onNav(context);

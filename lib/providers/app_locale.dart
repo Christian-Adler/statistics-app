@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_commons/utils/device_storage.dart';
+import 'package:flutter_simple_logging/flutter_simple_logging.dart';
 
 import '../models/i18n/app_language.dart';
 import '../utils/device_storage_keys.dart';
 import '../utils/global_settings.dart';
 
 class AppLocale with ChangeNotifier {
+  static const _keyAppLocale = 'appLocale';
+
   AppLanguage _appLanguage = AppLanguage.systemLanguage;
 
   AppLocale() {
@@ -29,23 +32,24 @@ class AppLocale with ChangeNotifier {
     notifyListeners();
   }
 
-  void _store() async {
+  Future<void> _store() async {
     try {
       final appLocaleData = {
-        'appLocale': _appLanguage.name,
+        _keyAppLocale: _appLanguage.name,
       };
       await DeviceStorage.write(DeviceStorageKeys.keyAppLocale, jsonEncode(appLocaleData));
     } catch (err) {
       // await Dialogs.simpleOkDialog(err.toString(), context, title: 'Fehler');
+      SimpleLogging.logger.w('Failed to store data.');
     }
   }
 
-  void _init() async {
+  Future<void> _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppLocale);
     if (dataStr != null) {
       final data = jsonDecode(dataStr) as Map<String, dynamic>;
-      if (data.containsKey('appLocale')) {
-        final languageName = data['appLocale'] as String;
+      if (data.containsKey(_keyAppLocale)) {
+        final languageName = data[_keyAppLocale] as String;
         _appLanguage = AppLanguage.languages().firstWhere((element) => element.name == languageName);
       }
     }

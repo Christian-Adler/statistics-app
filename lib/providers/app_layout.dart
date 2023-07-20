@@ -44,7 +44,7 @@ class AppLayout with ChangeNotifier {
     notifyListeners();
   }
 
-  void _store() async {
+  Future<void> _store() async {
     try {
       final appLayoutData = {
         'showNavigationItemTitle': _showNavigationItemTitle,
@@ -60,7 +60,7 @@ class AppLayout with ChangeNotifier {
     }
   }
 
-  void _init() async {
+  Future<void> _init() async {
     final dataStr = await DeviceStorage.read(DeviceStorageKeys.keyAppLayout);
     if (dataStr == null) return;
 
