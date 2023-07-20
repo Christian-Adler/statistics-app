@@ -66,6 +66,18 @@ class CarAddValueState extends State<CarAddValue> {
         ),
         TextFormField(
           autofocus: true,
+          decoration: InputDecoration(labelText: S.of(context).carAddValueInputLabelKilometers),
+          textInputAction: TextInputAction.next,
+          keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+          validator: (value) {
+            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
+            var val = double.tryParse(value);
+            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
+            return null;
+          },
+          onSaved: (value) => _km = double.parse(value!),
+        ),
+        TextFormField(
           decoration: InputDecoration(labelText: S.of(context).carAddValueInputLabelLiters),
           textInputAction: TextInputAction.next,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
@@ -79,18 +91,6 @@ class CarAddValueState extends State<CarAddValue> {
         ),
         TextFormField(
           decoration: InputDecoration(labelText: S.of(context).carAddValueInputLabelCentPerLiter),
-          textInputAction: TextInputAction.next,
-          keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
-          validator: (value) {
-            if (value == null || value.isEmpty) return S.of(context).commonsValidatorMsgEmptyValue;
-            var val = double.tryParse(value);
-            if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
-            return null;
-          },
-          onSaved: (value) => _centPerLiter = double.parse(value!),
-        ),
-        TextFormField(
-          decoration: InputDecoration(labelText: S.of(context).carAddValueInputLabelKilometers),
           textInputAction: TextInputAction.done,
           keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
           validator: (value) {
@@ -99,7 +99,7 @@ class CarAddValueState extends State<CarAddValue> {
             if (val == null || val <= 0) return S.of(context).commonsValidatorMsgNumberGtZeroRequired;
             return null;
           },
-          onSaved: (value) => _km = double.parse(value!),
+          onSaved: (value) => _centPerLiter = double.parse(value!),
         ),
       ],
     );
