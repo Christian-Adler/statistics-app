@@ -32,7 +32,8 @@ class AppBottomNavigationBar extends StatelessWidget {
     return result;
   }
 
-  Future<void> _onItemTapped(int index, BuildContext context, bool showNavigationTitle) async {
+  Future<void> _onItemTapped(
+      int index, BuildContext context, bool showNavigationTitle) async {
     if (index < NavigationItems.navigationBarItems.length) {
       var navigationItem = NavigationItems.navigationBarItems.elementAt(index);
       navigationItem.onNav(context);
@@ -47,7 +48,9 @@ class AppBottomNavigationBar extends StatelessWidget {
         items.add(PopupMenuItem<int>(
             value: i,
             child: ListTile(
-              title: showNavigationTitle ? Text(navItem.getTitle(context)) : Icon(navItem.iconData),
+              title: showNavigationTitle
+                  ? Text(navItem.getTitle(context))
+                  : Icon(navItem.iconData),
               leading: showNavigationTitle ? Icon(navItem.iconData) : null,
               // onTap: () { // dann geht das Menu nicht zu... :/
               //   navItem.onNav(context, navigator);
@@ -80,7 +83,8 @@ class AppBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLayout = Provider.of<AppLayout>(context);
-    bool showNavigationTitle = Platform.isIOS || appLayout.showNavigationItemTitle;
+    bool showNavigationTitle =
+        Platform.isIOS || appLayout.showNavigationItemTitle;
 
     int selectedIdx = Provider.of<MainNavigation>(context).mainPageIndex;
 
@@ -101,10 +105,10 @@ class AppBottomNavigationBar extends StatelessWidget {
       builder: (ctx, value, child) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          height: value ? 56 : 0,
+          height: value ? 58 : 0,
           child: OverflowBox(
             alignment: AlignmentDirectional.topCenter,
-            maxHeight: 56,
+            maxHeight: 58,
             minHeight: 0,
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
