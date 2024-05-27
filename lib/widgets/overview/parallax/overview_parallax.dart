@@ -96,7 +96,7 @@ class _OverviewParallaxState extends State<OverviewParallax> {
               context: context,
               builder: (context) {
                 return const AlertDialog(
-                  title: Text("Sensor Not Found"),
+                  title: Text('Sensor Not Found'),
                   content: Text("It seems that your device doesn't support Gyroscope Sensor"),
                 );
               });
