@@ -12,7 +12,8 @@ class YearMonthChartItem extends AbstractChartItem {
   }
 
   double get xValueYearly {
-    return (year).toDouble();
+    // return (year).toDouble();
+    return (year % 100).toDouble();
   }
 
   String get xLabel {
