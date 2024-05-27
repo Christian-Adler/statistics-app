@@ -48,7 +48,8 @@ class _OperatingState extends State<_Operating> {
   late Future _operatingDataFuture;
 
   Future _obtainSolarDataFuture() {
-    return Provider.of<Operating>(context, listen: false).fetchDataIfNotYetLoaded();
+    return Provider.of<Operating>(context, listen: false)
+        .fetchDataIfNotYetLoaded();
   }
 
   @override
@@ -61,10 +62,17 @@ class _OperatingState extends State<_Operating> {
 
   @override
   Widget build(BuildContext context) {
-    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value) {
+    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue,
+        double value, double xValue, int seriesIdx) {
+      if (!widget.showYearly) {
+        return TextSpan(
+            text: ' (${DateTime.now().year - 5 + seriesIdx})',
+            // only the act and last 5 years are displayed
+            style: Charts.tooltipExtStyle);
+      }
       return TextSpan(
           text:
-              '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
+              '\n${(chargePerMonth * (widget.showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€ (20${xValue.toStringAsFixed(0)})',
           style: Charts.tooltipExtStyle);
     }
 
@@ -99,10 +107,14 @@ class _OperatingState extends State<_Operating> {
                     maxHue: 70,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.water,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) =>
-                            [buildTooltipExt(Operating.chargePerMonthWater, Operating.chargePerValueWater, yValue)]
-                        : null,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(
+                          Operating.chargePerMonthWater,
+                          Operating.chargePerValueWater,
+                          yValue,
+                          xValue,
+                          seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
@@ -111,10 +123,14 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) => operatingItem.heating,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) =>
-                            [buildTooltipExt(Operating.chargePerMonthHeating, Operating.chargePerValueHeating, yValue)]
-                        : null,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(
+                          Operating.chargePerMonthHeating,
+                          Operating.chargePerValueHeating,
+                          yValue,
+                          xValue,
+                          seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
@@ -122,13 +138,16 @@ class _OperatingState extends State<_Operating> {
                     baseColor: const Color.fromRGBO(255, 220, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.consumedPower,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) => [
-                              buildTooltipExt(
-                                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue)
-                            ]
-                        : null,
+                    getOperatingValue: (operatingItem) =>
+                        operatingItem.consumedPower,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(
+                          Operating.chargePerMonthConsumedPower,
+                          Operating.chargePerValueConsumedPower,
+                          yValue,
+                          xValue,
+                          seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
@@ -136,10 +155,12 @@ class _OperatingState extends State<_Operating> {
                     baseColor: const Color.fromRGBO(117, 49, 255, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.generatedPower,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
-                        : null,
+                    getOperatingValue: (operatingItem) =>
+                        operatingItem.generatedPower,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(0, Operating.chargePerValueConsumedPower,
+                          yValue, xValue, seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
@@ -147,21 +168,27 @@ class _OperatingState extends State<_Operating> {
                     baseColor: const Color.fromRGBO(224, 152, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.feedPower,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
-                        : null,
+                    getOperatingValue: (operatingItem) =>
+                        operatingItem.feedPower,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(0, Operating.chargePerValueConsumedPower,
+                          yValue, xValue, seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
-                    title: S.of(context).operatingChartPowerGeneratedOwnConsumption,
+                    title: S
+                        .of(context)
+                        .operatingChartPowerGeneratedOwnConsumption,
                     baseColor: const Color.fromRGBO(194, 224, 0, 1.0),
                     maxHue: -50,
                     showYearly: widget.showYearly,
-                    getOperatingValue: (operatingItem) => operatingItem.generatedPower - operatingItem.feedPower,
-                    provideTooltipExt: widget.showYearly
-                        ? (yValue, seriesIdx) => [buildTooltipExt(0, Operating.chargePerValueConsumedPower, yValue)]
-                        : null,
+                    getOperatingValue: (operatingItem) =>
+                        operatingItem.generatedPower - operatingItem.feedPower,
+                    provideTooltipExt: (xValue, yValue, seriesIdx) => [
+                      buildTooltipExt(0, Operating.chargePerValueConsumedPower,
+                          yValue, xValue, seriesIdx)
+                    ],
                   ),
                   const _ChartDivider(),
                   OperatingChart(
@@ -170,7 +197,9 @@ class _OperatingState extends State<_Operating> {
                     maxHue: -50,
                     showYearly: widget.showYearly,
                     getOperatingValue: (operatingItem) =>
-                        operatingItem.consumedPower + operatingItem.generatedPower - operatingItem.feedPower,
+                        operatingItem.consumedPower +
+                        operatingItem.generatedPower -
+                        operatingItem.feedPower,
                   ),
                   const _ChartDivider(),
                   const CenterH(child: ScrollFooter()),

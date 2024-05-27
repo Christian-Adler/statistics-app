@@ -20,28 +20,36 @@ class SolarPowerChart extends StatelessWidget {
 
     final powerData = Provider.of<Operating>(context);
 
-    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue, double value, int seriesIdx) {
+    TextSpan buildTooltipExt(double chargePerMonth, double chargePerValue,
+        double value, int seriesIdx) {
       // Gesamt
       if (seriesIdx == 0) return const TextSpan();
       // Verbrauch
       if (seriesIdx == 1) {
         return TextSpan(
-            text: '\n${(chargePerMonth * (showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
+            text:
+                '\n${(chargePerMonth * (showYearly ? 12 : 1) + value * chargePerValue).ceil().toStringAsFixed(0)}€',
             style: Charts.tooltipExtStyle);
       }
       // Eingespeist
       if (seriesIdx == 3) {
         return TextSpan(
-            text: '\n(- ${(value * chargePerValue).ceil().toStringAsFixed(0)}€)', style: Charts.tooltipExtStyle);
+            text:
+                '\n(- ${(value * chargePerValue).ceil().toStringAsFixed(0)}€)',
+            style: Charts.tooltipExtStyle);
       }
       // Erzeugt
-      return TextSpan(text: '\n+${(value * chargePerValue).ceil().toStringAsFixed(0)}€', style: Charts.tooltipExtStyle);
+      return TextSpan(
+          text: '\n+${(value * chargePerValue).ceil().toStringAsFixed(0)}€',
+          style: Charts.tooltipExtStyle);
     }
 
-    var solarPowerItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
+    var solarPowerItems =
+        showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
     int showLastXItems = 12;
     if (solarPowerItems.length > showLastXItems) {
-      solarPowerItems = solarPowerItems.sublist(solarPowerItems.length - showLastXItems);
+      solarPowerItems =
+          solarPowerItems.sublist(solarPowerItems.length - showLastXItems);
     }
     final chartMeta = ChartMetaData();
     chartMeta.yearly = showYearly;
@@ -51,7 +59,8 @@ class SolarPowerChart extends StatelessWidget {
     final List<FlSpot> spotsFeedPower = [];
     final List<FlSpot> spotsSumUsedPower = [];
     for (var item in solarPowerItems) {
-      var sumUsedPower = item.consumedPower + item.generatedPower - item.feedPower;
+      var sumUsedPower =
+          item.consumedPower + item.generatedPower - item.feedPower;
       var xVal = showYearly ? item.xValueYearly : item.xValueMonthly;
       chartMeta.putAll(xVal, [sumUsedPower, item.feedPower]);
       spotsGeneratedPower.add(FlSpot(xVal, item.generatedPower));
@@ -64,7 +73,10 @@ class SolarPowerChart extends StatelessWidget {
 
     final gradientColorsGeneratedPower = [Colors.purple, Colors.amber];
     final gradientColorsConsumedPower = [Colors.redAccent, Colors.orangeAccent];
-    final gradientColorsFeedPower = [Colors.yellow, Colors.orangeAccent.withOpacity(0.1)];
+    final gradientColorsFeedPower = [
+      Colors.yellow,
+      Colors.orangeAccent.withOpacity(0.1)
+    ];
     final gradientColorsSumUsedPower = [Colors.redAccent, Colors.orangeAccent];
 
     return Column(children: [
@@ -95,7 +107,10 @@ class SolarPowerChart extends StatelessWidget {
                 spotsGeneratedPower,
                 gradientColorsGeneratedPower,
                 shadow: false,
-                fillColors: [Colors.purple.withOpacity(0.9), Colors.amber.withOpacity(0.4)],
+                fillColors: [
+                  Colors.purple.withOpacity(0.9),
+                  Colors.amber.withOpacity(0.4)
+                ],
               ),
               Charts.createLineChartBarData(
                 spotsFeedPower,
@@ -105,9 +120,9 @@ class SolarPowerChart extends StatelessWidget {
                 barWidth: 2,
               ),
             ],
-            provideTooltipExt: (yValue, seriesIdx) => [
-              buildTooltipExt(
-                  Operating.chargePerMonthConsumedPower, Operating.chargePerValueConsumedPower, yValue, seriesIdx)
+            provideTooltipExt: (xValue, yValue, seriesIdx) => [
+              buildTooltipExt(Operating.chargePerMonthConsumedPower,
+                  Operating.chargePerValueConsumedPower, yValue, seriesIdx)
             ],
           ),
           orientation),
@@ -118,26 +133,38 @@ class SolarPowerChart extends StatelessWidget {
         builder: (ctx, constraints) {
           if (constraints.maxWidth > 450) {
             return SimpleLegend(items: [
-              LegendItem(S.of(context).solarPowerChartLegendItemGenerated, gradientColorsGeneratedPower),
-              LegendItem(S.of(context).solarPowerChartLegendItemFed, gradientColorsFeedPower),
-              LegendItem(S.of(context).solarPowerChartLegendItemConsumption, gradientColorsConsumedPower),
-              LegendItem(S.of(context).solarPowerChartLegendItemTotal,
-                  [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+              LegendItem(S.of(context).solarPowerChartLegendItemGenerated,
+                  gradientColorsGeneratedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemFed,
+                  gradientColorsFeedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemConsumption,
+                  gradientColorsConsumedPower),
+              LegendItem(S.of(context).solarPowerChartLegendItemTotal, [
+                ...gradientColorsSumUsedPower,
+                Colors.white,
+                ...gradientColorsSumUsedPower.reversed
+              ]),
             ]);
           } else {
             return Column(
               children: [
                 SimpleLegend(items: [
-                  LegendItem(S.of(context).solarPowerChartLegendItemGenerated, gradientColorsGeneratedPower),
-                  LegendItem(S.of(context).solarPowerChartLegendItemFed, gradientColorsFeedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemGenerated,
+                      gradientColorsGeneratedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemFed,
+                      gradientColorsFeedPower),
                 ]),
                 const SizedBox(
                   height: 5,
                 ),
                 SimpleLegend(items: [
-                  LegendItem(S.of(context).solarPowerChartLegendItemConsumption, gradientColorsConsumedPower),
-                  LegendItem(S.of(context).solarPowerChartLegendItemTotal,
-                      [...gradientColorsSumUsedPower, Colors.white, ...gradientColorsSumUsedPower.reversed]),
+                  LegendItem(S.of(context).solarPowerChartLegendItemConsumption,
+                      gradientColorsConsumedPower),
+                  LegendItem(S.of(context).solarPowerChartLegendItemTotal, [
+                    ...gradientColorsSumUsedPower,
+                    Colors.white,
+                    ...gradientColorsSumUsedPower.reversed
+                  ]),
                 ]),
               ],
             );
@@ -145,7 +172,8 @@ class SolarPowerChart extends StatelessWidget {
         },
       ),
       const SizedBox(height: 10),
-      Text(S.of(context).solarPowerChartSubLegendPriceAndFee(Operating.chargePerValueConsumedPower.toStringAsFixed(2),
+      Text(S.of(context).solarPowerChartSubLegendPriceAndFee(
+          Operating.chargePerValueConsumedPower.toStringAsFixed(2),
           Operating.chargePerMonthConsumedPower.toStringAsFixed(2))),
     ]);
   }

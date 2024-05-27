@@ -16,7 +16,7 @@ class OperatingChart extends StatelessWidget {
   final double maxHue;
 
   final double Function(OperatingChartItem) getOperatingValue;
-  final List<TextSpan> Function(double, int)? provideTooltipExt;
+  final List<TextSpan> Function(double, double, int)? provideTooltipExt;
 
   const OperatingChart(
       {Key? key,
@@ -34,10 +34,12 @@ class OperatingChart extends StatelessWidget {
 
     final powerData = Provider.of<Operating>(context);
 
-    var operatingItems = showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
+    var operatingItems =
+        showYearly ? powerData.operatingItemsYearly : powerData.operatingItems;
     int showLastXItems = 72;
     if (operatingItems.length > showLastXItems) {
-      operatingItems = operatingItems.sublist(operatingItems.length - showLastXItems);
+      operatingItems =
+          operatingItems.sublist(operatingItems.length - showLastXItems);
     }
     final chartMeta = ChartMetaData();
     chartMeta.yearly = showYearly;
@@ -62,7 +64,9 @@ class OperatingChart extends StatelessWidget {
 
       lineData['0'] = _LineData(gradientColors);
       for (var i = 1; i <= 5; ++i) {
-        lineData['$i'] = _LineData(gradientColors.map((c) => ColorUtils.hue(c, maxHue * i / 5)).toList());
+        lineData['$i'] = _LineData(gradientColors
+            .map((c) => ColorUtils.hue(c, maxHue * i / 5))
+            .toList());
       }
 
       for (var item in operatingItems) {
@@ -83,7 +87,10 @@ class OperatingChart extends StatelessWidget {
           item.spots,
           barWidth: 2,
           item.gradient,
-          fillColors: [item.gradient.first.withOpacity(0.8), item.gradient.first.withOpacity(0)],
+          fillColors: [
+            item.gradient.first.withOpacity(0.8),
+            item.gradient.first.withOpacity(0)
+          ],
           chartMetaData: chartMeta,
         ));
       }
@@ -101,7 +108,11 @@ class OperatingChart extends StatelessWidget {
         ),
       ),
       Charts.createChartContainer(
-          Charts.createLineChartData(chartMeta, fractionDigits: 0, lineBarsData, provideTooltipExt: provideTooltipExt),
+          Charts.createLineChartData(
+              chartMeta,
+              fractionDigits: 0,
+              lineBarsData,
+              provideTooltipExt: provideTooltipExt),
           orientation),
     ]);
   }

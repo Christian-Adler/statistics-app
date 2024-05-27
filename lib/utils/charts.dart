@@ -6,12 +6,15 @@ import '../models/chart/chart_meta_data.dart';
 import 'date_utils.dart';
 
 class Charts {
-  static const tooltipExtStyle =
-      TextStyle(color: Colors.black, shadows: [], fontSize: 10, fontWeight: FontWeight.normal);
+  static const tooltipExtStyle = TextStyle(
+      color: Colors.black,
+      shadows: [],
+      fontSize: 10,
+      fontWeight: FontWeight.normal);
 
   static LineTouchData _createLineTouchData({
     int fractionDigits = 2,
-    List<TextSpan> Function(double, int)? provideTooltipExt,
+    List<TextSpan> Function(double, double, int)? provideTooltipExt,
   }) {
     return LineTouchData(
       enabled: true,
@@ -29,13 +32,17 @@ class Charts {
           // alles wie default, nur y-Wert gerundet auf 2 Stellen
           return touchedSpots.map((touchedSpot) {
             final textStyle = TextStyle(
-              color: touchedSpot.bar.gradient?.colors.first ?? touchedSpot.bar.color ?? Colors.blueGrey,
+              color: touchedSpot.bar.gradient?.colors.first ??
+                  touchedSpot.bar.color ??
+                  Colors.blueGrey,
               fontWeight: FontWeight.bold,
               fontSize: 14,
               shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
             );
-            return LineTooltipItem(touchedSpot.y.toStringAsFixed(fractionDigits), textStyle,
-                children: provideTooltipExt?.call(touchedSpot.y, touchedSpot.barIndex));
+            return LineTooltipItem(
+                touchedSpot.y.toStringAsFixed(fractionDigits), textStyle,
+                children: provideTooltipExt?.call(
+                    touchedSpot.x, touchedSpot.y, touchedSpot.barIndex));
           }).toList();
         },
       ),
@@ -43,7 +50,8 @@ class Charts {
     );
   }
 
-  static List<TouchedSpotIndicatorData?> _createTouchedSpotIndicators(barData, spotIndexes) {
+  static List<TouchedSpotIndicatorData?> _createTouchedSpotIndicators(
+      barData, spotIndexes) {
     List<TouchedSpotIndicatorData?> result = [];
     for (var _ in spotIndexes) {
       result.add(TouchedSpotIndicatorData(
@@ -137,7 +145,8 @@ class Charts {
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (value, meta) => _createTitlesBottom(value, meta, chartMeta),
+          getTitlesWidget: (value, meta) =>
+              _createTitlesBottom(value, meta, chartMeta),
           reservedSize:
               // Monatsanzeige und Jahreszahl? Dann mehr Platz
               !chartMeta.yearly && chartMeta.showYearOnJan ? 36 : 20,
@@ -175,7 +184,9 @@ class Charts {
     return FlDotData(
       show: chartMetaData?.showDots ?? false,
       getDotPainter: (spot, xPercentage, lineChartBardata, index) {
-        var color = lineChartBardata.gradient?.colors.first ?? lineChartBardata.color ?? Colors.blueGrey;
+        var color = lineChartBardata.gradient?.colors.first ??
+            lineChartBardata.color ??
+            Colors.blueGrey;
         return FlDotCirclePainter(
           color: color,
           radius: 3,
@@ -190,7 +201,8 @@ class Charts {
     return const Shadow(color: Colors.black26, offset: Offset(5, 5));
   }
 
-  static LinearGradient? createTopToBottomGradient(List<Color>? gradientColors) {
+  static LinearGradient? createTopToBottomGradient(
+      List<Color>? gradientColors) {
     if (gradientColors == null) return null;
     return LinearGradient(
       colors: gradientColors,
@@ -223,7 +235,9 @@ class Charts {
       isCurved: true,
       preventCurveOverShooting: true,
       // curveSmoothness: 0.5,
-      shadow: shadow ? Charts._createLineShadow() : const Shadow(color: Colors.transparent),
+      shadow: shadow
+          ? Charts._createLineShadow()
+          : const Shadow(color: Colors.transparent),
       isStrokeCapRound: true,
     );
   }
@@ -232,7 +246,7 @@ class Charts {
     ChartMetaData chartMeta,
     List<LineChartBarData> lineBarsData, {
     int fractionDigits = 2,
-    List<TextSpan> Function(double, int)? provideTooltipExt,
+    List<TextSpan> Function(double, double, int)? provideTooltipExt,
   }) {
     return LineChart(
       LineChartData(
@@ -240,8 +254,9 @@ class Charts {
         maxY: chartMeta.yMax,
         minX: chartMeta.xMin,
         maxX: chartMeta.xMax,
-        lineTouchData:
-            Charts._createLineTouchData(fractionDigits: fractionDigits, provideTooltipExt: provideTooltipExt),
+        lineTouchData: Charts._createLineTouchData(
+            fractionDigits: fractionDigits,
+            provideTooltipExt: provideTooltipExt),
         clipData: const FlClipData.all(),
         gridData: Charts._createGridData(),
         borderData: Charts._createBorderData(),
