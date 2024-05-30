@@ -14,6 +14,13 @@ import '../../scroll_footer.dart';
 import '../centered_error_text.dart';
 
 class HeartView extends StatelessWidget {
+  static const dateColumnWidth = 110;
+  static const pressureColumnWidth = 75;
+
+  static int fullTableWidth() {
+    return HeartView.dateColumnWidth + 3 * HeartView.pressureColumnWidth;
+  }
+
   const HeartView({super.key});
 
   @override
@@ -63,14 +70,16 @@ class _HeartState extends State<_Heart> {
         } else {
           final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
           double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;
-          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const SizedBox(height: 5),
-            _BloodPressureTableHead(widthFactor),
-            _TableHeadSeparator(widthFactor),
-            Expanded(
-              child: _BloodPressureTable(widthFactor),
-            )
-          ]);
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 5),
+                _BloodPressureTableHead(widthFactor),
+                _TableHeadSeparator(widthFactor),
+                Expanded(
+                  child: _BloodPressureTable(widthFactor),
+                )
+              ]);
         }
       },
     );
@@ -87,10 +96,15 @@ class _BloodPressureTableHead extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _TableHeadline(S.of(context).bloodPressureTableHeadDate, 110 * widthFactor, textAlign: TextAlign.start),
-        _TableHeadline(S.of(context).bloodPressureTableHeadMorning, 70 * widthFactor),
-        _TableHeadline(S.of(context).bloodPressureTableHeadMidday, 70 * widthFactor),
-        _TableHeadline(S.of(context).bloodPressureTableHeadEvening, 70 * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadDate,
+            HeartView.dateColumnWidth * widthFactor,
+            textAlign: TextAlign.start),
+        _TableHeadline(S.of(context).bloodPressureTableHeadMorning,
+            HeartView.pressureColumnWidth * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadMidday,
+            HeartView.pressureColumnWidth * widthFactor),
+        _TableHeadline(S.of(context).bloodPressureTableHeadEvening,
+            HeartView.pressureColumnWidth * widthFactor),
       ],
     );
   }
@@ -111,7 +125,8 @@ class _TableHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: Text(title, textAlign: textAlign, style: Theme.of(context).textTheme.titleSmall),
+      child: Text(title,
+          textAlign: textAlign, style: Theme.of(context).textTheme.titleSmall),
     );
   }
 }
@@ -131,7 +146,7 @@ class _TableHeadSeparator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             height: 1,
-            width: 320 * widthFactor,
+            width: HeartView.fullTableWidth() * widthFactor,
             color: Theme.of(context).indicatorColor.withOpacity(0.5),
           ),
         ],
@@ -189,7 +204,7 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
               children: [
                 Container(
                   height: 1,
-                  width: 320 * widget.widthFactor,
+                  width: HeartView.fullTableWidth() * widget.widthFactor,
                   color: separatorColor,
                 ),
               ],
@@ -207,8 +222,12 @@ class _BloodPressureTableState extends State<_BloodPressureTable> {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _BloodPressureTableItem(bloodPressureItems[index], dateFormatYYYYMMDD, widget.widthFactor,
-                        tableItemSaturdayColor, tableItemSundayColor),
+                    : _BloodPressureTableItem(
+                        bloodPressureItems[index],
+                        dateFormatYYYYMMDD,
+                        widget.widthFactor,
+                        tableItemSaturdayColor,
+                        tableItemSundayColor),
               ),
             ),
           ),
@@ -226,40 +245,41 @@ class _BloodPressureTableItem extends StatelessWidget {
   final Color saturdayColor;
   final Color sundayColor;
 
-  _BloodPressureTableItem(
-      this._bloodPressureItem, this.dateFormat, this.widthFactor, this.saturdayColor, this.sundayColor)
+  _BloodPressureTableItem(this._bloodPressureItem, this.dateFormat,
+      this.widthFactor, this.saturdayColor, this.sundayColor)
       : super(key: ValueKey(_bloodPressureItem.date));
 
   @override
   Widget build(BuildContext context) {
     final date = _bloodPressureItem.date;
     final formattedDate = dateFormat.format(date);
-    final Color? bgColor =
-        date.weekday == DateTime.sunday ? sundayColor : (date.weekday == DateTime.saturday ? saturdayColor : null);
+    final Color? bgColor = date.weekday == DateTime.sunday
+        ? sundayColor
+        : (date.weekday == DateTime.saturday ? saturdayColor : null);
 
     return Center(
       child: Container(
         color: bgColor,
-        width: 320 * widthFactor,
+        width: HeartView.fullTableWidth() * widthFactor,
         padding: const EdgeInsets.symmetric(vertical: 3),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 110 * widthFactor,
+              width: HeartView.dateColumnWidth * widthFactor,
               child: Text(formattedDate),
             ),
             SizedBox(
-              width: 70 * widthFactor,
+              width: HeartView.pressureColumnWidth * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.morning),
             ),
             SizedBox(
-              width: 70 * widthFactor,
+              width: HeartView.pressureColumnWidth * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.midday),
             ),
             SizedBox(
-              width: 70 * widthFactor,
+              width: HeartView.pressureColumnWidth * widthFactor,
               child: _BloodPressureValueRenderer(_bloodPressureItem.evening),
             ),
           ],
@@ -276,17 +296,20 @@ class _BloodPressureValueRenderer extends StatelessWidget {
   const _BloodPressureValueRenderer(this._bloodPressureValues);
 
   Color colorHigh(bloodPressureValue) {
-    return ColorUtils.hue(bestPossibleValueColor, (120.0 - bloodPressureValue.high) * 4);
+    return ColorUtils.hue(
+        bestPossibleValueColor, (120.0 - bloodPressureValue.high) * 4);
   }
 
   Color colorLow(bloodPressureValue) {
-    return ColorUtils.hue(bestPossibleValueColor, (80.0 - bloodPressureValue.low) * 4.5);
+    return ColorUtils.hue(
+        bestPossibleValueColor, (80.0 - bloodPressureValue.low) * 4.5);
   }
 
   @override
   Widget build(BuildContext context) {
     var bloodPressureValues = _bloodPressureValues;
-    if (bloodPressureValues == null || bloodPressureValues.isEmpty) return Container();
+    if (bloodPressureValues == null || bloodPressureValues.isEmpty)
+      return Container();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -295,8 +318,10 @@ class _BloodPressureValueRenderer extends StatelessWidget {
         ...bloodPressureValues.map((bpv) => Container(
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Theme.of(context).scaffoldBackgroundColor),
-                gradient: LinearGradient(colors: [colorHigh(bpv), colorLow(bpv)]),
+                border: Border.all(
+                    width: 1, color: Theme.of(context).scaffoldBackgroundColor),
+                gradient:
+                    LinearGradient(colors: [colorHigh(bpv), colorLow(bpv)]),
                 // borderRadius: const BorderRadius.all(Radius.circular(5)),
               ),
               child: Text(
