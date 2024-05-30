@@ -6,7 +6,8 @@ import '../../providers/main_navigation.dart';
 import 'utils/isometric_box_painter.dart';
 
 class OverviewIsometricNavigationButton extends StatelessWidget {
-  const OverviewIsometricNavigationButton({super.key, required this.edgeColors, required this.screenNavInfo});
+  const OverviewIsometricNavigationButton(
+      {super.key, required this.edgeColors, required this.screenNavInfo});
 
   final ScreenNavInfo screenNavInfo;
   final List<Color> edgeColors;
@@ -20,7 +21,8 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
       height: 205,
       child: InkWell(
         onTap: () {
-          Provider.of<MainNavigation>(context, listen: false).mainPageRoute = screenNavInfo.routeName;
+          Provider.of<MainNavigation>(context, listen: false).mainPageRoute =
+              screenNavInfo.routeName;
         },
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -61,7 +63,7 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
               top: 90 + 5,
               left: 90 + 25,
               width: 160,
-              height: 45,
+              height: 51,
               child: Transform(
                 transform: Matrix4.skewY(-0.52),
                 child: Column(
@@ -81,14 +83,18 @@ class OverviewIsometricNavigationButton extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(screenNavInfo.titleBuilder(context),
-                            style: TextStyle(color: edgeColors.first, fontSize: 20)),
+                            style: TextStyle(
+                                color: edgeColors.first, fontSize: 20)),
                       ),
                     ),
                     Container(
                       height: 2,
                       width: 150,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [edgeColors.last.withOpacity(0), edgeColors.first]),
+                        gradient: LinearGradient(colors: [
+                          edgeColors.last.withOpacity(0),
+                          edgeColors.first
+                        ]),
                       ),
                     ),
                   ],
