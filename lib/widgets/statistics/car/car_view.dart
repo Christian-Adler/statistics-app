@@ -64,14 +64,16 @@ class _CarState extends State<_Car> {
         } else {
           final mediaQueryInfo = MediaQueryUtils(MediaQuery.of(context));
           double widthFactor = mediaQueryInfo.isTablet ? 1.6 : 1;
-          return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const SizedBox(height: 5),
-            _CarRefuelTableHead(widthFactor),
-            _TableHeadSeparator(widthFactor),
-            Expanded(
-              child: _CarRefuelTable(widthFactor),
-            )
-          ]);
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 5),
+                _CarRefuelTableHead(widthFactor),
+                _TableHeadSeparator(widthFactor),
+                Expanded(
+                  child: _CarRefuelTable(widthFactor),
+                )
+              ]);
         }
       },
     );
@@ -88,12 +90,16 @@ class _CarRefuelTableHead extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _TableHeadline(S.of(context).carTableHeadDate, 85 * widthFactor, textAlign: TextAlign.start),
+        _TableHeadline(S.of(context).carTableHeadDate, 85 * widthFactor,
+            textAlign: TextAlign.start),
         _TableHeadline(S.of(context).carTableHeadKilometers, 50 * widthFactor),
         _TableHeadline(S.of(context).carTableHeadLiters, 25 * widthFactor),
-        _TableHeadline(S.of(context).carTableHeadEuroPerLiter, 40 * widthFactor),
+        _TableHeadline(
+            S.of(context).carTableHeadEuroPerLiter, 40 * widthFactor),
         _TableHeadline(S.of(context).carTableHeadEuro, 50 * widthFactor),
-        _TableHeadline(S.of(context).carTableHeadLitersPer100Kilometers, 70 * widthFactor, textAlign: TextAlign.end),
+        _TableHeadline(
+            S.of(context).carTableHeadLitersPer100Kilometers, 70 * widthFactor,
+            textAlign: TextAlign.end),
       ],
     );
   }
@@ -114,7 +120,8 @@ class _TableHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: Text(title, textAlign: textAlign, style: Theme.of(context).textTheme.titleSmall),
+      child: Text(title,
+          textAlign: textAlign, style: Theme.of(context).textTheme.titleSmall),
     );
   }
 }
@@ -208,8 +215,12 @@ class _CarRefuelTableState extends State<_CarRefuelTable> {
                         marginBottom: 10,
                         key: ValueKey('scroll-footer'),
                       )
-                    : _CarRefuelTableItem(carRefuelItems[index], widget.widthFactor,
-                        index < carRefuelItems.length - 1 ? carRefuelItems[index + 1] : null),
+                    : _CarRefuelTableItem(
+                        carRefuelItems[index],
+                        widget.widthFactor,
+                        index < carRefuelItems.length - 1
+                            ? carRefuelItems[index + 1]
+                            : null),
               ),
             ),
           ),
@@ -225,12 +236,15 @@ class _CarRefuelTableItem extends StatelessWidget {
   final double widthFactor;
   final CarRefuelItem? _prevCarRefuelItem;
 
-  _CarRefuelTableItem(this._carRefuelItem, this.widthFactor, this._prevCarRefuelItem)
+  _CarRefuelTableItem(
+      this._carRefuelItem, this.widthFactor, this._prevCarRefuelItem)
       : super(key: ValueKey(_carRefuelItem.km));
 
   @override
   Widget build(BuildContext context) {
-    String priceInEuro = (_carRefuelItem.centPerliter * _carRefuelItem.liter / 100).toStringAsFixed(2);
+    String priceInEuro =
+        (_carRefuelItem.centPerliter * _carRefuelItem.liter / 100)
+            .toStringAsFixed(2);
     String litersPer100km = '';
     Color colorLiterPer100km = const Color.fromRGBO(120, 255, 0, 1);
     var prevCarRefuelItem = _prevCarRefuelItem;
@@ -298,7 +312,7 @@ class _CarRefuelTableItem extends StatelessWidget {
               if (prevCarRefuelItem != null)
                 Positioned(
                   top: 21,
-                  height: 15,
+                  height: 22,
                   width: 50,
                   right: 15,
                   child: Text(
