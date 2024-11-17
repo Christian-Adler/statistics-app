@@ -23,7 +23,7 @@ class Charts {
       touchTooltipData: LineTouchTooltipData(
         fitInsideHorizontally: true,
         fitInsideVertically: true,
-        tooltipBgColor: Colors.white70,
+        getTooltipColor: (touchedSpot) => Colors.white70,
         tooltipBorder: const BorderSide(
           color: Colors.black26,
           width: 2,
