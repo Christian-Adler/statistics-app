@@ -92,7 +92,7 @@ class _CarRefuelTableHead extends StatelessWidget {
       children: [
         _TableHeadline(S.of(context).carTableHeadDate, 85 * widthFactor,
             textAlign: TextAlign.start),
-        _TableHeadline(S.of(context).carTableHeadKilometers, 50 * widthFactor),
+        _TableHeadline(S.of(context).carTableHeadKilometers, 55 * widthFactor),
         _TableHeadline(S.of(context).carTableHeadLiters, 25 * widthFactor),
         _TableHeadline(
             S.of(context).carTableHeadEuroPerLiter, 40 * widthFactor),
@@ -141,7 +141,7 @@ class _TableHeadSeparator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 4),
             height: 1,
-            width: 320 * widthFactor, //250+70
+            width: 325 * widthFactor, //255+70
             color: Theme.of(context).indicatorColor.withOpacity(0.5),
           ),
         ],
@@ -194,7 +194,7 @@ class _CarRefuelTableState extends State<_CarRefuelTable> {
               children: [
                 Container(
                   height: 1,
-                  width: 250 * widget.widthFactor,
+                  width: 255 * widget.widthFactor,
                   color: separatorColor,
                 ),
                 Container(
@@ -265,7 +265,7 @@ class _CarRefuelTableItem extends StatelessWidget {
           child: Text(_carRefuelItem.date),
         ),
         SizedBox(
-          width: 50 * widthFactor,
+          width: 55 * widthFactor,
           child: Text(
             _carRefuelItem.km.toString(),
             textAlign: TextAlign.end,
